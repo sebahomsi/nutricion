@@ -9,7 +9,7 @@ using Dominio.Entidades.MetaData;
 
 namespace Dominio.Entidades
 {
-    [Table("Persona_Pacientes")]
+    [Table("Personas_Paciente")]
     [MetadataType(typeof(IPaciente))]
 
     public class Paciente : Persona
@@ -21,9 +21,9 @@ namespace Dominio.Entidades
         public bool TieneAnalitico { get; set; }
 
         //Navigation Properties
-        //public virtual ICollection<DatoAntropometrico> DatosAntropometricos { get; set; }
-        //public virtual ICollection<Alimento> AlimentosRechazados { get; set; }
-        //public virtual ICollection<PlanAlimenticio> PlanesAlimenticios { get; set; }
+        public virtual ICollection<DatoAntropometrico> DatosAntropometricos { get; set; }
+        public virtual ICollection<Alimento> AlimentosRechazados { get; set; }
+        public virtual ICollection<PlanAlimenticio> PlanesAlimenticios { get; set; }
         //public virtual Turno Turno { get; set; } 
     }
 }

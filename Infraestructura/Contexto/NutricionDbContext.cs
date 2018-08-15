@@ -35,6 +35,11 @@ namespace Infraestructura.Contexto
         public IDbSet<AlergiaIntolerancia> AlergiasIntolerancias { get; set; }
         public IDbSet<Patologia> Patologias { get; set; }
         public IDbSet<Dia> Dias { get; set; }
+        public IDbSet<Comida> Comidas { get; set; }
+        public IDbSet<Opcion> Opciones { get; set; }
+        public IDbSet<OpcionDetalle> OpcionesDetalles { get; set; }
+        public IDbSet<Observacion> Observaciones { get; set; }
+        public IDbSet<PlanAlimenticio> PlanesAlimenticios { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

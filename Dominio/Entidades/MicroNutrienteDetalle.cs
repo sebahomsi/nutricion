@@ -18,7 +18,7 @@ namespace Dominio.Entidades
 
         public long AlimentoId { get; set; }
 
-        public long MicronutrienteId { get; set; }
+        public long MicroNutrienteId { get; set; }
 
         public double Cantidad { get; set; }
 

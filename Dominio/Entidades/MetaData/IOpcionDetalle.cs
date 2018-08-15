@@ -7,20 +7,22 @@ using System.Threading.Tasks;
 
 namespace Dominio.Entidades.MetaData
 {
-    public interface IMicroNutrienteDetalle
+    public interface IOpcionDetalle
     {
         int Codigo { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
+        long OpcionId { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         long AlimentoId { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
-        long MicroNutrienteId { get; set; }
-
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
-        double Cantidad { get; set; }
+        decimal Cantidad { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string Unidad { get; set; }
+
+        bool Eliminado { get; set; }
     }
 }

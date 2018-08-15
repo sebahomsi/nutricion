@@ -9,7 +9,7 @@ using Dominio.Entidades.MetaData;
 
 namespace Dominio.Entidades
 {
-    [Table("Persona_Empleados")]
+    [Table("Personas_Empleado")]
     [MetadataType(typeof(IEmpleado))]
 
     public class Empleado : Persona

@@ -19,6 +19,6 @@ namespace Dominio.Entidades
         public bool Eliminado { get; set; }
 
         //Propiedades de Navegacion
-        //public virtual ICollection<Observacion> Observaciones { get; set; }
+        public virtual ICollection<Observacion> Observaciones { get; set; }
     }
 }

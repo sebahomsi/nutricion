@@ -9,18 +9,17 @@ using Dominio.Entidades.MetaData;
 
 namespace Dominio.Entidades
 {
-    [Table("Patologias")]
-    [MetadataType(typeof(IPatologia))]
+    [Table("Comidas")]
+    [MetadataType(typeof(IComida))]
 
-    public class Patologia : EntidadBase
+    public class Comida :EntidadBase
     {
         public int Codigo { get; set; }
-
         public string Descripcion { get; set; }
-
-        public bool Eliminado { get; set; }
+        public long DiaId { get; set; }
 
         //Propiedades de Navegacion
-        public virtual ICollection<Observacion> Observaciones { get; set; }
+        public virtual Dia Dia { get; set; }
+        public virtual ICollection<Opcion> Opciones { get; set; }
     }
 }

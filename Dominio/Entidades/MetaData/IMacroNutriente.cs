@@ -30,6 +30,6 @@ namespace Dominio.Entidades.MetaData
         [StringLength(50, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         string HidratosCarbono { get; set; }
 
-        bool EstaEliminado { get; set; }
+        bool Eliminado { get; set; }
     }
 }

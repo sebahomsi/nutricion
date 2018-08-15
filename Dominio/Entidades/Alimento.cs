@@ -16,9 +16,9 @@ namespace Dominio.Entidades
     {
         public int Codigo { get; set; }
 
-        public long SubGrupoId { get; set; }
+        public string Descripcion { get; set; }
 
-        public string Nombre { get; set; }
+        public long SubGrupoId { get; set; }
 
         public bool EstaEliminado { get; set; }
 
@@ -27,10 +27,9 @@ namespace Dominio.Entidades
         public bool TieneMacroNutriente { get; set; }
 
         //Navigation Properties
-        //public virtual ICollection<MicroNutriente> MicroNutrientes { get; set; }
-        //public virtual SubGrupo SubGrupo { get; set; }
-        //public virtual MacroNutriente MacroNutriente { get; set; }
-        //public virtual ICollection<Opcion> Opciones { get; set; }
-        //public virtual ICollection<Rechazado> Rechazados { get; set; }
+        public virtual ICollection<MicroNutriente> MicroNutrientes { get; set; }
+        public virtual SubGrupo SubGrupo { get; set; }
+        public virtual MacroNutriente MacroNutriente { get; set; }
+        public virtual ICollection<Opcion> Opciones { get; set; }
     }
 }

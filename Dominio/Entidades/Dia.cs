@@ -19,7 +19,7 @@ namespace Dominio.Entidades
         public long PlanAlimenticioId { get; set; }
 
         //Navigation Properties
-        //public virtual PlanAlimenticio PlanAlimenticio { get; set; }
-        //public virtual ICollection<Comida> Comidas { get; set; }
+        public virtual PlanAlimenticio PlanAlimenticio { get; set; }
+        public virtual ICollection<Comida> Comidas { get; set; }
     }
 }

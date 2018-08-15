@@ -9,26 +9,20 @@ using Dominio.Entidades.MetaData;
 
 namespace Dominio.Entidades
 {
-    [Table("MacroNutrientes")]
-    [MetadataType(typeof(IMacroNutriente))]
+    [Table("OpcionesDetalles")]
+    [MetadataType(typeof(IOpcionDetalle))]
 
-    public class MacroNutriente : EntidadBase
+    public class OpcionDetalle : EntidadBase
     {
         public int Codigo { get; set; }
-
+        public long OpcionId { get; set; }
         public long AlimentoId { get; set; }
-
-        public string Proteina { get; set; }
-
-        public string Grasa { get; set; }
-
-        public string Energia { get; set; }
-
-        public string HidratosCarbono { get; set; }
-
+        public decimal Cantidad { get; set; }
+        public string Unidad { get; set; }
         public bool Eliminado { get; set; }
 
-        //Navigation Properties
+        //Propiedades de Navegation
         public virtual Alimento Alimento { get; set; }
+        public virtual Opcion Opcion { get; set; }
     }
 }
