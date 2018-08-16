@@ -34,6 +34,5 @@ namespace Dominio.Entidades
         public virtual Paciente Paciente { get; set; }
         public virtual ICollection<AlergiaIntolerancia> AlergiasIntolerancias { get; set; }
         public virtual ICollection<Patologia> Patologias { get; set; }
-        public virtual ICollection<Alimento> AlimentosRechazados { get; set; }
     }
 }

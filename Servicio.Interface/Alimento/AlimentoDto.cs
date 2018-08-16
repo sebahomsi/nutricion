@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.MicroNutriente;
+using Servicio.Interface.Opcion;
 
 namespace Servicio.Interface.Alimento
 {
     public class AlimentoDto
     {
+        public AlimentoDto()
+        {
+            MicroNutrientes = new List<MicroNutrienteDto>();
+            Opciones = new List<OpcionDto>();
+        }
         public long Id { get; set; }
 
         public int Codigo { get; set; }
@@ -23,6 +30,8 @@ namespace Servicio.Interface.Alimento
         public long MacroNutrienteId { get; set; }
 
         public bool TieneMacroNutriente { get; set; }
-        //faltan listas
+
+        public List<MicroNutrienteDto> MicroNutrientes { get; set; }
+        public List<OpcionDto> Opciones { get; set; }
     }
 }

@@ -30,7 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,19 +69,26 @@
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleDto.cs" />
     <Compile Include="MicroNutriente\IMicroNutrienteServicio.cs" />
     <Compile Include="MicroNutriente\MicroNutrienteDto.cs" />
+    <Compile Include="Observacion\ObservacionDto.cs" />
+    <Compile Include="Observacion\IObservacionServicio.cs" />
+    <Compile Include="OpcionDetalle\IOpcionDetalleServicio.cs" />
+    <Compile Include="OpcionDetalle\OpcionDetalleDto.cs" />
+    <Compile Include="Opcion\IOpcionServicio.cs" />
+    <Compile Include="Opcion\OpcionDto.cs" />
     <Compile Include="Paciente\IPacienteServicio.cs" />
     <Compile Include="Paciente\PacienteDto.cs" />
+    <Compile Include="Patologia\IPatologiaServicio.cs" />
+    <Compile Include="Patologia\PatologiaDto.cs" />
     <Compile Include="Persona\PersonaDto.cs" />
+    <Compile Include="PlanAlimenticio\IPlanAlimenticioServicio.cs" />
+    <Compile Include="PlanAlimenticio\PlanAlimenticioDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubGrupo\ISubGrupoServicio.cs" />
     <Compile Include="SubGrupo\SubGrupoDto.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Observacion\" />
-    <Folder Include="OpcionDetalle\" />
-    <Folder Include="Opcion\" />
-    <Folder Include="Patologia\" />
-    <Folder Include="PlanAlimenticio\" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

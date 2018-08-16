@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.Alimento;
 using Servicio.Interface.Grupo;
 
 namespace Servicio.Interface.SubGrupo
@@ -11,7 +12,7 @@ namespace Servicio.Interface.SubGrupo
     {
         public SubGrupoDto()
         {
-            //Alimentos = new List<AlimentoDto>();
+            Alimentos = new List<AlimentoDto>();
         }
 
         public long Id { get; set; }
@@ -26,6 +27,6 @@ namespace Servicio.Interface.SubGrupo
 
         public bool Eliminado { get; set; }
 
-        //public List<AlimentoDto> Alimentos { get; set; }
+        public List<AlimentoDto> Alimentos { get; set; }
     }
 }
