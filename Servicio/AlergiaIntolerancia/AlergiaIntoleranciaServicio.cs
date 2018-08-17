@@ -46,7 +46,7 @@ namespace Servicio.AlergiaIntolerancia
 
         public async Task<ICollection<AlergiaIntoleranciaDto>> Get(string cadenaBuscar)
         {
-            int.TryParse(cadenaBuscar, out int codigo);
+            int.TryParse(cadenaBuscar, out var codigo);
             return await Context.AlergiasIntolerancias
                 .AsNoTracking()
                 .Where(x => x.Descripcion.Contains(cadenaBuscar) 

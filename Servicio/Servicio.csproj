@@ -48,14 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlergiaIntolerancia\AlergiaIntoleranciaServicio.cs" />
+    <Compile Include="Alimento\AlimentoServicio.cs" />
+    <Compile Include="Comida\ComidaServicio.cs" />
+    <Compile Include="DatoAnalitico\DatoAnaliticoServicio.cs" />
+    <Compile Include="DatoAntropometrico\DatoAntropometricoServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicioBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Alimento\" />
-    <Folder Include="Comida\" />
-    <Folder Include="DatoAnalitico\" />
-    <Folder Include="DatoAntropometrico\" />
     <Folder Include="Dia\" />
     <Folder Include="Empleado\" />
     <Folder Include="Grupo\" />

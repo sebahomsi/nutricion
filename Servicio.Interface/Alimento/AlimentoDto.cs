@@ -25,9 +25,9 @@ namespace Servicio.Interface.Alimento
 
         public string SubGrupoStr { get; set; }
 
-        public bool EstaEliminado { get; set; }
+        public bool Eliminado { get; set; }
 
-        public long MacroNutrienteId { get; set; }
+        public long? MacroNutrienteId { get; set; }
 
         public bool TieneMacroNutriente { get; set; }
 
