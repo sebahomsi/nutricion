@@ -17,7 +17,7 @@ namespace Servicio.DatoAnalitico
                 Codigo = dto.Codigo,
                 ColesterolHdl = dto.ColesterolHdl,
                 ColesterolLdl = dto.ColesterolLdl,
-                ColesterolTotal = dto.ColesterolTotal,
+                ColesterolTotal = dto.ColesterolTotal, //esto es un calculo
                 PacienteId = dto.PacienteId,
                 PresionDiastolica = dto.PresionDiastolica,
                 PresionSistolica = dto.PresionSistolica,
@@ -33,10 +33,12 @@ namespace Servicio.DatoAnalitico
         {
             var dato = Context.DatosAnaliticos.Find(dto.Id);
 
-            dato.Codigo = dto.Codigo;
+            if (dato == null) throw new ArgumentNullException();
+
+            dato.Codigo = dto.Codigo; //no se modifica
             dato.ColesterolHdl = dto.ColesterolHdl;
             dato.ColesterolLdl = dto.ColesterolLdl;
-            dato.ColesterolTotal = dto.ColesterolTotal;
+            dato.ColesterolTotal = dto.ColesterolTotal; //esto es un calculo
             dato.PacienteId = dto.PacienteId;
             dato.PresionDiastolica = dto.PresionDiastolica;
             dato.PresionSistolica = dto.PresionSistolica;

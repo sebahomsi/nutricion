@@ -30,8 +30,9 @@ namespace Servicio.Alimento
         public async Task Update(AlimentoDto dto)
         {
             var alimento = Context.Alimentos.Find(dto.Id);
+            if (alimento == null) throw new ArgumentNullException();
 
-            alimento.Codigo = dto.Codigo;
+            alimento.Codigo = dto.Codigo; //no se modifica
             alimento.Descripcion = dto.Descripcion;
             alimento.SubGrupoId = dto.SubGrupoId;
 
@@ -41,6 +42,7 @@ namespace Servicio.Alimento
         public async Task Delete(long id)
         {
             var alimento = Context.Alimentos.Find(id);
+            if (alimento == null) throw new ArgumentNullException();
 
             alimento.Eliminado = !alimento.Eliminado;
 

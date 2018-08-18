@@ -18,7 +18,7 @@ namespace Dominio.Entidades
 
         public string Descripcion { get; set; }
 
-        public bool EstaEliminado { get; set; }
+        public bool Eliminado { get; set; }
 
         //Navigation Properties
     }

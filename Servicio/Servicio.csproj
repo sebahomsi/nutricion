@@ -52,13 +52,13 @@
     <Compile Include="Comida\ComidaServicio.cs" />
     <Compile Include="DatoAnalitico\DatoAnaliticoServicio.cs" />
     <Compile Include="DatoAntropometrico\DatoAntropometricoServicio.cs" />
+    <Compile Include="Empleado\EmpleadoServicio.cs" />
+    <Compile Include="Grupo\GrupoServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicioBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dia\" />
-    <Folder Include="Empleado\" />
-    <Folder Include="Grupo\" />
     <Folder Include="MacroNutriente\" />
     <Folder Include="MicroNutrienteDetalle\" />
     <Folder Include="MicroNutriente\" />

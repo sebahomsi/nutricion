@@ -14,7 +14,7 @@ namespace Dominio.Entidades
 
     public class Empleado : Persona
     {
-        public string Legajo { get; set; }
+        public int Legajo { get; set; }
 
         //Navigation Properties
     }

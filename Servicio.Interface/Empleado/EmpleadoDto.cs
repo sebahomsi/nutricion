@@ -9,6 +9,6 @@ namespace Servicio.Interface.Empleado
 {
     public class EmpleadoDto : PersonaDto
     {
-        public string Legajo { get; set; }
+        public int Legajo { get; set; }
     }
 }

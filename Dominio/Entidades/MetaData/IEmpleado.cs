@@ -10,9 +10,8 @@ namespace Dominio.Entidades.MetaData
 {
     public interface IEmpleado
     {
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
-        [StringLength(6, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
+        [Required(ErrorMessage = "Campo Obligatorio")]
         [Index("Index_Empleado_Legajo", IsUnique = true)]
-        string Legajo { get; set; }
+        int Legajo { get; set; }
     }
 }

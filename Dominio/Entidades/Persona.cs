@@ -19,7 +19,7 @@ namespace Dominio.Entidades
         public string Dni { get; set; }
         public string Direccion { get; set; }
         public string Mail { get; set; }
-        public string FechaNac { get; set; }
+        public DateTime FechaNac { get; set; }
         public int Sexo { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }

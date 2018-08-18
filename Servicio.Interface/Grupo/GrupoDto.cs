@@ -14,6 +14,6 @@ namespace Servicio.Interface.Grupo
 
         public string Descripcion { get; set; }
 
-        public bool EstaEliminado { get; set; }
+        public bool Eliminado { get; set; }
     }
 }
