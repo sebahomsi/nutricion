@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,17 +38,43 @@ namespace Servicio.Grupo
 
         public async Task Delete(long id)
         {
-            throw new NotImplementedException();
+            var grupo = Context.Grupos.Find(id);
+            if (grupo == null) throw new ArgumentNullException();
+
+            grupo.Eliminado = !grupo.Eliminado;
+
+            await Context.SaveChangesAsync();
         }
 
         public async Task<ICollection<GrupoDto>> Get(string cadenaBuscar)
         {
-            throw new NotImplementedException();
+            int.TryParse(cadenaBuscar, out var codigo);
+            return await Context.Grupos
+                .AsNoTracking()
+                .Where(x => x.Codigo == codigo).Select(x => new GrupoDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    Eliminado = x.Eliminado
+                }).ToListAsync();
         }
 
         public async Task<GrupoDto> GetById(long id)
         {
-            throw new NotImplementedException();
+            var grupo = await Context.Grupos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (grupo == null) throw new ArgumentNullException();
+
+            return new GrupoDto()
+            {
+                Id = grupo.Id,
+                Codigo = grupo.Codigo,
+                Descripcion = grupo.Descripcion,
+                Eliminado = grupo.Eliminado
+            };
         }
     }
 }

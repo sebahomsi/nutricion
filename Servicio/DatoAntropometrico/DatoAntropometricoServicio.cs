@@ -66,7 +66,7 @@ namespace Servicio.DatoAntropometrico
             return await Context.DatosAntropometricos
                 .AsNoTracking()
                 .Where(x => x.Codigo == codigo
-                || x.FechaMedicion == fecha)
+                || x.FechaMedicion.Date == fecha)
                 .Select(x => new DatoAntropometricoDto()
                 {
                     Id = x.Id,
@@ -89,21 +89,24 @@ namespace Servicio.DatoAntropometrico
                 .AsNoTracking()
                 .Include("Paciente")
                 .FirstOrDefaultAsync(x => x.Id == id);
-            return new DatoAntropometricoDto()
-            {
-                Id = dato.Id,
-                Codigo = dato.Codigo,
-                PacienteId = dato.PacienteId,
-                PacienteStr = dato.Paciente.Apellido + " " + dato.Paciente.Nombre,
-                Altura = dato.Altura,
-                FechaMedicion = dato.FechaMedicion,
-                MasaGrasa = dato.MasaGrasa,
-                MasaCorporal = dato.MasaCorporal,
-                Peso = dato.Peso,
-                PerimetroCintura = dato.PerimetroCintura,
-                PerimetroCadera = dato.PerimetroCadera,
-                Eliminado = dato.Eliminado
-            };
+
+            return dato == null
+                ? throw new ArgumentNullException()
+                : new DatoAntropometricoDto()
+                {
+                    Id = dato.Id,
+                    Codigo = dato.Codigo,
+                    PacienteId = dato.PacienteId,
+                    PacienteStr = dato.Paciente.Apellido + " " + dato.Paciente.Nombre,
+                    Altura = dato.Altura,
+                    FechaMedicion = dato.FechaMedicion,
+                    MasaGrasa = dato.MasaGrasa,
+                    MasaCorporal = dato.MasaCorporal,
+                    Peso = dato.Peso,
+                    PerimetroCintura = dato.PerimetroCintura,
+                    PerimetroCadera = dato.PerimetroCadera,
+                    Eliminado = dato.Eliminado
+                };
         }
     }
 }

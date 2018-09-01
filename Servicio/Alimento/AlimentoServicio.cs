@@ -74,6 +74,9 @@ namespace Servicio.Alimento
                 .AsNoTracking()
                 .Include("SubGrupo")
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (alimento == null) throw new ArgumentNullException();
+
             return new AlimentoDto()
             {
                 Id = alimento.Id,

@@ -41,8 +41,11 @@ namespace Servicio.AlergiaIntolerancia
         public async Task Delete(long id)
         {
             var alergia = Context.AlergiasIntolerancias.Find(id);
+
             if (alergia == null) throw new ArgumentNullException();
+
             alergia.Eliminado = !alergia.Eliminado;
+
             await Context.SaveChangesAsync();
         }
 
@@ -69,6 +72,9 @@ namespace Servicio.AlergiaIntolerancia
                 .Include("Observaciones")
                 .Include("Observaciones.Paciente")
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (alergia == null) throw new ArgumentNullException();
+
             return new AlergiaIntoleranciaDto()
             {
                 Id = alergia.Id,

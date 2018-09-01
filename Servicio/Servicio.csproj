@@ -54,12 +54,12 @@
     <Compile Include="DatoAntropometrico\DatoAntropometricoServicio.cs" />
     <Compile Include="Empleado\EmpleadoServicio.cs" />
     <Compile Include="Grupo\GrupoServicio.cs" />
+    <Compile Include="MacroNutriente\MacroNutrienteServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicioBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dia\" />
-    <Folder Include="MacroNutriente\" />
     <Folder Include="MicroNutrienteDetalle\" />
     <Folder Include="MicroNutriente\" />
     <Folder Include="Observacion\" />

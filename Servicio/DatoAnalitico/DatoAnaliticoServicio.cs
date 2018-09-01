@@ -78,6 +78,9 @@ namespace Servicio.DatoAnalitico
                 .AsNoTracking()
                 .Include("Paciente")
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (dato == null) throw new ArgumentNullException();
+
             return new DatoAnaliticoDto()
             {
                 Id = dato.Id,
