@@ -55,13 +55,13 @@
     <Compile Include="Empleado\EmpleadoServicio.cs" />
     <Compile Include="Grupo\GrupoServicio.cs" />
     <Compile Include="MacroNutriente\MacroNutrienteServicio.cs" />
+    <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleServicio.cs" />
+    <Compile Include="MicroNutriente\MicroNutrienteServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicioBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dia\" />
-    <Folder Include="MicroNutrienteDetalle\" />
-    <Folder Include="MicroNutriente\" />
     <Folder Include="Observacion\" />
     <Folder Include="OpcionDetalle\" />
     <Folder Include="Opcion\" />
