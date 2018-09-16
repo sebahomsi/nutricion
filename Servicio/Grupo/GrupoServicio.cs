@@ -76,5 +76,12 @@ namespace Servicio.Grupo
                 Eliminado = grupo.Eliminado
             };
         }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.Grupos.AnyAsync()
+                ? await Context.Grupos.MaxAsync(x => x.Codigo) + 1
+                : 1;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Servicio.Interface.Grupo
         Task Delete(long id);
         Task<ICollection<GrupoDto>> Get(string cadenaBuscar);
         Task<GrupoDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

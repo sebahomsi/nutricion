@@ -57,15 +57,15 @@
     <Compile Include="MacroNutriente\MacroNutrienteServicio.cs" />
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleServicio.cs" />
     <Compile Include="MicroNutriente\MicroNutrienteServicio.cs" />
+    <Compile Include="Observacion\ObservacionServicio.cs" />
+    <Compile Include="Paciente\PacienteServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicioBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dia\" />
-    <Folder Include="Observacion\" />
     <Folder Include="OpcionDetalle\" />
     <Folder Include="Opcion\" />
-    <Folder Include="Paciente\" />
     <Folder Include="Patologia\" />
     <Folder Include="Persona\" />
     <Folder Include="PlanAlimenticio\" />

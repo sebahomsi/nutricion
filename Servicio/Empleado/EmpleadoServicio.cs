@@ -96,6 +96,9 @@ namespace Servicio.Empleado
             var empleado = await Context.Personas.OfType<Dominio.Entidades.Empleado>()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (empleado == null) throw new ArgumentNullException();
+
             return new EmpleadoDto()
             {
                 Id = empleado.Id,
@@ -112,6 +115,13 @@ namespace Servicio.Empleado
                 Telefono = empleado.Telefono,
                 Sexo = empleado.Sexo
             };
+        }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.Personas.OfType<Dominio.Entidades.Empleado>().AnyAsync()
+                ? await Context.Personas.OfType<Dominio.Entidades.Empleado>().MaxAsync(x => x.Legajo) + 1
+                : 1;
         }
     }
 }

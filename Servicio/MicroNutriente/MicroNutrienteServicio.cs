@@ -88,5 +88,12 @@ namespace Servicio.MicroNutriente
                 }).ToList()
             };
         }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.MicroNutrientes.AnyAsync()
+                ? await Context.MicroNutrientes.MaxAsync(x => x.Codigo) + 1
+                : 1;
+        }
     }
 }

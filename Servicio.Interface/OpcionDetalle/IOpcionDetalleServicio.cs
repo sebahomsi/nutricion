@@ -14,5 +14,6 @@ namespace Servicio.Interface.OpcionDetalle
         Task Delete(long id);
         Task<ICollection<OpcionDetalleDto>> Get(string cadenaBuscar);
         Task<OpcionDetalleDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

@@ -14,6 +14,8 @@ namespace Dominio.Entidades
 
     public class Observacion : EntidadBase
     {
+        public int Codigo { get; set; }
+
         public long PacienteId { get; set; }
 
         public bool Fumador { get; set; }

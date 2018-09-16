@@ -14,5 +14,6 @@ namespace Servicio.Interface.Patologia
         Task Delete(long id);
         Task<ICollection<PatologiaDto>> Get(string cadenaBuscar);
         Task<PatologiaDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

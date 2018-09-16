@@ -14,5 +14,6 @@ namespace Servicio.Interface.AlergiaIntolerancia
         Task Delete(long id);
         Task<ICollection<AlergiaIntoleranciaDto>> Get(string cadenaBuscar);
         Task<AlergiaIntoleranciaDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

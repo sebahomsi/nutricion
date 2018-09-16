@@ -17,6 +17,8 @@ namespace Servicio.Interface.Observacion
             AlergiasIntolerancias = new List<AlergiaIntoleranciaDto>();
         }
 
+        public int Codigo { get; set; }
+
         public long Id { get; set; }
 
         public long PacienteId { get; set; }

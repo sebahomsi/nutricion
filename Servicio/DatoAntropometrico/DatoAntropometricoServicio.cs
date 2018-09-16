@@ -65,6 +65,7 @@ namespace Servicio.DatoAntropometrico
             DateTime.TryParse(cadenaBuscar, out var fecha);
             return await Context.DatosAntropometricos
                 .AsNoTracking()
+                .Include("Paciente")
                 .Where(x => x.Codigo == codigo
                 || x.FechaMedicion.Date == fecha)
                 .Select(x => new DatoAntropometricoDto()
@@ -72,6 +73,7 @@ namespace Servicio.DatoAntropometrico
                     Id = x.Id,
                     Codigo = x.Codigo,
                     PacienteId = x.PacienteId,
+                    PacienteStr = x.Paciente.Apellido +" "+ x.Paciente.Nombre,
                     Altura = x.Altura,
                     FechaMedicion = x.FechaMedicion,
                     MasaGrasa = x.MasaGrasa,
@@ -107,6 +109,13 @@ namespace Servicio.DatoAntropometrico
                     PerimetroCadera = dato.PerimetroCadera,
                     Eliminado = dato.Eliminado
                 };
+        }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.DatosAntropometricos.AnyAsync()
+                ? await Context.DatosAntropometricos.MaxAsync(x => x.Codigo) + 1
+                : 1;
         }
     }
 }

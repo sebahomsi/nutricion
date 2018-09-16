@@ -14,5 +14,6 @@ namespace Servicio.Interface.Alimento
         Task Delete(long id);
         Task<ICollection<AlimentoDto>> Get(string cadenaBuscar);
         Task<AlimentoDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

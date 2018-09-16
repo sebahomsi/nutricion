@@ -60,12 +60,14 @@ namespace Servicio.MacroNutriente
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.MacroNutrientes
                 .AsNoTracking()
+                .Include("Alimento")
                 .Where(x => x.Codigo == codigo)
                 .Select(x => new MacroNutrienteDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
                     AlimentoId = x.AlimentoId,
+                    AlimentoStr = x.Alimento.Descripcion,
                     Energia = x.Energia,
                     Grasa = x.Grasa,
                     HidratosCarbono = x.HidratosCarbono,
@@ -95,6 +97,13 @@ namespace Servicio.MacroNutriente
                 Eliminado = macro.Eliminado,
                 AlimentoStr = macro.Alimento.Descripcion
             };
+        }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.MacroNutrientes.AnyAsync()
+                ? await Context.MacroNutrientes.MaxAsync(x => x.Codigo) + 1
+                : 1;
         }
     }
 }

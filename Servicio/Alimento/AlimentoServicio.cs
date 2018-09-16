@@ -54,6 +54,7 @@ namespace Servicio.Alimento
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.Alimentos
                 .AsNoTracking()
+                .Include("SubGrupo")
                 .Where(x => x.Descripcion.Contains(cadenaBuscar)
                             || x.Codigo == codigo)
                 .Select(x => new AlimentoDto()
@@ -62,6 +63,7 @@ namespace Servicio.Alimento
                     Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
                     SubGrupoId = x.SubGrupoId,
+                    SubGrupoStr = x.SubGrupo.Descripcion,
                     MacroNutrienteId = x.MacroNutrienteId,
                     TieneMacroNutriente = x.TieneMacroNutriente,
                     Eliminado = x.Eliminado
@@ -88,6 +90,13 @@ namespace Servicio.Alimento
                 SubGrupoStr = alimento.SubGrupo.Descripcion,
                 TieneMacroNutriente = alimento.TieneMacroNutriente
             };
+        }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.Alimentos.AnyAsync()
+                ? await Context.Alimentos.MaxAsync(x => x.Codigo) + 1
+                : 1;
         }
     }
 }

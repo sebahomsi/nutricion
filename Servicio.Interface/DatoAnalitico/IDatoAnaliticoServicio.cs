@@ -14,5 +14,6 @@ namespace Servicio.Interface.DatoAnalitico
         Task Delete(long id);
         Task<ICollection<DatoAnaliticoDto>> Get(string cadenaBuscar);
         Task<DatoAnaliticoDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

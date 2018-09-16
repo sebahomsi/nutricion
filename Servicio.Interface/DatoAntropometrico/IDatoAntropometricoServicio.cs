@@ -14,5 +14,6 @@ namespace Servicio.Interface.DatoAntropometrico
         Task Delete(long id);
         Task<ICollection<DatoAntropometricoDto>> Get(string cadenaBuscar);
         Task<DatoAntropometricoDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

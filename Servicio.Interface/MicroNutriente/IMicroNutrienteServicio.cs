@@ -14,5 +14,6 @@ namespace Servicio.Interface.MicroNutriente
         Task Delete(long id);
         Task<ICollection<MicroNutrienteDto>> Get(string cadenaBuscar);
         Task<MicroNutrienteDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

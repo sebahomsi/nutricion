@@ -14,5 +14,6 @@ namespace Servicio.Interface.PlanAlimenticio
         Task Delete(long id);
         Task<ICollection<PlanAlimenticioDto>> Get(string cadenaBuscar);
         Task<PlanAlimenticioDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

@@ -58,6 +58,7 @@ namespace Servicio.DatoAnalitico
             return await Context.DatosAnaliticos
                 .AsNoTracking()
                 .Where(x => x.Codigo == codigo)
+                .Include("Paciente")
                 .Select(x =>new DatoAnaliticoDto()
                 {
                     Id = x.Id,
@@ -66,6 +67,7 @@ namespace Servicio.DatoAnalitico
                     ColesterolLdl = x.ColesterolLdl,
                     ColesterolTotal = x.ColesterolTotal,
                     PacienteId = x.PacienteId,
+                    PacienteStr = x.Paciente.Apellido +" "+ x.Paciente.Nombre,
                     PresionDiastolica = x.PresionDiastolica,
                     PresionSistolica = x.PresionSistolica,
                     Trigliceridos = x.Trigliceridos
@@ -94,6 +96,13 @@ namespace Servicio.DatoAnalitico
                 Trigliceridos = dato.Trigliceridos,
                 PacienteStr = dato.Paciente.Apellido +" "+ dato.Paciente.Nombre
             };
+        }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.DatosAnaliticos.AnyAsync()
+                ? await Context.DatosAnaliticos.MaxAsync(x => x.Codigo) + 1
+                : 1;
         }
     }
 }

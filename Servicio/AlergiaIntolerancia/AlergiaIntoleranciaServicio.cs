@@ -96,5 +96,12 @@ namespace Servicio.AlergiaIntolerancia
                 }).ToList()
             };
         }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.AlergiasIntolerancias.AnyAsync()
+                ? await Context.AlergiasIntolerancias.MaxAsync(x => x.Codigo) + 1
+                : 1;
+        }
     }
 }

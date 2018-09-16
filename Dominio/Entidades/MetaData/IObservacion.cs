@@ -9,6 +9,8 @@ namespace Dominio.Entidades.MetaData
 {
     public interface IObservacion
     {
+        int Codigo { get; set; }
+
         long PacienteId { get; set; }
 
         bool Fumador { get; set; }

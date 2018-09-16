@@ -70,7 +70,32 @@ namespace Servicio.MicroNutrienteDetalle
 
         public async Task<MicroNutrienteDetalleDto> GetById(long id)
         {
-            throw new NotImplementedException();
+            var detalle = await Context.MicroNutrienteDetalles
+                .AsNoTracking()
+                .Include("Alimento")
+                .Include("MicroNutriente")
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(detalle == null) throw new ArgumentNullException();
+
+            return new MicroNutrienteDetalleDto()
+            {
+                Id = detalle.Id,
+                Codigo = detalle.Codigo,
+                AlimentoId = detalle.AlimentoId,
+                AlimentoStr = detalle.Alimento.Descripcion,
+                MicroNutrienteId = detalle.MicroNutrienteId,
+                MicroNutrienteStr = detalle.MicroNutriente.Descripcion,
+                Cantidad = detalle.Cantidad,
+                Unidad = detalle.Unidad
+            };
+        }
+
+        public async Task<int> GetNextCode()
+        {
+            return await Context.MicroNutrienteDetalles.AnyAsync()
+                ? await Context.MicroNutrienteDetalles.MaxAsync(x => x.Codigo) + 1
+                : 1;
         }
     }
 }

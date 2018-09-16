@@ -14,5 +14,6 @@ namespace Servicio.Interface.Empleado
         Task Delete(long id);
         Task<ICollection<EmpleadoDto>> Get(string cadenaBuscar);
         Task<EmpleadoDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }

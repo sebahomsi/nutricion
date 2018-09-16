@@ -14,5 +14,6 @@ namespace Servicio.Interface.Opcion
         Task Delete(long id);
         Task<ICollection<OpcionDto>> Get(string cadenaBuscar);
         Task<OpcionDto> GetById(long id);
+        Task<int> GetNextCode();
     }
 }
