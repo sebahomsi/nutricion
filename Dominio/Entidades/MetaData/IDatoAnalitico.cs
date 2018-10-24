@@ -11,6 +11,7 @@ namespace Dominio.Entidades.MetaData
     {
         int Codigo { get; set; }
 
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         long PacienteId { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]

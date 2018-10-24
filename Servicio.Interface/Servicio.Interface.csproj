@@ -79,7 +79,9 @@
     <Compile Include="Paciente\PacienteDto.cs" />
     <Compile Include="Patologia\IPatologiaServicio.cs" />
     <Compile Include="Patologia\PatologiaDto.cs" />
+    <Compile Include="Persona\ISexoServicio.cs" />
     <Compile Include="Persona\PersonaDto.cs" />
+    <Compile Include="Persona\SexoDto.cs" />
     <Compile Include="PlanAlimenticio\IPlanAlimenticioServicio.cs" />
     <Compile Include="PlanAlimenticio\PlanAlimenticioDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

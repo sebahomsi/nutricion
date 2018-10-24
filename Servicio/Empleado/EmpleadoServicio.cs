@@ -35,16 +35,14 @@ namespace Servicio.Empleado
 
         public async Task Update(EmpleadoDto dto)
         {
-            var empleado = Context.Personas.OfType<Dominio.Entidades.Empleado>().FirstOrDefault(x => x.Id == dto.Id);
+            var empleado = await Context.Personas.OfType<Dominio.Entidades.Empleado>().FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (empleado == null) throw new ArgumentNullException();
 
-            empleado.Legajo = dto.Legajo; //no se modifica
             empleado.Apellido = dto.Apellido;
             empleado.Nombre = dto.Nombre;
             empleado.Dni = dto.Dni;
             empleado.Celular = dto.Celular;
             empleado.Direccion = dto.Direccion;
-            empleado.Eliminado = false; //no se modifica
             empleado.FechaNac = dto.FechaNac;
             empleado.Foto = dto.Foto;
             empleado.Mail = dto.Mail;
@@ -56,7 +54,7 @@ namespace Servicio.Empleado
 
         public async Task Delete(long id)
         {
-            var empleado = Context.Personas.OfType<Dominio.Entidades.Empleado>().FirstOrDefault(x => x.Id == id);
+            var empleado = await Context.Personas.OfType<Dominio.Entidades.Empleado>().FirstOrDefaultAsync(x => x.Id == id);
 
             if(empleado == null) throw new ArgumentNullException(); //buscar en google parametros validos
 

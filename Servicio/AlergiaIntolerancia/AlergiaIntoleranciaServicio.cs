@@ -29,10 +29,9 @@ namespace Servicio.AlergiaIntolerancia
 
         public async Task Update(AlergiaIntoleranciaDto dto)
         {
-            var alergia = Context.AlergiasIntolerancias.Find(dto.Id);
+            var alergia = await Context.AlergiasIntolerancias.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (alergia == null) throw new ArgumentNullException();
 
-            alergia.Codigo = dto.Codigo; //no se modifica
             alergia.Descripcion = dto.Descripcion;
 
             await Context.SaveChangesAsync();
@@ -40,7 +39,7 @@ namespace Servicio.AlergiaIntolerancia
 
         public async Task Delete(long id)
         {
-            var alergia = Context.AlergiasIntolerancias.Find(id);
+            var alergia = await Context.AlergiasIntolerancias.FirstOrDefaultAsync(x=> x.Id == id);
 
             if (alergia == null) throw new ArgumentNullException();
 

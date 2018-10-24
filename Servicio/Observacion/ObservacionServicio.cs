@@ -33,8 +33,8 @@ namespace Servicio.Observacion
 
         public async Task Update(ObservacionDto dto)
         {
-            var observacion = Context.Observaciones.Find(dto.Id);
-            if(observacion == null) throw new ArgumentNullException();
+            var observacion = await Context.Observaciones.FirstOrDefaultAsync(x => x.Id == dto.Id);
+            if (observacion == null) throw new ArgumentNullException();
 
             observacion.PacienteId = dto.PacienteId;
             observacion.Fumador = dto.Fumador;
@@ -49,7 +49,7 @@ namespace Servicio.Observacion
 
         public async Task Delete(long id)
         {
-            var observacion = Context.Observaciones.Find(id);
+            var observacion = await Context.Observaciones.FirstOrDefaultAsync(x => x.Id == id);
             if (observacion == null) throw new ArgumentNullException();
 
             observacion.Eliminado =! observacion.Eliminado;

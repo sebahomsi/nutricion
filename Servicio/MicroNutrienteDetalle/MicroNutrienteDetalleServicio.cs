@@ -28,10 +28,9 @@ namespace Servicio.MicroNutrienteDetalle
 
         public async Task Update(MicroNutrienteDetalleDto dto)
         {
-            var micro = Context.MicroNutrienteDetalles.Find(dto.Id);
+            var micro = await Context.MicroNutrienteDetalles.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (micro == null) throw new ArgumentNullException();
 
-            micro.Codigo = dto.Codigo;
             micro.AlimentoId = dto.AlimentoId;
             micro.MicroNutrienteId = dto.MicroNutrienteId;
             micro.Cantidad = dto.Cantidad;
@@ -42,7 +41,7 @@ namespace Servicio.MicroNutrienteDetalle
 
         public async Task Delete(long id)
         {
-            var detalle = Context.MicroNutrienteDetalles.Find(id);
+            var detalle = await Context.MicroNutrienteDetalles.FirstOrDefaultAsync(x => x.Id == id);
             Context.MicroNutrienteDetalles.Remove(detalle);
             await Context.SaveChangesAsync();
         }

@@ -28,7 +28,7 @@ namespace Dominio.Entidades.MetaData
         string Direccion { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
-        [StringLength(150, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
+        [EmailAddress(ErrorMessage = "El campo debe tener formato de mail.")]
         string Mail { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]

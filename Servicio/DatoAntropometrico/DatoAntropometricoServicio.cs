@@ -33,10 +33,9 @@ namespace Servicio.DatoAntropometrico
 
         public async Task Update(DatoAntropometricoDto dto)
         {
-            var dato = Context.DatosAntropometricos.Find(dto.Id);
+            var dato = await Context.DatosAntropometricos.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (dato == null) throw new ArgumentNullException();
 
-            dato.Codigo = dto.Codigo; //no se modifica
             dato.PacienteId = dto.PacienteId;
             dato.Altura = dto.Altura;
             dato.FechaMedicion = dto.FechaMedicion; //no se modifica
@@ -51,7 +50,7 @@ namespace Servicio.DatoAntropometrico
 
         public async Task Delete(long id)
         {
-            var dato = Context.DatosAntropometricos.Find(id);
+            var dato = await Context.DatosAntropometricos.FirstOrDefaultAsync(x => x.Id == id);
             if (dato == null) throw new ArgumentNullException();
 
             dato.Eliminado = !dato.Eliminado;

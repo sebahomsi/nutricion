@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.Alimento;
+using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
+using Servicio.Interface.PlanAlimenticio;
 
 namespace Servicio.Paciente
 {
@@ -37,7 +41,7 @@ namespace Servicio.Paciente
 
         public async Task Update(PacienteDto dto)
         {
-            var paciente = Context.Personas.OfType<Dominio.Entidades.Paciente>().FirstOrDefault(x => x.Id == dto.Id);
+            var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>().FirstOrDefaultAsync(x => x.Id == dto.Id);
             if(paciente == null) throw new ArgumentNullException();
 
             paciente.Apellido = dto.Apellido;
@@ -56,22 +60,106 @@ namespace Servicio.Paciente
 
         public async Task Delete(long id)
         {
-            throw new NotImplementedException();
+            var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>().FirstOrDefaultAsync(x => x.Id == id);
+            if (paciente == null) throw new ArgumentNullException();
+
+            paciente.Eliminado =! paciente.Eliminado;
+
+            await Context.SaveChangesAsync();
         }
 
         public async Task<ICollection<PacienteDto>> Get(string cadenaBuscar)
         {
-            throw new NotImplementedException();
+            int.TryParse(cadenaBuscar, out var codigo);
+            return await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+                .AsNoTracking()
+                .Where(x => x.Nombre.Contains(cadenaBuscar)
+                            || x.Apellido.Contains(cadenaBuscar)
+                            || x.Codigo == codigo)
+                .Select(x => new PacienteDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Apellido = x.Apellido,
+                    Nombre = x.Nombre,
+                    Celular = x.Celular,
+                    Dni = x.Dni,
+                    Direccion = x.Direccion,
+                    Mail = x.Mail,
+                    Telefono = x.Telefono,
+                    Sexo = x.Sexo,
+                    FechaNac = x.FechaNac,
+                    Foto = x.Foto,
+                    Eliminado = x.Eliminado,
+                    Estado = x.Estado,
+                    TieneAnalitico = x.TieneAnalitico
+                }).ToListAsync();
         }
 
         public async Task<PacienteDto> GetById(long id)
         {
-            throw new NotImplementedException();
+            var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+                .AsNoTracking()
+                .Include("DatosAntropometricos")
+                .Include("DatosAntropometricos.Paciente")
+                .Include("AlimentosRechazados")
+                .Include("AlimentosRechazados.SubGrupo")
+                .Include("PlanesAlimenticios")
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (paciente == null) throw new ArgumentNullException();
+
+            return new PacienteDto()
+            {
+                Id = paciente.Id,
+                Codigo = paciente.Codigo,
+                Apellido = paciente.Apellido,
+                Nombre = paciente.Nombre,
+                Celular = paciente.Celular,
+                Dni = paciente.Dni,
+                Direccion = paciente.Direccion,
+                Mail = paciente.Mail,
+                Telefono = paciente.Telefono,
+                Sexo = paciente.Sexo,
+                FechaNac = paciente.FechaNac,
+                Foto = paciente.Foto,
+                Eliminado = paciente.Eliminado,
+                Estado = paciente.Estado,
+                TieneAnalitico = paciente.TieneAnalitico,
+                DatosAntropometricos = paciente.DatosAntropometricos.Select(p=> new DatoAntropometricoDto()
+                {
+                    Id = p.Id,
+                    Codigo = p.Codigo,
+                    PacienteId = p.PacienteId,
+                    PacienteStr = p.Paciente.Apellido + " " + p.Paciente.Nombre,
+                    Altura = p.Altura,
+                    FechaMedicion = p.FechaMedicion,
+                    MasaGrasa = p.MasaGrasa,
+                    MasaCorporal = p.MasaCorporal,
+                    Peso = p.Peso,
+                    PerimetroCintura = p.PerimetroCintura,
+                    PerimetroCadera = p.PerimetroCadera,
+                    Eliminado = p.Eliminado
+                }).ToList(),
+                PlanesAlimenticios = paciente.PlanesAlimenticios.Select(q=> new PlanAlimenticioDto()).ToList(),
+                AlimentosRechazados = paciente.AlimentosRechazados.Select(r=> new AlimentoDto()
+                {
+                    Id = r.Id,
+                    Codigo = r.Codigo,
+                    Descripcion = r.Descripcion,
+                    Eliminado = r.Eliminado,
+                    MacroNutrienteId = r.MacroNutrienteId,
+                    SubGrupoId = r.SubGrupoId,
+                    SubGrupoStr = r.SubGrupo.Descripcion,
+                    TieneMacroNutriente = r.TieneMacroNutriente
+                }).ToList()
+            };
         }
 
         public async Task<int> GetNextCode()
         {
-            throw new NotImplementedException();
+            return await Context.Personas.OfType<Dominio.Entidades.Paciente>().AnyAsync()
+                ? await Context.Personas.OfType<Dominio.Entidades.Paciente>().MaxAsync(x => x.Codigo) + 1
+                : 1;
         }
     }
 }

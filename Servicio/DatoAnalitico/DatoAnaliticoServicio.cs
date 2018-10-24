@@ -31,11 +31,10 @@ namespace Servicio.DatoAnalitico
 
         public async Task Update(DatoAnaliticoDto dto)
         {
-            var dato = Context.DatosAnaliticos.Find(dto.Id);
+            var dato = await Context.DatosAnaliticos.FirstOrDefaultAsync(x=> x.Id == dto.Id);
 
             if (dato == null) throw new ArgumentNullException();
 
-            dato.Codigo = dto.Codigo; //no se modifica
             dato.ColesterolHdl = dto.ColesterolHdl;
             dato.ColesterolLdl = dto.ColesterolLdl;
             dato.ColesterolTotal = dto.ColesterolTotal; //esto es un calculo

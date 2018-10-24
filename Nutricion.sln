@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicio", "Servicio\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicio.Interface", "Servicio.Interface\Servicio.Interface.csproj", "{C991E65B-DDB8-475E-922E-130DEC80647B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutricionWeb", "NutricionWeb\NutricionWeb.csproj", "{F0704D42-96C8-420F-A706-2AA476E69225}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{C991E65B-DDB8-475E-922E-130DEC80647B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C991E65B-DDB8-475E-922E-130DEC80647B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C991E65B-DDB8-475E-922E-130DEC80647B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0704D42-96C8-420F-A706-2AA476E69225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0704D42-96C8-420F-A706-2AA476E69225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0704D42-96C8-420F-A706-2AA476E69225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0704D42-96C8-420F-A706-2AA476E69225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{BFD596B3-0408-4EA9-9606-7A5AA3671075} = {0EEA700F-58C3-41F2-B4E1-230DC45A50D7}
 		{600AA5C1-93BC-457F-B09C-03A7B854AAE4} = {F295C44D-10F4-4049-9FF3-A7F0CB10E5AC}
 		{C991E65B-DDB8-475E-922E-130DEC80647B} = {F295C44D-10F4-4049-9FF3-A7F0CB10E5AC}
+		{F0704D42-96C8-420F-A706-2AA476E69225} = {52BFF167-D9EF-4DAB-8FFD-3E9BD2587359}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {361053FE-0559-4548-AEDD-FFEABDEF3ED2}

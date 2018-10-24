@@ -52,6 +52,7 @@
     <Compile Include="Comida\ComidaServicio.cs" />
     <Compile Include="DatoAnalitico\DatoAnaliticoServicio.cs" />
     <Compile Include="DatoAntropometrico\DatoAntropometricoServicio.cs" />
+    <Compile Include="Dia\DiaServicio.cs" />
     <Compile Include="Empleado\EmpleadoServicio.cs" />
     <Compile Include="Grupo\GrupoServicio.cs" />
     <Compile Include="MacroNutriente\MacroNutrienteServicio.cs" />
@@ -59,17 +60,16 @@
     <Compile Include="MicroNutriente\MicroNutrienteServicio.cs" />
     <Compile Include="Observacion\ObservacionServicio.cs" />
     <Compile Include="Paciente\PacienteServicio.cs" />
+    <Compile Include="Patologia\PatologiaServicio.cs" />
+    <Compile Include="Persona\SexoServicio.cs" />
+    <Compile Include="PlanAlimenticio\PlanAlimenticioServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicioBase.cs" />
+    <Compile Include="SubGrupo\SubGrupoServicio.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dia\" />
     <Folder Include="OpcionDetalle\" />
     <Folder Include="Opcion\" />
-    <Folder Include="Patologia\" />
-    <Folder Include="Persona\" />
-    <Folder Include="PlanAlimenticio\" />
-    <Folder Include="SubGrupo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">

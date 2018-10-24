@@ -102,5 +102,15 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Servicio.Interface\Servicio.Interface.csproj">
+      <Project>{c991e65b-ddb8-475e-922e-130dec80647b}</Project>
+      <Name>Servicio.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Servicio\Servicio.csproj">
+      <Project>{600aa5c1-93bc-457f-b09c-03a7b854aae4}</Project>
+      <Name>Servicio</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

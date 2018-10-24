@@ -26,19 +26,17 @@ namespace Servicio.Grupo
 
         public async Task Update(GrupoDto dto)
         {
-            var grupo = Context.Grupos.Find(dto.Id);
+            var grupo = await Context.Grupos.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (grupo == null) throw new ArgumentNullException();
 
-            grupo.Codigo = dto.Codigo;
             grupo.Descripcion = dto.Descripcion;
-            grupo.Eliminado = dto.Eliminado;
-
+            
             await Context.SaveChangesAsync();
         }
 
         public async Task Delete(long id)
         {
-            var grupo = Context.Grupos.Find(id);
+            var grupo = await Context.Grupos.FirstOrDefaultAsync(x => x.Id == id);
             if (grupo == null) throw new ArgumentNullException();
 
             grupo.Eliminado = !grupo.Eliminado;

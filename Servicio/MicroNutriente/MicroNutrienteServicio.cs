@@ -27,19 +27,17 @@ namespace Servicio.MicroNutriente
 
         public async Task Update(MicroNutrienteDto dto)
         {
-            var micro = Context.MicroNutrientes.Find(dto.Id);
+            var micro = await Context.MicroNutrientes.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (micro == null) throw new ArgumentNullException();
 
-            micro.Codigo = dto.Codigo;
             micro.Descripcion = dto.Descripcion;
-            micro.Eliminado = dto.Eliminado;
-
+            
             await Context.SaveChangesAsync();
         }
 
         public async Task Delete(long id)
         {
-            var micro = Context.MicroNutrientes.Find(id);
+            var micro = await Context.MicroNutrientes.FirstOrDefaultAsync(x => x.Id == id);
             if (micro == null) throw new ArgumentNullException();
 
             micro.Eliminado = !micro.Eliminado;

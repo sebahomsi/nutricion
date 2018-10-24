@@ -31,23 +31,21 @@ namespace Servicio.MacroNutriente
 
         public async Task Update(MacroNutrienteDto dto)
         {
-            var macro = Context.MacroNutrientes.Find(dto.Id);
+            var macro = await Context.MacroNutrientes.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (macro == null) throw new ArgumentNullException();
 
-            macro.Codigo = dto.Codigo;
             macro.AlimentoId = dto.AlimentoId;
             macro.Energia = dto.Energia;
             macro.Grasa = dto.Grasa;
             macro.HidratosCarbono = dto.HidratosCarbono;
             macro.Proteina = dto.Proteina;
-            macro.Eliminado = dto.Eliminado;
-
+            
             await Context.SaveChangesAsync();
         }
 
         public async Task Delete(long id)
         {
-            var macro = Context.MacroNutrientes.Find(id);
+            var macro = await Context.MacroNutrientes.FirstOrDefaultAsync(x => x.Id == id);
             if (macro == null) throw new ArgumentNullException();
 
             macro.Eliminado = !macro.Eliminado;
