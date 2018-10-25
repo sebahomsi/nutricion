@@ -22,6 +22,8 @@ namespace Servicio.Interface.MicroNutrienteDetalle
 
         public double Cantidad { get; set; }
 
-        public string Unidad { get; set; }
+        public long UnidadMedidaId { get; set; }
+
+        public string UnidadMedidaStr { get; set; }
     }
 }

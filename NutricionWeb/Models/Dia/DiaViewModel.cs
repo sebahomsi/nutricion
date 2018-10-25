@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace NutricionWeb.Models.AlergiaIntolerancia
+namespace NutricionWeb.Models.Dia
 {
-    public class AlergiaIntoleranciaViewModel
+    public class DiaViewModel
     {
         public long Id { get; set; }
 
@@ -15,6 +15,9 @@ namespace NutricionWeb.Models.AlergiaIntolerancia
         [Required(ErrorMessage = "Campo Requerido")]
         public string Descripcion { get; set; }
 
-        public bool Eliminado { get; set; }
+        [Required(ErrorMessage = "Campo Requerido")]
+        public long PlanAlimenticioId { get; set; }
+
+        public string PlanAlimenticioStr { get; set; }
     }
 }

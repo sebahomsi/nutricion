@@ -22,10 +22,11 @@ namespace Dominio.Entidades
 
         public double Cantidad { get; set; }
 
-        public string Unidad { get; set; }
+        public long UnidadMedidaId { get; set; }
 
         //Propiedades de navegacion
         public virtual Alimento Alimento { get; set; }
+        public virtual UnidadMedida UnidadMedida { get; set; }
         public virtual MicroNutriente MicroNutriente { get; set; }
     }
 }

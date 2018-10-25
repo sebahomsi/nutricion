@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace NutricionWeb.Models.AlergiaIntolerancia
+namespace NutricionWeb.Models.MicroNutriente
 {
-    public class AlergiaIntoleranciaViewModel
+    public class MicroNutrienteViewModel
     {
         public long Id { get; set; }
 

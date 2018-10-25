@@ -18,7 +18,7 @@ namespace Servicio.MicroNutrienteDetalle
                 AlimentoId = dto.AlimentoId,
                 MicroNutrienteId = dto.MicroNutrienteId,
                 Cantidad = dto.Cantidad,
-                Unidad = dto.Unidad
+                UnidadMedidaId = dto.UnidadMedidaId
             };
 
             Context.MicroNutrienteDetalles.Add(micro);
@@ -34,7 +34,7 @@ namespace Servicio.MicroNutrienteDetalle
             micro.AlimentoId = dto.AlimentoId;
             micro.MicroNutrienteId = dto.MicroNutrienteId;
             micro.Cantidad = dto.Cantidad;
-            micro.Unidad = dto.Unidad;
+            micro.UnidadMedidaId = dto.UnidadMedidaId;
 
             await Context.SaveChangesAsync();
         }
@@ -53,6 +53,7 @@ namespace Servicio.MicroNutrienteDetalle
                 .AsNoTracking()
                 .Include("Alimento")
                 .Include("MicroNutriente")
+                .Include("UnidadMedida")
                 .Where(x => x.Codigo == codigo /*|| x.Alimento.Descripcion.Contains(cadenaBuscar)*/)
                 .Select(x => new MicroNutrienteDetalleDto()
                 {
@@ -63,7 +64,8 @@ namespace Servicio.MicroNutrienteDetalle
                     MicroNutrienteId = x.MicroNutrienteId,
                     MicroNutrienteStr = x.MicroNutriente.Descripcion,
                     Cantidad = x.Cantidad,
-                    Unidad = x.Unidad
+                    UnidadMedidaId = x.UnidadMedidaId,
+                    UnidadMedidaStr = x.UnidadMedida.Abreviatura
                 }).ToListAsync();
         }
 
@@ -73,6 +75,7 @@ namespace Servicio.MicroNutrienteDetalle
                 .AsNoTracking()
                 .Include("Alimento")
                 .Include("MicroNutriente")
+                .Include("UnidadMedida")
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if(detalle == null) throw new ArgumentNullException();
@@ -86,7 +89,8 @@ namespace Servicio.MicroNutrienteDetalle
                 MicroNutrienteId = detalle.MicroNutrienteId,
                 MicroNutrienteStr = detalle.MicroNutriente.Descripcion,
                 Cantidad = detalle.Cantidad,
-                Unidad = detalle.Unidad
+                UnidadMedidaId = detalle.UnidadMedidaId,
+                UnidadMedidaStr = detalle.UnidadMedida.Abreviatura
             };
         }
 

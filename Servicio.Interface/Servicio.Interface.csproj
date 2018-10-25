@@ -87,6 +87,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubGrupo\ISubGrupoServicio.cs" />
     <Compile Include="SubGrupo\SubGrupoDto.cs" />
+    <Compile Include="UnidadMedida\IUnidadMedidaServicio.cs" />
+    <Compile Include="UnidadMedida\UnidadMedidaDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

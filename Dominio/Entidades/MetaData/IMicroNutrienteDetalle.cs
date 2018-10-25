@@ -21,6 +21,6 @@ namespace Dominio.Entidades.MetaData
         double Cantidad { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
-        string Unidad { get; set; }
+        long UnidadMedidaId { get; set; }
     }
 }
