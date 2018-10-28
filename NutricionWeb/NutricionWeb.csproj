@@ -243,8 +243,17 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MacroNutriente\MacroNutrienteViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteViewModel.cs" />
+    <Compile Include="Models\Observacion\ObservacionViewModel.cs" />
+    <Compile Include="Models\OpcionDetalle\OpcionDetalleViewModel.cs" />
+    <Compile Include="Models\Opcion\OpcionViewModel.cs" />
+    <Compile Include="Models\Paciente\PacienteViewModel.cs" />
+    <Compile Include="Models\Patologia\PatologiaViewModel.cs" />
     <Compile Include="Models\Persona\PersonaViewModel.cs" />
+    <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
+    <Compile Include="Models\SubGrupo\SubGrupoViewModel.cs" />
+    <Compile Include="Models\UnidadMedida\UnidadMedidaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -396,14 +405,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\MicroNutrienteDetalle\" />
-    <Folder Include="Models\Observacion\" />
-    <Folder Include="Models\OpcionDetalle\" />
-    <Folder Include="Models\Opcion\" />
-    <Folder Include="Models\Paciente\" />
-    <Folder Include="Models\Patologia\" />
-    <Folder Include="Models\PlanAlimenticio\" />
-    <Folder Include="Models\SubGrupo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

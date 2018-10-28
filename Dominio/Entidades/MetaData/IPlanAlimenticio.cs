@@ -20,7 +20,6 @@ namespace Dominio.Entidades.MetaData
         [Required(ErrorMessage = "Campo Obligatorio")]
         string Motivo { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
         DateTime Fecha { get; set; }
 
         bool Eliminado { get; set; }

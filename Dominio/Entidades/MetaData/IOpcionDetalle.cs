@@ -18,10 +18,10 @@ namespace Dominio.Entidades.MetaData
         long AlimentoId { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
-        decimal Cantidad { get; set; }
+        double Cantidad { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
-        string Unidad { get; set; }
+        long UnidadMedidaId { get; set; }
 
         bool Eliminado { get; set; }
     }

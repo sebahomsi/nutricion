@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.MicroNutrienteDetalle;
+using Servicio.Interface.OpcionDetalle;
 
 namespace Servicio.Interface.UnidadMedida
 {
@@ -12,6 +13,7 @@ namespace Servicio.Interface.UnidadMedida
         public UnidadMedidaDto()
         {
             MicroNutrienteDetalles = new List<MicroNutrienteDetalleDto>();
+            OpcionDetalles = new List<OpcionDetalleDto>();
         }
 
         public long Id { get; set; }
@@ -25,5 +27,6 @@ namespace Servicio.Interface.UnidadMedida
         public bool Eliminado { get; set; }
 
         public List<MicroNutrienteDetalleDto> MicroNutrienteDetalles { get; set; }
+        public List<OpcionDetalleDto> OpcionDetalles { get; set; }
     }
 }

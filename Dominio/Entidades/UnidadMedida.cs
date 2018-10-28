@@ -24,5 +24,6 @@ namespace Dominio.Entidades
 
         //Navigation Properties
         public ICollection<MicroNutrienteDetalle> MicroNutrienteDetalles { get; set; }
+        public ICollection<OpcionDetalle> OpcionDetalles { get; set; }
     }
 }

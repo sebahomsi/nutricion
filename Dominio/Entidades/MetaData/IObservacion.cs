@@ -11,6 +11,7 @@ namespace Dominio.Entidades.MetaData
     {
         int Codigo { get; set; }
 
+        [Required(ErrorMessage = "Campo Obligatorio")]
         long PacienteId { get; set; }
 
         bool Fumador { get; set; }
