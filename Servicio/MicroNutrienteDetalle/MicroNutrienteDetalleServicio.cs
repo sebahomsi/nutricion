@@ -54,7 +54,7 @@ namespace Servicio.MicroNutrienteDetalle
                 .Include("Alimento")
                 .Include("MicroNutriente")
                 .Include("UnidadMedida")
-                .Where(x => x.Codigo == codigo /*|| x.Alimento.Descripcion.Contains(cadenaBuscar)*/)
+                .Where(x => x.Codigo == codigo || x.Alimento.Descripcion.Contains(cadenaBuscar))
                 .Select(x => new MicroNutrienteDetalleDto()
                 {
                     Id = x.Id,
