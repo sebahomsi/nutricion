@@ -1,0 +1,77 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<NutricionWeb.Models.Paciente.PacienteViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ApyNom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Celular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().TieneAnalitico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApyNom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Celular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TieneAnalitico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eliminado)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+            </td>
+        </tr>
+    }
+
+</table>

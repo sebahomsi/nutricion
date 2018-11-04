@@ -1,11 +1,24 @@
+using NutricionWeb.Helpers.Persona;
 using System.Web.Mvc;
 using Unity;
 using Unity.Mvc5;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+using System.Web;
+using Unity.Injection;
+using Unity.Lifetime;
+using NutricionWeb.Controllers;
+using NutricionWeb.Models;
+using static Aplicacion.Conexion.ConexionDb;
+
 
 namespace NutricionWeb
 {
     public static class UnityConfig
     {
+        private static object AplicacionIoC;
+
         public static void RegisterComponents()
         {
 			var container = new UnityContainer();
@@ -21,22 +34,24 @@ namespace NutricionWeb
             container.RegisterType<EmailService>();
 
             container.RegisterType<IAuthenticationManager>(
-                new Microsoft.Practices.Unity.InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));
+                new InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));
 
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(
-                new Microsoft.Practices.Unity.InjectionConstructor(typeof(ApplicationDbContext)));
+                new InjectionConstructor(typeof(ApplicationDbContext)));
 
             container.RegisterType<AccountController>(
-                new Microsoft.Practices.Unity.InjectionConstructor(typeof(ApplicationUserManager), typeof(ApplicationSignInManager)));
+                new InjectionConstructor(typeof(ApplicationUserManager), typeof(ApplicationSignInManager)));
 
-            container.RegisterType<AccountController>(new Microsoft.Practices.Unity.InjectionConstructor());
+            container.RegisterType<AccountController>(new InjectionConstructor());
 
-            container.RegisterType<UserManager<ApplicationUser>>(new Microsoft.Practices.Unity.HierarchicalLifetimeManager());
+            container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
 
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(
-                new Microsoft.Practices.Unity.HierarchicalLifetimeManager()); //
+                new HierarchicalLifetimeManager()); //
 
-            Aplicacion.IoC.UnityConfig.RegisterComponents();
+            container.RegisterType<IComboBoxSexo, ComboBoxSexo>();
+
+            Aplicacion.IoC.UnityConfig.RegisterComponents(container);
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
