@@ -9,27 +9,21 @@
 
 </head>
 <body>
-    <div class="navbar nav navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Home", "Index", "Paciente")
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
+    
+    <ul class="nav nav-pills justify-content-center">
+        <li class="nav-item">
+            @Html.ActionLink("Inicio", "Index", "Home", new { }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Paciente", "Index", "Paciente", new { }, new { @class = "nav-link" })
+        </li>        
+
+        @Html.Partial("_LoginPartial")
+    </ul>
+                
+                
+            
+      
     <div class="container body-content">
         @RenderBody()
         <hr />
