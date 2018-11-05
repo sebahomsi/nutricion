@@ -69,6 +69,7 @@
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleDto.cs" />
     <Compile Include="MicroNutriente\IMicroNutrienteServicio.cs" />
     <Compile Include="MicroNutriente\MicroNutrienteDto.cs" />
+    <Compile Include="ObservacionAlimento\IObservacionAlimentoServicio.cs" />
     <Compile Include="Observacion\ObservacionDto.cs" />
     <Compile Include="Observacion\IObservacionServicio.cs" />
     <Compile Include="OpcionDetalle\IOpcionDetalleServicio.cs" />

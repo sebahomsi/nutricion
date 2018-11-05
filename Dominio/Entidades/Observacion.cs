@@ -35,6 +35,7 @@ namespace Dominio.Entidades
         //Propiedades de Navegacion
         public virtual Paciente Paciente { get; set; }
         public virtual ICollection<AlergiaIntolerancia> AlergiasIntolerancias { get; set; }
+        public virtual ICollection<Alimento> Alimentos { get; set; }
         public virtual ICollection<Patologia> Patologias { get; set; }
     }
 }

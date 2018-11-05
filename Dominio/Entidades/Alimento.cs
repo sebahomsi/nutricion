@@ -28,8 +28,9 @@ namespace Dominio.Entidades
 
         //Navigation Properties
         public virtual ICollection<MicroNutriente> MicroNutrientes { get; set; }
+        public virtual ICollection<Observacion> Observaciones { get; set; }
         public virtual SubGrupo SubGrupo { get; set; }
-        //public virtual MacroNutriente MacroNutriente { get; set; }
+        public virtual MacroNutriente MacroNutriente { get; set; }
         public virtual ICollection<Opcion> Opciones { get; set; }
     }
 }

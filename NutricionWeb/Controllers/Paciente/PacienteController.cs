@@ -4,20 +4,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using NutricionWeb.Helpers.Persona;
 using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.Paciente;
 using static NutricionWeb.Helpers.PagedList;
+using static NutricionWeb.Helpers.File;
 
 namespace NutricionWeb.Controllers.Paciente
 {
     public class PacienteController : Controller
     {
         private readonly IPacienteServicio _pacienteServicio; //llaman e inicializan abajo para poder usar los servicios en el controlador
+        private readonly IComboBoxSexo _comboBoxSexo;
 
-        public PacienteController(IPacienteServicio pacienteServicio)
+        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo)
         {
             _pacienteServicio = pacienteServicio;
+            _comboBoxSexo = comboBoxSexo;
         }
 
         // GET: Paciente
@@ -53,23 +57,38 @@ namespace NutricionWeb.Controllers.Paciente
         // GET: Paciente/Create
         public async Task<ActionResult> Create()
         {
-            return View(new PacienteViewModel());
+            return View(new PacienteABMViewModel()
+            {
+                Sexos = await _comboBoxSexo.Poblar()
+            });
         }
 
         // POST: Paciente/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(PacienteABMViewModel vm)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var pic = string.Empty;
+                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
 
-                return RedirectToAction("Index");
+                    var pacienteDto = CargarDatos(vm, pic);
+
+                    await _pacienteServicio.Add(pacienteDto);
+                }
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                vm.Sexos = await _comboBoxSexo.Poblar();
+                return View(vm);
             }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Paciente/Edit/5
@@ -120,6 +139,25 @@ namespace NutricionWeb.Controllers.Paciente
         public ActionResult Details(int id)
         {
             return View();
+        }
+
+        //===============================================================================//
+        private PacienteDto CargarDatos(PacienteABMViewModel vm, string pic)
+        {
+            return new PacienteDto()
+            {
+                Id = vm.Id,
+                Nombre = vm.Nombre,
+                Apellido = vm.Apellido,
+                Mail = vm.Mail,
+                Dni = vm.Dni,
+                Celular = vm.Celular,
+                Telefono = vm.Telefono,
+                Direccion = vm.Direccion,
+                Sexo = vm.Sexo,
+                FechaNac = vm.FechaNac,
+                Foto = vm.Foto != null ? pic : vm.FotoStr
+            };
         }
     }
 }

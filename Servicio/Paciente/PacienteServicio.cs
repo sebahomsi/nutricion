@@ -102,8 +102,6 @@ namespace Servicio.Paciente
                 .AsNoTracking()
                 .Include("DatosAntropometricos")
                 .Include("DatosAntropometricos.Paciente")
-                .Include("AlimentosRechazados")
-                .Include("AlimentosRechazados.SubGrupo")
                 .Include("PlanesAlimenticios")
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (paciente == null) throw new ArgumentNullException();
@@ -141,17 +139,7 @@ namespace Servicio.Paciente
                     Eliminado = p.Eliminado
                 }).ToList(),
                 PlanesAlimenticios = paciente.PlanesAlimenticios.Select(q=> new PlanAlimenticioDto()).ToList(),
-                AlimentosRechazados = paciente.AlimentosRechazados.Select(r=> new AlimentoDto()
-                {
-                    Id = r.Id,
-                    Codigo = r.Codigo,
-                    Descripcion = r.Descripcion,
-                    Eliminado = r.Eliminado,
-                    MacroNutrienteId = r.MacroNutrienteId,
-                    SubGrupoId = r.SubGrupoId,
-                    SubGrupoStr = r.SubGrupo.Descripcion,
-                    TieneMacroNutriente = r.TieneMacroNutriente
-                }).ToList()
+                
             };
         }
 

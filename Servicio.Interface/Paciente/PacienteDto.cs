@@ -15,7 +15,6 @@ namespace Servicio.Interface.Paciente
         public PacienteDto()
         {
             DatosAntropometricos = new List<DatoAntropometricoDto>();
-            AlimentosRechazados = new List<AlimentoDto>();
             PlanesAlimenticios = new List<PlanAlimenticioDto>();
         }
         public int Codigo { get; set; }
@@ -25,7 +24,6 @@ namespace Servicio.Interface.Paciente
         public bool TieneAnalitico { get; set; }
         
         public List<DatoAntropometricoDto> DatosAntropometricos { get; set; }
-        public List<AlimentoDto> AlimentosRechazados { get; set; }
         public List<PlanAlimenticioDto> PlanesAlimenticios { get; set; }
     }
 }

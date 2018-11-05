@@ -45,7 +45,13 @@ namespace NutricionWeb.Models.Persona
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
         [StringLength(12, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         public string Celular { get; set; }
-        public string Foto { get; set; }
+
+        [Display(Name = "Buscar Foto")]
+        public HttpPostedFileBase Foto { get; set; }
+
+        [Display(Name = "Foto")]
+        public string FotoStr { get; set; }
+
         public bool Eliminado { get; set; }
 
         public IEnumerable<SelectListItem> Sexos { get; set; }

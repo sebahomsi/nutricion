@@ -87,6 +87,7 @@ namespace Servicio.Observacion
                 .Include("Paciente")
                 .Include("Patologias")
                 .Include("AlergiasIntolerancias")
+                .Include("Alimentos")
                 .FirstOrDefaultAsync(x => x.Id == id);
             if(observacion == null) throw new ArgumentNullException();
 

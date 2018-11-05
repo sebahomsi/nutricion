@@ -22,7 +22,6 @@ namespace Dominio.Entidades
 
         //Navigation Properties
         public virtual ICollection<DatoAntropometrico> DatosAntropometricos { get; set; }
-        public virtual ICollection<Alimento> AlimentosRechazados { get; set; }
         public virtual ICollection<PlanAlimenticio> PlanesAlimenticios { get; set; }
         //public virtual Turno Turno { get; set; } 
     }

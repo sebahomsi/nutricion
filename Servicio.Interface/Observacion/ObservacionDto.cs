@@ -15,6 +15,7 @@ namespace Servicio.Interface.Observacion
         {
             Patologias = new List<PatologiaDto>();
             AlergiasIntolerancias = new List<AlergiaIntoleranciaDto>();
+            Alimentos = new List<AlimentoDto>();
         }
 
         public int Codigo { get; set; }
@@ -41,5 +42,6 @@ namespace Servicio.Interface.Observacion
         
         public List<PatologiaDto> Patologias { get; set; }
         public List<AlergiaIntoleranciaDto> AlergiasIntolerancias { get; set; }
+        public List<AlimentoDto> Alimentos { get; set; }
     }
 }
