@@ -68,7 +68,7 @@ namespace Servicio.Paciente
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PacienteDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<PacienteDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.Personas.OfType<Dominio.Entidades.Paciente>()

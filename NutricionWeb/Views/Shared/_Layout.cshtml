@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Power Nutrition</title>
     <script src="~/Scripts/popper.js"></script>
 
     @Styles.Render("~/Content/css")
@@ -12,49 +12,74 @@
 
 </head>
 <body>
-    
-    <div class="nav nav-pills justify-content-center">
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Power Nutrition</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>                    
 
 
-                @Html.ActionLink("Inicio", "Index", "Home", new { }, new { @class = "nav-link" })
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cargar Personas<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
 
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                                <li>@Html.ActionLink("Pacientes", "Index", "Paciente")</li>
+                                <li>@Html.ActionLink("Empleados", "Index", "Empleado")</li>
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Datos Básicos<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li>@Html.ActionLink("Patologias", "Index", "Patologia")</li>
+                                <li>@Html.ActionLink("Alergias e Intolerancias", "Index", "AlergiaIntolerancia")</li>
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cargar Alimentos<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li>@Html.ActionLink("Grupo", "Index", "Grupo")</li>
+
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
-
-
-        @Html.ActionLink("Patologias", "Index", "Patologia", new { }, new { @class = "nav-link" })
-
-
-        @Html.ActionLink("Grupos", "Index", "Grupo", new { }, new { @class = "nav-link" })
-
-        @Html.ActionLink("Pacientes", "Index", "Paciente", new { }, new { @class = "nav-link" })
-        @Html.ActionLink("Empleados", "Index", "Empleado", new { }, new { @class = "nav-link" })
-
-        @Html.Partial("_LoginPartial")
     </div>
-                
-                
-            
-      
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Power Nutrition Application</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", false)
 
-    @RenderSection("scripts", required: false)
 
 </body>
 </html>

@@ -46,7 +46,7 @@ namespace Servicio.Patologia
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PatologiaDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<PatologiaDto>> Get(string cadenaBuscar = "")
         {
             return await Context.Patologias.AsNoTracking()
                 .Where(x => x.Descripcion.Contains(cadenaBuscar))

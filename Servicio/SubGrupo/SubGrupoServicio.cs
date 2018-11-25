@@ -50,7 +50,7 @@ namespace Servicio.SubGrupo
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<SubGrupoDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<SubGrupoDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.SubGrupos.AsNoTracking()

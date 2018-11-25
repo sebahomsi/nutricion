@@ -46,7 +46,7 @@ namespace Servicio.MicroNutrienteDetalle
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<MicroNutrienteDetalleDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<MicroNutrienteDetalleDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.MicroNutrienteDetalles

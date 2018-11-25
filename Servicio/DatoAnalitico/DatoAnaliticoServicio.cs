@@ -51,7 +51,7 @@ namespace Servicio.DatoAnalitico
             throw new NotImplementedException();
         }
 
-        public async Task<ICollection<DatoAnaliticoDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<DatoAnaliticoDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.DatosAnaliticos

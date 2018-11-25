@@ -6,22 +6,20 @@ using System.Web;
 
 namespace NutricionWeb.Models.SubGrupo
 {
-    public class SubGrupoViewModel
+    public class SubGrupoABMViewModel
     {
         public long Id { get; set; }
 
         public int Codigo { get; set; }
 
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public long GrupoId { get; set; }
 
-        [Display(Name = "Grupo")]
         public string GrupoStr { get; set; }
 
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public string Descripcion { get; set; }
 
         public bool Eliminado { get; set; }
-
-        [Display(Name = "Eliminado")]
-        public string EliminadoStr => Eliminado ? "Si" : "No";
     }
 }

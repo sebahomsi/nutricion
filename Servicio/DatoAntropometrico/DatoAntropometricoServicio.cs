@@ -58,7 +58,7 @@ namespace Servicio.DatoAntropometrico
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<DatoAntropometricoDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<DatoAntropometricoDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             DateTime.TryParse(cadenaBuscar, out var fecha);

@@ -48,7 +48,7 @@ namespace Servicio.Alimento
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<AlimentoDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<AlimentoDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.Alimentos

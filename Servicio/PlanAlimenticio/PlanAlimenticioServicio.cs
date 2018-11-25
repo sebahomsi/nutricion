@@ -51,7 +51,7 @@ namespace Servicio.PlanAlimenticio
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PlanAlimenticioDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<PlanAlimenticioDto>> Get(string cadenaBuscar = "")
         {
             DateTime.TryParse(cadenaBuscar, out var fecha);
             int.TryParse(cadenaBuscar, out var codigo);

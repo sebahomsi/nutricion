@@ -44,12 +44,12 @@ namespace Servicio.Grupo
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<GrupoDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<GrupoDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.Grupos
                 .AsNoTracking()
-                .Where(x => x.Codigo == codigo).Select(x => new GrupoDto()
+                .Where(x => x.Codigo == codigo || x.Descripcion.Contains(cadenaBuscar)).Select(x => new GrupoDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,

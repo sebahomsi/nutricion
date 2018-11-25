@@ -57,7 +57,7 @@ namespace Servicio.Observacion
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ObservacionDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<ObservacionDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.Observaciones

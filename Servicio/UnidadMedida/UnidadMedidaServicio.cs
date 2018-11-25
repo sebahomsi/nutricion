@@ -50,7 +50,7 @@ namespace Servicio.UnidadMedida
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<UnidadMedidaDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<UnidadMedidaDto>> Get(string cadenaBuscar = "")
         {
             return await Context.UnidadMedidas.AsNoTracking()
                 .Where(x => x.Descripcion.Contains(cadenaBuscar) || x.Abreviatura.Contains(cadenaBuscar)).Select(x =>

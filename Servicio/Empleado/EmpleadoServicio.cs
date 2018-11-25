@@ -63,7 +63,7 @@ namespace Servicio.Empleado
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<EmpleadoDto>> Get(string cadenaBuscar)
+        public async Task<ICollection<EmpleadoDto>> Get(string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var legajo);
             return await Context.Personas.OfType<Dominio.Entidades.Empleado>()
