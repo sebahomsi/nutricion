@@ -4,22 +4,41 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="~/Scripts/popper.js"></script>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 
 </head>
 <body>
     
-    <ul class="nav nav-pills justify-content-center">
-        <li class="nav-item">
-            @Html.ActionLink("Inicio", "Index", "Home", new { }, new { @class = "nav-link" })
-        </li>
-        <li class="nav-item">
-            @Html.ActionLink("Paciente", "Index", "Paciente", new { }, new { @class = "nav-link" })
-        </li>        
+    <div class="nav nav-pills justify-content-center">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+
+                @Html.ActionLink("Inicio", "Index", "Home", new { }, new { @class = "nav-link" })
+
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>
+
+
+        @Html.ActionLink("Patologias", "Index", "Patologia", new { }, new { @class = "nav-link" })
+
+
+        @Html.ActionLink("Grupos", "Index", "Grupo", new { }, new { @class = "nav-link" })
+
+        @Html.ActionLink("Pacientes", "Index", "Paciente", new { }, new { @class = "nav-link" })
+        @Html.ActionLink("Empleados", "Index", "Empleado", new { }, new { @class = "nav-link" })
 
         @Html.Partial("_LoginPartial")
-    </ul>
+    </div>
                 
                 
             
@@ -34,6 +53,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

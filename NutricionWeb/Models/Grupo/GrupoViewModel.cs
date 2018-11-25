@@ -12,9 +12,13 @@ namespace NutricionWeb.Models.Grupo
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string Descripcion { get; set; }
 
         public bool Eliminado { get; set; }
+
+        [Display(Name = "Eliminado")]
+        [ScaffoldColumn(false)]
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
+
     }
 }

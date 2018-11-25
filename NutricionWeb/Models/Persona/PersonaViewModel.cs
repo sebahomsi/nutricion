@@ -19,6 +19,8 @@ namespace NutricionWeb.Models.Persona
         public string Dni { get; set; }
         public string Direccion { get; set; }
         public string Mail { get; set; }
+
+        [Display(Name = "Nacimiento")]
         public DateTime FechaNac { get; set; }
         public int Sexo { get; set; }
 
@@ -28,11 +30,11 @@ namespace NutricionWeb.Models.Persona
 
         public string Telefono { get; set; }
         public string Celular { get; set; }
-        public string Foto { get; set; }
+        public string FotoStr { get; set; }
         public bool Eliminado { get; set; }
 
         [Display(Name = "Eliminado")]
         [ScaffoldColumn(false)]
-        public string EliminadoStr => Eliminado ? "Si" : "No";
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
     }
 }

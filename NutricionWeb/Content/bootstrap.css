@@ -41,6 +41,26 @@
   box-sizing: border-box;
 }
 
+.imagen-fondo {
+    width: 260px;
+    height: 260px;
+    background-color: white;
+    box-shadow: 5px 5px 3px #888888;
+    padding: 10px;
+    border: 1px solid grey;
+    margin: 0 auto;
+}
+
+.imagen-fondo120 {
+    width: 140px;
+    height: 140px;
+    background-color: white;
+    box-shadow: 5px 5px 3px #888888;
+    padding: 10px;
+    border: 1px solid grey;
+    margin: 0 auto;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;

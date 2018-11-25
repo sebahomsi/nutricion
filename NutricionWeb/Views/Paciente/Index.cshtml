@@ -34,7 +34,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().TieneAnalitico)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EliminadoStr)
         </th>
         <th></th>
     </tr>
@@ -64,7 +64,7 @@
                 @Html.DisplayFor(modelItem => item.TieneAnalitico)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Eliminado)
+                @Html.DisplayFor(modelItem => item.EliminadoStr)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -77,6 +78,8 @@ namespace NutricionWeb.Controllers.Paciente
 
                     var pacienteDto = CargarDatos(vm, pic);
 
+                    pacienteDto.Codigo = await _pacienteServicio.GetNextCode();
+
                     await _pacienteServicio.Add(pacienteDto);
                 }
 
@@ -92,53 +95,131 @@ namespace NutricionWeb.Controllers.Paciente
         }
 
         // GET: Paciente/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return View(new PacienteABMViewModel()
+            {
+                Sexos = await _comboBoxSexo.Poblar(),
+                Id = paciente.Id,
+                Codigo = paciente.Codigo,
+                Apellido = paciente.Apellido,
+                Nombre = paciente.Nombre,
+                Celular = paciente.Celular,
+                Telefono = paciente.Telefono,
+                Direccion = paciente.Direccion,
+                Dni = paciente.Dni,
+                FechaNac = paciente.FechaNac,
+                Sexo = paciente.Sexo,
+                Mail = paciente.Mail,
+                Eliminado = paciente.Eliminado,
+                Estado = paciente.Estado,
+                TieneAnalitico = paciente.TieneAnalitico
+            });
         }
 
         // POST: Paciente/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(PacienteABMViewModel vm)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    var pic = string.Empty;
+                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
 
-                return RedirectToAction("Index");
+                    var pacienteDto = CargarDatos(vm, pic);
+
+                    await _pacienteServicio.Update(pacienteDto);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Paciente/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return View(new PacienteViewModel()
+            {
+                Id = paciente.Id,
+                Codigo = paciente.Codigo,
+                Apellido = paciente.Apellido,
+                Nombre = paciente.Nombre,
+                Celular = paciente.Celular,
+                Telefono = paciente.Telefono,
+                Direccion = paciente.Direccion,
+                Dni = paciente.Dni,
+                FechaNac = paciente.FechaNac.Date,
+                Sexo = paciente.Sexo,
+                FotoStr = paciente.Foto,
+                Mail = paciente.Mail,
+                Eliminado = paciente.Eliminado,
+                Estado = paciente.Estado,
+                TieneAnalitico = paciente.TieneAnalitico
+            });
         }
 
         // POST: Paciente/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(PacienteViewModel vm)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _pacienteServicio.Delete(vm.Id);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Paciente/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return View(new PacienteViewModel()
+            {
+                Id = paciente.Id,
+                Codigo = paciente.Codigo,
+                Apellido = paciente.Apellido,
+                Nombre = paciente.Nombre,
+                Celular = paciente.Celular,
+                Telefono = paciente.Telefono,
+                Direccion = paciente.Direccion,
+                Dni = paciente.Dni,
+                FechaNac = paciente.FechaNac.Date,
+                Sexo = paciente.Sexo,
+                Mail = paciente.Mail,
+                FotoStr = paciente.Foto,
+                Eliminado = paciente.Eliminado,
+                Estado = paciente.Estado,
+                TieneAnalitico = paciente.TieneAnalitico
+            });
         }
 
         //===============================================================================//
@@ -156,7 +237,7 @@ namespace NutricionWeb.Controllers.Paciente
                 Direccion = vm.Direccion,
                 Sexo = vm.Sexo,
                 FechaNac = vm.FechaNac,
-                Foto = vm.Foto != null ? pic : vm.FotoStr
+                Foto = pic 
             };
         }
     }
