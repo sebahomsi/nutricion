@@ -16,16 +16,13 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().GrupoId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().GrupoStr)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EliminadoStr)
         </th>
         <th></th>
     </tr>
@@ -37,16 +34,13 @@
                 @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GrupoId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.GrupoStr)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Eliminado)
+                @Html.DisplayFor(modelItem => item.EliminadoStr)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

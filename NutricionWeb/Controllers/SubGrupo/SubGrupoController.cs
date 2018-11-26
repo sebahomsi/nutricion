@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -75,56 +76,104 @@ namespace NutricionWeb.Controllers.SubGrupo
         }
 
         // GET: SubGrupo/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var subGrupo = await _subGrupoServicio.GetById(id.Value);
+
+            return View(new SubGrupoABMViewModel()
+            {
+                Id = subGrupo.Id,
+                Codigo = subGrupo.Codigo,
+                GrupoId = subGrupo.GrupoId,
+                GrupoStr = subGrupo.GrupoStr,
+                Descripcion = subGrupo.Descripcion,
+                Eliminado = subGrupo.Eliminado
+            });
         }
 
         // POST: SubGrupo/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(SubGrupoABMViewModel vm)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    var subGrupoDto = CargarDatos(vm);
+                    await _subGrupoServicio.Update(subGrupoDto);
+                }
 
-                return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index");
+
         }
 
         // GET: SubGrupo/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var subGrupo = await _subGrupoServicio.GetById(id.Value);
+
+            return View(new SubGrupoViewModel()
+            {
+                Id = subGrupo.Id,
+                Codigo = subGrupo.Codigo,
+                GrupoId = subGrupo.GrupoId,
+                GrupoStr = subGrupo.GrupoStr,
+                Descripcion = subGrupo.Descripcion,
+                Eliminado = subGrupo.Eliminado
+            });
         }
 
         // POST: SubGrupo/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(SubGrupoViewModel vm)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _subGrupoServicio.Delete(vm.Id);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index");
+
         }
 
         // GET: SubGrupo/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(long? id)
         {
-            return View();
-        }
-        //===========================================================//
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            var subGrupo = await _subGrupoServicio.GetById(id.Value);
+
+            return View(new SubGrupoViewModel()
+            {
+                Id = subGrupo.Id,
+                Codigo = subGrupo.Codigo,
+                GrupoId = subGrupo.GrupoId,
+                GrupoStr = subGrupo.GrupoStr,
+                Descripcion = subGrupo.Descripcion,
+                Eliminado = subGrupo.Eliminado
+            });
+        }
+
+        //===========================================================//
         public async Task<ActionResult> BuscarGrupo(string cadenaBuscar)
         {
             var grupos = await _grupoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
@@ -146,6 +195,7 @@ namespace NutricionWeb.Controllers.SubGrupo
 
             return Json(grupo,JsonRequestBehavior.AllowGet);
         }
+
         private SubGrupoDto CargarDatos(SubGrupoABMViewModel vm)
         {
             return new SubGrupoDto()

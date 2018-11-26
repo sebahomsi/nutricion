@@ -64,7 +64,8 @@ namespace Servicio.SubGrupo
                     Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
                     GrupoId = x.GrupoId,
-                    GrupoStr = x.Grupo.Descripcion
+                    GrupoStr = x.Grupo.Descripcion,
+                    Eliminado = x.Eliminado
                 }).ToListAsync();
         }
 

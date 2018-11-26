@@ -513,6 +513,9 @@
     <Content Include="Views\SubGrupo\Index.cshtml" />
     <Content Include="Views\SubGrupo\Create.cshtml" />
     <Content Include="Views\SubGrupo\BuscarGrupo.cshtml" />
+    <Content Include="Views\SubGrupo\Edit.cshtml" />
+    <Content Include="Views\SubGrupo\Delete.cshtml" />
+    <Content Include="Views\SubGrupo\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
