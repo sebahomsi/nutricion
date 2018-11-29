@@ -45,7 +45,7 @@ namespace Infraestructura.Contexto
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MacroNutriente>().HasRequired(x => x.Alimento).WithOptional(t => t.MacroNutriente);
+            //modelBuilder.Entity<MacroNutriente>().HasRequired(x => x.Alimento).WithOptional(t => t.MacroNutriente);
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();

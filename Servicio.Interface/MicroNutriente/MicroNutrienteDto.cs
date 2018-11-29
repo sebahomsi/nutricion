@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
+using Servicio.Interface.MicroNutrienteDetalle;
 
 namespace Servicio.Interface.MicroNutriente
 {
@@ -11,7 +12,7 @@ namespace Servicio.Interface.MicroNutriente
     {
         public MicroNutrienteDto()
         {
-            Alimentos = new List<AlimentoDto>();
+            MicroNutrienteDetalles = new List<MicroNutrienteDetalleDto>();
         }
 
         public long Id { get; set; }
@@ -22,6 +23,6 @@ namespace Servicio.Interface.MicroNutriente
 
         public bool Eliminado { get; set; }
 
-        public List<AlimentoDto> Alimentos { get; set; }
+        public List<MicroNutrienteDetalleDto> MicroNutrienteDetalles { get; set; }
     }
 }

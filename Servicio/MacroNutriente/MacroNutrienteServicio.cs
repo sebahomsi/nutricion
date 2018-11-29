@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.Alimento;
 using Servicio.Interface.MacroNutriente;
 
 namespace Servicio.MacroNutriente
@@ -24,6 +25,13 @@ namespace Servicio.MacroNutriente
             };
 
             Context.MacroNutrientes.Add(macro);
+
+            await Context.SaveChangesAsync();
+            var alimento = await Context.Alimentos.FirstOrDefaultAsync(x => x.Id == macro.AlimentoId);
+
+            alimento.MacroNutrienteId = macro.Id;
+            alimento.TieneMacroNutriente = true;
+
             await Context.SaveChangesAsync();
 
             return macro.Id;

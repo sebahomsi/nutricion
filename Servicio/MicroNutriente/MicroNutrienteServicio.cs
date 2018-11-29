@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.MicroNutriente;
+using Servicio.Interface.MicroNutrienteDetalle;
 
 namespace Servicio.MicroNutriente
 {
@@ -64,7 +65,7 @@ namespace Servicio.MicroNutriente
         {
             var micro = await Context.MicroNutrientes
                 .AsNoTracking()
-                .Include("Alimentos")
+                .Include("MicroNutrienteDetalles")
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (micro == null) throw new ArgumentNullException();
 
@@ -74,15 +75,14 @@ namespace Servicio.MicroNutriente
                 Codigo = micro.Codigo,
                 Descripcion = micro.Descripcion,
                 Eliminado = micro.Eliminado,
-                Alimentos = micro.Alimentos.Select(x=> new AlimentoDto()
+                MicroNutrienteDetalles = micro.MicroNutrienteDetalles.Select(x=> new MicroNutrienteDetalleDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
-                    Descripcion = x.Descripcion,
-                    SubGrupoId = x.SubGrupoId,
-                    MacroNutrienteId = x.MacroNutrienteId,
-                    TieneMacroNutriente = x.TieneMacroNutriente,
-                    Eliminado = x.Eliminado
+                    AlimentoId = x.AlimentoId,
+                    MicroNutrienteId = x.MicroNutrienteId,
+                    UnidadMedidaId = x.UnidadMedidaId,
+                    Cantidad = x.Cantidad
                 }).ToList()
             };
         }

@@ -1,0 +1,80 @@
+﻿@model NutricionWeb.Models.Alimento.AlimentoViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AlimentoABMViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubGrupoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubGrupoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubGrupoStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubGrupoStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Eliminado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Eliminado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MacroNutrienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MacroNutrienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneMacroNutriente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneMacroNutriente)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

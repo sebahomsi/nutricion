@@ -27,10 +27,10 @@ namespace Dominio.Entidades
         public bool TieneMacroNutriente { get; set; }
 
         //Navigation Properties
-        public virtual ICollection<MicroNutriente> MicroNutrientes { get; set; }
+        public virtual ICollection<MicroNutrienteDetalle> MicroNutrienteDetalles { get; set; }
         public virtual ICollection<Observacion> Observaciones { get; set; }
         public virtual SubGrupo SubGrupo { get; set; }
-        public virtual MacroNutriente MacroNutriente { get; set; }
+        //public virtual MacroNutriente MacroNutriente { get; set; }
         public virtual ICollection<Opcion> Opciones { get; set; }
     }
 }

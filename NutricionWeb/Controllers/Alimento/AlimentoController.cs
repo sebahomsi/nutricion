@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using NutricionWeb.Models.Alimento;
+using NutricionWeb.Models.MacroNutriente;
+using NutricionWeb.Models.SubGrupo;
 using PagedList;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.MacroNutriente;
@@ -120,34 +122,93 @@ namespace NutricionWeb.Controllers.Alimento
         }
 
         // GET: Alimento/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var alimento = await _alimentoServicio.GetById(id.Value);
+
+            return View(new AlimentoViewModel()
+            {
+                Id = alimento.Id,
+                Codigo = alimento.Codigo,
+                Descripcion = alimento.Descripcion,
+                SubGrupoId = alimento.SubGrupoId,
+                SubGrupoStr = alimento.SubGrupoStr,
+                MacroNutrienteId = alimento.MacroNutrienteId,
+                TieneMacroNutriente = alimento.TieneMacroNutriente,
+                Eliminado = alimento.Eliminado
+            });
         }
 
         // POST: Alimento/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(AlimentoViewModel vm)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _alimentoServicio.Delete(vm.Id);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index");
         }
 
         // GET: Alimento/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var alimento = await _alimentoServicio.GetById(id.Value);
+
+            return View(new AlimentoViewModel()
+            {
+                Id = alimento.Id,
+                Codigo = alimento.Codigo,
+                Descripcion = alimento.Descripcion,
+                SubGrupoId = alimento.SubGrupoId,
+                SubGrupoStr = alimento.SubGrupoStr,
+                MacroNutrienteId = alimento.MacroNutrienteId,
+                TieneMacroNutriente = alimento.TieneMacroNutriente,
+                Eliminado = alimento.Eliminado
+            });
         }
 
+        
+
         //=====================================================
+
+        public async Task<ActionResult> TraerSubGrupo(long subGrupoId)
+        {
+            var subGrupo = await _subGrupoServicio.GetById(subGrupoId);
+
+            return Json(subGrupo, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> BuscarSubGrupo(int? page, string cadenaBuscar)
+        {
+            var pageNumber = page ?? 1;
+
+            var subGrupos =
+                await _subGrupoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
+            return PartialView(subGrupos.Select(x => new SubGrupoViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                GrupoId = x.GrupoId,
+                GrupoStr = x.GrupoStr,
+                Eliminado = x.Eliminado
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
 
         private AlimentoDto CargarDatos(AlimentoABMViewModel vm)
         {
@@ -163,5 +224,7 @@ namespace NutricionWeb.Controllers.Alimento
                 Eliminado = vm.Eliminado
             };
         }
+
+        
     }
 }

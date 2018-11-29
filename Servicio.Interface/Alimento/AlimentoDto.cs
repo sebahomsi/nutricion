@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.MicroNutriente;
+using Servicio.Interface.MicroNutrienteDetalle;
 using Servicio.Interface.Observacion;
 using Servicio.Interface.Opcion;
 
@@ -13,7 +14,7 @@ namespace Servicio.Interface.Alimento
     {
         public AlimentoDto()
         {
-            MicroNutrientes = new List<MicroNutrienteDto>();
+            MicroNutrienteDetalles = new List<MicroNutrienteDetalleDto>();
             Opciones = new List<OpcionDto>();
             Observaciones = new List<ObservacionDto>();
         }
@@ -33,7 +34,7 @@ namespace Servicio.Interface.Alimento
 
         public bool TieneMacroNutriente { get; set; }
 
-        public List<MicroNutrienteDto> MicroNutrientes { get; set; }
+        public List<MicroNutrienteDetalleDto> MicroNutrienteDetalles { get; set; }
         public List<OpcionDto> Opciones { get; set; }
         public List<ObservacionDto> Observaciones { get; set; }
     }

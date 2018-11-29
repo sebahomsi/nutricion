@@ -1,0 +1,79 @@
+﻿@model IEnumerable<NutricionWeb.Models.Alimento.AlimentoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubGrupoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubGrupoStr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Eliminado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MacroNutrienteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TieneMacroNutriente)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubGrupoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubGrupoStr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Eliminado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MacroNutrienteId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TieneMacroNutriente)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+            @if (!item.TieneMacroNutriente)
+            {
+                @Html.ActionLink("Crear MacroNutrientes", "Create", "MacroNutriente", new { alimentoId = item.Id }, new {})
+            }
+            else
+            {
+                @Html.ActionLink("Modificar MacroNutrientes", "Edit", "MacroNutriente", new { macroId = item.MacroNutrienteId }, new {})
+            }
+
+        </td>
+    </tr>
+}
+
+</table>

@@ -231,7 +231,9 @@
     <Compile Include="Controllers\Empleado\EmpleadoController.cs" />
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MacroNutriente\MacroNutrienteController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MicroNutriente\MicroNutrienteController.cs" />
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
     <Compile Include="Controllers\SubGrupo\SubGrupoController.cs" />
@@ -256,9 +258,11 @@
     <Compile Include="Models\Grupo\GrupoABMViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MacroNutriente\MacroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MacroNutriente\MacroNutrienteViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleViewModel.cs" />
+    <Compile Include="Models\MicroNutriente\MicroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteViewModel.cs" />
     <Compile Include="Models\Observacion\ObservacionViewModel.cs" />
     <Compile Include="Models\OpcionDetalle\OpcionDetalleViewModel.cs" />
@@ -523,10 +527,17 @@
     <Content Include="Views\AlergiaIntolerancia\Edit.cshtml" />
     <Content Include="Views\AlergiaIntolerancia\Delete.cshtml" />
     <Content Include="Views\AlergiaIntolerancia\Details.cshtml" />
+    <Content Include="Views\Alimento\Index.cshtml" />
+    <Content Include="Views\Alimento\Create.cshtml" />
+    <Content Include="Views\Alimento\Edit.cshtml" />
+    <Content Include="Views\Alimento\Delete.cshtml" />
+    <Content Include="Views\Alimento\Details.cshtml" />
+    <Content Include="Views\Alimento\BuscarSubGrupo.cshtml" />
+    <Content Include="Views\MacroNutriente\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Alimento\" />
+    <Folder Include="Views\MicroNutriente\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
