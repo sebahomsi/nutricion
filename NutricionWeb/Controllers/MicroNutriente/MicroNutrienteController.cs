@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -40,75 +41,125 @@ namespace NutricionWeb.Controllers.MicroNutriente
         }
         
         // GET: MicroNutriente/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            return View(new MicroNutrienteABMViewModel());
         }
 
         // POST: MicroNutriente/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(MicroNutrienteABMViewModel vm)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var microDto = CargarDatos(vm);
+                    microDto.Codigo = await _microNutrienteServicio.GetNextCode();
 
-                return RedirectToAction("Index");
+                    await _microNutrienteServicio.Add(microDto);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+
+            return RedirectToAction("Index");
+
         }
 
         // GET: MicroNutriente/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long? id)
         {
-            return View();
+            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var micro = await _microNutrienteServicio.GetById(id.Value);
+
+            return View(new MicroNutrienteABMViewModel()
+            {
+                Id = micro.Id,
+                Codigo = micro.Codigo,
+                Descripcion = micro.Descripcion,
+                Eliminado = micro.Eliminado
+            });
         }
 
         // POST: MicroNutriente/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(MicroNutrienteABMViewModel vm)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    var microDto = CargarDatos(vm);
 
-                return RedirectToAction("Index");
+                    await _microNutrienteServicio.Update(microDto);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index");
         }
 
         // GET: MicroNutriente/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long? id)
         {
-            return View();
+            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var micro = await _microNutrienteServicio.GetById(id.Value);
+
+            return View(new MicroNutrienteViewModel()
+            {
+                Id = micro.Id,
+                Codigo = micro.Codigo,
+                Descripcion = micro.Descripcion,
+                Eliminado = micro.Eliminado
+            });
         }
 
         // POST: MicroNutriente/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(MicroNutrienteViewModel vm)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _microNutrienteServicio.Delete(vm.Id);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index");
+
         }
 
         // GET: MicroNutriente/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var micro = await _microNutrienteServicio.GetById(id.Value);
+
+            return View(new MicroNutrienteViewModel()
+            {
+                Id = micro.Id,
+                Codigo = micro.Codigo,
+                Descripcion = micro.Descripcion,
+                Eliminado = micro.Eliminado
+            });
         }
 
         //==============================================

@@ -61,11 +61,11 @@ namespace NutricionWeb.Controllers.MacroNutriente
         }
 
         // GET: MacroNutriente/Edit/5
-        public async Task<ActionResult> Edit(long? macroId)
+        public async Task<ActionResult> Edit(long? id)
         {
-            if (macroId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var macro = await _macroNutrienteServicio.GetById(macroId.Value);
+            var macro = await _macroNutrienteServicio.GetById(id.Value);
 
             return View(new MacroNutrienteABMViewModel()
             {

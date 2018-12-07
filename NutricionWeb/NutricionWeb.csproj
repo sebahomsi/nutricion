@@ -534,10 +534,15 @@
     <Content Include="Views\Alimento\Details.cshtml" />
     <Content Include="Views\Alimento\BuscarSubGrupo.cshtml" />
     <Content Include="Views\MacroNutriente\Create.cshtml" />
+    <Content Include="Views\MacroNutriente\Edit.cshtml" />
+    <Content Include="Views\MicroNutriente\Index.cshtml" />
+    <Content Include="Views\MicroNutriente\Create.cshtml" />
+    <Content Include="Views\MicroNutriente\Edit.cshtml" />
+    <Content Include="Views\MicroNutriente\Delete.cshtml" />
+    <Content Include="Views\MicroNutriente\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\MicroNutriente\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

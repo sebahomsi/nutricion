@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.MicroNutriente;
+using Servicio.Interface.MicroNutrienteDetalle;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.SubGrupo;
 
@@ -94,11 +95,14 @@ namespace Servicio.SubGrupo
                     SubGrupoStr = t.SubGrupo.Descripcion,
                     MacroNutrienteId = t.MacroNutrienteId,
                     TieneMacroNutriente = t.TieneMacroNutriente,
-                    MicroNutrientes = t.MicroNutrientes.Select(r=> new MicroNutrienteDto()
+                    MicroNutrienteDetalles = t.MicroNutrienteDetalles.Select(r=> new MicroNutrienteDetalleDto()
                     {
                         Id = r.Id,
                         Codigo = r.Codigo,
-                        Descripcion = r.Descripcion
+                        AlimentoId = r.AlimentoId,
+                        UnidadMedidaId = r.UnidadMedidaId,
+                        Cantidad = r.Cantidad,
+                        MicroNutrienteId = r.MicroNutrienteId
                     }).ToList(),
                     Eliminado = t.Eliminado
                 }).ToList()
