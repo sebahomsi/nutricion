@@ -6,7 +6,7 @@ using System.Web;
 
 namespace NutricionWeb.Models.UnidadMedida
 {
-    public class UnidadMedidaViewModel
+    public class UnidadMedidaABMViewModel
     {
         public long Id { get; set; }
 
@@ -19,8 +19,5 @@ namespace NutricionWeb.Models.UnidadMedida
         public string Abreviatura { get; set; }
 
         public bool Eliminado { get; set; }
-
-        [Display(Name = "Eliminado")]
-        public string EliminadoStr => Eliminado ? "Si" : "No";
     }
 }

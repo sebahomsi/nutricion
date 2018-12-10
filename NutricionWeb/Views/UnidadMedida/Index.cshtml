@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NutricionWeb.Models.MicroNutriente.MicroNutrienteViewModel>
+﻿@model IEnumerable<NutricionWeb.Models.UnidadMedida.UnidadMedidaViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -7,9 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create") |
-    @Html.ActionLink("Ver Unidades de Medida", "Index", "UnidadMedida") |
-    @Html.ActionLink("Ver Detalles", "Index", "MicroNutrienteDetalle") |
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -18,6 +16,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Abreviatura)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Eliminado)
@@ -32,6 +33,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Abreviatura)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Eliminado)

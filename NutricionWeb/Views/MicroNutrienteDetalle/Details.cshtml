@@ -1,0 +1,82 @@
+﻿@model NutricionWeb.Models.MicroNutrienteDetalle.MicroNutrienteDetalleViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MicroNutrienteDetalleViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlimentoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlimentoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlimentoStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlimentoStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MicroNutrienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MicroNutrienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MicroNutrienteStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MicroNutrienteStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnidadMedidaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadMedidaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnidadMedidaStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadMedidaStr)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

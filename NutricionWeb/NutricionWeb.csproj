@@ -233,10 +233,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MacroNutriente\MacroNutrienteController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MicroNutrienteDetalle\MicroNutrienteDetalleController.cs" />
     <Compile Include="Controllers\MicroNutriente\MicroNutrienteController.cs" />
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
     <Compile Include="Controllers\SubGrupo\SubGrupoController.cs" />
+    <Compile Include="Controllers\UnidadMedida\UnidadMedidaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -276,6 +278,7 @@
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
     <Compile Include="Models\SubGrupo\SubGrupoABMViewModel.cs" />
     <Compile Include="Models\SubGrupo\SubGrupoViewModel.cs" />
+    <Compile Include="Models\UnidadMedida\UnidadMedidaABMViewModel.cs" />
     <Compile Include="Models\UnidadMedida\UnidadMedidaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -540,6 +543,16 @@
     <Content Include="Views\MicroNutriente\Edit.cshtml" />
     <Content Include="Views\MicroNutriente\Delete.cshtml" />
     <Content Include="Views\MicroNutriente\Details.cshtml" />
+    <Content Include="Views\UnidadMedida\Index.cshtml" />
+    <Content Include="Views\UnidadMedida\Create.cshtml" />
+    <Content Include="Views\UnidadMedida\Edit.cshtml" />
+    <Content Include="Views\UnidadMedida\Details.cshtml" />
+    <Content Include="Views\UnidadMedida\Delete.cshtml" />
+    <Content Include="Views\MicroNutrienteDetalle\Index.cshtml" />
+    <Content Include="Views\MicroNutrienteDetalle\Create.cshtml" />
+    <Content Include="Views\MicroNutrienteDetalle\Edit.cshtml" />
+    <Content Include="Views\MicroNutrienteDetalle\Delete.cshtml" />
+    <Content Include="Views\MicroNutrienteDetalle\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

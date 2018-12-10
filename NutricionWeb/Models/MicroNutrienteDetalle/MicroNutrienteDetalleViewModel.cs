@@ -8,6 +8,8 @@ namespace NutricionWeb.Models.MicroNutrienteDetalle
 {
     public class MicroNutrienteDetalleViewModel
     {
+        public long Id { get; set; }
+
         public int Codigo { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]
@@ -17,6 +19,8 @@ namespace NutricionWeb.Models.MicroNutrienteDetalle
 
         [Required(ErrorMessage = "Campo Obligatorio")]
         public long MicroNutrienteId { get; set; }
+
+        public string MicroNutrienteStr { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]
         public double Cantidad { get; set; }

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<NutricionWeb.Models.MicroNutrienteDetalle.MicroNutrienteDetalleViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoStr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MicroNutrienteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MicroNutrienteStr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnidadMedidaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnidadMedidaStr)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoStr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MicroNutrienteId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MicroNutrienteStr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnidadMedidaId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnidadMedidaStr)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
