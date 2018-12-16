@@ -12,7 +12,6 @@ namespace NutricionWeb.Models.MicroNutriente
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string Descripcion { get; set; }
 
         public bool Eliminado { get; set; }

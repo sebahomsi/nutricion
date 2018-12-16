@@ -1,0 +1,37 @@
+﻿@model IEnumerable<NutricionWeb.Models.MicroNutriente.MicroNutrienteViewModel>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Eliminado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Eliminado)
+        </td>
+        <td>
+            <input type="button" id="seleccionar-micro" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
+        </td>
+    </tr>
+}
+
+</table>

@@ -12,10 +12,8 @@ namespace NutricionWeb.Models.UnidadMedida
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
         public string Abreviatura { get; set; }
 
         public bool Eliminado { get; set; }

@@ -263,6 +263,7 @@
     <Compile Include="Models\MacroNutriente\MacroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MacroNutriente\MacroNutrienteViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleABMViewModel.cs" />
     <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteViewModel.cs" />
@@ -553,6 +554,9 @@
     <Content Include="Views\MicroNutrienteDetalle\Edit.cshtml" />
     <Content Include="Views\MicroNutrienteDetalle\Delete.cshtml" />
     <Content Include="Views\MicroNutrienteDetalle\Details.cshtml" />
+    <Content Include="Views\MicroNutrienteDetalle\BuscarAlimento.cshtml" />
+    <Content Include="Views\MicroNutrienteDetalle\BuscarMicroNutriente.cshtml" />
+    <Content Include="Views\MicroNutrienteDetalle\BuscarUnidad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

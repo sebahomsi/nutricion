@@ -64,13 +64,13 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         // GET: MicroNutrienteDetalle/Create
         public async Task<ActionResult> Create()
         {
-            return View(new MicroNutrienteDetalleViewModel());
+            return View(new MicroNutrienteDetalleABMViewModel());
         }
 
         // POST: MicroNutrienteDetalle/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MicroNutrienteDetalleViewModel vm)
+        public async Task<ActionResult> Create(MicroNutrienteDetalleABMViewModel vm)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
 
             var detalle = await _microNutrienteDetalleServicio.GetById(id.Value);
 
-            return View(new MicroNutrienteDetalleViewModel()
+            return View(new MicroNutrienteDetalleABMViewModel()
             {
                 Id = detalle.Id,
                 Codigo = detalle.Codigo,
@@ -117,7 +117,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         // POST: MicroNutrienteDetalle/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(MicroNutrienteDetalleViewModel vm)
+        public async Task<ActionResult> Edit(MicroNutrienteDetalleABMViewModel vm)
         {
             try
             {
@@ -249,7 +249,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
 
             if (unidades == null) return HttpNotFound();
 
-            return View(unidades.Select(x => new UnidadMedidaViewModel()
+            return PartialView(unidades.Select(x => new UnidadMedidaViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
@@ -281,7 +281,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         }
 
 
-        private MicroNutrienteDetalleDto CargarDatos(MicroNutrienteDetalleViewModel vm)
+        private MicroNutrienteDetalleDto CargarDatos(MicroNutrienteDetalleABMViewModel vm)
         {
             return new MicroNutrienteDetalleDto()
             {
