@@ -26,7 +26,6 @@ namespace Dominio.Entidades.MetaData
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PerimetroCintura { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         DateTime FechaMedicion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]

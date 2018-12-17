@@ -5,7 +5,9 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security.Provider;
 using NutricionWeb.Models.DatoAntropometrico;
+using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
@@ -199,6 +201,45 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         }
 
         //===================================Metodos Privadox
+
+        public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
+        {
+            var pageNumber = page ?? 1;
+
+            var pacientes =
+                await _pacienteServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
+            if (pacientes == null) return HttpNotFound();
+
+            return PartialView(pacientes.Select(x => new PacienteViewModel() 
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Apellido = x.Apellido,
+                Nombre = x.Nombre,
+                Celular = x.Celular,
+                Telefono = x.Telefono,
+                Direccion = x.Direccion,
+                Dni = x.Dni,
+                FechaNac = x.FechaNac,
+                Sexo = x.Sexo,
+                Mail = x.Mail,
+                Eliminado = x.Eliminado,
+                Estado = x.Estado,
+                TieneAnalitico = x.TieneAnalitico
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+
+        }
+
+        public async Task<ActionResult> TraerPaciente(long? pacienteId)
+        {
+            if (pacienteId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(pacienteId.Value);
+
+            return Json(paciente, JsonRequestBehavior.AllowGet);
+        }
+
         private DatoAntropometricoDto CargarDatos(DatoAntropometricoABMViewModel vm)
         {
             return new DatoAntropometricoDto()

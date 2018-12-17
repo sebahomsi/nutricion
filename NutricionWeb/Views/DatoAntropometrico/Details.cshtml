@@ -1,0 +1,106 @@
+﻿@model NutricionWeb.Models.DatoAntropometrico.DatoAntropometricoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DatoAntropometricoABMViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Altura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Altura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PerimetroCadera)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PerimetroCadera)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PerimetroCintura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PerimetroCintura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaMedicion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaMedicion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MasaGrasa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MasaGrasa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MasaCorporal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MasaCorporal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Eliminado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Eliminado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

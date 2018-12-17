@@ -559,10 +559,15 @@
     <Content Include="Views\MicroNutrienteDetalle\BuscarAlimento.cshtml" />
     <Content Include="Views\MicroNutrienteDetalle\BuscarMicroNutriente.cshtml" />
     <Content Include="Views\MicroNutrienteDetalle\BuscarUnidad.cshtml" />
+    <Content Include="Views\DatoAntropometrico\Index.cshtml" />
+    <Content Include="Views\DatoAntropometrico\Create.cshtml" />
+    <Content Include="Views\DatoAntropometrico\Edit.cshtml" />
+    <Content Include="Views\DatoAntropometrico\Delete.cshtml" />
+    <Content Include="Views\DatoAntropometrico\Details.cshtml" />
+    <Content Include="Views\DatoAntropometrico\BuscarPaciente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\DatoAntropometrico\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -65,8 +65,8 @@ namespace Servicio.DatoAntropometrico
             return await Context.DatosAntropometricos
                 .AsNoTracking()
                 .Include("Paciente")
-                .Where(x => x.Codigo == codigo
-                || x.FechaMedicion.Date == fecha)
+                //.Where(x => x.Codigo == codigo
+                //|| x.FechaMedicion == fecha)
                 .Select(x => new DatoAntropometricoDto()
                 {
                     Id = x.Id,
