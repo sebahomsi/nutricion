@@ -10,6 +10,7 @@ namespace NutricionWeb
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js",
                         "~/Scripts/moment.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -26,6 +27,7 @@ namespace NutricionWeb
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery-ui.css",
                       "~/Content/site.css"));
         }
     }
