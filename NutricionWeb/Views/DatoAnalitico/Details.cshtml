@@ -1,0 +1,90 @@
+﻿@model NutricionWeb.Models.DatoAnalitico.DatoAnaliticoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DatoAnaliticoABMViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColesterolHdl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColesterolHdl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColesterolLdl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColesterolLdl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColesterolTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColesterolTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresionDiastolica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresionDiastolica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresionSistolica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresionSistolica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trigliceridos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trigliceridos)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

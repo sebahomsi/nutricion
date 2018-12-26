@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>EmpleadoABMViewModel</h4>
         <hr />
@@ -58,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FechaNac, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaNac, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FechaNac, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.FechaNac, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -97,7 +97,7 @@
             </div>
         </div>
 
-       
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -113,4 +113,18 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(function () {
+            $("#FechaNac").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1930:2015"
+            });
+            
+        });
+        $(document).ready(function(){
+            $("#FechaNac").attr("value", "01/01/1980");
+        });
+    </script>
 }

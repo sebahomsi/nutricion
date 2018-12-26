@@ -1,0 +1,211 @@
+﻿@model NutricionWeb.Models.DatoAnalitico.DatoAnaliticoABMViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<!--Modal -->
+<div class="modal fade" id="modal-pacientes" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Paciente</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarPaciente" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarPaciente" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindPaciente"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-paciente" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>DatoAnaliticoABMViewModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.PacienteId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Codigo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PacienteStr, new { @class = "control-label col-md-2" })
+        <div class="col-md-4" style="width: 310px">
+            @Html.EditorFor(model => model.PacienteStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.PacienteStr, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2" align="left">
+            <div id="btn-Paciente" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-pacientes" value="Modal BuscarPacientes" title="Seleccionar paciente">...</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ColesterolHdl, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ColesterolHdl, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ColesterolHdl, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ColesterolLdl, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ColesterolLdl, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ColesterolLdl, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PresionDiastolica, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PresionDiastolica, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PresionDiastolica, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PresionSistolica, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PresionSistolica, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PresionSistolica, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Trigliceridos, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Trigliceridos, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Trigliceridos, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ColesterolTotal, new { @class = "control-label col-md-2" })
+        <div class="col-md-4" style="width: 310px">
+            @Html.EditorFor(model => model.ColesterolTotal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.ColesterolTotal, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2" align="left">
+            <div id="btn-Total" class="btn btn-default" type="button">Calcular</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+
+        $(function () {
+
+            $("#btn-Paciente").click(function() {
+                    listaPaciente();
+                }
+            );
+
+
+
+            function listaPaciente() {
+                $("#partialFindAlimento").empty();
+
+                $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAnalitico"))',
+                    {
+                        cadenaBuscar: $("#txt-BuscarPaciente").val()
+                    },
+                    function (listaPaciente) {
+                        $("#partialFindPaciente").append(listaPaciente);
+                    });
+            }
+
+
+
+            $(document).on("click",
+                "#seleccionar-paciente",
+                function() {
+
+                    var url = '@Html.Raw(Url.Action("TraerPaciente", "DatoAnalitico"))';
+
+                    $.get(url,
+                        { pacienteId: $(this).attr("name") },
+                        function(paciente) {
+
+                            $('#PacienteStr').val(paciente.Apellido + " " + paciente.Nombre);
+                            $('#PacienteId').val(paciente.Id);
+                            $('#cancelar-paciente').trigger("click");
+                        });
+                });
+
+            $(document).on("click",
+                "#btn-Total",
+                function() {
+
+                    var url = '@Html.Raw(Url.Action("CalcularColesterolTotal", "DatoAnalitico"))';
+
+                    $.get(url,
+                        {
+                            ldl: $('#ColesterolLdl').val(),
+                            hdl: $('#ColesterolHdl').val(),
+                            tri: $('#Trigliceridos').val()
+                        },
+                        function(total) {
+
+                            $('#ColesterolTotal').val(total);
+                            
+                        });
+                });
+
+
+        });
+
+
+</script>
+}

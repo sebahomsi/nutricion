@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.Comida;
 using Servicio.Interface.Dia;
 using Servicio.Interface.PlanAlimenticio;
 
@@ -55,11 +56,11 @@ namespace Servicio.PlanAlimenticio
         {
             DateTime.TryParse(cadenaBuscar, out var fecha);
             int.TryParse(cadenaBuscar, out var codigo);
-            return await Context.PlanesAlimenticios
-                .AsNoTracking()
+            return await Context.PlanesAlimenticios.AsNoTracking()
                 .Include("Paciente")
-                .Where(x => x.Fecha == fecha
-                        || x.Codigo == codigo)
+                
+                //.Where(x => x.Fecha == fecha
+                //        || x.Codigo == codigo)
                 .Select(x => new PlanAlimenticioDto()
                 {
                     Id = x.Id,
@@ -69,16 +70,16 @@ namespace Servicio.PlanAlimenticio
                     PacienteId = x.PacienteId,
                     PacienteStr = x.Paciente.Apellido +" "+ x.Paciente.Nombre,
                     Comentarios = x.Comentarios,
-                    Eliminado = x.Eliminado
+                    Eliminado = x.Eliminado,
+                   
                 }).ToListAsync();
         }
 
         public async Task<PlanAlimenticioDto> GetById(long id)
         {
-            var plan = await Context.PlanesAlimenticios.AsNoTracking()
+            var plan = await Context.PlanesAlimenticios
                 .Include("Paciente")
-                .Include("Dias")
-                .Include("Dias.PlanAlimenticio")
+                .Include("Dias.Comidas.Opciones.OpcionDetalles")
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (plan == null) throw new ArgumentNullException();
 
@@ -98,7 +99,15 @@ namespace Servicio.PlanAlimenticio
                     Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
                     PlanAlimenticioId = x.PlanAlimenticioId,
-                    PlanAlimenticioStr = x.PlanAlimenticio.Motivo
+                    PlanAlimenticioStr = x.PlanAlimenticio.Motivo,
+                    Comidas = x.Comidas.Select(q => new ComidaDto()
+                    {
+                        Id = q.Id,
+                        Codigo = q.Codigo,
+                        Descripcion = q.Descripcion,
+                        DiaId = q.DiaId,
+                        DiaStr = q.Dia.Descripcion
+                    }).ToList()
                 }).ToList()
             };
         }

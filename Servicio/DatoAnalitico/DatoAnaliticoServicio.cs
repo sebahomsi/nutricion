@@ -56,7 +56,6 @@ namespace Servicio.DatoAnalitico
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.DatosAnaliticos
                 .AsNoTracking()
-                .Where(x => x.Codigo == codigo)
                 .Include("Paciente")
                 .Select(x =>new DatoAnaliticoDto()
                 {

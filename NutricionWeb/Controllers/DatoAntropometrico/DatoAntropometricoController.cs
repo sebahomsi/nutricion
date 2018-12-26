@@ -226,7 +226,6 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
                 Estado = x.Estado,
-                TieneAnalitico = x.TieneAnalitico
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
 
         }

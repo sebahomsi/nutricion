@@ -50,7 +50,6 @@ namespace NutricionWeb.Controllers.Paciente
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
                 Estado = x.Estado,
-                TieneAnalitico = x.TieneAnalitico
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
@@ -129,7 +128,6 @@ namespace NutricionWeb.Controllers.Paciente
                 Mail = paciente.Mail,
                 Eliminado = paciente.Eliminado,
                 Estado = paciente.Estado,
-                TieneAnalitico = paciente.TieneAnalitico
             });
         }
 
@@ -182,7 +180,6 @@ namespace NutricionWeb.Controllers.Paciente
                 Mail = paciente.Mail,
                 Eliminado = paciente.Eliminado,
                 Estado = paciente.Estado,
-                TieneAnalitico = paciente.TieneAnalitico
             });
         }
 
@@ -230,7 +227,6 @@ namespace NutricionWeb.Controllers.Paciente
                 FotoStr = paciente.Foto,
                 Eliminado = paciente.Eliminado,
                 Estado = paciente.Estado,
-                TieneAnalitico = paciente.TieneAnalitico
             });
         }
 

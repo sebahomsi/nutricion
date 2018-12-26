@@ -41,9 +41,8 @@
             @Html.DisplayFor(modelItem => item.Eliminado)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            <input type="button" id="seleccionar-subgrupo" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
+
         </td>
     </tr>
 }

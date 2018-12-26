@@ -63,7 +63,6 @@ namespace Servicio.Patologia
         {
             var patologia = await Context.Patologias
                 .AsNoTracking()
-                .Include("Observaciones")
                 .Include("Observaciones.Paciente")
                 .FirstOrDefaultAsync(x => x.Id == id);
             if(patologia == null) throw new ArgumentNullException();

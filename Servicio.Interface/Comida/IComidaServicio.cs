@@ -15,5 +15,6 @@ namespace Servicio.Interface.Comida
         Task<ICollection<ComidaDto>> Get(string cadenaBuscar);
         Task<ComidaDto> GetById(long id);
         Task<int> GetNextCode();
+        Task GenerarComidas(long diaId);
     }
 }

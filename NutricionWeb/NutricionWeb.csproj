@@ -228,6 +228,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlergiaIntolerancia\AlergiaIntoleranciaController.cs" />
     <Compile Include="Controllers\Alimento\AlimentoController.cs" />
+    <Compile Include="Controllers\DatoAnalitico\DatoAnaliticoController.cs" />
     <Compile Include="Controllers\DatoAntropometrico\DatoAntropometricoController.cs" />
     <Compile Include="Controllers\Empleado\EmpleadoController.cs" />
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Controllers\MicroNutriente\MicroNutrienteController.cs" />
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
+    <Compile Include="Controllers\PlanAlimenticio\PlanAlimenticioController.cs" />
     <Compile Include="Controllers\SubGrupo\SubGrupoController.cs" />
     <Compile Include="Controllers\UnidadMedida\UnidadMedidaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -253,6 +255,7 @@
     <Compile Include="Models\Alimento\AlimentoABMViewModel.cs" />
     <Compile Include="Models\Alimento\AlimentoViewModel.cs" />
     <Compile Include="Models\Comida\ComidaViewModel.cs" />
+    <Compile Include="Models\DatoAnalitico\DatoAnaliticoABMViewModel.cs" />
     <Compile Include="Models\DatoAnalitico\DatoAnaliticoViewModel.cs" />
     <Compile Include="Models\DatoAntropometrico\DatoAntropometricoABMViewModel.cs" />
     <Compile Include="Models\DatoAntropometrico\DatoAntropometricoViewModel.cs" />
@@ -278,6 +281,7 @@
     <Compile Include="Models\Patologia\PatologiaViewModel.cs" />
     <Compile Include="Models\Persona\PersonaABMViewModel.cs" />
     <Compile Include="Models\Persona\PersonaViewModel.cs" />
+    <Compile Include="Models\PlanAlimenticio\PlanAlimenticioABMViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
     <Compile Include="Models\SubGrupo\SubGrupoABMViewModel.cs" />
     <Compile Include="Models\SubGrupo\SubGrupoViewModel.cs" />
@@ -563,9 +567,22 @@
     <Content Include="Views\DatoAntropometrico\Delete.cshtml" />
     <Content Include="Views\DatoAntropometrico\Details.cshtml" />
     <Content Include="Views\DatoAntropometrico\BuscarPaciente.cshtml" />
+    <Content Include="Views\DatoAnalitico\Index.cshtml" />
+    <Content Include="Views\DatoAnalitico\Create.cshtml" />
+    <Content Include="Views\DatoAnalitico\Edit.cshtml" />
+    <Content Include="Views\DatoAnalitico\Delete.cshtml" />
+    <Content Include="Views\DatoAnalitico\Details.cshtml" />
+    <Content Include="Views\DatoAnalitico\BuscarPaciente.cshtml" />
+    <Content Include="Views\PlanAlimenticio\Details.cshtml" />
+    <Content Include="Views\PlanAlimenticio\Delete.cshtml" />
+    <Content Include="Views\PlanAlimenticio\Edit.cshtml" />
+    <Content Include="Views\PlanAlimenticio\Create.cshtml" />
+    <Content Include="Views\PlanAlimenticio\Index.cshtml" />
+    <Content Include="Views\PlanAlimenticio\BuscarPaciente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Imagenes\Personas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

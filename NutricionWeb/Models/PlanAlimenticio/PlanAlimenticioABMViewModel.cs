@@ -6,16 +6,18 @@ using System.Web;
 
 namespace NutricionWeb.Models.PlanAlimenticio
 {
-    public class PlanAlimenticioViewModel
+    public class PlanAlimenticioABMViewModel
     {
         public long Id { get; set; }
 
         public int Codigo { get; set; }
 
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public long PacienteId { get; set; }
 
         public string PacienteStr { get; set; }
 
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public string Motivo { get; set; }
 
         public DateTime Fecha { get; set; }

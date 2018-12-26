@@ -18,10 +18,10 @@ namespace Dominio.Entidades
 
         public bool Estado { get; set; }
 
-        public bool TieneAnalitico { get; set; }
 
         //Navigation Properties
         public virtual ICollection<DatoAntropometrico> DatosAntropometricos { get; set; }
+        public virtual ICollection<DatoAnalitico> DatosAnaliticos { get; set; }
         public virtual ICollection<PlanAlimenticio> PlanesAlimenticios { get; set; }
         //public virtual Turno Turno { get; set; } 
     }

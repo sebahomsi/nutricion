@@ -17,13 +17,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Direccion)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mail)
-        </th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.Sexo)
-        </th>
         
         <th>
             @Html.DisplayNameFor(model => model.Codigo)
@@ -49,13 +42,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.Direccion)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mail)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.Sexo)
-        </td>
         
         <td>
             @Html.DisplayFor(modelItem => item.Codigo)
@@ -66,7 +52,6 @@
 
         <td>
             <input type="button" id="seleccionar-paciente" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
-
         </td>
     </tr>
 }

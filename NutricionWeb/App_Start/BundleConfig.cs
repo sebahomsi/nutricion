@@ -28,7 +28,8 @@ namespace NutricionWeb
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/jquery-ui.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/MiHojita.css"));
         }
     }
 }

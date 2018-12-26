@@ -68,7 +68,6 @@ namespace Servicio.AlergiaIntolerancia
         {
             var alergia = await Context.AlergiasIntolerancias
                 .AsNoTracking()
-                .Include("Observaciones")
                 .Include("Observaciones.Paciente")
                 .FirstOrDefaultAsync(x => x.Id == id);
 

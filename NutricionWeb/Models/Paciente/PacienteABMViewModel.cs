@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using NutricionWeb.Models.Persona;
@@ -12,6 +13,7 @@ namespace NutricionWeb.Models.Paciente
 
         public bool Estado { get; set; }
 
-        public bool TieneAnalitico { get; set; }
+
+        
     }
 }

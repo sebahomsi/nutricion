@@ -16,6 +16,5 @@ namespace Dominio.Entidades.MetaData
 
         bool Estado { get; set; }
 
-        bool TieneAnalitico { get; set; }
     }
 }

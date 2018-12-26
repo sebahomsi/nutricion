@@ -95,15 +95,6 @@ namespace Servicio.SubGrupo
                     SubGrupoStr = t.SubGrupo.Descripcion,
                     MacroNutrienteId = t.MacroNutrienteId,
                     TieneMacroNutriente = t.TieneMacroNutriente,
-                    MicroNutrienteDetalles = t.MicroNutrienteDetalles.Select(r=> new MicroNutrienteDetalleDto()
-                    {
-                        Id = r.Id,
-                        Codigo = r.Codigo,
-                        AlimentoId = r.AlimentoId,
-                        UnidadMedidaId = r.UnidadMedidaId,
-                        Cantidad = r.Cantidad,
-                        MicroNutrienteId = r.MicroNutrienteId
-                    }).ToList(),
                     Eliminado = t.Eliminado
                 }).ToList()
             };
