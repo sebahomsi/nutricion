@@ -1,0 +1,80 @@
+﻿@model NutricionWeb.Models.Comida.ComidaViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ComidaViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaStr)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Crear Opcion", "Create", "Opcion", new { comidaId = Model.Id }, new { })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Opciones.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Opciones.FirstOrDefault().Descripcion)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Opciones)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+
+            <td>
+                @Html.ActionLink("Details", "Details", "Opcion", new { opcionId = item.Id }, new { })
+            </td>
+        </tr>
+    }
+
+</table>

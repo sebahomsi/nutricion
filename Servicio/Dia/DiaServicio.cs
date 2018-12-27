@@ -130,7 +130,30 @@ namespace Servicio.Dia
 
         public async Task<DiaDto> GetById(long id)
         {
-            throw new NotImplementedException();
+            var dia = await Context.Dias
+                .AsNoTracking()
+                .Include("PlanAlimenticio")
+                .Include("Comidas.Opciones")
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (dia == null) throw new ArgumentNullException();
+
+            return new DiaDto()
+            {
+                Id = dia.Id,
+                Codigo = dia.Codigo,
+                Descripcion = dia.Descripcion,
+                PlanAlimenticioId = dia.PlanAlimenticioId,
+                PlanAlimenticioStr = dia.PlanAlimenticio.Motivo,
+                Comidas = dia.Comidas.Select(x=> new ComidaDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    DiaId = x.DiaId,
+                    DiaStr = x.Dia.Descripcion
+                }).ToList()
+            };
         }
 
         public async Task<int> GetNextCode()

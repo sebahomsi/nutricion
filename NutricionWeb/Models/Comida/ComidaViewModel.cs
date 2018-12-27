@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using NutricionWeb.Models.Opcion;
 
 namespace NutricionWeb.Models.Comida
 {
@@ -12,12 +13,12 @@ namespace NutricionWeb.Models.Comida
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public long DiaId { get; set; }
 
         public string DiaStr { get; set; }
+
+        public List<OpcionViewModel> Opciones { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Servicio.Interface.Opcion
     {
         public OpcionDto()
         {
-            OpcionesDetalles = new List<OpcionDetalleDto>();
+            OpcionDetalles = new List<OpcionDetalleDto>();
         }
         public long Id { get; set; }
         public int Codigo { get; set; }
@@ -20,6 +20,6 @@ namespace Servicio.Interface.Opcion
         public string ComidaStr { get; set; }
         public bool Eliminado { get; set; }
         
-        public List<OpcionDetalleDto> OpcionesDetalles { get; set; }
+        public List<OpcionDetalleDto> OpcionDetalles { get; set; }
     }
 }

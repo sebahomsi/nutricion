@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using NutricionWeb.Models.Comida;
 
 namespace NutricionWeb.Models.Dia
 {
@@ -12,12 +13,12 @@ namespace NutricionWeb.Models.Dia
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public long PlanAlimenticioId { get; set; }
 
         public string PlanAlimenticioStr { get; set; }
+
+        public List<ComidaViewModel> Comidas { get; set; }
     }
 }

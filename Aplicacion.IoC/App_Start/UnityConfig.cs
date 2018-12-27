@@ -19,6 +19,8 @@ using Servicio.Interface.MacroNutriente;
 using Servicio.Interface.MicroNutriente;
 using Servicio.Interface.MicroNutrienteDetalle;
 using Servicio.Interface.Observacion;
+using Servicio.Interface.Opcion;
+using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.Patologia;
 using Servicio.Interface.Persona;
@@ -29,6 +31,8 @@ using Servicio.MacroNutriente;
 using Servicio.MicroNutriente;
 using Servicio.MicroNutrienteDetalle;
 using Servicio.Observacion;
+using Servicio.Opcion;
+using Servicio.OpcionDetalle;
 using Servicio.Paciente;
 using Servicio.Patologia;
 using Servicio.Persona;
@@ -63,6 +67,10 @@ namespace Aplicacion.IoC
             container.RegisterType<IPlanAlimenticioServicio, PlanAlimenticioServicio>();
             container.RegisterType<ISubGrupoServicio, SubGrupoServicio>();
             container.RegisterType<IUnidadMedidaServicio, UnidadMedidaServicio>();
+            container.RegisterType<IOpcionServicio, OpcionServicio>();
+            container.RegisterType<IOpcionDetalleServicio, OpcionDetalleServicio>();
+
+
 
 
             //esto ya venia

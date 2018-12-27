@@ -228,8 +228,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlergiaIntolerancia\AlergiaIntoleranciaController.cs" />
     <Compile Include="Controllers\Alimento\AlimentoController.cs" />
+    <Compile Include="Controllers\Comida\ComidaController.cs" />
     <Compile Include="Controllers\DatoAnalitico\DatoAnaliticoController.cs" />
     <Compile Include="Controllers\DatoAntropometrico\DatoAntropometricoController.cs" />
+    <Compile Include="Controllers\Dia\DiaController.cs" />
     <Compile Include="Controllers\Empleado\EmpleadoController.cs" />
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -237,6 +239,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MicroNutrienteDetalle\MicroNutrienteDetalleController.cs" />
     <Compile Include="Controllers\MicroNutriente\MicroNutrienteController.cs" />
+    <Compile Include="Controllers\OpcionDetalle\OpcionDetalleController.cs" />
+    <Compile Include="Controllers\Opcion\OpcionController.cs" />
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
     <Compile Include="Controllers\PlanAlimenticio\PlanAlimenticioController.cs" />
@@ -273,7 +277,9 @@
     <Compile Include="Models\MicroNutriente\MicroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteViewModel.cs" />
     <Compile Include="Models\Observacion\ObservacionViewModel.cs" />
+    <Compile Include="Models\OpcionDetalle\OpcionDetalleABMViewModel.cs" />
     <Compile Include="Models\OpcionDetalle\OpcionDetalleViewModel.cs" />
+    <Compile Include="Models\Opcion\OpcionABMViewModel.cs" />
     <Compile Include="Models\Opcion\OpcionViewModel.cs" />
     <Compile Include="Models\Paciente\PacienteABMViewModel.cs" />
     <Compile Include="Models\Paciente\PacienteViewModel.cs" />
@@ -579,6 +585,11 @@
     <Content Include="Views\PlanAlimenticio\Create.cshtml" />
     <Content Include="Views\PlanAlimenticio\Index.cshtml" />
     <Content Include="Views\PlanAlimenticio\BuscarPaciente.cshtml" />
+    <Content Include="Views\Dia\Details.cshtml" />
+    <Content Include="Views\Comida\Details.cshtml" />
+    <Content Include="Views\Opcion\Create.cshtml" />
+    <Content Include="Views\Opcion\Details.cshtml" />
+    <Content Include="Views\OpcionDetalle\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

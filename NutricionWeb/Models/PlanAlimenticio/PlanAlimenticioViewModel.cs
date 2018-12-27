@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using NutricionWeb.Models.Dia;
 
 namespace NutricionWeb.Models.PlanAlimenticio
 {
@@ -23,5 +24,7 @@ namespace NutricionWeb.Models.PlanAlimenticio
         public string Comentarios { get; set; }
 
         public bool Eliminado { get; set; }
+
+        public List<DiaViewModel> Dias { get; set; }
     }
 }

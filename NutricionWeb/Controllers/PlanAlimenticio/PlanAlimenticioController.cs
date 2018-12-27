@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using NutricionWeb.Models.Dia;
 using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using PagedList;
@@ -183,7 +184,14 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PacienteId = plan.PacienteId,
                 PacienteStr = plan.PacienteStr,
                 Comentarios = plan.Comentarios,
-                Eliminado = plan.Eliminado
+                Eliminado = plan.Eliminado,
+                Dias = plan.Dias.Select(x=> new DiaViewModel()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    PlanAlimenticioId = x.PlanAlimenticioId
+                }).ToList()
             });
         }
 

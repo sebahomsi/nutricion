@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Comida;
+using Servicio.Interface.Opcion;
 
 namespace Servicio.Comida
 {
@@ -94,7 +95,30 @@ namespace Servicio.Comida
 
         public async Task<ComidaDto> GetById(long id)
         {
-            throw new NotImplementedException();
+            var comida = await Context.Comidas
+                .AsNoTracking()
+                .Include("Dia")
+                .Include("Opciones.OpcionDetalles")
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (comida == null) throw new ArgumentNullException();
+
+            return new ComidaDto()
+            {
+                Id = comida.Id,
+                Codigo = comida.Codigo,
+                Descripcion = comida.Descripcion,
+                DiaId = comida.DiaId,
+                DiaStr = comida.Dia.Descripcion,
+                Opciones = comida.Opciones.Select(x => new OpcionDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    ComidaId = x.ComidaId,
+                    ComidaStr = x.Comida.Descripcion
+                }).ToList()
+            };
         }
 
         public async Task<int> GetNextCode()
