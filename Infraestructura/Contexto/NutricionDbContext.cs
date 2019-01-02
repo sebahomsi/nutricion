@@ -41,7 +41,7 @@ namespace Infraestructura.Contexto
         public IDbSet<Observacion> Observaciones { get; set; }
         public IDbSet<PlanAlimenticio> PlanesAlimenticios { get; set; }
         public IDbSet<UnidadMedida> UnidadMedidas { get; set; }
-
+        public IDbSet<Turno> Turnos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

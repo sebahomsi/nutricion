@@ -97,7 +97,7 @@ namespace Servicio.Opcion
                     OpcionId = x.OpcionId,
                     OpcionStr = x.Opcion.Descripcion,
                     UnidadMedidaId = x.UnidadMedidaId,
-                    UnidadMedidaStr = x.UnidadMedida.Descripcion,
+                    UnidadMedidaStr = x.UnidadMedida.Abreviatura,
                     Eliminado = x.Eliminado
                 }).ToList()
             };

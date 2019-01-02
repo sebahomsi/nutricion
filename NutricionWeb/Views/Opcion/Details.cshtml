@@ -44,11 +44,9 @@
             @Html.DisplayNameFor(model => model.OpcionDetalles.FirstOrDefault().AlimentoStr)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OpcionDetalles.FirstOrDefault().UnidadMedidaStr)
+            @Html.DisplayNameFor(model => model.OpcionDetalles.FirstOrDefault().CantidadMostrar)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OpcionDetalles.FirstOrDefault().Cantidad)
-        </th>
+        
 
         <th></th>
     </tr>
@@ -63,11 +61,9 @@
             @Html.DisplayFor(modelItem => item.AlimentoStr)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UnidadMedidaStr)
+            @Html.DisplayFor(modelItem => item.CantidadMostrar)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cantidad)
-        </td>
+        
 
         <td>
             @Html.ActionLink("Details", "Details", "Opcion", new { opcionId = item.Id }, new { })

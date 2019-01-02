@@ -88,6 +88,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubGrupo\ISubGrupoServicio.cs" />
     <Compile Include="SubGrupo\SubGrupoDto.cs" />
+    <Compile Include="Turno\ITurnoServicio.cs" />
+    <Compile Include="Turno\TurnoDto.cs" />
     <Compile Include="UnidadMedida\IUnidadMedidaServicio.cs" />
     <Compile Include="UnidadMedida\UnidadMedidaDto.cs" />
   </ItemGroup>

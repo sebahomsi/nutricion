@@ -26,6 +26,8 @@ namespace NutricionWeb.Models.OpcionDetalle
 
         public string UnidadMedidaStr { get; set; }
 
+        public string CantidadMostrar => Cantidad + UnidadMedidaStr;
+
         public bool Eliminado { get; set; }
     }
 }

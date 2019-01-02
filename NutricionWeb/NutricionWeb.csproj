@@ -245,6 +245,7 @@
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
     <Compile Include="Controllers\PlanAlimenticio\PlanAlimenticioController.cs" />
     <Compile Include="Controllers\SubGrupo\SubGrupoController.cs" />
+    <Compile Include="Controllers\Turno\TurnoController.cs" />
     <Compile Include="Controllers\UnidadMedida\UnidadMedidaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -291,6 +292,8 @@
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
     <Compile Include="Models\SubGrupo\SubGrupoABMViewModel.cs" />
     <Compile Include="Models\SubGrupo\SubGrupoViewModel.cs" />
+    <Compile Include="Models\Turno\TurnoABMViewModel.cs" />
+    <Compile Include="Models\Turno\TurnoViewModel.cs" />
     <Compile Include="Models\UnidadMedida\UnidadMedidaABMViewModel.cs" />
     <Compile Include="Models\UnidadMedida\UnidadMedidaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -590,6 +593,14 @@
     <Content Include="Views\Opcion\Create.cshtml" />
     <Content Include="Views\Opcion\Details.cshtml" />
     <Content Include="Views\OpcionDetalle\Create.cshtml" />
+    <Content Include="Views\OpcionDetalle\BuscarAlimento.cshtml" />
+    <Content Include="Views\OpcionDetalle\BuscarUnidad.cshtml" />
+    <Content Include="Views\Turno\BuscarPaciente.cshtml" />
+    <Content Include="Views\Turno\Details.cshtml" />
+    <Content Include="Views\Turno\Delete.cshtml" />
+    <Content Include="Views\Turno\Edit.cshtml" />
+    <Content Include="Views\Turno\Create.cshtml" />
+    <Content Include="Views\Turno\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

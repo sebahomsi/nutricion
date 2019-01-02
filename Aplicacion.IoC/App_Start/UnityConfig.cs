@@ -26,6 +26,7 @@ using Servicio.Interface.Patologia;
 using Servicio.Interface.Persona;
 using Servicio.Interface.PlanAlimenticio;
 using Servicio.Interface.SubGrupo;
+using Servicio.Interface.Turno;
 using Servicio.Interface.UnidadMedida;
 using Servicio.MacroNutriente;
 using Servicio.MicroNutriente;
@@ -38,6 +39,7 @@ using Servicio.Patologia;
 using Servicio.Persona;
 using Servicio.PlanAlimenticio;
 using Servicio.SubGrupo;
+using Servicio.Turno;
 using Servicio.UnidadMedida;
 using Unity;
 using Unity.Mvc5;
@@ -69,8 +71,7 @@ namespace Aplicacion.IoC
             container.RegisterType<IUnidadMedidaServicio, UnidadMedidaServicio>();
             container.RegisterType<IOpcionServicio, OpcionServicio>();
             container.RegisterType<IOpcionDetalleServicio, OpcionDetalleServicio>();
-
-
+            container.RegisterType<ITurnoServicio, TurnoServicio>();
 
 
             //esto ya venia

@@ -4,19 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.OpcionDetalle;
+using NutricionWeb.Models.UnidadMedida;
+using PagedList;
+using Servicio.Interface.Alimento;
 using Servicio.Interface.OpcionDetalle;
+using Servicio.Interface.UnidadMedida;
+using static NutricionWeb.Helpers.PagedList;
+
 
 namespace NutricionWeb.Controllers.OpcionDetalle
 {
     public class OpcionDetalleController : Controller
     {
         private readonly IOpcionDetalleServicio _opcionDetalleServicio;
+        private readonly IAlimentoServicio _alimentoServicio;
+        private readonly IUnidadMedidaServicio _unidadMedidaServicio;
 
-        public OpcionDetalleController(IOpcionDetalleServicio opcionDetalleServicio)
+        public OpcionDetalleController(IOpcionDetalleServicio opcionDetalleServicio, IAlimentoServicio alimentoServicio, IUnidadMedidaServicio unidadMedidaServicio)
         {
             _opcionDetalleServicio = opcionDetalleServicio;
+            _alimentoServicio = alimentoServicio;
+            _unidadMedidaServicio = unidadMedidaServicio;
         }
+
         // GET: OpcionDetalle
         public ActionResult Index()
         {
@@ -106,6 +118,60 @@ namespace NutricionWeb.Controllers.OpcionDetalle
             }
         }
         //=========================Metodos a prueba de hugos
+
+        public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar)
+        {
+            var pageNumber = page ?? 1;
+
+            var alimentos =
+                await _alimentoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            if (alimentos == null) return HttpNotFound();
+
+            return PartialView(alimentos.Select(x => new AlimentoViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                SubGrupoId = x.SubGrupoId,
+                SubGrupoStr = x.SubGrupoStr,
+                MacroNutrienteId = x.MacroNutrienteId,
+                TieneMacroNutriente = x.TieneMacroNutriente,
+                Eliminado = x.Eliminado
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
+
+        public async Task<ActionResult> BuscarUnidad(int? page, string cadenaBuscar)
+        {
+            var pageNumber = page ?? 1;
+
+            var unidades =
+                await _unidadMedidaServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
+            if (unidades == null) return HttpNotFound();
+
+            return PartialView(unidades.Select(x => new UnidadMedidaViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Abreviatura = x.Abreviatura,
+                Eliminado = x.Eliminado
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
+
+        public async Task<ActionResult> TraerAlimento(long alimentoId)
+        {
+            var alimento = await _alimentoServicio.GetById(alimentoId);
+
+            return Json(alimento, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> TraerUnidad(long unidadId)
+        {
+            var unidad = await _unidadMedidaServicio.GetById(unidadId);
+
+            return Json(unidad, JsonRequestBehavior.AllowGet);
+        }
 
         private OpcionDetalleDto CargarDatos(OpcionDetalleABMViewModel vm)
         {

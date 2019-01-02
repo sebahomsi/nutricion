@@ -23,6 +23,6 @@ namespace Dominio.Entidades
         public virtual ICollection<DatoAntropometrico> DatosAntropometricos { get; set; }
         public virtual ICollection<DatoAnalitico> DatosAnaliticos { get; set; }
         public virtual ICollection<PlanAlimenticio> PlanesAlimenticios { get; set; }
-        //public virtual Turno Turno { get; set; } 
+        public virtual ICollection<Turno> Turnos { get; set; } 
     }
 }

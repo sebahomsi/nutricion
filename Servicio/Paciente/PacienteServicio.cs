@@ -8,6 +8,7 @@ using Servicio.Interface.Alimento;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
+using Servicio.Interface.Turno;
 
 namespace Servicio.Paciente
 {
@@ -101,6 +102,7 @@ namespace Servicio.Paciente
                 .Include("DatosAntropometricos")
                 .Include("DatosAntropometricos.Paciente")
                 .Include("PlanesAlimenticios")
+                .Include("Turnos")
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (paciente == null) throw new ArgumentNullException();
 
@@ -136,7 +138,7 @@ namespace Servicio.Paciente
                     Eliminado = p.Eliminado
                 }).ToList(),
                 PlanesAlimenticios = paciente.PlanesAlimenticios.Select(q=> new PlanAlimenticioDto()).ToList(),
-                
+                Turnos = paciente.Turnos.Select(t=> new TurnoDto()).ToList(),
             };
         }
 
