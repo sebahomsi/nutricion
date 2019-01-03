@@ -5,11 +5,17 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using NutricionWeb.Models.Comida;
 using NutricionWeb.Models.Dia;
+using NutricionWeb.Models.Opcion;
+using NutricionWeb.Models.OpcionDetalle;
 using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using PagedList;
+using Servicio.Interface.Comida;
 using Servicio.Interface.Dia;
+using Servicio.Interface.Opcion;
+using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
 using static NutricionWeb.Helpers.PagedList;
@@ -190,12 +196,97 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                     Id = x.Id,
                     Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
-                    PlanAlimenticioId = x.PlanAlimenticioId
+                    PlanAlimenticioId = x.PlanAlimenticioId,
+                    Comidas = x.Comidas.Select(q => new ComidaViewModel()
+                    {
+                        Id = q.Id,
+                        Codigo = q.Codigo,
+                        Descripcion = q.Descripcion,
+                        DiaId = q.DiaId,
+                        DiaStr = q.DiaStr,
+                        Opciones = q.Opciones.Select(t => new OpcionViewModel()
+                        {
+                            Id = t.Id,
+                            Codigo = t.Codigo,
+                            Descripcion = t.Descripcion,
+                            ComidaId = t.ComidaId,
+                            ComidaStr = t.ComidaStr,
+                            Eliminado = t.Eliminado,
+                            OpcionDetalles = t.OpcionDetalles.Select(r => new OpcionDetalleViewModel()
+                            {
+                                Id = r.Id,
+                                Codigo = r.Codigo,
+                                AlimentoId = r.AlimentoId,
+                                AlimentoStr = r.AlimentoStr,
+                                Cantidad = r.Cantidad,
+                                OpcionId = r.OpcionId,
+                                OpcionStr = r.OpcionStr,
+                                UnidadMedidaId = r.UnidadMedidaId,
+                                UnidadMedidaStr = r.UnidadMedidaStr,
+                                Eliminado = r.Eliminado
+                            }).ToList()
+                        }).ToList()
+                    }).ToList()
                 }).ToList()
             });
         }
 
         //================================================================Metodos Especiales
+
+        public async Task<ActionResult> ExportarPlan(long id)
+        {
+            var plan = await _planAlimenticioServicio.GetById(id);
+
+            return View(new PlanAlimenticioViewModel()
+            {
+                Id = plan.Id,
+                Codigo = plan.Codigo,
+                Fecha = plan.Fecha,
+                Motivo = plan.Motivo,
+                PacienteId = plan.PacienteId,
+                PacienteStr = plan.PacienteStr,
+                Comentarios = plan.Comentarios,
+                Eliminado = plan.Eliminado,
+                Dias = plan.Dias.Select(x => new DiaViewModel()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    PlanAlimenticioId = x.PlanAlimenticioId,
+                    Comidas = x.Comidas.Select(q => new ComidaViewModel()
+                    {
+                        Id = q.Id,
+                        Codigo = q.Codigo,
+                        Descripcion = q.Descripcion,
+                        DiaId = q.DiaId,
+                        DiaStr = q.DiaStr,
+                        Opciones = q.Opciones.Select(t => new OpcionViewModel()
+                        {
+                            Id = t.Id,
+                            Codigo = t.Codigo,
+                            Descripcion = t.Descripcion,
+                            ComidaId = t.ComidaId,
+                            ComidaStr = t.ComidaStr,
+                            Eliminado = t.Eliminado,
+                            OpcionDetalles = t.OpcionDetalles.Select(r => new OpcionDetalleViewModel()
+                            {
+                                Id = r.Id,
+                                Codigo = r.Codigo,
+                                AlimentoId = r.AlimentoId,
+                                AlimentoStr = r.AlimentoStr,
+                                Cantidad = r.Cantidad,
+                                OpcionId = r.OpcionId,
+                                OpcionStr = r.OpcionStr,
+                                UnidadMedidaId = r.UnidadMedidaId,
+                                UnidadMedidaStr = r.UnidadMedidaStr,
+                                Eliminado = r.Eliminado
+                            }).ToList()
+                        }).ToList()
+                    }).ToList()
+                }).ToList()
+            });
+        }
+
 
         public async Task<ActionResult> TraerPaciente(long? pacienteId)
         {

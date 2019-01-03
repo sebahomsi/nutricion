@@ -608,6 +608,7 @@
     <Content Include="Views\Turno\Edit.cshtml" />
     <Content Include="Views\Turno\Create.cshtml" />
     <Content Include="Views\Turno\Index.cshtml" />
+    <Content Include="Views\PlanAlimenticio\ExportarPlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Comida;
 using Servicio.Interface.Dia;
+using Servicio.Interface.Opcion;
+using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.PlanAlimenticio;
 
 namespace Servicio.PlanAlimenticio
@@ -79,7 +81,8 @@ namespace Servicio.PlanAlimenticio
         {
             var plan = await Context.PlanesAlimenticios
                 .Include("Paciente")
-                .Include("Dias.Comidas.Opciones.OpcionDetalles")
+                .Include("Dias.Comidas.Opciones.OpcionDetalles.Alimento")
+                .Include("Dias.Comidas.Opciones.OpcionDetalles.UnidadMedida")
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (plan == null) throw new ArgumentNullException();
 
@@ -106,7 +109,29 @@ namespace Servicio.PlanAlimenticio
                         Codigo = q.Codigo,
                         Descripcion = q.Descripcion,
                         DiaId = q.DiaId,
-                        DiaStr = q.Dia.Descripcion
+                        DiaStr = q.Dia.Descripcion,
+                        Opciones = q.Opciones.Select(t=> new OpcionDto()
+                        {
+                            Id = t.Id,
+                            Codigo = t.Codigo,
+                            Descripcion = t.Descripcion,
+                            ComidaId = t.ComidaId,
+                            ComidaStr = t.Comida.Descripcion,
+                            Eliminado = t.Eliminado,
+                            OpcionDetalles = t.OpcionDetalles.Select(r => new OpcionDetalleDto()
+                            {
+                                Id = r.Id,
+                                Codigo = r.Codigo,
+                                AlimentoId = r.AlimentoId,
+                                AlimentoStr = r.Alimento.Descripcion,
+                                Cantidad = r.Cantidad,
+                                OpcionId = r.OpcionId,
+                                OpcionStr = r.Opcion.Descripcion,
+                                UnidadMedidaId = r.UnidadMedidaId,
+                                UnidadMedidaStr = r.UnidadMedida.Abreviatura,
+                                Eliminado = r.Eliminado
+                            }).ToList()
+                        }).ToList()
                     }).ToList()
                 }).ToList()
             };
