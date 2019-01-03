@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Infraestructura.Contexto;
 using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.Turno;
 using PagedList;
@@ -184,7 +185,12 @@ namespace NutricionWeb.Controllers.Turno
         }
 
         //====================================Metodos Hugangelion
-
+        public async Task<JsonResult> GetTurnos()
+        {
+            var events = await _turnoServicio.Get(string.Empty);
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;

@@ -23,13 +23,18 @@ namespace NutricionWeb
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap-datetimepicker.js",
+                      "~/Scripts/fullcalendar/fullcalendar.js",
+                      "~/Scripts/fullcalendar/lang/es.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/jquery-ui.css",
                       "~/Content/site.css",
-                      "~/Content/MiHojita.css"));
+                      "~/Content/MiHojita.css",
+                      "~/Content/bootstrap-datetimepicker.css",
+                      "~/Content/fullcalendar.css"));
         }
     }
 }

@@ -300,10 +300,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\Imagenes\user-icon.jpg" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\PagedList.css" />
@@ -426,8 +429,11 @@
     <Content Include="Content\bootstrap\utilities.less" />
     <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\fullcalendar\lang\es.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -445,6 +451,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\fullcalendar\fullcalendar.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
@@ -617,6 +624,14 @@
     <ProjectReference Include="..\Aplicacion.IoC\Aplicacion.IoC.csproj">
       <Project>{bfd596b3-0408-4ea9-9606-7a5aa3671075}</Project>
       <Name>Aplicacion.IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dominio\Dominio.csproj">
+      <Project>{dc527029-ef46-4119-9cc1-bc1d3e760a9d}</Project>
+      <Name>Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infraestructura\Infraestructura.csproj">
+      <Project>{C326BB20-1369-436C-88AE-E107F6DF32A3}</Project>
+      <Name>Infraestructura</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servicio.Interface\Servicio.Interface.csproj">
       <Project>{c991e65b-ddb8-475e-922e-130dec80647b}</Project>
