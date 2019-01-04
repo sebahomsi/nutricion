@@ -14,10 +14,10 @@ namespace NutricionWeb.Models.Alimento
 
         public string Descripcion { get; set; }
 
-        [Display(Name = "Sub Grupo")]
+        [Display(Name = "SubGrupo")]
         public long SubGrupoId { get; set; }
 
-        [Display(Name = "Sub Grupo")]
+        [Display(Name = "SubGrupo")]
         public string SubGrupoStr { get; set; }
 
         public bool Eliminado { get; set; }

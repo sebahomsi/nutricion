@@ -22,6 +22,26 @@ namespace NutricionWeb.Models.Persona
 
         [Display(Name = "Nacimiento")]
         public DateTime FechaNac { get; set; }
+
+        [Display(Name = "Nacimiento")]
+        public string FechaNacStr => FechaNac.Date.ToString("yyyy-MM-dd");
+
+        public int Edad
+        {
+            get
+            {
+                var edad = DateTime.Now.Year - FechaNac.Date.Year;
+
+                DateTime nacimientoAhora = FechaNac.Date.AddYears(edad);
+                
+                if (DateTime.Now.CompareTo(nacimientoAhora) < 0)
+                {
+                    edad--;
+                }
+
+                return edad;
+            }
+        }
         public int Sexo { get; set; }
 
         [Display(Name = "Sexo")]

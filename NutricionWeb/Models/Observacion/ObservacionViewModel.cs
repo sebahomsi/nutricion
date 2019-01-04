@@ -13,20 +13,30 @@ namespace NutricionWeb.Models.Observacion
         [Required(ErrorMessage = "Campo Obligatorio")]
         public long PacienteId { get; set; }
 
+        [Display(Name = "Paciente")]
         public string PacienteStr { get; set; }
 
         public bool Fumador { get; set; }
 
+        [Display(Name = "Bebe Alcohol")]
         public bool BebeAlcohol { get; set; }
 
+        [Display(Name = "Estado Civil")]
         public string EstadoCivil { get; set; }
 
+        [Display(Name = "Tuvo Hijos")]
         public bool? TuvoHijo { get; set; }
 
+        [Display(Name = "Cantidad de Hijos")]
         public string CantidadHijo { get; set; }
 
+        [Display(Name = "Horas que Duerme")]
         public string CantidadSuenio { get; set; }
 
         public bool Eliminado { get; set; }
+
+        [Display(Name = "Eliminado")]
+        [ScaffoldColumn(false)]
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
     }
 }

@@ -12,23 +12,24 @@ namespace NutricionWeb.Models.MacroNutriente
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public long AlimentoId { get; set; }
 
+        [Display(Name = "Alimento")]
         public string AlimentoStr { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string Proteina { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string Grasa { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string Energia { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
+        [Display(Name = "Hidratos de Carbono")]
         public string HidratosCarbono { get; set; }
 
         public bool Eliminado { get; set; }
+
+        [Display(Name = "Eliminado")]
+        [ScaffoldColumn(false)]
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
     }
 }

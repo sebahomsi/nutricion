@@ -17,9 +17,14 @@ namespace NutricionWeb.Models.Opcion
 
         public long ComidaId { get; set; }
 
+        [Display(Name = "Comida")]
         public string ComidaStr { get; set; }
 
         public bool Eliminado { get; set; }
+
+        [Display(Name = "Eliminado")]
+        [ScaffoldColumn(false)]
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
 
         public List<OpcionDetalleViewModel> OpcionDetalles { get; set; }
     }

@@ -15,6 +15,7 @@ namespace NutricionWeb.Models.SubGrupo
         [Required(ErrorMessage = "Campo Obligatorio")]
         public long GrupoId { get; set; }
 
+        [Display(Name = "Grupo")]
         public string GrupoStr { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]

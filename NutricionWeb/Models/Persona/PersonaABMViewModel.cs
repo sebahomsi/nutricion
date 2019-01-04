@@ -33,6 +33,7 @@ namespace NutricionWeb.Models.Persona
         [EmailAddress(ErrorMessage = "El campo {0} debe tener formato de Email.")]
         public string Mail { get; set; }
 
+        [Display(Name = "Fecha de Nacimiento")]
         [Required(ErrorMessage = "Campo Obligatorio")]
         public DateTime FechaNac { get; set; }
 

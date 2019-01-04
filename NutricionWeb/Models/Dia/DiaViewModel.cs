@@ -17,6 +17,7 @@ namespace NutricionWeb.Models.Dia
 
         public long PlanAlimenticioId { get; set; }
 
+        [Display(Name = "Plan Alimenticio")]
         public string PlanAlimenticioStr { get; set; }
 
         public List<ComidaViewModel> Comidas { get; set; }

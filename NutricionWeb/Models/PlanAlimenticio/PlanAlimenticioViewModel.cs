@@ -15,6 +15,7 @@ namespace NutricionWeb.Models.PlanAlimenticio
 
         public long PacienteId { get; set; }
 
+        [Display(Name = "Paciente")]
         public string PacienteStr { get; set; }
 
         public string Motivo { get; set; }
@@ -24,6 +25,10 @@ namespace NutricionWeb.Models.PlanAlimenticio
         public string Comentarios { get; set; }
 
         public bool Eliminado { get; set; }
+
+        [Display(Name = "Eliminado")]
+        [ScaffoldColumn(false)]
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
 
         public List<DiaViewModel> Dias { get; set; }
     }

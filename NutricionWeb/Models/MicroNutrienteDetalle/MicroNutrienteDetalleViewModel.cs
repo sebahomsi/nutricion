@@ -14,16 +14,19 @@ namespace NutricionWeb.Models.MicroNutrienteDetalle
 
         public long AlimentoId { get; set; }
 
+        [Display(Name = "Alimento")]
         public string AlimentoStr { get; set; }
 
         public long MicroNutrienteId { get; set; }
 
+        [Display(Name = "MicroNutriente")]
         public string MicroNutrienteStr { get; set; }
 
         public double Cantidad { get; set; }
 
         public long UnidadMedidaId { get; set; }
 
+        [Display(Name = "Unidad de Medida")]
         public string UnidadMedidaStr { get; set; }
     }
 }

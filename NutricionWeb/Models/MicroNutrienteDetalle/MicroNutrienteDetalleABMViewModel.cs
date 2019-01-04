@@ -15,11 +15,13 @@ namespace NutricionWeb.Models.MicroNutrienteDetalle
         [Required(ErrorMessage = "Campo Obligatorio")]
         public long AlimentoId { get; set; }
 
+        [Display(Name = "Alimento")]
         public string AlimentoStr { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]
         public long MicroNutrienteId { get; set; }
 
+        [Display(Name = "MicroNutriente")]
         public string MicroNutrienteStr { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]
@@ -28,6 +30,7 @@ namespace NutricionWeb.Models.MicroNutrienteDetalle
         [Required(ErrorMessage = "Campo Obligatorio")]
         public long UnidadMedidaId { get; set; }
 
+        [Display(Name = "Unidad de Medida")]
         public string UnidadMedidaStr { get; set; }
     }
 }

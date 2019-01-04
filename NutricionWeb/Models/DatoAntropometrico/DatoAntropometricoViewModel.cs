@@ -14,22 +14,32 @@ namespace NutricionWeb.Models.DatoAntropometrico
 
         public long PacienteId { get; set; }
 
+        [Display(Name = "Paciente")]
         public string PacienteStr { get; set; }
 
         public string Peso { get; set; }
 
         public string Altura { get; set; }
 
+        [Display(Name = "Perimetro de Cadera")]
         public string PerimetroCadera { get; set; }
 
+        [Display(Name = "Perimetro de Cintura")]
         public string PerimetroCintura { get; set; }
 
+        [Display(Name = "Fecha de Medicion")]
         public DateTime FechaMedicion { get; set; }
 
+        [Display(Name = "Masa Grasa")]
         public string MasaGrasa { get; set; }
 
+        [Display(Name = "Masa Corporal")]
         public string MasaCorporal { get; set; }
 
         public bool Eliminado { get; set; }
+
+        [Display(Name = "Eliminado")]
+        [ScaffoldColumn(false)]
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
     }
 }

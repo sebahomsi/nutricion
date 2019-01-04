@@ -10,7 +10,6 @@ namespace NutricionWeb.Models.Empleado
     public class EmpleadoABMViewModel : PersonaABMViewModel
     {
         public int Legajo { get; set; }
-
         
     }
 }

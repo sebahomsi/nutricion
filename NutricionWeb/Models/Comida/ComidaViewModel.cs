@@ -17,6 +17,7 @@ namespace NutricionWeb.Models.Comida
 
         public long DiaId { get; set; }
 
+        [Display(Name = "Dia")]
         public string DiaStr { get; set; }
 
         public List<OpcionViewModel> Opciones { get; set; }

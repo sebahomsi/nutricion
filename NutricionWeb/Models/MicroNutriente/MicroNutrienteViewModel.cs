@@ -15,5 +15,9 @@ namespace NutricionWeb.Models.MicroNutriente
         public string Descripcion { get; set; }
 
         public bool Eliminado { get; set; }
+
+        [Display(Name = "Eliminado")]
+        [ScaffoldColumn(false)]
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
     }
 }

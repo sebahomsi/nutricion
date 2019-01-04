@@ -15,6 +15,7 @@ namespace NutricionWeb.Models.MacroNutriente
         [Required(ErrorMessage = "Campo Requerido")]
         public long AlimentoId { get; set; }
 
+        [Display(Name = "Alimento")]
         public string AlimentoStr { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido")]
@@ -26,6 +27,7 @@ namespace NutricionWeb.Models.MacroNutriente
         [Required(ErrorMessage = "Campo Requerido")]
         public string Energia { get; set; }
 
+        [Display(Name = "Hidratos de Carbono")]
         [Required(ErrorMessage = "Campo Requerido")]
         public string HidratosCarbono { get; set; }
 
