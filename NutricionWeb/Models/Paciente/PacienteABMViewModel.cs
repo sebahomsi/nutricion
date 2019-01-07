@@ -13,7 +13,7 @@ namespace NutricionWeb.Models.Paciente
 
         public bool Estado { get; set; }
 
+        public bool TieneObservacion { get; set; }
 
-        
     }
 }

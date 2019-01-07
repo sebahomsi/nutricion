@@ -239,6 +239,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MicroNutrienteDetalle\MicroNutrienteDetalleController.cs" />
     <Compile Include="Controllers\MicroNutriente\MicroNutrienteController.cs" />
+    <Compile Include="Controllers\Observacion\ObservacionController.cs" />
     <Compile Include="Controllers\OpcionDetalle\OpcionDetalleController.cs" />
     <Compile Include="Controllers\Opcion\OpcionController.cs" />
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
@@ -277,6 +278,7 @@
     <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteViewModel.cs" />
+    <Compile Include="Models\Observacion\ObservacionABMViewModel.cs" />
     <Compile Include="Models\Observacion\ObservacionViewModel.cs" />
     <Compile Include="Models\OpcionDetalle\OpcionDetalleABMViewModel.cs" />
     <Compile Include="Models\OpcionDetalle\OpcionDetalleViewModel.cs" />
@@ -613,6 +615,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
+    <Folder Include="Views\Observacion\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

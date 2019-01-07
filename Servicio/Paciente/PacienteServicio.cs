@@ -30,6 +30,7 @@ namespace Servicio.Paciente
                 FechaNac = dto.FechaNac,
                 Foto = dto.Foto,
                 Eliminado = false,
+                TieneObservacion = false,
                 Estado = dto.Estado,
             };
 

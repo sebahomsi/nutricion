@@ -25,7 +25,8 @@ namespace Servicio.Interface.Paciente
 
         public bool Estado { get; set; }
 
-        
+        public bool TieneObservacion { get; set; }
+
         public List<DatoAntropometricoDto> DatosAntropometricos { get; set; }
         public List<PlanAlimenticioDto> PlanesAlimenticios { get; set; }
         public List<DatoAnaliticoDto> DatosAnaliticos { get; set; }

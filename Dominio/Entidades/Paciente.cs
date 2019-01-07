@@ -18,6 +18,8 @@ namespace Dominio.Entidades
 
         public bool Estado { get; set; }
 
+        public bool TieneObservacion { get; set; }
+
 
         //Navigation Properties
         public virtual ICollection<DatoAntropometrico> DatosAntropometricos { get; set; }

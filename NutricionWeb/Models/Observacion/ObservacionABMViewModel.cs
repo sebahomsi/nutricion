@@ -6,12 +6,14 @@ using System.Web;
 
 namespace NutricionWeb.Models.Observacion
 {
-    public class ObservacionViewModel
+    public class ObservacionABMViewModel
     {
+
         public long Id { get; set; }
 
         public int Codigo { get; set; }
 
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public long PacienteId { get; set; }
 
         [Display(Name = "Paciente")]
@@ -35,9 +37,5 @@ namespace NutricionWeb.Models.Observacion
         public string CantidadSuenio { get; set; }
 
         public bool Eliminado { get; set; }
-
-        [Display(Name = "Eliminado")]
-        [ScaffoldColumn(false)]
-        public string EliminadoStr => Eliminado ? "SI" : "NO";
     }
 }
