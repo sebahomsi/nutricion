@@ -123,6 +123,7 @@ namespace Servicio.Paciente
                 Foto = paciente.Foto,
                 Eliminado = paciente.Eliminado,
                 Estado = paciente.Estado,
+                TieneObservacion = paciente.TieneObservacion,
                 DatosAntropometricos = paciente.DatosAntropometricos.Select(p=> new DatoAntropometricoDto()
                 {
                     Id = p.Id,

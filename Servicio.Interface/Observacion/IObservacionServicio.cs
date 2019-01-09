@@ -14,6 +14,7 @@ namespace Servicio.Interface.Observacion
         Task Delete(long id);
         Task<ICollection<ObservacionDto>> Get(string cadenaBuscar);
         Task<ObservacionDto> GetById(long id);
+        Task<ObservacionDto> GetByPacienteId(long id);
         Task<int> GetNextCode();
     }
 }

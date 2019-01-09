@@ -5,10 +5,16 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using NutricionWeb.Models.AlergiaIntolerancia;
+using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.Observacion;
+using NutricionWeb.Models.Patologia;
 using PagedList;
+using Servicio.Interface.AlergiaIntolerancia;
+using Servicio.Interface.Alimento;
 using Servicio.Interface.Observacion;
 using Servicio.Interface.Paciente;
+using Servicio.Interface.Patologia;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -51,9 +57,12 @@ namespace NutricionWeb.Controllers.Observacion
         
 
         // GET: Observacion/Create
-        public async Task<ActionResult> Create()
+        public async Task<ActionResult> Create(long pacienteId)
         {
-            return View(new ObservacionABMViewModel());
+            return View(new ObservacionABMViewModel()
+            {
+                PacienteId = pacienteId
+            });
         }
 
         // POST: Observacion/Create
@@ -67,6 +76,10 @@ namespace NutricionWeb.Controllers.Observacion
                 {
                     var observacionDto = CargarDatos(vm);
                     observacionDto.Codigo = await _observacionServicio.GetNextCode();
+                    if (observacionDto.TuvoHijo == false)
+                    {
+                        observacionDto.CantidadHijo = "0";
+                    }
 
                     await _observacionServicio.Add(observacionDto);
                 }
@@ -175,7 +188,7 @@ namespace NutricionWeb.Controllers.Observacion
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var observacion = await _observacionServicio.GetById(id.Value);
+            var observacion = await _observacionServicio.GetByPacienteId(id.Value);
 
             return View(new ObservacionViewModel()
             {
@@ -189,7 +202,28 @@ namespace NutricionWeb.Controllers.Observacion
                 CantidadSuenio = observacion.CantidadSuenio,
                 TuvoHijo = observacion.TuvoHijo,
                 CantidadHijo = observacion.CantidadHijo,
-                Eliminado = observacion.Eliminado
+                Eliminado = observacion.Eliminado,
+                Patologias = observacion.Patologias.Select(x => new PatologiaViewModel()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    Eliminado = x.Eliminado
+                }).ToList(),
+                AlergiasIntolerancias = observacion.AlergiasIntolerancias.Select(q => new AlergiaIntoleranciaViewModel()
+                {
+                    Id = q.Id,
+                    Codigo = q.Codigo,
+                    Descripcion = q.Descripcion,
+                    Eliminado = q.Eliminado
+                }).ToList(),
+                Alimentos = observacion.Alimentos.Select(t => new AlimentoViewModel()
+                {
+                    Id = t.Id,
+                    Codigo = t.Codigo,
+                    Descripcion = t.Descripcion,
+                    Eliminado = t.Eliminado
+                }).ToList()
             });
         }
 

@@ -120,7 +120,11 @@
     @Html.ActionLink("Back to List", "Index")
     @if (Model.TieneObservacion == false)
     {
-        @Html.ActionLink("Observaciones", "Create", "Observacion", new { pacienteId = Model.Id }, new { })
+        @Html.ActionLink("Observaciones", "Create", "Observacion", new {pacienteId = Model.Id}, new {})
     }
-    @Html.ActionLink("Observaciones", "Details", "Observacion", new { pacienteId = Model.Id }, new { })
+    else
+    {
+    @Html.ActionLink("Observaciones", "Details", "Observacion", new { id = Model.Id }, new { })
+        
+    }
 </p>

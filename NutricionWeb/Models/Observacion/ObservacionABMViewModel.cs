@@ -28,7 +28,7 @@ namespace NutricionWeb.Models.Observacion
         public string EstadoCivil { get; set; }
 
         [Display(Name = "Tuvo Hijos")]
-        public bool? TuvoHijo { get; set; }
+        public bool TuvoHijo { get; set; }
 
         [Display(Name = "Cantidad de Hijos")]
         public string CantidadHijo { get; set; }

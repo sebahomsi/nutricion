@@ -227,6 +227,7 @@ namespace NutricionWeb.Controllers.Paciente
                 FotoStr = paciente.Foto,
                 Eliminado = paciente.Eliminado,
                 Estado = paciente.Estado,
+                TieneObservacion = paciente.TieneObservacion
             });
         }
 

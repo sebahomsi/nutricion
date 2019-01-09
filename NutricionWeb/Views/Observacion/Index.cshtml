@@ -1,0 +1,87 @@
+﻿@model IEnumerable<NutricionWeb.Models.Observacion.ObservacionViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PacienteStr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fumador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BebeAlcohol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoCivil)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TuvoHijo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CantidadHijo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CantidadSuenio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Eliminado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PacienteId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PacienteStr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fumador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BebeAlcohol)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoCivil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TuvoHijo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CantidadHijo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CantidadSuenio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Eliminado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

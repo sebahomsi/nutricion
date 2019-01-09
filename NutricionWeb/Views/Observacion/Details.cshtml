@@ -1,0 +1,187 @@
+﻿@model NutricionWeb.Models.Observacion.ObservacionViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ObservacionABMViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fumador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fumador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BebeAlcohol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BebeAlcohol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoCivil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoCivil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TuvoHijo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TuvoHijo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadHijo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadHijo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadSuenio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadSuenio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Eliminado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Eliminado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Descripcion)
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.AlergiasIntolerancias)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Descripcion)
+        </th>
+        
+        
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Patologias)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+
+            
+        </tr>
+    }
+
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Descripcion)
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Alimentos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+
+
+        </tr>
+    }
+
+</table>

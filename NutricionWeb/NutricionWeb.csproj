@@ -611,11 +611,15 @@
     <Content Include="Views\Turno\Create.cshtml" />
     <Content Include="Views\Turno\Index.cshtml" />
     <Content Include="Views\PlanAlimenticio\ExportarPlan.cshtml" />
+    <Content Include="Views\Observacion\Index.cshtml" />
+    <Content Include="Views\Observacion\Edit.cshtml" />
+    <Content Include="Views\Observacion\Delete.cshtml" />
+    <Content Include="Views\Observacion\Details.cshtml" />
+    <Content Include="Views\Observacion\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
-    <Folder Include="Views\Observacion\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

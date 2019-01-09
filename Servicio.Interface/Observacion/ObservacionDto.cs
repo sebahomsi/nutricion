@@ -32,7 +32,7 @@ namespace Servicio.Interface.Observacion
 
         public string EstadoCivil { get; set; }
 
-        public bool? TuvoHijo { get; set; }
+        public bool TuvoHijo { get; set; }
 
         public string CantidadHijo { get; set; }
 

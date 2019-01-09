@@ -4,7 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.AlergiaIntolerancia;
+using Servicio.Interface.Alimento;
 using Servicio.Interface.Observacion;
+using Servicio.Interface.Patologia;
 
 namespace Servicio.Observacion
 {
@@ -24,6 +27,10 @@ namespace Servicio.Observacion
                 CantidadHijo = dto.CantidadHijo,
                 Eliminado = false
             };
+
+            var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+                .FirstOrDefaultAsync(x => x.Id == dto.PacienteId);
+            paciente.TieneObservacion = true;
 
             Context.Observaciones.Add(observacion);
             await Context.SaveChangesAsync();
@@ -63,7 +70,6 @@ namespace Servicio.Observacion
             return await Context.Observaciones
                 .AsNoTracking()
                 .Include("Paciente")
-                .Where(x => x.Codigo == codigo)
                 .Select(x => new ObservacionDto()
                 {
                     Id = x.Id,
@@ -103,7 +109,76 @@ namespace Servicio.Observacion
                 CantidadSuenio = observacion.CantidadSuenio,
                 TuvoHijo = observacion.TuvoHijo,
                 CantidadHijo = observacion.CantidadHijo,
-                Eliminado = observacion.Eliminado //faltan las listas
+                Eliminado = observacion.Eliminado,
+                Patologias = observacion.Patologias.Select(x=> new PatologiaDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    Eliminado = x.Eliminado
+                }).ToList(),
+                AlergiasIntolerancias = observacion.AlergiasIntolerancias.Select(q=> new AlergiaIntoleranciaDto()
+                {
+                    Id = q.Id,
+                    Codigo = q.Codigo,
+                    Descripcion = q.Descripcion,
+                    Eliminado = q.Eliminado
+                }).ToList(),
+                Alimentos = observacion.Alimentos.Select(t=> new AlimentoDto()
+                {
+                    Id = t.Id,
+                    Codigo = t.Codigo,
+                    Descripcion = t.Descripcion,
+                    Eliminado = t.Eliminado
+                }).ToList()
+            };
+        }
+
+        public async Task<ObservacionDto> GetByPacienteId(long id)
+        {
+            var observacion = await Context.Observaciones
+                .AsNoTracking()
+                .Include("Paciente")
+                .Include("Patologias")
+                .Include("AlergiasIntolerancias")
+                .Include("Alimentos")
+                .FirstOrDefaultAsync(x => x.PacienteId == id);
+            if (observacion == null) throw new ArgumentNullException();
+
+            return new ObservacionDto()
+            {
+                Id = observacion.Id,
+                Codigo = observacion.Codigo,
+                PacienteId = observacion.PacienteId,
+                PacienteStr = observacion.Paciente.Apellido + " " + observacion.Paciente.Nombre,
+                Fumador = observacion.Fumador,
+                BebeAlcohol = observacion.BebeAlcohol,
+                EstadoCivil = observacion.EstadoCivil,
+                CantidadSuenio = observacion.CantidadSuenio,
+                TuvoHijo = observacion.TuvoHijo,
+                CantidadHijo = observacion.CantidadHijo,
+                Eliminado = observacion.Eliminado,
+                Patologias = observacion.Patologias.Select(x => new PatologiaDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    Eliminado = x.Eliminado
+                }).ToList(),
+                AlergiasIntolerancias = observacion.AlergiasIntolerancias.Select(q => new AlergiaIntoleranciaDto()
+                {
+                    Id = q.Id,
+                    Codigo = q.Codigo,
+                    Descripcion = q.Descripcion,
+                    Eliminado = q.Eliminado
+                }).ToList(),
+                Alimentos = observacion.Alimentos.Select(t => new AlimentoDto()
+                {
+                    Id = t.Id,
+                    Codigo = t.Codigo,
+                    Descripcion = t.Descripcion,
+                    Eliminado = t.Eliminado
+                }).ToList()
             };
         }
 

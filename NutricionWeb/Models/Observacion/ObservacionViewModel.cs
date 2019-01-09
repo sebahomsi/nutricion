@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using NutricionWeb.Models.AlergiaIntolerancia;
+using NutricionWeb.Models.Alimento;
+using NutricionWeb.Models.Patologia;
 
 namespace NutricionWeb.Models.Observacion
 {
@@ -26,7 +29,7 @@ namespace NutricionWeb.Models.Observacion
         public string EstadoCivil { get; set; }
 
         [Display(Name = "Tuvo Hijos")]
-        public bool? TuvoHijo { get; set; }
+        public bool TuvoHijo { get; set; }
 
         [Display(Name = "Cantidad de Hijos")]
         public string CantidadHijo { get; set; }
@@ -39,5 +42,13 @@ namespace NutricionWeb.Models.Observacion
         [Display(Name = "Eliminado")]
         [ScaffoldColumn(false)]
         public string EliminadoStr => Eliminado ? "SI" : "NO";
+
+        public List<PatologiaViewModel> Patologias { get; set; }
+
+        public List<AlergiaIntoleranciaViewModel> AlergiasIntolerancias { get; set; }
+
+        public List<AlimentoViewModel> Alimentos { get; set; }
+
+
     }
 }
