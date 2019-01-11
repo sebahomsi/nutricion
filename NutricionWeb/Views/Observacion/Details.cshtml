@@ -18,13 +18,7 @@
             @Html.DisplayFor(model => model.Codigo)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PacienteId)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PacienteId)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.PacienteStr)
@@ -39,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Fumador)
+            @Html.DisplayFor(model => model.FumadorStr)
         </dd>
 
         <dt>
@@ -47,7 +41,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BebeAlcohol)
+            @Html.DisplayFor(model => model.BebeAlcoholStr)
         </dd>
 
         <dt>
@@ -63,7 +57,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TuvoHijo)
+            @Html.DisplayFor(model => model.TuvoHijoStr)
         </dd>
 
         <dt>
@@ -87,7 +81,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Eliminado)
+            @Html.DisplayFor(model => model.EliminadoStr)
         </dd>
 
     </dl>
@@ -96,6 +90,44 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<p>@Html.ActionLink("Agregar Patologia", "Create", "ObservacionPatologia", new { observacionId = Model.Id }, new { }) </p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Descripcion)
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Patologias)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", "ObservacionPatologia", new { observacionId = Model.Id, patologiaId = item.Id }, new { })
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+
+<p>@Html.ActionLink("Agregar Alergia/Intolerancia", "Create", "ObservacionAlergiaIntolerancia", new { observacionId = Model.Id }, new { }) </p>
+
+
 <table class="table">
     <tr>
         <th>
@@ -119,42 +151,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", "ObservacionAlergiaIntolerancia", new { observacionId = Model.Id, alergiaId = item.Id }, new { })
 
+            </td>
 
         </tr>
     }
 
 </table>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Descripcion)
-        </th>
-        
-        
+<p>@Html.ActionLink("Agregar Alimento", "Create", "ObservacionAlimento", new { observacionId = Model.Id }, new { }) </p>
 
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Patologias)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-
-            
-        </tr>
-    }
-
-</table>
 
 <table class="table">
     <tr>
@@ -179,7 +187,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", "ObservacionAlimento", new { observacionId = Model.Id, alimentoId = item.Id }, new { })
 
+            </td>
 
         </tr>
     }

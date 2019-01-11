@@ -69,7 +69,9 @@
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleDto.cs" />
     <Compile Include="MicroNutriente\IMicroNutrienteServicio.cs" />
     <Compile Include="MicroNutriente\MicroNutrienteDto.cs" />
+    <Compile Include="ObservacionAlergiaIntolerancia\IObservacionAlergiaIntoleranciaServicio.cs" />
     <Compile Include="ObservacionAlimento\IObservacionAlimentoServicio.cs" />
+    <Compile Include="ObservacionPatologia\IObservacionPatologiaServicio.cs" />
     <Compile Include="Observacion\ObservacionDto.cs" />
     <Compile Include="Observacion\IObservacionServicio.cs" />
     <Compile Include="OpcionDetalle\IOpcionDetalleServicio.cs" />
@@ -97,5 +99,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

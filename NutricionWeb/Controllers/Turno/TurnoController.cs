@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -77,7 +78,7 @@ namespace NutricionWeb.Controllers.Turno
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("About","Home");
 
         }
 
@@ -188,6 +189,7 @@ namespace NutricionWeb.Controllers.Turno
         public async Task<JsonResult> GetTurnos()
         {
             var events = await _turnoServicio.Get(string.Empty);
+            
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         

@@ -22,14 +22,23 @@ namespace NutricionWeb.Models.Observacion
 
         public bool Fumador { get; set; }
 
+        [Display(Name = "Fumador")]
+        public string FumadorStr => Fumador ? "SI" : "NO";
+
         [Display(Name = "Bebe Alcohol")]
         public bool BebeAlcohol { get; set; }
+
+        [Display(Name = "Bebe Alcohol")]
+        public string BebeAlcoholStr => BebeAlcohol ? "SI" : "NO";
 
         [Display(Name = "Estado Civil")]
         public string EstadoCivil { get; set; }
 
         [Display(Name = "Tuvo Hijos")]
         public bool TuvoHijo { get; set; }
+
+        [Display(Name = "Tuvo Hijos")]
+        public string TuvoHijoStr => TuvoHijo ? "SI" : "NO";
 
         [Display(Name = "Cantidad de Hijos")]
         public string CantidadHijo { get; set; }

@@ -239,7 +239,10 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MicroNutrienteDetalle\MicroNutrienteDetalleController.cs" />
     <Compile Include="Controllers\MicroNutriente\MicroNutrienteController.cs" />
+    <Compile Include="Controllers\Observacion\ObservacionAlergiaIntoleranciaController.cs" />
+    <Compile Include="Controllers\Observacion\ObservacionAlimentoController.cs" />
     <Compile Include="Controllers\Observacion\ObservacionController.cs" />
+    <Compile Include="Controllers\Observacion\ObservacionPatologiaController.cs" />
     <Compile Include="Controllers\OpcionDetalle\OpcionDetalleController.cs" />
     <Compile Include="Controllers\Opcion\OpcionController.cs" />
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
@@ -278,6 +281,9 @@
     <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteViewModel.cs" />
+    <Compile Include="Models\ObservacionAlergiaIntolerancia\ObservacionAlergiaIntoleranciaABMViewModel.cs" />
+    <Compile Include="Models\ObservacionAlimento\ObservacionAlimentoABMViewModel.cs" />
+    <Compile Include="Models\ObservacionPatologia\ObservacionPatologiaABMViewModel.cs" />
     <Compile Include="Models\Observacion\ObservacionABMViewModel.cs" />
     <Compile Include="Models\Observacion\ObservacionViewModel.cs" />
     <Compile Include="Models\OpcionDetalle\OpcionDetalleABMViewModel.cs" />
@@ -616,6 +622,12 @@
     <Content Include="Views\Observacion\Delete.cshtml" />
     <Content Include="Views\Observacion\Details.cshtml" />
     <Content Include="Views\Observacion\Create.cshtml" />
+    <Content Include="Views\ObservacionPatologia\Create.cshtml" />
+    <Content Include="Views\ObservacionPatologia\BuscarPatologia.cshtml" />
+    <Content Include="Views\ObservacionAlimento\Create.cshtml" />
+    <Content Include="Views\ObservacionAlimento\BuscarAlimento.cshtml" />
+    <Content Include="Views\ObservacionAlergiaIntolerancia\BuscarAlergia.cshtml" />
+    <Content Include="Views\ObservacionAlergiaIntolerancia\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

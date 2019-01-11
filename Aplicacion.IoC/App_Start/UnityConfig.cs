@@ -19,6 +19,9 @@ using Servicio.Interface.MacroNutriente;
 using Servicio.Interface.MicroNutriente;
 using Servicio.Interface.MicroNutrienteDetalle;
 using Servicio.Interface.Observacion;
+using Servicio.Interface.ObservacionAlergiaIntolerancia;
+using Servicio.Interface.ObservacionAlimento;
+using Servicio.Interface.ObservacionPatologia;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.Paciente;
@@ -32,6 +35,9 @@ using Servicio.MacroNutriente;
 using Servicio.MicroNutriente;
 using Servicio.MicroNutrienteDetalle;
 using Servicio.Observacion;
+using Servicio.ObservacionAlergiaIntolerancia;
+using Servicio.ObservacionAlimento;
+using Servicio.ObservacionPatologia;
 using Servicio.Opcion;
 using Servicio.OpcionDetalle;
 using Servicio.Paciente;
@@ -72,6 +78,9 @@ namespace Aplicacion.IoC
             container.RegisterType<IOpcionServicio, OpcionServicio>();
             container.RegisterType<IOpcionDetalleServicio, OpcionDetalleServicio>();
             container.RegisterType<ITurnoServicio, TurnoServicio>();
+            container.RegisterType<IObservacionAlergiaIntoleranciaServicio, ObservacionAlergiaIntoleranciaServicio>();
+            container.RegisterType<IObservacionAlimentoServicio, ObservacionAlimentoServicio>();
+            container.RegisterType<IObservacionPatologiaServicio, ObservacionPatologiaServicio>();
 
 
             //esto ya venia

@@ -58,7 +58,9 @@
     <Compile Include="MacroNutriente\MacroNutrienteServicio.cs" />
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleServicio.cs" />
     <Compile Include="MicroNutriente\MicroNutrienteServicio.cs" />
+    <Compile Include="ObservacionAlergiaIntolerancia\ObservacionAlergiaIntoleranciaServicio.cs" />
     <Compile Include="ObservacionAlimento\ObservacionAlimentoServicio.cs" />
+    <Compile Include="ObservacionPatologia\ObservacionPatologiaServicio.cs" />
     <Compile Include="Observacion\ObservacionServicio.cs" />
     <Compile Include="OpcionDetalle\OpcionDetalleServicio.cs" />
     <Compile Include="Opcion\OpcionServicio.cs" />
