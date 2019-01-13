@@ -12,12 +12,11 @@ namespace Servicio.Turno
     {
         public async Task<long> Add(TurnoDto dto)
         {
-            var textEntrada = dto.HorarioEntrada.ToString("dd/MM/yyyy hh:mm:ss");
             var turno = new Dominio.Entidades.Turno()
             {
                 Numero = dto.Numero,
                 PacienteId = dto.PacienteId,
-                HorarioEntrada = Convert.ToDateTime(textEntrada),
+                HorarioEntrada = dto.HorarioEntrada,
                 HorarioSalida = dto.HorarioSalida,
                 Motivo = dto.Motivo,
                 Eliminado = false
