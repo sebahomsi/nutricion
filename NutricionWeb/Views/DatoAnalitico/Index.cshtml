@@ -14,18 +14,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Codigo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PacienteId)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.PacienteStr)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ColesterolHdl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ColesterolLdl)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.ColesterolTotal)
         </th>
@@ -35,9 +28,7 @@
         <th>
             @Html.DisplayNameFor(model => model.PresionSistolica)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trigliceridos)
-        </th>
+        
         <th></th>
     </tr>
 
@@ -46,18 +37,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Codigo)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PacienteId)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.PacienteStr)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColesterolHdl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColesterolLdl)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.ColesterolTotal)
         </td>
@@ -67,9 +51,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.PresionSistolica)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trigliceridos)
-        </td>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |

@@ -12,6 +12,8 @@ namespace NutricionWeb.Models.Paciente
 
         public bool Estado { get; set; }
 
+        public string EstadoStr => Estado ? "Activo" : "Inactivo";
+
         public bool TieneObservacion { get; set; }
     }
 }

@@ -14,9 +14,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Codigo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PacienteId)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.PacienteStr)
         </th>
@@ -26,12 +24,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Altura)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PerimetroCadera)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PerimetroCintura)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.FechaMedicion)
         </th>
@@ -52,9 +45,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Codigo)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PacienteId)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.PacienteStr)
         </td>
@@ -64,12 +55,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Altura)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PerimetroCadera)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PerimetroCintura)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.FechaMedicion)
         </td>
@@ -80,7 +66,7 @@
             @Html.DisplayFor(modelItem => item.MasaCorporal)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Eliminado)
+            @Html.DisplayFor(modelItem => item.EliminadoStr)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
