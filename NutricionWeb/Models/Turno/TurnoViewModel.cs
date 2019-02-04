@@ -27,5 +27,8 @@ namespace NutricionWeb.Models.Turno
 
 
         public bool Eliminado { get; set; }
+
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
+
     }
 }

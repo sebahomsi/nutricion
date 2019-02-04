@@ -7,6 +7,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color: ghostwhite;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -31,4 +32,32 @@ textarea {
 .row-plan {
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+.row-plan {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.detail-h4 {
+    font-size: 35px;
+    text-align: center;
+    border: 2px solid #337ab7;
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 4px;
+    background-color: floralwhite;
+}
+.titulo-ABM {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #337ab7;
+    text-align: left;
+}
+.info-style{
+    font-weight: bold;  
+    font-size: 18px;    
+}
+.sub-info {
+    font-weight: normal;
+    color: #337ab7;
+    font-size: 15px;
 }

@@ -29,5 +29,6 @@ namespace NutricionWeb.Models.Alimento
         public long? MacroNutrienteId { get; set; }
 
         public bool TieneMacroNutriente { get; set; }
+
     }
 }

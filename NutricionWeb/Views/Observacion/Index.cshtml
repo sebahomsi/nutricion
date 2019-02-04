@@ -14,9 +14,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Codigo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PacienteId)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.PacienteStr)
         </th>
@@ -49,23 +47,21 @@
         <td>
             @Html.DisplayFor(modelItem => item.Codigo)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PacienteId)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.PacienteStr)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Fumador)
+            @Html.DisplayFor(modelItem => item.FumadorStr)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BebeAlcohol)
+            @Html.DisplayFor(modelItem => item.BebeAlcoholStr)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EstadoCivil)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TuvoHijo)
+            @Html.DisplayFor(modelItem => item.TuvoHijoStr)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CantidadHijo)
@@ -74,12 +70,12 @@
             @Html.DisplayFor(modelItem => item.CantidadSuenio)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Eliminado)
+            @Html.DisplayFor(modelItem => item.EliminadoStr)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-warning" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-default" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

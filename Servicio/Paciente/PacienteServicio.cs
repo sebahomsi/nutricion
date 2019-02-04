@@ -101,7 +101,6 @@ namespace Servicio.Paciente
             var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
                 .AsNoTracking()
                 .Include("DatosAntropometricos")
-                .Include("DatosAntropometricos.Paciente")
                 .Include("PlanesAlimenticios")
                 .Include("Turnos")
                 .FirstOrDefaultAsync(x => x.Id == id);
