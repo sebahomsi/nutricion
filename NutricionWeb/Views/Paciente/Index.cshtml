@@ -5,13 +5,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Lista de Pacientes</h4>
+</div>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo", "Create",new { }, new { @class = "btn btn-primary"})
 </p>
 <table class="table">
-    <tr>
+    <tr class="cabecera-tabla">
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
         </th>
@@ -30,7 +32,7 @@
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Estado)
         </th>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().EliminadoStr)
         </th>
@@ -63,9 +65,9 @@
                 @Html.DisplayFor(modelItem => item.EliminadoStr)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}, new { @class = "btn btn-warning"}) 
-                @Html.ActionLink("Details", "Details", new {id = item.Id}, new { @class = "btn btn-default" }) 
-                @Html.ActionLink("Delete", "Delete", new {id = item.Id}, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }

@@ -131,23 +131,27 @@
         }
         else
         {
-            @Html.ActionLink("Observaciones", "Details", "Observacion", new { id = Model.Id }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Observaciones", "Details", "Observacion", new { id = Model.Id }, new { @class = "btn btn-default" })
 
         }
     </p>
 </div>
 
+<hr />
+
 <div class="titulo-ABM">
     <h4 class="detail-h4">Turnos</h4>
 </div>
 
+
+
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Numero)
+            Fecha
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().HorarioEntradaStr)
+            Hora
         </th>
 
         <th></th>
@@ -157,13 +161,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Numero)
+                @Html.DisplayFor(modelItem => item.FechaEntradaStr)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HorarioEntradaStr)
             </td>
 
-            <td>
+            <td align="right">
                 @Html.ActionLink("Detalles", "Details", "Turno", new { id = item.Id }, new { @class = "btn btn-default" })
             </td>
         </tr>
@@ -171,17 +175,20 @@
 
 </table>
 
+<hr />
+
 <div class="titulo-ABM">
     <h4 class="detail-h4">Planes Alimenticios</h4>
 </div>
 
+
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.PlanesAlimenticios.FirstOrDefault().Codigo)
+            Fecha
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PlanesAlimenticios.FirstOrDefault().FechaStr)
+            Hora
         </th>
 
         <th></th>
@@ -191,13 +198,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.FechaStr)
             </td>
-
             <td>
+                @Html.DisplayFor(modelItem => item.HoraStr)
+            </td>
+
+            <td align="right">
                 @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default" })
             </td>
         </tr>
@@ -205,17 +212,21 @@
 
 </table>
 
+<hr />
+
 <div class="titulo-ABM">
     <h4 class="detail-h4">Datos Analiticos</h4>
 </div>
 
+
+
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.DatosAnaliticos.FirstOrDefault().Codigo)
+            Fecha
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DatosAnaliticos.FirstOrDefault().FechaMedicionStr)
+            Hora
         </th>
 
         <th></th>
@@ -225,13 +236,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.FechaMedicionStr)
             </td>
-
             <td>
+                @Html.DisplayFor(modelItem => item.HoraMedicionStr)
+            </td>
+
+            <td align="right">
                 @Html.ActionLink("Detalles", "Details", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-default" })
             </td>
         </tr>
@@ -239,17 +250,21 @@
 
 </table>
 
+<hr />
+
 <div class="titulo-ABM">
     <h4 class="detail-h4">Datos Antropometricos</h4>
 </div>
 
+
+
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.DatosAntropometricos.FirstOrDefault().Codigo)
+            Fecha
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DatosAntropometricos.FirstOrDefault().FechaMedicionStr)
+            Hora
         </th>
 
         <th></th>
@@ -259,13 +274,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.FechaMedicionStr)
             </td>
-
             <td>
+                @Html.DisplayFor(modelItem => item.HoraMedicionStr)
+            </td>
+
+            <td align="right">
                 @Html.ActionLink("Detalles", "Details", "DatoAntropometrico", new { id = item.Id }, new { @class = "btn btn-default" })
             </td>
         </tr>

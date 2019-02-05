@@ -4,14 +4,18 @@
 @{
     ViewBag.Title = "Calendario";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>Aquí una breve descripción</h3>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Calendario de Turnos</h4>
+</div>
+
+<p>
+    @Html.ActionLink("Nuevo", "Create", "Turno", new { }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Administrar Turnos", "Index", "Turno", new { }, new { @class = "btn btn-primary" })
+</p>
 <div id="calendar"></div>
 <script src="~/Scripts/jquery-1.12.4.js"></script>
 
-<p>
-    @Html.ActionLink("Create New", "Create", "Turno")
-</p>
+
 
 <script>
     $(document).ready(function () {

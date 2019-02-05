@@ -37,7 +37,9 @@ namespace NutricionWeb.Models.DatoAnalitico
         public DateTime FechaMedicion { get; set; }
 
         [Display(Name = "Fecha y Hora")]
-        public string FechaMedicionStr => FechaMedicion.ToString("dd/MM/yyyy - HH:mm");
+        public string FechaMedicionStr => FechaMedicion.ToString("dd/MM/yyyy");
+
+        public string HoraMedicionStr => FechaMedicion.ToString("HH:mm");
 
         public bool Eliminado { get; set; }
     }

@@ -31,7 +31,10 @@ namespace NutricionWeb.Models.DatoAntropometrico
         public DateTime FechaMedicion { get; set; }
 
         [Display(Name = "Fecha y Hora")]
-        public string FechaMedicionStr => FechaMedicion.ToString("dd/MM/yyyy - HH:mm");
+        public string FechaMedicionStr => FechaMedicion.ToString("dd/MM/yyyy");
+
+        [Display(Name = "Fecha y Hora")]
+        public string HoraMedicionStr => FechaMedicion.ToString("HH:mm");
 
         [Display(Name = "Masa Grasa")]
         public string MasaGrasa { get; set; }
