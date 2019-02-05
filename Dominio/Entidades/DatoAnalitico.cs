@@ -30,6 +30,10 @@ namespace Dominio.Entidades
 
         public string Trigliceridos { get; set; }
 
+        public DateTime FechaMedicion { get; set; }
+
+        public bool Eliminado { get; set; }
+
         //Navigation Properties
         public virtual Paciente Paciente { get; set; }
     }

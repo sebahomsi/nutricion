@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
+using Servicio.Interface.DatoAnalitico;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
@@ -100,6 +101,7 @@ namespace Servicio.Paciente
         {
             var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
                 .AsNoTracking()
+                .Include("DatosAnaliticos")
                 .Include("DatosAntropometricos")
                 .Include("PlanesAlimenticios")
                 .Include("Turnos")
@@ -138,8 +140,42 @@ namespace Servicio.Paciente
                     PerimetroCadera = p.PerimetroCadera,
                     Eliminado = p.Eliminado
                 }).ToList(),
-                PlanesAlimenticios = paciente.PlanesAlimenticios.Select(q=> new PlanAlimenticioDto()).ToList(),
-                Turnos = paciente.Turnos.Select(t=> new TurnoDto()).ToList(),
+                PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q=> q.Fecha).Select(q=> new PlanAlimenticioDto()
+                {
+                    Id = q.Id,
+                    Codigo = q.Codigo,
+                    Motivo = q.Motivo,
+                    Fecha = q.Fecha,
+                    PacienteId = q.PacienteId,
+                    PacienteStr = q.Paciente.Apellido + " " + q.Paciente.Nombre,
+                    Eliminado = q.Eliminado
+                }).ToList(),
+                Turnos = paciente.Turnos.OrderBy(t=> t.HorarioEntrada).Where(t=> t.HorarioEntrada >= DateTime.Today).Select(t=> new TurnoDto()
+                {
+                    Id = t.Id,
+                    Numero = t.Numero,
+                    Motivo = t.Motivo,
+                    PacienteId = t.PacienteId,
+                    PacienteStr = t.Paciente.Apellido + " " + t.Paciente.Nombre,
+                    HorarioEntrada = t.HorarioEntrada,
+                    HorarioSalida = t.HorarioSalida,
+                    Eliminado = t.Eliminado
+                }).ToList(),
+                DatosAnaliticos = paciente.DatosAnaliticos.OrderBy(x=> x.Codigo).Select(x=> new DatoAnaliticoDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    ColesterolHdl = x.ColesterolHdl,
+                    ColesterolLdl = x.ColesterolLdl,
+                    ColesterolTotal = x.ColesterolTotal,
+                    PresionDiastolica = x.PresionDiastolica,
+                    PresionSistolica = x.PresionSistolica,
+                    Trigliceridos = x.Trigliceridos,
+                    PacienteId = x.PacienteId,
+                    PacienteStr = x.Paciente.Apellido + " " + x.Paciente.Nombre,
+                    FechaMedicion = x.FechaMedicion,
+                    Eliminado = x.Eliminado
+                }).ToList()
             };
         }
 

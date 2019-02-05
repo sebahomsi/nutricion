@@ -22,7 +22,8 @@ namespace NutricionWeb.Models.DatoAnalitico
         [Required(ErrorMessage = "Campo Requerido")]
         public string ColesterolHdl { get; set; }
 
-        
+        [Display(Name = "Fecha de Medicion")]
+        public DateTime FechaMedicion { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido")]
         public string ColesterolLdl { get; set; }
@@ -41,5 +42,7 @@ namespace NutricionWeb.Models.DatoAnalitico
 
         [Required(ErrorMessage = "Campo Requerido")]
         public string Trigliceridos { get; set; }
+
+        public bool Eliminado { get; set; }
     }
 }

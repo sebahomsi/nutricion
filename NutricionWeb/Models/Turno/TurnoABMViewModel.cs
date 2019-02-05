@@ -16,6 +16,7 @@ namespace NutricionWeb.Models.Turno
         [Display(Name = "Paciente")]
         public string PacienteStr { get; set; }
 
+        [Display(Name = "Código")]
         public int Numero { get; set; }
 
         [Display(Name = "Entrada")]

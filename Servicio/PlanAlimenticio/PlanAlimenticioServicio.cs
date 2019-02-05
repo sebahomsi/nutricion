@@ -19,7 +19,7 @@ namespace Servicio.PlanAlimenticio
             var plan = new Dominio.Entidades.PlanAlimenticio()
             {
                 Codigo = dto.Codigo,
-                Fecha = DateTime.Today,
+                Fecha = DateTime.Now,
                 Motivo = dto.Motivo,
                 PacienteId = dto.PacienteId,
                 Comentarios = dto.Comentarios,

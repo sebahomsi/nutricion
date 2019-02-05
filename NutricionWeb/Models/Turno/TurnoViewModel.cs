@@ -15,6 +15,7 @@ namespace NutricionWeb.Models.Turno
         [Display(Name = "Paciente")]
         public string PacienteStr { get; set; }
 
+        [Display(Name = "Código")]
         public int Numero { get; set; }
 
         [Display(Name = "Entrada")]
@@ -25,6 +26,8 @@ namespace NutricionWeb.Models.Turno
 
         public string Motivo { get; set; }
 
+        [Display(Name = "Fecha y Hora")]
+        public string HorarioEntradaStr => HorarioEntrada.ToString("dd/MM/yyyy - HH:mm");
 
         public bool Eliminado { get; set; }
 

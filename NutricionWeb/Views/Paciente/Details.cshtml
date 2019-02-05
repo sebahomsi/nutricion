@@ -118,22 +118,157 @@
         </div>
     }
 
-    
+
 </div>
 
 <div class="row" style="margin-left: 15px;">
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class= "btn btn-warning"}) 
-        @Html.ActionLink("Volver", "Index", new { }, new { @class= "btn btn-default"})
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
         @if (Model.TieneObservacion == false)
         {
-            @Html.ActionLink("Observaciones", "Create", "Observacion", new { pacienteId = Model.Id }, new { })
+            @Html.ActionLink("Observaciones", "Create", "Observacion", new { pacienteId = Model.Id }, new { @class = "btn btn-info" })
         }
         else
         {
-            @Html.ActionLink("Observaciones", "Details", "Observacion", new { id = Model.Id }, new { @class = "btn btn-info" } )
+            @Html.ActionLink("Observaciones", "Details", "Observacion", new { id = Model.Id }, new { @class = "btn btn-info" })
 
         }
     </p>
 </div>
 
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Turnos</h4>
+</div>
+
+<table class="table">
+    <tr class="cabecera-tabla">
+        <th>
+            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().HorarioEntradaStr)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Turnos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HorarioEntradaStr)
+            </td>
+
+            <td>
+                @Html.ActionLink("Detalles", "Details", "Turno", new { id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Planes Alimenticios</h4>
+</div>
+
+<table class="table">
+    <tr class="cabecera-tabla">
+        <th>
+            @Html.DisplayNameFor(model => model.PlanesAlimenticios.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlanesAlimenticios.FirstOrDefault().FechaStr)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.PlanesAlimenticios)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaStr)
+            </td>
+
+            <td>
+                @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Datos Analiticos</h4>
+</div>
+
+<table class="table">
+    <tr class="cabecera-tabla">
+        <th>
+            @Html.DisplayNameFor(model => model.DatosAnaliticos.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatosAnaliticos.FirstOrDefault().FechaMedicionStr)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.DatosAnaliticos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaMedicionStr)
+            </td>
+
+            <td>
+                @Html.ActionLink("Detalles", "Details", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Datos Antropometricos</h4>
+</div>
+
+<table class="table">
+    <tr class="cabecera-tabla">
+        <th>
+            @Html.DisplayNameFor(model => model.DatosAntropometricos.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatosAntropometricos.FirstOrDefault().FechaMedicionStr)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.DatosAntropometricos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaMedicionStr)
+            </td>
+
+            <td>
+                @Html.ActionLink("Detalles", "Details", "DatoAntropometrico", new { id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+
+</table>

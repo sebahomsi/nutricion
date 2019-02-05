@@ -27,5 +27,9 @@ namespace Servicio.Interface.DatoAnalitico
         public string PresionSistolica { get; set; }
 
         public string Trigliceridos { get; set; }
+
+        public DateTime FechaMedicion { get; set; }
+
+        public bool Eliminado { get; set; }
     }
 }

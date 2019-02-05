@@ -48,7 +48,9 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PacienteStr = x.PacienteStr,
                 PresionDiastolica = x.PresionDiastolica,
                 PresionSistolica = x.PresionSistolica,
-                Trigliceridos = x.Trigliceridos
+                Trigliceridos = x.Trigliceridos,
+                FechaMedicion = x.FechaMedicion,
+                Eliminado = x.Eliminado
             }).ToPagedList(pageNumber,CantidadFilasPorPaginas));
         }
 
@@ -101,7 +103,9 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PacienteStr = datos.PacienteStr,
                 PresionDiastolica = datos.PresionDiastolica,
                 PresionSistolica = datos.PresionSistolica,
-                Trigliceridos = datos.Trigliceridos
+                Trigliceridos = datos.Trigliceridos,
+                FechaMedicion = datos.FechaMedicion,
+                Eliminado = datos.Eliminado
             });
         }
 
@@ -144,7 +148,9 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PacienteStr = datos.PacienteStr,
                 PresionDiastolica = datos.PresionDiastolica,
                 PresionSistolica = datos.PresionSistolica,
-                Trigliceridos = datos.Trigliceridos
+                Trigliceridos = datos.Trigliceridos,
+                FechaMedicion = datos.FechaMedicion,
+                Eliminado = datos.Eliminado
             });
         }
 
@@ -186,7 +192,9 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PacienteStr = datos.PacienteStr,
                 PresionDiastolica = datos.PresionDiastolica,
                 PresionSistolica = datos.PresionSistolica,
-                Trigliceridos = datos.Trigliceridos
+                Trigliceridos = datos.Trigliceridos,
+                FechaMedicion = datos.FechaMedicion,
+                Eliminado = datos.Eliminado
             });
         }
 
@@ -258,7 +266,9 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PresionDiastolica = vm.PresionDiastolica,
                 PresionSistolica = vm.PresionSistolica,
                 Trigliceridos = vm.Trigliceridos,
-                ColesterolTotal = vm.ColesterolTotal
+                ColesterolTotal = vm.ColesterolTotal,
+                FechaMedicion = vm.FechaMedicion,
+                Eliminado = vm.Eliminado
             };
         }
     }

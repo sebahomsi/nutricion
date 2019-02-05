@@ -33,19 +33,12 @@ namespace NutricionWeb.Models.DatoAnalitico
 
         public string Trigliceridos { get; set; }
 
-        public string Prueba
-        {
-            get
-            {
-                Match m = Regex.Match(ColesterolHdl, "(\\d+)");
-                string numeros = string.Empty;
+        [Display(Name = "Fecha de Medicion")]
+        public DateTime FechaMedicion { get; set; }
 
-                if (m.Success)
-                {
-                    numeros = m.Value;
-                }
-                return numeros;
-            }
-        }
+        [Display(Name = "Fecha y Hora")]
+        public string FechaMedicionStr => FechaMedicion.ToString("dd/MM/yyyy - HH:mm");
+
+        public bool Eliminado { get; set; }
     }
 }

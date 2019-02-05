@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using NutricionWeb.Helpers.Persona;
+using NutricionWeb.Models.DatoAnalitico;
+using NutricionWeb.Models.DatoAntropometrico;
 using NutricionWeb.Models.Paciente;
+using NutricionWeb.Models.PlanAlimenticio;
+using NutricionWeb.Models.Turno;
 using PagedList;
 using Servicio.Interface.Paciente;
 using static NutricionWeb.Helpers.PagedList;
@@ -227,7 +231,58 @@ namespace NutricionWeb.Controllers.Paciente
                 FotoStr = paciente.Foto,
                 Eliminado = paciente.Eliminado,
                 Estado = paciente.Estado,
-                TieneObservacion = paciente.TieneObservacion
+                TieneObservacion = paciente.TieneObservacion,
+                DatosAntropometricos = paciente.DatosAntropometricos.Select(p => new DatoAntropometricoViewModel()
+                {
+                    Id = p.Id,
+                    Codigo = p.Codigo,
+                    PacienteId = p.PacienteId,
+                    PacienteStr = p.PacienteStr,
+                    Altura = p.Altura,
+                    FechaMedicion = p.FechaMedicion,
+                    MasaGrasa = p.MasaGrasa,
+                    MasaCorporal = p.MasaCorporal,
+                    Peso = p.Peso,
+                    PerimetroCintura = p.PerimetroCintura,
+                    PerimetroCadera = p.PerimetroCadera,
+                    Eliminado = p.Eliminado
+                }).ToList(),
+                PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q => q.Fecha).Select(q => new PlanAlimenticioViewModel()
+                {
+                    Id = q.Id,
+                    Codigo = q.Codigo,
+                    Motivo = q.Motivo,
+                    Fecha = q.Fecha,
+                    PacienteId = q.PacienteId,
+                    PacienteStr = q.PacienteStr,
+                    Eliminado = q.Eliminado
+                }).ToList(),
+                Turnos = paciente.Turnos.OrderBy(t => t.HorarioEntrada).Select(t => new TurnoViewModel()
+                {
+                    Id = t.Id,
+                    Numero = t.Numero,
+                    Motivo = t.Motivo,
+                    PacienteId = t.PacienteId,
+                    PacienteStr = t.PacienteStr,
+                    HorarioEntrada = t.HorarioEntrada,
+                    HorarioSalida = t.HorarioSalida,
+                    Eliminado = t.Eliminado
+                }).ToList(),
+                DatosAnaliticos = paciente.DatosAnaliticos.OrderBy(x => x.Codigo).Select(x => new DatoAnaliticoViewModel()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    ColesterolHdl = x.ColesterolHdl,
+                    ColesterolLdl = x.ColesterolLdl,
+                    ColesterolTotal = x.ColesterolTotal,
+                    PresionDiastolica = x.PresionDiastolica,
+                    PresionSistolica = x.PresionSistolica,
+                    Trigliceridos = x.Trigliceridos,
+                    PacienteId = x.PacienteId,
+                    PacienteStr = x.PacienteStr,
+                    FechaMedicion = x.FechaMedicion,
+                    Eliminado = x.Eliminado
+                }).ToList()
             });
         }
 

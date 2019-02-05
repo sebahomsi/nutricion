@@ -21,7 +21,9 @@ namespace Servicio.DatoAnalitico
                 PacienteId = dto.PacienteId,
                 PresionDiastolica = dto.PresionDiastolica,
                 PresionSistolica = dto.PresionSistolica,
-                Trigliceridos = dto.Trigliceridos
+                Trigliceridos = dto.Trigliceridos,
+                FechaMedicion = DateTime.Now,
+                Eliminado = false
             };
 
             Context.DatosAnaliticos.Add(dato);
@@ -68,7 +70,9 @@ namespace Servicio.DatoAnalitico
                     PacienteStr = x.Paciente.Apellido +" "+ x.Paciente.Nombre,
                     PresionDiastolica = x.PresionDiastolica,
                     PresionSistolica = x.PresionSistolica,
-                    Trigliceridos = x.Trigliceridos
+                    Trigliceridos = x.Trigliceridos,
+                    FechaMedicion = x.FechaMedicion,
+                    Eliminado = x.Eliminado
                 }).ToListAsync();
         }
 
@@ -92,7 +96,9 @@ namespace Servicio.DatoAnalitico
                 PresionDiastolica = dato.PresionDiastolica,
                 PresionSistolica = dato.PresionSistolica,
                 Trigliceridos = dato.Trigliceridos,
-                PacienteStr = dato.Paciente.Apellido +" "+ dato.Paciente.Nombre
+                PacienteStr = dato.Paciente.Apellido +" "+ dato.Paciente.Nombre,
+                FechaMedicion = dato.FechaMedicion,
+                Eliminado = dato.Eliminado
             };
         }
 

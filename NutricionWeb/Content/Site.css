@@ -54,10 +54,20 @@ textarea {
 }
 .info-style{
     font-weight: bold;  
-    font-size: 18px;    
+    font-size: 22px;    
 }
 .sub-info {
     font-weight: normal;
     color: #337ab7;
-    font-size: 15px;
+    font-size: 19px;
+}
+.cabecera-tabla {
+    background-color: #68C2E5;
+}
+.navbar-lay {
+    background-color: #337ab7;
+}
+th {
+    color: white;
+    text-shadow: 1px 1px black;
 }

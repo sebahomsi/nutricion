@@ -31,5 +31,9 @@ namespace Dominio.Entidades.MetaData
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string Trigliceridos { get; set; }
+
+        DateTime FechaMedicion { get; set; }
+
+        bool Eliminado { get; set; }
     }
 }
