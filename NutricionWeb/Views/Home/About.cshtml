@@ -14,7 +14,7 @@
 </p>
 <div id="calendar"></div>
 <script src="~/Scripts/jquery-1.12.4.js"></script>
-
+<link href="~/Content/fullcalendar.css" rel="stylesheet" />
 
 
 <script>
@@ -34,7 +34,7 @@
                     function(i, v) {
                         events.push({
                             eventID: v.Id,
-                            title: v.PacienteStr,
+                            title: "hs" +": "+ v.PacienteStr,
                             description: v.Motivo,
                             start: moment(v.HorarioEntrada),
                             pacienteID: v.PacienteId,
@@ -48,7 +48,7 @@
             $('#calendar').fullCalendar({
                 contentHeight: 500,
                 defaultDate: new Date(),
-                timeFormat: 'h(:mm)a',
+                timeFormat: 'H(:mm)',
                 eventLimit: true,
                 eventColor: ' #34495e',
                 events: events

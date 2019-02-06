@@ -72,14 +72,15 @@ textarea {
     font-size: 19px;
 }
 .cabecera-tabla {
-    background-color: #68C2E5;
+    background-color: #C2D8FA;
     border: 2px solid #337ab7;
     border-radius: 4px;
 }
 .navbar-lay {
     background-color: #337ab7;
 }
-th {
+.th-index{
     color: white;
     text-shadow: 0 0 2px black;
 }
+    

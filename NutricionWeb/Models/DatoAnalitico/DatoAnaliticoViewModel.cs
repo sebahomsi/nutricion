@@ -42,5 +42,7 @@ namespace NutricionWeb.Models.DatoAnalitico
         public string HoraMedicionStr => FechaMedicion.ToString("HH:mm");
 
         public bool Eliminado { get; set; }
+
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
     }
 }

@@ -4,45 +4,57 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>GrupoABMViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EliminadoStr)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Grupos</h4>
 </div>
+
+<div class="row">
+    <hr />
+    <div class="col-md-7">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Codigo)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Descripcion):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Descripcion)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Eliminado):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.EliminadoStr)
+            </span>
+
+        </p>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        @if (Model.Eliminado)
+        {
+            <input type="submit" value="Activar" class="btn btn-info" />
+
+        }
+        else
+        {
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+
+        }
+        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+
+    </div>
+}

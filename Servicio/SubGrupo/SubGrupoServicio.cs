@@ -86,6 +86,7 @@ namespace Servicio.SubGrupo
                 Descripcion = sub.Descripcion,
                 GrupoId = sub.GrupoId,
                 GrupoStr = sub.Grupo.Descripcion,
+                Eliminado = sub.Eliminado,
                 Alimentos = sub.Alimentos.Select(t=> new AlimentoDto()
                 {
                     Id = t.Id,

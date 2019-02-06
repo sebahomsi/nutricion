@@ -4,97 +4,93 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>DatoAntropometricoABMViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-       
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PacienteStr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PacienteStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Peso)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Peso)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Altura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Altura)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PerimetroCadera)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PerimetroCadera)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PerimetroCintura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PerimetroCintura)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaMedicion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaMedicion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MasaGrasa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MasaGrasa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MasaCorporal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MasaCorporal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EliminadoStr)
-        </dd>
-
-    </dl>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Datos Antropométricos</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="row" style="margin: 10px 10px;">
+    <hr />
+    <div class="col-md-7">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Codigo)
+            </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PacienteStr):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.PacienteStr)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Peso):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Peso)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Altura):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Altura)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PerimetroCadera):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.PerimetroCadera)
+                </span>
+        </p>
+
+        
+    </div>
+    <div class="col-md-5">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PerimetroCintura):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.PerimetroCintura)
+                </span>
+        </p>
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.FechaMedicion):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.FechaMedicionStr)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.MasaGrasa):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.MasaGrasa)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.MasaCorporal):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.MasaCorporal)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Eliminado):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.EliminadoStr)
+                </span>
+        </p>
+    </div>
+    
+
+        
+    <p style="margin-top: 15px; margin-left: 10px">
+        @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+    </p>
+
+</div>
+

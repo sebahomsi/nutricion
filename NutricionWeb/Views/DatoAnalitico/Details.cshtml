@@ -4,82 +4,76 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>DatoAnaliticoABMViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-        
-
-        
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PacienteStr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PacienteStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ColesterolHdl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ColesterolHdl) mg/dl
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ColesterolLdl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ColesterolLdl) mg/dl
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ColesterolTotal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ColesterolTotal) mg/dl
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PresionDiastolica)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PresionDiastolica)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PresionSistolica)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PresionSistolica)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Trigliceridos)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Trigliceridos) mg/dl
-        </dd>
-
-    </dl>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Datos Analíticos</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+
+<div class="row">
+    <hr />
+    <div class="col-md-7">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo)
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Codigo)
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PacienteStr)
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.PacienteStr)
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.ColesterolHdl)
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.ColesterolHdl) mg/dl
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.ColesterolLdl)
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.ColesterolLdl) mg/dl
+            </span>
+        </p>
+    </div>
+    <div class="col-md-5">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.ColesterolTotal)
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.ColesterolTotal) mg/dl
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PresionDiastolica)
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.PresionDiastolica) mmHg
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PresionSistolica)
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.PresionSistolica) mmHg
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Trigliceridos)
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Trigliceridos) mg/dl
+            </span>
+        </p>
+    </div>
+    
+
+        
+
+</div>
+<p style="margin-top: 15px; margin-left: 10px">
+    @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
 </p>

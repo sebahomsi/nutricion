@@ -72,7 +72,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Aceptar" class="btn btn-success" />
-                @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Volver", "Details", "Observacion", new { id = Model.ObservacionId }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>

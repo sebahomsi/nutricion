@@ -24,6 +24,9 @@ namespace NutricionWeb.Models.MicroNutrienteDetalle
 
         public double Cantidad { get; set; }
 
+        [Display(Name = "Cantidad")]
+        public string CantidadMostrar => Cantidad + UnidadMedidaStr;
+
         public long UnidadMedidaId { get; set; }
 
         [Display(Name = "Unidad de Medida")]

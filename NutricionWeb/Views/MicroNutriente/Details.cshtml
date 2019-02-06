@@ -4,39 +4,42 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>MicroNutrienteABMViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EliminadoStr)
-        </dd>
-
-    </dl>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">MicroNutrientes</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+
+<div class="row">
+    <hr />
+    <div class="col-md-7">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Codigo)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Descripcion):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Descripcion)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Eliminado):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.EliminadoStr)
+            </span>
+
+        </p>
+    </div>
+
+</div>
+<p style="margin-top: 15px; margin-left: 10px">
+    @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
 </p>

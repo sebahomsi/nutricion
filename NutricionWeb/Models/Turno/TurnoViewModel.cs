@@ -31,6 +31,11 @@ namespace NutricionWeb.Models.Turno
 
         public string FechaEntradaStr => HorarioEntrada.ToString("dd/MM/yyyy");
 
+        [Display(Name = "Fecha y Hora")]
+        public string HorarioSalidaStr => HorarioSalida.ToString("HH:mm");
+
+        public string FechaSalidaStr => HorarioSalida.ToString("dd/MM/yyyy");
+
 
 
         public bool Eliminado { get; set; }

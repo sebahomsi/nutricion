@@ -22,6 +22,6 @@ namespace NutricionWeb.Models.SubGrupo
         public bool Eliminado { get; set; }
 
         [Display(Name = "Eliminado")]
-        public string EliminadoStr => Eliminado ? "Si" : "No";
+        public string EliminadoStr => Eliminado ? "SI" : "NO";
     }
 }

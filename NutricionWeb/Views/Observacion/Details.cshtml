@@ -4,195 +4,204 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>ObservacionABMViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PacienteStr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PacienteStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Fumador)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FumadorStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BebeAlcohol)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BebeAlcoholStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EstadoCivil)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EstadoCivil)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TuvoHijo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TuvoHijoStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CantidadHijo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CantidadHijo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CantidadSuenio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CantidadSuenio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EliminadoStr)
-        </dd>
-
-    </dl>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Observaciones del Paciente</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+
+<div class="row">
+    <hr />
+    <div class="col-md-7">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Codigo)
+                </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PacienteStr):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.PacienteStr)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Fumador):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.FumadorStr)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.BebeAlcohol):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.BebeAlcoholStr)
+                </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.EstadoCivil):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.EstadoCivil)
+                </span>
+        </p>
+    </div>
+    <div class="col-md-5">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.TuvoHijo):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.TuvoHijoStr)
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.CantidadHijo):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.CantidadHijo)
+                </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.CantidadSuenio):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.CantidadSuenio)
+                </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Eliminado):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.EliminadoStr)
+                </span>
+        </p>
+    </div>
+    
+
+
+        
+
+
+</div>
+<p style="margin-top: 15px;">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Ir al Paciente", "Details","Paciente", new { id = Model.PacienteId }, new { @class = "btn btn-default" })
+
 </p>
-<p>@Html.ActionLink("Agregar Patologia", "Create", "ObservacionPatologia", new { observacionId = Model.Id }, new { }) </p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Descripcion)
-        </th>
+    <hr />
 
+    <p>@Html.ActionLink("Agregar Patologia", "Create", "ObservacionPatologia", new { observacionId = Model.Id }, new { @class = "btn btn-primary" }) </p>
 
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Patologias)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.ActionLink("Eliminar", "Delete", "ObservacionPatologia", new { observacionId = Model.Id, patologiaId = item.Id }, new { })
-            </td>
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Descripcion)
+            </th>
 
 
+
+            <th></th>
         </tr>
-    }
 
-</table>
-
-<p>@Html.ActionLink("Agregar Alergia/Intolerancia", "Create", "ObservacionAlergiaIntolerancia", new { observacionId = Model.Id }, new { }) </p>
-
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Descripcion)
-        </th>
+        @foreach (var item in Model.Patologias)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td align="right">
+                    @Html.ActionLink("Eliminar", "Delete", "ObservacionPatologia", new { observacionId = Model.Id, patologiaId = item.Id }, new { @class = "btn btn-danger" })
+                </td>
 
 
+            </tr>
+        }
 
-        <th></th>
-    </tr>
+    </table>
 
-    @foreach (var item in Model.AlergiasIntolerancias)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.ActionLink("Eliminar", "Delete", "ObservacionAlergiaIntolerancia", new { observacionId = Model.Id, alergiaId = item.Id }, new { })
+    <hr />
 
-            </td>
+    <p>@Html.ActionLink("Agregar Alergia/Intolerancia", "Create", "ObservacionAlergiaIntolerancia", new { observacionId = Model.Id }, new { @class = "btn btn-primary" }) </p>
 
+
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Descripcion)
+            </th>
+
+
+
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model.AlergiasIntolerancias)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td align="right">
+                    @Html.ActionLink("Eliminar", "Delete", "ObservacionAlergiaIntolerancia", new { observacionId = Model.Id, alergiaId = item.Id }, new { @class = "btn btn-danger" })
 
-<p>@Html.ActionLink("Agregar Alimento", "Create", "ObservacionAlimento", new { observacionId = Model.Id }, new { }) </p>
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+    <hr />
+
+    <p>@Html.ActionLink("Agregar Alimento", "Create", "ObservacionAlimento", new { observacionId = Model.Id }, new { @class = "btn btn-primary" }) </p>
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Descripcion)
-        </th>
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Descripcion)
+            </th>
 
 
 
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Alimentos)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.ActionLink("Eliminar", "Delete", "ObservacionAlimento", new { observacionId = Model.Id, alimentoId = item.Id }, new { })
-
-            </td>
-
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model.Alimentos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td align="right">
+                    @Html.ActionLink("Eliminar", "Delete", "ObservacionAlimento", new { observacionId = Model.Id, alimentoId = item.Id }, new { @class = "btn btn-danger" })
+
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    <hr />

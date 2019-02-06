@@ -50,7 +50,13 @@ namespace Servicio.DatoAnalitico
 
         public async Task Delete(long id)
         {
-            throw new NotImplementedException();
+            var dato = await Context.DatosAnaliticos.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (dato == null) throw new ArgumentNullException();
+
+            dato.Eliminado = !dato.Eliminado;
+
+            await Context.SaveChangesAsync();
         }
 
         public async Task<ICollection<DatoAnaliticoDto>> Get(string cadenaBuscar = "")
