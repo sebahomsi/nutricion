@@ -4,47 +4,55 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>DiaViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PlanAlimenticioStr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PlanAlimenticioStr)
-        </dd>
-
-    </dl>
+<div class="titulo-ABM">
+    <h4 class="detail-plan-h4">Detalles del Plan - Dia: @Model.Descripcion</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Details","PlanAlimenticio", new{id = Model.PlanAlimenticioId},new{})
+
+<div class="row">
+    <hr />
+    <div class="col-md-7" style="margin-left: 10px;">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Codigo)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Descripcion):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Descripcion)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PlanAlimenticioStr):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.PlanAlimenticioStr)
+            </span>
+
+        </p>
+
+
+    </div>
+
+</div>
+<p style="margin-left: 10px;">
+    @Html.ActionLink("Volver al Plan", "Details", "PlanAlimenticio", new { id = Model.PlanAlimenticioId }, new { @class = "btn btn-default" })
 </p>
 
+<hr />
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Comidas</h4>
+</div>
+
 <table class="table">
-    <tr>
+    <tr class="cabecera-tabla">
         <th>
             @Html.DisplayNameFor(model => model.Comidas.FirstOrDefault().Codigo)
         </th>
@@ -65,8 +73,8 @@
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
 
-            <td>
-                @Html.ActionLink("Details", "Details", "Comida", new { id = item.Id }, new { })
+            <td align="right">
+                @Html.ActionLink("Detalles", "Details", "Comida", new { id = item.Id }, new { @class = "btn btn-default" })
             </td>
         </tr>
     }

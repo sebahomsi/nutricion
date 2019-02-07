@@ -4,113 +4,131 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div class="row">
+    <div class="titulo-ABM">
+        <h4 class="detail-h4">Detalles del Empleado</h4>
+    </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>EmpleadoABMViewModel</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ApyNom)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ApyNom)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Dni)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dni)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Mail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Mail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaNac)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaNac)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SexoStr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SexoStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Celular)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Celular)
-        </dd>
+    <div class="col-md-7">
+        <div class="col-md-8">
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.Legajo):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.Legajo)
+                </span>
+            </p>
 
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EliminadoStr)
-        </dt>
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.ApyNom):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.ApyNom)
+                </span>
+            </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.EliminadoStr)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Legajo)
-        </dt>
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.Dni):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.Dni)
+                </span>
+            </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Legajo)
-        </dd>
-        
-        @if (Model.FotoStr != null)
-        {
-            <div>
-                <div class="col-md-4">
-                    <div class="imagen-fondo">
-                        <img src="@Url.Content(Model.FotoStr)" alt="Image" style="width: 240px; height: 240px; max-width: 240px; max-height: 240px;" />
-                    </div>
-                </div>
+
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.Direccion):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.Direccion)
+                </span>
+            </p>
+
+
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.Mail):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.Mail)
+                </span>
+            </p>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.Edad):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.Edad) años
+                </span>
+            </p>
+
+
+
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.SexoStr):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.SexoStr)
+                </span>
+            </p>
+
+
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.Telefono):
+
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.Telefono)
+                </span>
+            </p>
+
+
+
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.Celular):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.Celular)
+                </span>
+            </p>
+
+
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.EliminadoStr):
+                <span class="sub-info">
+                    @Html.DisplayFor(model => model.EliminadoStr)
+                </span>
+            </p>
+
+
+
+        </div>
+    </div>
+
+    @if (Model.FotoStr != null)
+    {
+        <div class="col-md-5">
+            <div class="imagen-fondo">
+                <img src="@Url.Content(Model.FotoStr)" alt="Image" style="margin-left: 60px; width:100%; height: 340px; max-width: 240px; max-height: 340px;" />
             </div>
-        }
+        </div>
+    }
 
-    </dl>
+
+</div>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @if (Model.Eliminado)
+            {
+                <input type="submit" value="Activar" class="btn btn-info"/>
+
+            }
+            else
+            {
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+
+            }
+            @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+
         </div>
     }
-</div>

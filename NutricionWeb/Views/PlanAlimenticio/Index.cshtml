@@ -64,6 +64,8 @@
                 @Html.ActionLink("Eliminar", "Delete", new {id = item.Id}, new {@class = "btn btn-danger"})
 
             }
+            @Html.ActionLink("Ver Plan", "ExportarPlan", new { id=item.Id }, new { @class = "btn btn-info" }) 
+
         </td>
     </tr>
 }

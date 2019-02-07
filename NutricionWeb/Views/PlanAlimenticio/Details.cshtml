@@ -4,88 +4,92 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>PlanAlimenticioABMViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PacienteId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PacienteId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PacienteStr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PacienteStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Motivo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Motivo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comentarios)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comentarios)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Eliminado)
-        </dd>
-
-    </dl>
+<div class="titulo-ABM">
+    <h4 class="detail-plan-h4">Detalles del Plan</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+
+<div class="row">
+    <hr />
+    <div class="col-md-7" style="margin-left: 10px;">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Codigo)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PacienteStr):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.PacienteStr)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Motivo):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Motivo)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Fecha):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.FechaStr)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Comentarios):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Comentarios)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Eliminado):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.EliminadoStr)
+            </span>
+
+        </p>
+    </div>
+
+</div>
+<p style="margin-top: 15px; margin-left: 10px">
+    @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Ir al Paciente", "Details","Paciente", new { id = Model.PacienteId }, new { @class = "btn btn-info" })
+
 </p>
 
+<hr />
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Días</h4>
+</div>
+
 <table class="table">
-    <tr>
+    <tr class="cabecera-tabla">
         <th>
             @Html.DisplayNameFor(model => model.Dias.FirstOrDefault().Codigo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Dias.FirstOrDefault().Descripcion)
         </th>
-        
+
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Dias) {
+    @foreach (var item in Model.Dias)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Codigo)
@@ -93,9 +97,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
-            
-            <td>
-                @Html.ActionLink("Details", "Details","Dia", new { id=item.Id }, new{}) 
+
+            <td align="right">
+                @Html.ActionLink("Detalles", "Details", "Dia", new { id = item.Id }, new { @class = "btn btn-default" })
             </td>
         </tr>
     }

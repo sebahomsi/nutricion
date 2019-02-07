@@ -97,26 +97,16 @@ namespace NutricionWeb.Controllers.OpcionDetalle
         }
 
         // GET: OpcionDetalle/Delete/5
-        public ActionResult Delete(int id)
+       
+        public async Task<ActionResult> Delete(long detalleId)
         {
-            return View();
+            await _opcionDetalleServicio.Delete(detalleId);
+            var detalle = await _opcionDetalleServicio.GetById(detalleId);
+            var id = detalle.OpcionId;
+            return RedirectToAction("Details", "Opcion", new {opcionId = id});
         }
+        
 
-        // POST: OpcionDetalle/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
         //=========================Metodos a prueba de hugos
 
         public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar)

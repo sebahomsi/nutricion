@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url("/Content/Imagenes/better.jpg")
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -36,6 +37,7 @@ textarea {
 .row-plan {
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin: 1px;
 }
 .detail-h4 {
     font-size: 35px;
@@ -43,6 +45,26 @@ textarea {
     border: 2px solid #337ab7;
     width: 50%;
     margin-left: 25%;
+    border-radius: 4px;
+    background-color: floralwhite;
+}
+
+.detail-h3 {
+    font-size: 25px;
+    text-align: center;
+    border: 2px solid #337ab7;
+    width: 30%;
+    margin-left: 35%;
+    border-radius: 4px;
+    background-color: floralwhite;
+}
+
+.detail-plan-h4 {
+    font-size: 35px;
+    text-align: center;
+    border: 2px solid #337ab7;
+    width: 65%;
+    margin-left: 17%;
     border-radius: 4px;
     background-color: floralwhite;
 }

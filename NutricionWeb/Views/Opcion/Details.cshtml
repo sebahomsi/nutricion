@@ -4,39 +4,58 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>ComidaViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        
-
-    </dl>
+<div class="titulo-ABM">
+    <h4 class="detail-plan-h4">Detalles del Plan - @Model.ComidaStr: @Model.Descripcion</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Details", "Comida", new { id = Model.ComidaId }, new { })
-    @Html.ActionLink("Crear Detalle", "Create", "OpcionDetalle", new { opcionId = Model.Id }, new { })
+
+<div class="row">
+    <hr />
+    <div class="col-md-7" style="margin-left: 10px;">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Codigo)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Descripcion):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Descripcion)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.ComidaStr):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.ComidaStr)
+            </span>
+
+        </p>
+
+
+    </div>
+
+</div>
+<p style="margin-left: 10px;">
+    @Html.ActionLink("Nuevo Detalle", "Create", "OpcionDetalle", new { opcionId = Model.Id }, new { @class = "btn btn-primary" })
+
+    @Html.ActionLink("Volver a la Comida", "Details", "Comida", new { id = Model.ComidaId }, new { @class = "btn btn-default" })
 </p>
+
+<hr />
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Detalles</h4>
+</div>
+
 <table class="table">
-    <tr>
+    <tr class="cabecera-tabla">
         <th>
             @Html.DisplayNameFor(model => model.OpcionDetalles.FirstOrDefault().Codigo)
         </th>
@@ -46,29 +65,29 @@
         <th>
             @Html.DisplayNameFor(model => model.OpcionDetalles.FirstOrDefault().CantidadMostrar)
         </th>
-        
+
 
         <th></th>
     </tr>
 
     @foreach (var item in Model.OpcionDetalles)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlimentoStr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CantidadMostrar)
-        </td>
-        
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlimentoStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadMostrar)
+            </td>
 
-        <td>
-            @Html.ActionLink("Details", "Details", "Opcion", new { opcionId = item.Id }, new { })
-        </td>
-    </tr>
+
+            <td align="right">
+                @Html.ActionLink("Eliminar", "Delete", "OpcionDetalle", new {opcionId = Model.Id, detalleId = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
     }
 
 </table>

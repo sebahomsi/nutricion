@@ -33,7 +33,7 @@ namespace NutricionWeb.Models.DatoAnalitico
 
         public string Trigliceridos { get; set; }
 
-        [Display(Name = "Fecha de Medicion")]
+        [Display(Name = "Fecha")]
         public DateTime FechaMedicion { get; set; }
 
         [Display(Name = "Fecha y Hora")]

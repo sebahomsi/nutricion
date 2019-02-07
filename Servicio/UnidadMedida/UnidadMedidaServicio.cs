@@ -67,7 +67,8 @@ namespace Servicio.UnidadMedida
         public async Task<UnidadMedidaDto> GetById(long id)
         {
             var unidad = await Context.UnidadMedidas
-                .Include("MicroNutrienteDetalles")
+                .Include("MicroNutrienteDetalles.Alimento")
+                .Include("MicroNutrienteDetalles.MicroNutriente")
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (unidad == null) throw new ArgumentNullException();

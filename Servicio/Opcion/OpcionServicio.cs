@@ -87,7 +87,7 @@ namespace Servicio.Opcion
                 ComidaId = opcion.ComidaId,
                 ComidaStr = opcion.Comida.Descripcion,
                 Eliminado = opcion.Eliminado,
-                OpcionDetalles = opcion.OpcionDetalles.Select(x=> new OpcionDetalleDto()
+                OpcionDetalles = opcion.OpcionDetalles.Where(x=> x.Eliminado == false).Select(x=> new OpcionDetalleDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
