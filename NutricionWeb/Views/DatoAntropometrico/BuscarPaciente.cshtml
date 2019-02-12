@@ -1,20 +1,16 @@
 ﻿@model IEnumerable<NutricionWeb.Models.Paciente.PacienteViewModel>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ApyNom)
-        </th>
-        
-        
         <th>
             @Html.DisplayNameFor(model => model.Codigo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApyNom)
         </th>
 
         <th></th>
@@ -23,15 +19,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ApyNom)
-        </td>
-        
-        
-        <td>
             @Html.DisplayFor(modelItem => item.Codigo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApyNom)
         </td>
 
         <td>

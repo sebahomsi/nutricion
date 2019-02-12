@@ -9,9 +9,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </th>
+
         <th></th>
     </tr>
 
@@ -23,9 +21,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Eliminado)
-            </td>
+
             <td>
                 <input type="button" id="seleccionar" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
             </td>

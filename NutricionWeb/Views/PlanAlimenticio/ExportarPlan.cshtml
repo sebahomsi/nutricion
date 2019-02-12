@@ -57,7 +57,12 @@
                 @foreach (var opcion in comida.Opciones)
                 {
                 <hr/>
-                <strong><p>@opcion.Descripcion</p></strong>
+                <strong><p>@opcion.Descripcion
+                            <span style="margin-left: 50%;">
+                                @Html.ActionLink("+", "CreateRapido", "OpcionDetalle", new { opcionId = @opcion.Id }, new { @class = "btn-xs btn-primary" })
+                            </span> 
+                        
+                </p></strong>
                     foreach (var opcionDetalle in opcion.OpcionDetalles)
                     {
                         <p>@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
@@ -75,6 +80,5 @@
 
 
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new{ planId = Model.Id })
     </p>

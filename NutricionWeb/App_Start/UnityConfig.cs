@@ -17,7 +17,6 @@ namespace NutricionWeb
 {
     public static class UnityConfig
     {
-        private static object AplicacionIoC;
 
         public static void RegisterComponents()
         {

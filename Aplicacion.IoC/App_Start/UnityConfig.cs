@@ -28,9 +28,11 @@ using Servicio.Interface.Paciente;
 using Servicio.Interface.Patologia;
 using Servicio.Interface.Persona;
 using Servicio.Interface.PlanAlimenticio;
+using Servicio.Interface.Rol;
 using Servicio.Interface.SubGrupo;
 using Servicio.Interface.Turno;
 using Servicio.Interface.UnidadMedida;
+using Servicio.Interface.Usuario;
 using Servicio.MacroNutriente;
 using Servicio.MicroNutriente;
 using Servicio.MicroNutrienteDetalle;
@@ -44,9 +46,11 @@ using Servicio.Paciente;
 using Servicio.Patologia;
 using Servicio.Persona;
 using Servicio.PlanAlimenticio;
+using Servicio.Rol;
 using Servicio.SubGrupo;
 using Servicio.Turno;
 using Servicio.UnidadMedida;
+using Servicio.Usuario;
 using Unity;
 using Unity.Mvc5;
 
@@ -81,6 +85,9 @@ namespace Aplicacion.IoC
             container.RegisterType<IObservacionAlergiaIntoleranciaServicio, ObservacionAlergiaIntoleranciaServicio>();
             container.RegisterType<IObservacionAlimentoServicio, ObservacionAlimentoServicio>();
             container.RegisterType<IObservacionPatologiaServicio, ObservacionPatologiaServicio>();
+
+            container.RegisterType<IUsuarioServicio, UsuarioServicio>();
+            container.RegisterType<IRolServicio, RolServicio>();
 
 
             //esto ya venia

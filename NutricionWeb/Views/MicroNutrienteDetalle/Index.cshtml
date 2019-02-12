@@ -1,4 +1,5 @@
-﻿@model IEnumerable<NutricionWeb.Models.MicroNutrienteDetalle.MicroNutrienteDetalleViewModel>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<NutricionWeb.Models.MicroNutrienteDetalle.MicroNutrienteDetalleViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -8,59 +9,81 @@
     <h4 class="detail-h4">Lista de Detalles</h4>
 </div>
 
-<p>
-    @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Ver MicroNutrientes", "Index", "MicroNutriente", new { }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Ver Unidades de Medidas", "Index", "UnidadMedida", new { }, new { @class = "btn btn-primary" })
+<div class="row">
+    <div class="col-lg-6" align="left">
+        <div class="btn-group">
+            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Ver MicroNutrientes", "Index", "MicroNutriente", new { }, new { @class = "btn btn-primary" })
 
-
-
-</p>
+            @Html.ActionLink("Ver Unidades de Medida", "Index", "UnidadMedida", new { }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+    <div class="col-lg-6" align="right">
+        <form class="navbar-form navbar-right">
+            @using (Html.BeginForm("Index", "MicroNutriente", FormMethod.Get))
+            {
+                <form class="form-group-lg">
+                    @Html.TextBox("CadenaBuscar", ViewBag.FilterValue as string, new { placeholder = "Ingrese una cadena...", @class = "form-control", autocomplete = "off" })
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
+            }
+        </form>
+    </div>
+</div>
+<div class="table-responsive">
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.Codigo)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
         </th>
-        
+
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoStr)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().AlimentoStr)
         </th>
-        
+
         <th>
-            @Html.DisplayNameFor(model => model.MicroNutrienteStr)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MicroNutrienteStr)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cantidad)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Cantidad)
         </th>
-        
+
 
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.AlimentoStr)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.MicroNutrienteStr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CantidadMostrar)
-        </td>
-        
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
 
-        <td align="right">
-            @Html.ActionLink("Actualizar", "Edit", new { id=item.Id }, new { @class = "btn btn-warning" }) 
-            @Html.ActionLink("Detalles", "Details", new { id=item.Id }, new { @class = "btn btn-default" }) 
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.AlimentoStr)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.MicroNutrienteStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadMostrar)
+            </td>
+
+
+            <td align="right">
+                @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
+</div>
+
+
+    <div align="center">
+        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", "MicroNutrienteDetalle", new { page, cadenaBuscar = ViewBag.FilterValue }))
+    </div>

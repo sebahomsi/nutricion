@@ -51,6 +51,9 @@
     <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.2.0\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.0.5\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -63,6 +66,12 @@
     </Reference>
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorPDF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorPDF.1.0.0\lib\net45\RazorPDF.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -251,6 +260,7 @@
     <Compile Include="Controllers\SubGrupo\SubGrupoController.cs" />
     <Compile Include="Controllers\Turno\TurnoController.cs" />
     <Compile Include="Controllers\UnidadMedida\UnidadMedidaController.cs" />
+    <Compile Include="Controllers\Usuario\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -298,6 +308,9 @@
     <Compile Include="Models\Persona\PersonaViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioABMViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
+    <Compile Include="Models\Seguridad\RolViewModel.cs" />
+    <Compile Include="Models\Seguridad\UsuarioRolViewModel.cs" />
+    <Compile Include="Models\Seguridad\UsuarioViewModel.cs" />
     <Compile Include="Models\SubGrupo\SubGrupoABMViewModel.cs" />
     <Compile Include="Models\SubGrupo\SubGrupoViewModel.cs" />
     <Compile Include="Models\Turno\TurnoABMViewModel.cs" />
@@ -439,6 +452,10 @@
     <Content Include="Content\bootstrap\utilities.less" />
     <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -460,6 +477,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
@@ -604,7 +622,6 @@
     <Content Include="Views\PlanAlimenticio\Edit.cshtml" />
     <Content Include="Views\PlanAlimenticio\Create.cshtml" />
     <Content Include="Views\PlanAlimenticio\Index.cshtml" />
-    <Content Include="Views\PlanAlimenticio\BuscarPaciente.cshtml" />
     <Content Include="Views\Dia\Details.cshtml" />
     <Content Include="Views\Comida\Details.cshtml" />
     <Content Include="Views\Opcion\Create.cshtml" />
@@ -630,10 +647,16 @@
     <Content Include="Views\ObservacionAlimento\BuscarAlimento.cshtml" />
     <Content Include="Views\ObservacionAlergiaIntolerancia\BuscarAlergia.cshtml" />
     <Content Include="Views\ObservacionAlergiaIntolerancia\Create.cshtml" />
+    <Content Include="Views\OpcionDetalle\CreateRapido.cshtml" />
+    <Content Include="Views\PlanAlimenticio\ExportarPlanPdf.cshtml" />
+    <Content Include="Views\Usuarios\ObtenerRolesPorUsuario.cshtml" />
+    <Content Include="Views\Usuarios\AgregarRol.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
+    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

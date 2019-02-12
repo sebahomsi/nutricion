@@ -9,6 +9,9 @@ using NutricionWeb.Models.OpcionDetalle;
 using NutricionWeb.Models.UnidadMedida;
 using PagedList;
 using Servicio.Interface.Alimento;
+using Servicio.Interface.Comida;
+using Servicio.Interface.Dia;
+using Servicio.Interface.Opcion;
 using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.UnidadMedida;
 using static NutricionWeb.Helpers.PagedList;
@@ -21,12 +24,18 @@ namespace NutricionWeb.Controllers.OpcionDetalle
         private readonly IOpcionDetalleServicio _opcionDetalleServicio;
         private readonly IAlimentoServicio _alimentoServicio;
         private readonly IUnidadMedidaServicio _unidadMedidaServicio;
+        private readonly IOpcionServicio _opcionServicio;
+        private readonly IComidaServicio _comidaServicio;
+        private readonly IDiaServicio _diaServicio;
 
-        public OpcionDetalleController(IOpcionDetalleServicio opcionDetalleServicio, IAlimentoServicio alimentoServicio, IUnidadMedidaServicio unidadMedidaServicio)
+        public OpcionDetalleController(IOpcionDetalleServicio opcionDetalleServicio, IAlimentoServicio alimentoServicio, IUnidadMedidaServicio unidadMedidaServicio, IOpcionServicio opcionServicio, IComidaServicio comidaServicio, IDiaServicio diaServicio)
         {
             _opcionDetalleServicio = opcionDetalleServicio;
             _alimentoServicio = alimentoServicio;
             _unidadMedidaServicio = unidadMedidaServicio;
+            _opcionServicio = opcionServicio;
+            _comidaServicio = comidaServicio;
+            _diaServicio = diaServicio;
         }
 
         // GET: OpcionDetalle
@@ -71,6 +80,49 @@ namespace NutricionWeb.Controllers.OpcionDetalle
                 return View(vm);
             }
             return RedirectToAction("Details", "Opcion", new {opcionId = vm.OpcionId});
+
+        }
+
+        // GET: OpcionDetalle/Create
+        public async Task<ActionResult> CreateRapido(long opcionId)
+        {
+            var opcion = await _opcionServicio.GetById(opcionId);
+            var comida = await _comidaServicio.GetById(opcion.ComidaId);
+            var dia = await _diaServicio.GetById(comida.DiaId);
+
+            @ViewBag.Plan = dia.PlanAlimenticioId;
+
+            return View(new OpcionDetalleABMViewModel()
+            {
+                OpcionId = opcionId
+            });
+        }
+
+        // POST: OpcionDetalle/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateRapido(OpcionDetalleABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var detalleDto = CargarDatos(vm);
+                    detalleDto.Codigo = await _opcionDetalleServicio.GetNextCode();
+
+                    await _opcionDetalleServicio.Add(detalleDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
+            }
+            var opcion = await _opcionServicio.GetById(vm.OpcionId);
+            var comida = await _comidaServicio.GetById(opcion.ComidaId);
+            var dia = await _diaServicio.GetById(comida.DiaId);
+
+            return RedirectToAction("ExportarPlan", "PlanAlimenticio", new { id = dia.PlanAlimenticioId });
 
         }
 

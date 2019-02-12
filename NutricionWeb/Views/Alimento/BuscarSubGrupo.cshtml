@@ -1,25 +1,20 @@
 ﻿@model IEnumerable<NutricionWeb.Models.SubGrupo.SubGrupoViewModel>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Codigo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GrupoId)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.GrupoStr)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </th>
+       
         <th></th>
     </tr>
 
@@ -28,18 +23,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Codigo)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GrupoId)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.GrupoStr)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descripcion)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Eliminado)
-        </td>
+        
         <td>
             <input type="button" id="seleccionar-subgrupo" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
 

@@ -9,75 +9,97 @@
     <h4 class="detail-h4">Lista de Empleados</h4>
 </div>
 
-<p>
-    @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
-</p>
-<table class="table">
-    <tr class="cabecera-tabla">
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Legajo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().ApyNom)
-        </th>
+<div class="row">
+    <div class="col-lg-6" align="left">
+        <div class="btn-group">
+            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+    <div class="col-lg-6" align="right">
+        <form class="navbar-form navbar-right">
+            @using (Html.BeginForm("Index", "Empleado", FormMethod.Get))
+            {
+                <form class="form-group-lg">
+                    @Html.TextBox("CadenaBuscar", ViewBag.FilterValue as string, new { placeholder = "Ingrese una cadena...", @class = "form-control", autocomplete = "off" })
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
+            }
+        </form>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Legajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ApyNom)
+            </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Mail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Celular)
-        </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Celular)
+            </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
-        </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
+            </th>
 
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Legajo)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.ApyNom)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Mail)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Celular)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EliminadoStr)
-            </td>
-
-            <td align="right">
-                @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
-                @if (item.Eliminado)
-                {
-                    @Html.ActionLink("Activar", "Delete", new {id = item.Id}, new {@class = "btn btn-info"})
-
-                }
-                else
-                {
-                    @Html.ActionLink("Eliminar", "Delete", new {id = item.Id}, new {@class = "btn btn-danger"})
-
-                }
-            </td>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Legajo)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApyNom)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mail)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Celular)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EliminadoStr)
+                </td>
+
+                <td align="right">
+                    @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @if (item.Eliminado)
+                    {
+                        @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div align="center">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Empleado", new { page, cadenaBuscar = ViewBag.FilterValue }))
+</div>

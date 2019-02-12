@@ -12,6 +12,8 @@ using NutricionWeb.Models.OpcionDetalle;
 using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using PagedList;
+using RazorPDF;
+using Rotativa;
 using Servicio.Interface.Comida;
 using Servicio.Interface.Dia;
 using Servicio.Interface.Opcion;
@@ -285,6 +287,70 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                     }).ToList()
                 }).ToList()
             });
+        }
+
+        public async Task<ActionResult> ExportarPlanPdf(long id)
+        {
+            var plan = await _planAlimenticioServicio.GetById(id);
+
+            return View(new PlanAlimenticioViewModel()
+            {
+                Id = plan.Id,
+                Codigo = plan.Codigo,
+                Fecha = plan.Fecha,
+                Motivo = plan.Motivo,
+                PacienteId = plan.PacienteId,
+                PacienteStr = plan.PacienteStr,
+                Comentarios = plan.Comentarios,
+                Eliminado = plan.Eliminado,
+                Dias = plan.Dias.Select(x => new DiaViewModel()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    PlanAlimenticioId = x.PlanAlimenticioId,
+                    Comidas = x.Comidas.Select(q => new ComidaViewModel()
+                    {
+                        Id = q.Id,
+                        Codigo = q.Codigo,
+                        Descripcion = q.Descripcion,
+                        DiaId = q.DiaId,
+                        DiaStr = q.DiaStr,
+                        Opciones = q.Opciones.Select(t => new OpcionViewModel()
+                        {
+                            Id = t.Id,
+                            Codigo = t.Codigo,
+                            Descripcion = t.Descripcion,
+                            ComidaId = t.ComidaId,
+                            ComidaStr = t.ComidaStr,
+                            Eliminado = t.Eliminado,
+                            OpcionDetalles = t.OpcionDetalles.Select(r => new OpcionDetalleViewModel()
+                            {
+                                Id = r.Id,
+                                Codigo = r.Codigo,
+                                AlimentoId = r.AlimentoId,
+                                AlimentoStr = r.AlimentoStr,
+                                Cantidad = r.Cantidad,
+                                OpcionId = r.OpcionId,
+                                OpcionStr = r.OpcionStr,
+                                UnidadMedidaId = r.UnidadMedidaId,
+                                UnidadMedidaStr = r.UnidadMedidaStr,
+                                Eliminado = r.Eliminado
+                            }).ToList()
+                        }).ToList()
+                    }).ToList()
+                }).ToList()
+            });
+        }
+
+        public ActionResult GeneratePdf(long planId)
+        {
+            return new ActionAsPdf("ExportarPlanPdf", new {id = planId})
+            {
+                FileName = "PlanAlimenticio" + ".pdf",
+                PageSize = Rotativa.Options.Size.A4,
+                PageOrientation = Rotativa.Options.Orientation.Landscape,
+            };
         }
 
 
