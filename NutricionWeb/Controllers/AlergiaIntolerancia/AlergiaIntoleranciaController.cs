@@ -13,6 +13,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.AlergiaIntolerancia
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class AlergiaIntoleranciaController : Controller
     {
         private readonly IAlergiaIntoleranciaServicio _alergiaIntoleranciaServicio;
@@ -111,6 +112,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
         }
 
         // GET: AlergiaIntolerancia/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

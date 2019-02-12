@@ -1345,6 +1345,9 @@ a.text-primary:focus {
 }
 .text-success {
   color: #3c763d;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
 }
 a.text-success:hover,
 a.text-success:focus {

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -155,7 +156,7 @@ namespace NutricionWeb.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -172,6 +173,63 @@ namespace NutricionWeb.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> ChangePassword(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+
+            return View(new ChangePassViewModel()
+            {
+                Email = user.Email
+            });
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(ChangePassViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.Password, model.ChangePassword);
+                if (result.Succeeded)
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return RedirectToAction("Index","Home", new { Message = ManageController.ManageMessageId.ChangePasswordSuccess });
+                }
+            AddErrors(result);
+
+
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        public static string HashPassword(string password)
+        {
+            byte[] salt;
+            byte[] bytes;
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+            using (Rfc2898DeriveBytes rfc2898DeriveByte = new Rfc2898DeriveBytes(password, 16, 1000))
+            {
+                salt = rfc2898DeriveByte.Salt;
+                bytes = rfc2898DeriveByte.GetBytes(32);
+            }
+            byte[] numArray = new byte[49];
+            Buffer.BlockCopy(salt, 0, numArray, 1, 16);
+            Buffer.BlockCopy(bytes, 0, numArray, 17, 32);
+            return Convert.ToBase64String(numArray);
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

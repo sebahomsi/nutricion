@@ -8,8 +8,13 @@ namespace NutricionWeb.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(ManageController.ManageMessageId? message)
         {
+            ViewBag.StatusMessage =
+                message == ManageController.ManageMessageId.ChangePasswordSuccess
+                    ? "Su contraseña fue actualizada."
+
+                    : "";
             return View();
         }
 

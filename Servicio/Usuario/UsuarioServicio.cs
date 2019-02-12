@@ -39,6 +39,23 @@ namespace Servicio.Usuario
             return resultado.Succeeded;
         }
 
+        public async Task<bool> ActualizarPassword(string nombreUsuario, string password)
+        {
+            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(IdentityDbContext));
+
+            var usuario = await userManager.FindByEmailAsync(nombreUsuario);
+
+            if (usuario == null) return false;
+
+            usuario.PasswordHash = password;
+
+            var resultado = await userManager.UpdateAsync(usuario);
+
+            IdentityDbContext.Dispose();
+
+            return resultado.Succeeded;
+        }
+
         public void Crear(string nombreUsuario, string nombreRol)
         {
             var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(IdentityDbContext));

@@ -14,6 +14,8 @@ namespace Servicio.Interface.Usuario
 
         Task<bool> Actualizar(string nombreUsuario, string nombreUsuarioNuevo);
 
+        Task<bool> ActualizarPassword(string nombreUsuario, string password);
+
         string CrearNombreUsuario(string apellido, string nombre);
     }
 }

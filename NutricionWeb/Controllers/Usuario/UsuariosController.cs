@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using NutricionWeb.Models;
 using NutricionWeb.Models.Seguridad;
 using PagedList;
@@ -38,6 +39,7 @@ namespace NutricionWeb.Controllers.Usuario
                 }).ToList();
 
             return View(usuarios.ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            
         }
 
 
