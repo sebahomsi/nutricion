@@ -14,6 +14,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.SubGrupo
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class SubGrupoController : Controller
     {
         private readonly ISubGrupoServicio _subGrupoServicio;

@@ -13,6 +13,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.MicroNutriente
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class MicroNutrienteController : Controller
     {
         private readonly IMicroNutrienteServicio _microNutrienteServicio;

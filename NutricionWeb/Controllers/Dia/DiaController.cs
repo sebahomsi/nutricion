@@ -12,6 +12,7 @@ using Servicio.Interface.PlanAlimenticio;
 
 namespace NutricionWeb.Controllers.Dia
 {
+    [Authorize(Roles = "Administrador")]
     public class DiaController : Controller
     {
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;

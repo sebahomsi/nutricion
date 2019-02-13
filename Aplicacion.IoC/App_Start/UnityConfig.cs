@@ -6,6 +6,7 @@ using Servicio.DatoAnalitico;
 using Servicio.DatoAntropometrico;
 using Servicio.Dia;
 using Servicio.Empleado;
+using Servicio.Establecimiento;
 using Servicio.Grupo;
 using Servicio.Interface.AlergiaIntolerancia;
 using Servicio.Interface.Alimento;
@@ -14,6 +15,7 @@ using Servicio.Interface.DatoAnalitico;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Dia;
 using Servicio.Interface.Empleado;
+using Servicio.Interface.Establecimiento;
 using Servicio.Interface.Grupo;
 using Servicio.Interface.MacroNutriente;
 using Servicio.Interface.MicroNutriente;
@@ -85,6 +87,7 @@ namespace Aplicacion.IoC
             container.RegisterType<IObservacionAlergiaIntoleranciaServicio, ObservacionAlergiaIntoleranciaServicio>();
             container.RegisterType<IObservacionAlimentoServicio, ObservacionAlimentoServicio>();
             container.RegisterType<IObservacionPatologiaServicio, ObservacionPatologiaServicio>();
+            container.RegisterType<IEstablecimientoServicio, EstablecimientoServicio>();
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();

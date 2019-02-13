@@ -60,6 +60,7 @@
     <Compile Include="DatoAntropometrico\DatoAntropometricoServicio.cs" />
     <Compile Include="Dia\DiaServicio.cs" />
     <Compile Include="Empleado\EmpleadoServicio.cs" />
+    <Compile Include="Establecimiento\EstablecimientoServicio.cs" />
     <Compile Include="Grupo\GrupoServicio.cs" />
     <Compile Include="MacroNutriente\MacroNutrienteServicio.cs" />
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleServicio.cs" />

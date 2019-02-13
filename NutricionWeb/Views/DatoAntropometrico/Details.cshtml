@@ -90,6 +90,7 @@
     <p style="margin-top: 15px; margin-left: 10px">
         @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
         @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Ir al Paciente", "Details", "Paciente", new { id = Model.PacienteId }, new { @class = "btn btn-info" })
     </p>
 
 </div>

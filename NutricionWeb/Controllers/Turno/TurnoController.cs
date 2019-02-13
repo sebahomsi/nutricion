@@ -17,6 +17,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Turno
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class TurnoController : Controller
     {
         private readonly ITurnoServicio _turnoServicio;
@@ -126,6 +127,7 @@ namespace NutricionWeb.Controllers.Turno
         }
 
         // GET: Turno/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

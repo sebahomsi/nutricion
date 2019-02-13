@@ -242,6 +242,7 @@
     <Compile Include="Controllers\DatoAntropometrico\DatoAntropometricoController.cs" />
     <Compile Include="Controllers\Dia\DiaController.cs" />
     <Compile Include="Controllers\Empleado\EmpleadoController.cs" />
+    <Compile Include="Controllers\Establecimiento\EstablecimientoController.cs" />
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MacroNutriente\MacroNutrienteController.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Models\Dia\DiaViewModel.cs" />
     <Compile Include="Models\Empleado\EmpleadoABMViewModel.cs" />
     <Compile Include="Models\Empleado\EmpleadoViewModel.cs" />
+    <Compile Include="Models\Establecimiento\EstablecimientoViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoABMViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -658,6 +660,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
+    <Folder Include="Views\Establecimiento\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>

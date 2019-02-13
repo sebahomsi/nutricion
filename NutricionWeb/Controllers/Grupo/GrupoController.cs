@@ -14,6 +14,7 @@ using static NutricionWeb.Helpers.File;
 
 namespace NutricionWeb.Controllers.Grupo
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class GrupoController : Controller
     {
         private readonly IGrupoServicio _grupoServicio;

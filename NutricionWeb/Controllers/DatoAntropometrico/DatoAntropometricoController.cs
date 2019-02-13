@@ -15,6 +15,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.DatoAntropometrico
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class DatoAntropometricoController : Controller
     {
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
@@ -56,6 +57,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
 
         // GET: DatoAntropometrico/Create
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Create()
         {
             return View(new DatoAntropometricoABMViewModel());
@@ -86,6 +88,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         }
 
         // GET: DatoAntropometrico/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -132,6 +135,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         }
 
         // GET: DatoAntropometrico/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

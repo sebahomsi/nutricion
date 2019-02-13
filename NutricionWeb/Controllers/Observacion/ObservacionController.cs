@@ -20,6 +20,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Observacion
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class ObservacionController : Controller
     {
         private readonly IObservacionServicio _observacionServicio;

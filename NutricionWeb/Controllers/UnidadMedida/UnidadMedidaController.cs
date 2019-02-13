@@ -13,6 +13,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.UnidadMedida
 {
+    [Authorize(Roles = "Administrador")]
     public class UnidadMedidaController : Controller
     {
         private readonly IUnidadMedidaServicio _unidadMedidaServicio;

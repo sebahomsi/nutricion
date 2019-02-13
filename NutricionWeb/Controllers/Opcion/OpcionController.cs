@@ -16,6 +16,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Opcion
 {
+    [Authorize(Roles = "Administrador")]
     public class OpcionController : Controller
     {
         private readonly IOpcionServicio _opcionServicio;

@@ -11,6 +11,7 @@ using Servicio.Interface.MacroNutriente;
 
 namespace NutricionWeb.Controllers.MacroNutriente
 {
+    [Authorize(Roles = "Administrador")]
     public class MacroNutrienteController : Controller
     {
         private readonly IMacroNutrienteServicio _macroNutrienteServicio;

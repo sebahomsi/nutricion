@@ -145,6 +145,7 @@ namespace NutricionWeb.Controllers
 
         //
         // POST: /Account/Register
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

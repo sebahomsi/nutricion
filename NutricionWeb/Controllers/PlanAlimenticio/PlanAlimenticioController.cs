@@ -25,6 +25,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.PlanAlimenticio
 {
+    [Authorize(Roles = "Administrador")]
     public class PlanAlimenticioController : Controller
     {
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;

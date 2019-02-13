@@ -13,6 +13,7 @@ using Servicio.Interface.PlanAlimenticio;
 
 namespace NutricionWeb.Controllers.Comida
 {
+    [Authorize(Roles = "Administrador")]
     public class ComidaController : Controller
     {
         private readonly IComidaServicio _comidaServicio;

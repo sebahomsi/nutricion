@@ -19,6 +19,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.MicroNutrienteDetalle
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class MicroNutrienteDetalleController : Controller
     {
         private readonly IMicroNutrienteDetalleServicio _microNutrienteDetalleServicio;
@@ -59,9 +60,10 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
                 Cantidad = x.Cantidad
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
-        
+
 
         // GET: MicroNutrienteDetalle/Create
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Create()
         {
             return View(new MicroNutrienteDetalleABMViewModel());
@@ -94,6 +96,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         }
 
         // GET: MicroNutrienteDetalle/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
             if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -138,6 +141,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         }
 
         // GET: MicroNutrienteDetalle/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

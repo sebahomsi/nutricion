@@ -18,6 +18,7 @@ using static NutricionWeb.Helpers.File;
 
 namespace NutricionWeb.Controllers.Paciente
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class PacienteController : Controller
     {
         private readonly IPacienteServicio _pacienteServicio; //llaman e inicializan abajo para poder usar los servicios en el controlador
@@ -162,6 +163,7 @@ namespace NutricionWeb.Controllers.Paciente
         }
 
         // GET: Paciente/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

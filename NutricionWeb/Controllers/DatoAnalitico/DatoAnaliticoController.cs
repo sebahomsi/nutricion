@@ -15,6 +15,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.DatoAnalitico
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class DatoAnaliticoController : Controller
     {
         private readonly IPacienteServicio _pacienteServicio;
@@ -56,6 +57,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
 
 
         // GET: DatoAnalitico/Create
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Create()
         {
             return View(new DatoAnaliticoABMViewModel());
@@ -86,6 +88,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         }
 
         // GET: DatoAnalitico/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
             if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -131,6 +134,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         }
 
         // GET: DatoAnalitico/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

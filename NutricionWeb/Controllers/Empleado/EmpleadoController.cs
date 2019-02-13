@@ -18,6 +18,7 @@ using System.Xml.Schema;
 
 namespace NutricionWeb.Controllers.Empleado
 {
+    [Authorize(Roles = "Administrador")]
     public class EmpleadoController : Controller
     {
         private readonly IEmpleadoServicio _empleadoServicio;

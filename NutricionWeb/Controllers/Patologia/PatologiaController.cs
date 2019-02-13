@@ -13,6 +13,7 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Patologia
 {
+    [Authorize(Roles = "Administrador, Empleado")]
     public class PatologiaController : Controller
     {
         private readonly IPatologiaServicio _patologiaServicio;
