@@ -120,22 +120,25 @@
 
 
 </div>
+@if (User.IsInRole("Administrador"))
+{
+    <div class="row" style="margin-left: 15px;">
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+            @if (Model.TieneObservacion == false)
+            {
+                @Html.ActionLink("Observaciones", "Create", "Observacion", new { pacienteId = Model.Id }, new { @class = "btn btn-info" })
+            }
+            else
+            {
+                @Html.ActionLink("Observaciones", "Details", "Observacion", new { id = Model.Id }, new { @class = "btn btn-default" })
 
-<div class="row" style="margin-left: 15px;">
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
-        @if (Model.TieneObservacion == false)
-        {
-            @Html.ActionLink("Observaciones", "Create", "Observacion", new { pacienteId = Model.Id }, new { @class = "btn btn-info" })
-        }
-        else
-        {
-            @Html.ActionLink("Observaciones", "Details", "Observacion", new { id = Model.Id }, new { @class = "btn btn-default" })
+            }
+        </p>
+    </div>
+}
 
-        }
-    </p>
-</div>
 
 <hr />
 

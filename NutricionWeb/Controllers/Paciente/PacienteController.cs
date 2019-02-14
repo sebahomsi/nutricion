@@ -18,7 +18,7 @@ using static NutricionWeb.Helpers.File;
 
 namespace NutricionWeb.Controllers.Paciente
 {
-    [Authorize(Roles = "Administrador, Empleado")]
+    
     public class PacienteController : Controller
     {
         private readonly IPacienteServicio _pacienteServicio; //llaman e inicializan abajo para poder usar los servicios en el controlador
@@ -31,6 +31,7 @@ namespace NutricionWeb.Controllers.Paciente
         }
 
         // GET: Paciente
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Index(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1; //declaramos que pageNumber sea igual al valor de page, si page no tiene valor le asigna 1
@@ -60,6 +61,7 @@ namespace NutricionWeb.Controllers.Paciente
 
 
         // GET: Paciente/Create
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Create()
         {
             return View(new PacienteABMViewModel()
@@ -111,6 +113,7 @@ namespace NutricionWeb.Controllers.Paciente
         }
 
         // GET: Paciente/Edit/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -211,11 +214,24 @@ namespace NutricionWeb.Controllers.Paciente
         }
 
         // GET: Paciente/Details/5
-        public async Task<ActionResult> Details(long? id)
+        [Authorize(Roles = "Administrador, Empleado, Paciente")]
+        public async Task<ActionResult> Details(long? id, string email="")
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var paciente = new PacienteDto();
+            if (!string.IsNullOrEmpty(email))
+            {
+               paciente = await _pacienteServicio.GetByEmail(email);
+            }
+            else
+            {
+                if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var paciente = await _pacienteServicio.GetById(id.Value);
+                paciente = await _pacienteServicio.GetById(id.Value);
+            }
+            
+
+            
+
 
             return View(new PacienteViewModel()
             {

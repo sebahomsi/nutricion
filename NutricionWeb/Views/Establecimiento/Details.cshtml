@@ -1,0 +1,96 @@
+﻿@model NutricionWeb.Models.Establecimiento.EstablecimientoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Datos del Establecimiento</h4>
+</div>
+<div>
+    <hr />
+    <div class="row" style="margin-left: 20em;">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Nombre):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Nombre)
+            </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Profesional):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Profesional)
+            </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Direccion):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Direccion)
+            </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Telefono):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Telefono)
+            </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Email):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Email)
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Horario):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Horario)
+            </span>
+        </p>
+
+    </div>
+    <hr />
+
+    <div class="titulo-ABM">
+        <h4 class="detail-h4">Visita nuestras redes sociales.</h4>
+    </div>
+
+    <div align="center">
+        <div class="row" style="margin: 0 15em;">
+            <div class="col-md-4">
+                <a href="https://@Model.Instagram" target="_blank">
+                    <i class="fab fa-7x fa-instagram "></i>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="https://@Model.Facebook" target="_blank">
+                    <i class="fab fa-7x fa-facebook "></i>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="https://@Model.Twitter" target="_blank">
+                    <i class="fab fa-7x fa-twitter "></i>
+                </a>
+            </div>
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Volver", "Index", "Home", new { }, new { @class = "btn btn-default" })
+</p>

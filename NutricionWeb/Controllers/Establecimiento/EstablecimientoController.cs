@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,14 @@ namespace NutricionWeb.Controllers.Establecimiento
 {
     public class EstablecimientoController : Controller
     {
+
+        private readonly IEstablecimientoServicio _establecimientoServicio;
+
+        public EstablecimientoController(IEstablecimientoServicio establecimientoServicio)
+        {
+            _establecimientoServicio = establecimientoServicio;
+        }
+
         // GET: Establecimiento
         public ActionResult Index()
         {
@@ -18,14 +27,37 @@ namespace NutricionWeb.Controllers.Establecimiento
         }
 
         // GET: Establecimiento/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var establecimiento = await _establecimientoServicio.GetById(id.Value);
+
+            return View(new EstablecimientoViewModel()
+            {
+                Id = establecimiento.Id,
+                Nombre = establecimiento.Nombre,
+                Direccion = establecimiento.Direccion,
+                Profesional = establecimiento.Profesional,
+                Email = establecimiento.Email,
+                Facebook = establecimiento.Facebook,
+                Horario = establecimiento.Horario,
+                Instagram = establecimiento.Instagram,
+                Telefono = establecimiento.Telefono,
+                Twitter = establecimiento.Twitter
+            });
         }
 
         // GET: Establecimiento/Create
         public async Task<ActionResult> Create()
         {
+            if (await _establecimientoServicio.EstablecimientoFlag())
+            {
+                var flagId = await _establecimientoServicio.Get();
+                var establecimiento = await _establecimientoServicio.GetById(flagId.First().Id);
+
+                return RedirectToAction("Details", new { id = establecimiento.Id });
+            }
             return View(new EstablecimientoViewModel());
         }
 
@@ -36,36 +68,65 @@ namespace NutricionWeb.Controllers.Establecimiento
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var datosDto = CargarDatos(vm);
 
-                return RedirectToAction("Index");
+                    await _establecimientoServicio.Add(datosDto);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index","Home");
+
         }
 
         // GET: Establecimiento/Edit/5
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var establecimiento = await _establecimientoServicio.GetById(id.Value);
+
+            return View(new EstablecimientoViewModel()
+            {
+                Id = establecimiento.Id,
+                Nombre = establecimiento.Nombre,
+                Direccion = establecimiento.Direccion,
+                Profesional = establecimiento.Profesional,
+                Email = establecimiento.Email,
+                Facebook = establecimiento.Facebook,
+                Horario = establecimiento.Horario,
+                Instagram = establecimiento.Instagram,
+                Telefono = establecimiento.Telefono,
+                Twitter = establecimiento.Twitter
+            });
         }
 
         // POST: Establecimiento/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EstablecimientoViewModel vm)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    var datosDto = CargarDatos(vm);
 
-                return RedirectToAction("Index");
+                    await _establecimientoServicio.Update(datosDto);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index", "Home");
+
         }
 
         // GET: Establecimiento/Delete/5

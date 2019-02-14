@@ -179,6 +179,88 @@ namespace Servicio.Paciente
             };
         }
 
+        public async Task<PacienteDto> GetByEmail(string email)
+        {
+            var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+                .AsNoTracking()
+                .Include("DatosAnaliticos")
+                .Include("DatosAntropometricos")
+                .Include("PlanesAlimenticios")
+                .Include("Turnos")
+                .FirstOrDefaultAsync(x => x.Mail == email);
+            if (paciente == null) throw new ArgumentNullException("No se encontró el paciente.");
+
+            return new PacienteDto()
+            {
+                Id = paciente.Id,
+                Codigo = paciente.Codigo,
+                Apellido = paciente.Apellido,
+                Nombre = paciente.Nombre,
+                Celular = paciente.Celular,
+                Dni = paciente.Dni,
+                Direccion = paciente.Direccion,
+                Mail = paciente.Mail,
+                Telefono = paciente.Telefono,
+                Sexo = paciente.Sexo,
+                FechaNac = paciente.FechaNac,
+                Foto = paciente.Foto,
+                Eliminado = paciente.Eliminado,
+                Estado = paciente.Estado,
+                TieneObservacion = paciente.TieneObservacion,
+                DatosAntropometricos = paciente.DatosAntropometricos.Select(p => new DatoAntropometricoDto()
+                {
+                    Id = p.Id,
+                    Codigo = p.Codigo,
+                    PacienteId = p.PacienteId,
+                    PacienteStr = p.Paciente.Apellido + " " + p.Paciente.Nombre,
+                    Altura = p.Altura,
+                    FechaMedicion = p.FechaMedicion,
+                    MasaGrasa = p.MasaGrasa,
+                    MasaCorporal = p.MasaCorporal,
+                    Peso = p.Peso,
+                    PerimetroCintura = p.PerimetroCintura,
+                    PerimetroCadera = p.PerimetroCadera,
+                    Eliminado = p.Eliminado
+                }).ToList(),
+                PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q => q.Fecha).Select(q => new PlanAlimenticioDto()
+                {
+                    Id = q.Id,
+                    Codigo = q.Codigo,
+                    Motivo = q.Motivo,
+                    Fecha = q.Fecha,
+                    PacienteId = q.PacienteId,
+                    PacienteStr = q.Paciente.Apellido + " " + q.Paciente.Nombre,
+                    Eliminado = q.Eliminado
+                }).ToList(),
+                Turnos = paciente.Turnos.OrderBy(t => t.HorarioEntrada).Where(t => t.HorarioEntrada >= DateTime.Today).Select(t => new TurnoDto()
+                {
+                    Id = t.Id,
+                    Numero = t.Numero,
+                    Motivo = t.Motivo,
+                    PacienteId = t.PacienteId,
+                    PacienteStr = t.Paciente.Apellido + " " + t.Paciente.Nombre,
+                    HorarioEntrada = t.HorarioEntrada,
+                    HorarioSalida = t.HorarioSalida,
+                    Eliminado = t.Eliminado
+                }).ToList(),
+                DatosAnaliticos = paciente.DatosAnaliticos.OrderBy(x => x.Codigo).Select(x => new DatoAnaliticoDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    ColesterolHdl = x.ColesterolHdl,
+                    ColesterolLdl = x.ColesterolLdl,
+                    ColesterolTotal = x.ColesterolTotal,
+                    PresionDiastolica = x.PresionDiastolica,
+                    PresionSistolica = x.PresionSistolica,
+                    Trigliceridos = x.Trigliceridos,
+                    PacienteId = x.PacienteId,
+                    PacienteStr = x.Paciente.Apellido + " " + x.Paciente.Nombre,
+                    FechaMedicion = x.FechaMedicion,
+                    Eliminado = x.Eliminado
+                }).ToList()
+            };
+        }
+
         public async Task<int> GetNextCode()
         {
             return await Context.Personas.OfType<Dominio.Entidades.Paciente>().AnyAsync()

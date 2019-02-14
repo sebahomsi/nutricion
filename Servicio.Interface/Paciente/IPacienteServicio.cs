@@ -14,6 +14,7 @@ namespace Servicio.Interface.Paciente
         Task Delete(long id);
         Task<ICollection<PacienteDto>> Get(string cadenaBuscar);
         Task<PacienteDto> GetById(long id);
+        Task<PacienteDto> GetByEmail(string email);
         Task<int> GetNextCode();
     }
 }

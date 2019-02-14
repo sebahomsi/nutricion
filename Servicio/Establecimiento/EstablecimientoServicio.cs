@@ -69,5 +69,30 @@ namespace Servicio.Establecimiento
                 Twitter = establecimiento.Twitter
             };
         }
+
+        public async Task<ICollection<EstablecimientoDto>> Get()
+        {
+            return await Context.Establecimientos
+                .AsNoTracking()
+                .Select(x => new EstablecimientoDto()
+                {
+                    Id = x.Id,
+                    Nombre = x.Nombre,
+                    Direccion = x.Direccion,
+                    Email = x.Email,
+                    Facebook = x.Facebook,
+                    Instagram = x.Instagram,
+                    Telefono = x.Telefono,
+                    Profesional = x.Profesional,
+                    Horario = x.Horario,
+                    Twitter = x.Twitter
+                }).ToListAsync();
+        }
+
+        public async Task<bool> EstablecimientoFlag()
+        {
+            return await Context.Establecimientos.AnyAsync();
+
+        }
     }
 }

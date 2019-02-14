@@ -11,5 +11,7 @@ namespace Servicio.Interface.Establecimiento
         Task<long> Add(EstablecimientoDto dto);
         Task Update(EstablecimientoDto dto);
         Task<EstablecimientoDto> GetById(long id);
+        Task<bool> EstablecimientoFlag();
+        Task<ICollection<EstablecimientoDto>> Get();
     }
 }
