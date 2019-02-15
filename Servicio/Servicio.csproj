@@ -63,6 +63,7 @@
     <Compile Include="Establecimiento\EstablecimientoServicio.cs" />
     <Compile Include="Grupo\GrupoServicio.cs" />
     <Compile Include="MacroNutriente\MacroNutrienteServicio.cs" />
+    <Compile Include="Mensaje\MensajeServicio.cs" />
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleServicio.cs" />
     <Compile Include="MicroNutriente\MicroNutrienteServicio.cs" />
     <Compile Include="ObservacionAlergiaIntolerancia\ObservacionAlergiaIntoleranciaServicio.cs" />

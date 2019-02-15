@@ -18,6 +18,7 @@ using Servicio.Interface.Empleado;
 using Servicio.Interface.Establecimiento;
 using Servicio.Interface.Grupo;
 using Servicio.Interface.MacroNutriente;
+using Servicio.Interface.Mensaje;
 using Servicio.Interface.MicroNutriente;
 using Servicio.Interface.MicroNutrienteDetalle;
 using Servicio.Interface.Observacion;
@@ -36,6 +37,7 @@ using Servicio.Interface.Turno;
 using Servicio.Interface.UnidadMedida;
 using Servicio.Interface.Usuario;
 using Servicio.MacroNutriente;
+using Servicio.Mensaje;
 using Servicio.MicroNutriente;
 using Servicio.MicroNutrienteDetalle;
 using Servicio.Observacion;
@@ -88,6 +90,7 @@ namespace Aplicacion.IoC
             container.RegisterType<IObservacionAlimentoServicio, ObservacionAlimentoServicio>();
             container.RegisterType<IObservacionPatologiaServicio, ObservacionPatologiaServicio>();
             container.RegisterType<IEstablecimientoServicio, EstablecimientoServicio>();
+            container.RegisterType<IMensajeServicio, MensajeServicio>();
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();

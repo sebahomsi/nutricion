@@ -1,0 +1,55 @@
+﻿@model IEnumerable<NutricionWeb.Models.Mensaje.MensajeViewModel>
+
+@{
+    ViewBag.Title = "Mensajes Recibidos";
+}
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Mensajes Recibidos (@ViewBag.Contador)</h4>
+</div>
+
+
+<div class="table-responsive">
+
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.EmailEmisor)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Motivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cuerpo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visto)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailEmisor)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Motivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cuerpo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VistoStr)
+                </td>
+                <td align="right">
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

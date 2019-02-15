@@ -1,0 +1,58 @@
+﻿@model NutricionWeb.Models.Mensaje.MensajeViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MensajeABMViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailEmisor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailEmisor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailReceptor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailReceptor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Motivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Motivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cuerpo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cuerpo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Visto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Visto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

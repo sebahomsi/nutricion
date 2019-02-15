@@ -247,6 +247,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MacroNutriente\MacroNutrienteController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Mensaje\MensajeController.cs" />
     <Compile Include="Controllers\MicroNutrienteDetalle\MicroNutrienteDetalleController.cs" />
     <Compile Include="Controllers\MicroNutriente\MicroNutrienteController.cs" />
     <Compile Include="Controllers\Observacion\ObservacionAlergiaIntoleranciaController.cs" />
@@ -289,6 +290,7 @@
     <Compile Include="Models\MacroNutriente\MacroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MacroNutriente\MacroNutrienteViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Mensaje\MensajeViewModel.cs" />
     <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleABMViewModel.cs" />
     <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleViewModel.cs" />
     <Compile Include="Models\MicroNutriente\MicroNutrienteABMViewModel.cs" />
@@ -700,6 +702,10 @@
     <Content Include="webfonts\fa-brands-400.woff" />
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="Views\Mensaje\IndexRecibidos.cshtml" />
+    <Content Include="Views\Mensaje\IndexEnviados.cshtml" />
+    <Content Include="Views\Mensaje\Details.cshtml" />
+    <Content Include="Views\Mensaje\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -67,6 +67,8 @@
     <Compile Include="Grupo\IGrupoServicio.cs" />
     <Compile Include="MacroNutriente\IMacroNutrienteServicio.cs" />
     <Compile Include="MacroNutriente\MacroNutrienteDto.cs" />
+    <Compile Include="Mensaje\IMensajeServicio.cs" />
+    <Compile Include="Mensaje\MensajeDto.cs" />
     <Compile Include="MicroNutrienteDetalle\IMicroNutrienteDetalleServicio.cs" />
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleDto.cs" />
     <Compile Include="MicroNutriente\IMicroNutrienteServicio.cs" />

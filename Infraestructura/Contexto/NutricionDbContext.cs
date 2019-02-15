@@ -43,6 +43,7 @@ namespace Infraestructura.Contexto
         public IDbSet<UnidadMedida> UnidadMedidas { get; set; }
         public IDbSet<Turno> Turnos { get; set; }
         public IDbSet<Establecimiento> Establecimientos { get; set; }
+        public IDbSet<Mensaje> Mensajes { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
