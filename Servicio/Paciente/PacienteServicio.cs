@@ -188,7 +188,7 @@ namespace Servicio.Paciente
                 .Include("PlanesAlimenticios")
                 .Include("Turnos")
                 .FirstOrDefaultAsync(x => x.Mail == email);
-            if (paciente == null) throw new ArgumentNullException("No se encontró el paciente.");
+            if (paciente == null) return null;
 
             return new PacienteDto()
             {

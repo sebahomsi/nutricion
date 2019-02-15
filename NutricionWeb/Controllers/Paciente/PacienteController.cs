@@ -221,6 +221,8 @@ namespace NutricionWeb.Controllers.Paciente
             if (!string.IsNullOrEmpty(email))
             {
                paciente = await _pacienteServicio.GetByEmail(email);
+
+               if (paciente == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest,"No se encontró el perfil");
             }
             else
             {
