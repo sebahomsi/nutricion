@@ -25,7 +25,6 @@ using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.PlanAlimenticio
 {
-    [Authorize(Roles = "Administrador")]
     public class PlanAlimenticioController : Controller
     {
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
@@ -40,6 +39,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         }
 
         // GET: PlanAlimenticio
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Index(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
@@ -64,6 +64,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
 
         // GET: PlanAlimenticio/Create
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Create()
         {
             return View(new PlanAlimenticioABMViewModel());
@@ -95,6 +96,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         }
 
         // GET: PlanAlimenticio/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -137,6 +139,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         }
 
         // GET: PlanAlimenticio/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -354,7 +357,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             };
         }
 
-
+       
         public async Task<ActionResult> TraerPaciente(long? pacienteId)
         {
             if (pacienteId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
