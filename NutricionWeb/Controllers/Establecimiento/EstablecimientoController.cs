@@ -33,6 +33,11 @@ namespace NutricionWeb.Controllers.Establecimiento
 
             var establecimiento = await _establecimientoServicio.GetById(id.Value);
 
+            if (establecimiento == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
+            }
+
             return View(new EstablecimientoViewModel()
             {
                 Id = establecimiento.Id,
@@ -51,21 +56,26 @@ namespace NutricionWeb.Controllers.Establecimiento
         // GET: Establecimiento/Create
         public async Task<ActionResult> Create()
         {
-            if (User.IsInRole("Paciente"))
-            {
-                var todo = await _establecimientoServicio.Get();
-                if (todo != null)
-                {
-                    var establecimiento = await _establecimientoServicio.GetById(todo.First().Id);
-                    return RedirectToAction("Details", new { id = establecimiento.Id });
-                }
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
+            //if (User.IsInRole("Paciente"))
+            //{
+            //    var todo = await _establecimientoServicio.Get();
+            //    if (todo != null)
+            //    {
+            //        var establecimiento = await _establecimientoServicio.GetById(todo.First().Id);
+            //        return RedirectToAction("Details", new { id = establecimiento.Id });
+            //    }
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
 
-            }
+            //}
             if (await _establecimientoServicio.EstablecimientoFlag())
             {
                 var flagId = await _establecimientoServicio.Get();
                 var establecimiento = await _establecimientoServicio.GetById(flagId.First().Id);
+
+                if (establecimiento == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
+                }
 
                 return RedirectToAction("Details", new {id = establecimiento.Id});
             }
@@ -97,6 +107,7 @@ namespace NutricionWeb.Controllers.Establecimiento
         }
 
         // GET: Establecimiento/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -168,6 +179,7 @@ namespace NutricionWeb.Controllers.Establecimiento
         {
             return new EstablecimientoDto()
             {
+                Id = vm.Id,
                 Nombre = vm.Nombre,
                 Direccion = vm.Direccion,
                 Email = vm.Email,

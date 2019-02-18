@@ -23,7 +23,6 @@ namespace Servicio.Interface.Paciente
         }
         public int Codigo { get; set; }
 
-        public bool Estado { get; set; }
 
         public bool TieneObservacion { get; set; }
 

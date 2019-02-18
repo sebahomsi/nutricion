@@ -18,11 +18,9 @@
         <p><a class="btn btn-default" href="/Establecimiento/Details/1">Leer mas &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        
     </div>
-    @if (User.IsInRole("Paciente"))
+    @if (!User.IsInRole("Administrador") && !User.IsInRole("Empleado"))
     {
         <div class="col-md-4">
             <h2>Ver mi perfil</h2>

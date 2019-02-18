@@ -99,7 +99,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PerimetroCintura, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PerimetroCintura, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.PerimetroCintura, new { htmlAttributes = new { @class = "form-control" } }) 
             @Html.ValidationMessageFor(model => model.PerimetroCintura, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -145,7 +145,10 @@
                     listaPaciente();
                 }
             );
-            
+
+            $('#MasaCorporal, #MasaGrasa, #PerimetroCintura, #PerimetroCadera, #Peso, #Altura').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
 
             function listaPaciente() {
                 $("#partialFindPaciente").empty();

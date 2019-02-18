@@ -1,17 +1,20 @@
-﻿@model NutricionWeb.Models.Establecimiento.EstablecimientoViewModel
+﻿@using Antlr.Runtime.Tree
+@model NutricionWeb.Models.Establecimiento.EstablecimientoViewModel
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<div class="titulo-ABM">
+    <h4 class="create-h4">Actualizar Registro</h4>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>EstablecimientoViewModel</h4>
+        <h4 style="margin-left: 17%;">Actualice los campos requeridos.</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -90,12 +93,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Aceptar" class="btn btn-success" />
+                @Html.ActionLink("Volver", "Index", "Home", new {}, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    
 </div>

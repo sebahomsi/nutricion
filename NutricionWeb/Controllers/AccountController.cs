@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using NutricionWeb.Models;
+using Servicio.Interface.Paciente;
 
 namespace NutricionWeb.Controllers
 {
@@ -18,12 +20,18 @@ namespace NutricionWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        //private readonly IPacienteServicio _pacienteServicio;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        //public AccountController(IPacienteServicio pacienteServicio)
+        //{
+        //    _pacienteServicio = pacienteServicio;
+        //}
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -153,6 +161,12 @@ namespace NutricionWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var paciente = await _pacienteServicio.GetByEmail(model.Email);
+                //if (paciente == null)
+                //{
+                //    ModelState.AddModelError(string.Empty, "No se encontró ningún paciente con ese mail. Ingrese uno correcto");
+                //}
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -164,7 +178,7 @@ namespace NutricionWeb.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -178,6 +192,11 @@ namespace NutricionWeb.Controllers
         public async Task<ActionResult> ChangePassword(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos, salga y vuelva a entrar a su cuenta");
+            }
 
             return View(new ChangePassViewModel()
             {

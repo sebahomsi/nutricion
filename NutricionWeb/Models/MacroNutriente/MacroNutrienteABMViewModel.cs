@@ -16,17 +16,22 @@ namespace NutricionWeb.Models.MacroNutriente
         public long AlimentoId { get; set; }
 
         [Display(Name = "Alimento")]
+        [Required(ErrorMessage = "Campo Requerido")]
         public string AlimentoStr { get; set; }
 
+        [RegularExpression(@"\d+(\,\d{1,2})?", ErrorMessage = "Ingrese un número decimal.")]
         [Required(ErrorMessage = "Campo Requerido")]
         public string Proteina { get; set; }
 
+        [RegularExpression(@"\d+(\,\d{1,2})?", ErrorMessage = "Ingrese un número decimal.")]
         [Required(ErrorMessage = "Campo Requerido")]
         public string Grasa { get; set; }
 
+        [RegularExpression(@"\d+(\,\d{1,2})?", ErrorMessage = "Ingrese un número decimal.")]
         [Required(ErrorMessage = "Campo Requerido")]
         public string Energia { get; set; }
 
+        [RegularExpression(@"\d+(\,\d{1,2})?", ErrorMessage = "Ingrese un número decimal.")]
         [Display(Name = "Hidratos de Carbono")]
         [Required(ErrorMessage = "Campo Requerido")]
         public string HidratosCarbono { get; set; }

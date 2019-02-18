@@ -53,7 +53,7 @@ namespace Servicio.Establecimiento
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (establecimiento == null) throw new ArgumentNullException();
+            if (establecimiento == null) return null;
 
             return new EstablecimientoDto()
             {

@@ -19,6 +19,7 @@ namespace NutricionWeb.Models.Alimento
         public long SubGrupoId { get; set; }
 
         [Display(Name = "SubGrupo")]
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public string SubGrupoStr { get; set; }
 
         public bool Eliminado { get; set; }

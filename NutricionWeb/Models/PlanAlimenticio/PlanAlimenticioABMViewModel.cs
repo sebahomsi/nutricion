@@ -16,6 +16,7 @@ namespace NutricionWeb.Models.PlanAlimenticio
         public long PacienteId { get; set; }
 
         [Display(Name = "Paciente")]
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public string PacienteStr { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]

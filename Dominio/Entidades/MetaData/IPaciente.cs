@@ -14,7 +14,6 @@ namespace Dominio.Entidades.MetaData
         [Index("Index_Paciente_Codigo", IsUnique = true)]
         int Codigo { get; set; }
 
-        bool Estado { get; set; }
 
         bool TieneObservacion { get; set; }
     }

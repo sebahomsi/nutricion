@@ -228,7 +228,6 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 Sexo = x.Sexo,
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
-                Estado = x.Estado,
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 

@@ -55,7 +55,6 @@ namespace NutricionWeb.Controllers.Paciente
                 Sexo = x.Sexo,
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
-                Estado = x.Estado,
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
@@ -135,7 +134,6 @@ namespace NutricionWeb.Controllers.Paciente
                 Sexo = paciente.Sexo,
                 Mail = paciente.Mail,
                 Eliminado = paciente.Eliminado,
-                Estado = paciente.Estado,
             });
         }
 
@@ -188,7 +186,6 @@ namespace NutricionWeb.Controllers.Paciente
                 FotoStr = paciente.Foto,
                 Mail = paciente.Mail,
                 Eliminado = paciente.Eliminado,
-                Estado = paciente.Estado,
             });
         }
 
@@ -250,7 +247,6 @@ namespace NutricionWeb.Controllers.Paciente
                 Mail = paciente.Mail,
                 FotoStr = paciente.Foto,
                 Eliminado = paciente.Eliminado,
-                Estado = paciente.Estado,
                 TieneObservacion = paciente.TieneObservacion,
                 DatosAntropometricos = paciente.DatosAntropometricos.Select(p => new DatoAntropometricoViewModel()
                 {

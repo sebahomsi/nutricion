@@ -58,15 +58,15 @@ namespace NutricionWeb
                 userManager.AddToRole(superUsuario.Id, "Administrador");
             }
 
-            if (!userManager.IsInRole(superUsuario.Id, "Paciente"))
-            {
-                userManager.AddToRole(superUsuario.Id, "Paciente");
-            }
+            //if (!userManager.IsInRole(superUsuario.Id, "Paciente"))
+            //{
+            //    userManager.AddToRole(superUsuario.Id, "Paciente");
+            //}
 
-            if (!userManager.IsInRole(superUsuario.Id, "Empleado"))
-            {
-                userManager.AddToRole(superUsuario.Id, "Empleado");
-            }
+            //if (!userManager.IsInRole(superUsuario.Id, "Empleado"))
+            //{
+            //    userManager.AddToRole(superUsuario.Id, "Empleado");
+            //}
 
             //if (!userManager.IsInRole(superUsuario.Id, "Insert"))
             //{
@@ -102,7 +102,7 @@ namespace NutricionWeb
                     UserName = "powernutri@asp.com.ar",
                     Email = "powernutri@asp.com.ar"
                 };
-                var result = userManager.Create(user, "50Cent");
+                var result = userManager.Create(user, "123456");
             }
         }
 

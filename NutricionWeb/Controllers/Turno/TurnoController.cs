@@ -68,6 +68,20 @@ namespace NutricionWeb.Controllers.Turno
             {
                 if (ModelState.IsValid)
                 {
+                    if (vm.HorarioEntrada > vm.HorarioSalida)
+                    {
+                        ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
+                        return View(vm);
+                    }
+                    var turnos = await _turnoServicio.Get(string.Empty);
+                    foreach (var turno in turnos)
+                    {
+                        if (turno.HorarioEntrada < vm.HorarioEntrada && turno.HorarioSalida > vm.HorarioEntrada)
+                        {
+                            ModelState.AddModelError(string.Empty, "Ya existe un turno para ese rango de horarios");
+                            return View(vm);
+                        }
+                    }
                     var turnoDto = CargarDatos(vm);
                     turnoDto.Numero = await _turnoServicio.GetNextCode();
 
@@ -218,7 +232,6 @@ namespace NutricionWeb.Controllers.Turno
                 Sexo = x.Sexo,
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
-                Estado = x.Estado,
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
 
         }

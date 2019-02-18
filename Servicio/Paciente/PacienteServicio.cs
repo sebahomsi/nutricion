@@ -32,7 +32,6 @@ namespace Servicio.Paciente
                 Foto = dto.Foto,
                 Eliminado = false,
                 TieneObservacion = false,
-                Estado = dto.Estado,
             };
 
             Context.Personas.Add(paciente);
@@ -93,7 +92,6 @@ namespace Servicio.Paciente
                     FechaNac = x.FechaNac,
                     Foto = x.Foto,
                     Eliminado = x.Eliminado,
-                    Estado = x.Estado,
                 }).ToListAsync();
         }
 
@@ -123,7 +121,6 @@ namespace Servicio.Paciente
                 FechaNac = paciente.FechaNac,
                 Foto = paciente.Foto,
                 Eliminado = paciente.Eliminado,
-                Estado = paciente.Estado,
                 TieneObservacion = paciente.TieneObservacion,
                 DatosAntropometricos = paciente.DatosAntropometricos.Select(p=> new DatoAntropometricoDto()
                 {
@@ -205,7 +202,6 @@ namespace Servicio.Paciente
                 FechaNac = paciente.FechaNac,
                 Foto = paciente.Foto,
                 Eliminado = paciente.Eliminado,
-                Estado = paciente.Estado,
                 TieneObservacion = paciente.TieneObservacion,
                 DatosAntropometricos = paciente.DatosAntropometricos.Select(p => new DatoAntropometricoDto()
                 {

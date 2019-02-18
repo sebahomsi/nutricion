@@ -19,6 +19,7 @@ namespace NutricionWeb.Models.Mensaje
         public string Motivo { get; set; }
 
         [Display(Name = "Mensaje")]
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public string Cuerpo { get; set; }
 
         public bool Visto { get; set; }

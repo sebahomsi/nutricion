@@ -10,6 +10,7 @@ using Unity.Injection;
 using Unity.Lifetime;
 using NutricionWeb.Controllers;
 using NutricionWeb.Models;
+using Servicio.Interface.Paciente;
 using static Aplicacion.Conexion.ConexionDb;
 
 

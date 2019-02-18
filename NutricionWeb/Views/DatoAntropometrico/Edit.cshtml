@@ -146,6 +146,10 @@
                 }
             );
 
+            $('#MasaCorporal, #MasaGrasa, #PerimetroCintura, #PerimetroCadera, #Peso, #Altura').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
 
             function listaPaciente() {
                 $("#partialFindPaciente").empty();

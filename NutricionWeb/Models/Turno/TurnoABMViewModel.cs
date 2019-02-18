@@ -10,21 +10,22 @@ namespace NutricionWeb.Models.Turno
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo Requerido")]
         public long PacienteId { get; set; }
 
         [Display(Name = "Paciente")]
+        [Required(ErrorMessage = "Campo Requerido")]
         public string PacienteStr { get; set; }
 
         [Display(Name = "Código")]
         public int Numero { get; set; }
 
         [Display(Name = "Entrada")]
-        [Required]
+        [Required(ErrorMessage = "Campo Requerido")]
         public DateTime HorarioEntrada { get; set; }
 
         [Display(Name = "Salida")]
-        [Required]
+        [Required(ErrorMessage = "Campo Requerido")]
         public DateTime HorarioSalida { get; set; }
 
         public string Motivo { get; set; }

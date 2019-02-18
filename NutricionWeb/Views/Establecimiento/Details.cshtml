@@ -90,7 +90,11 @@
     </div>
 
 </div>
-<p>
-    @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
-    @Html.ActionLink("Volver", "Index", "Home", new { }, new { @class = "btn btn-default" })
-</p>
+@if (User.IsInRole("Administrador"))
+{
+    <p>
+        @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Volver", "Index", "Home", new { }, new { @class = "btn btn-default" })
+    </p>
+}
+
