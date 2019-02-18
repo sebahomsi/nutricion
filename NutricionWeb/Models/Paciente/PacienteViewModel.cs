@@ -14,9 +14,7 @@ namespace NutricionWeb.Models.Paciente
     public class PacienteViewModel : PersonaViewModel
     {
         public int Codigo { get; set; }
-
-
-
+        
         public bool TieneObservacion { get; set; }
 
         public List<PlanAlimenticioViewModel> PlanesAlimenticios { get; set; }

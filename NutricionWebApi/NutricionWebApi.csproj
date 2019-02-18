@@ -230,8 +230,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comida\ComidaViewModel.cs" />
+    <Compile Include="Models\DatoAnalitico\DatoAnaliticoViewModel.cs" />
+    <Compile Include="Models\DatoAntropometrico\DatoAntopometricoViewModel.cs" />
+    <Compile Include="Models\Dia\DiaViewModel.cs" />
+    <Compile Include="Models\OpcionDetalle\OpcionDetalleViewModel.cs" />
+    <Compile Include="Models\Opcion\OpcionViewModel.cs" />
     <Compile Include="Models\Paciente\PacienteViewModel.cs" />
     <Compile Include="Models\Persona\PersonaViewModel.cs" />
+    <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
+    <Compile Include="Models\Turno\TurnoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
