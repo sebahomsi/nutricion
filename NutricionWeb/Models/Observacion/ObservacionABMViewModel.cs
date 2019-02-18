@@ -17,7 +17,6 @@ namespace NutricionWeb.Models.Observacion
         public long PacienteId { get; set; }
 
         [Display(Name = "Paciente")]
-        [Required(ErrorMessage = "Campo Requerido")]
         public string PacienteStr { get; set; }
 
         public bool Fumador { get; set; }
