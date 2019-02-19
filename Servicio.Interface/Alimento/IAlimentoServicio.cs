@@ -12,7 +12,7 @@ namespace Servicio.Interface.Alimento
         Task<long> Add(AlimentoDto dto);
         Task Update(AlimentoDto dto);
         Task Delete(long id);
-        Task<ICollection<AlimentoDto>> Get(string cadenaBuscar);
+        Task<ICollection<AlimentoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<AlimentoDto> GetById(long id);
         Task<int> GetNextCode();
     }

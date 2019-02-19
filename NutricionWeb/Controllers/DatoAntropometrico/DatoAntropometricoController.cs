@@ -28,11 +28,13 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         }
 
         // GET: DatoAntropometrico
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
-            var datos = await _datoAntropometricoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar)
+            ViewBag.Eliminado = eliminado;
+
+            var datos = await _datoAntropometricoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar)
                 ? cadenaBuscar
                 : string.Empty);
 
@@ -211,7 +213,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             var pageNumber = page ?? 1;
 
             var pacientes =
-                await _pacienteServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return HttpNotFound();
 

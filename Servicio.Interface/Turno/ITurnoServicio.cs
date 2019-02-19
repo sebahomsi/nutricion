@@ -12,7 +12,7 @@ namespace Servicio.Interface.Turno
         Task<long> Add(TurnoDto dto);
         Task Update(TurnoDto dto);
         Task Delete(long id);
-        Task<ICollection<TurnoDto>> Get(string cadenaBuscar);
+        Task<ICollection<TurnoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<TurnoDto> GetById(long id);
         Task<int> GetNextCode();
     }

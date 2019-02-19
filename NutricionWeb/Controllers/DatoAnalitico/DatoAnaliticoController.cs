@@ -28,11 +28,13 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         }
 
         // GET: DatoAnalitico
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
-            var datos = await _datoAnaliticoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar)
+            ViewBag.Eliminado = eliminado;
+
+            var datos = await _datoAnaliticoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar)
                 ? cadenaBuscar
                 : string.Empty);
 
@@ -208,9 +210,9 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
-
+            var eliminado = false;
             var pacientes =
-                await _pacienteServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty); 
+                await _pacienteServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty); 
 
             if (pacientes == null) return HttpNotFound(); 
 

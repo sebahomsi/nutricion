@@ -12,7 +12,7 @@ namespace Servicio.Interface.MacroNutriente
         Task<long> Add(MacroNutrienteDto dto);
         Task Update(MacroNutrienteDto dto);
         Task Delete(long id);
-        Task<ICollection<MacroNutrienteDto>> Get(string cadenaBuscar);
+        Task<ICollection<MacroNutrienteDto>> Get(bool eliminado, string cadenaBuscar);
         Task<MacroNutrienteDto> GetById(long id);
         Task<int> GetNextCode();
     }

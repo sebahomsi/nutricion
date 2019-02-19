@@ -30,11 +30,13 @@ namespace NutricionWeb.Controllers.Turno
         }
 
         // GET: Turno
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
-            var turnos = await _turnoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            ViewBag.Eliminado = eliminado;
+
+            var turnos = await _turnoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (turnos == null) return HttpNotFound();
 
@@ -73,7 +75,8 @@ namespace NutricionWeb.Controllers.Turno
                         ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
                         return View(vm);
                     }
-                    var turnos = await _turnoServicio.Get(string.Empty);
+                    var eliminado = false;
+                    var turnos = await _turnoServicio.Get(eliminado,string.Empty);
                     foreach (var turno in turnos)
                     {
                         if (turno.HorarioEntrada < vm.HorarioEntrada && turno.HorarioSalida > vm.HorarioEntrada)
@@ -204,7 +207,8 @@ namespace NutricionWeb.Controllers.Turno
         //====================================Metodos Hugangelion
         public async Task<JsonResult> GetTurnos()
         {
-            var events = await _turnoServicio.Get(string.Empty);
+            var eliminado = false;
+            var events = await _turnoServicio.Get(eliminado, string.Empty);
             
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
@@ -213,8 +217,10 @@ namespace NutricionWeb.Controllers.Turno
         {
             var pageNumber = page ?? 1;
 
+            var eliminado = false;
+
             var pacientes =
-                await _pacienteServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return HttpNotFound();
 

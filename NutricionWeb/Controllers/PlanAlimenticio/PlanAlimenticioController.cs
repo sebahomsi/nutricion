@@ -40,12 +40,14 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
         // GET: PlanAlimenticio
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
+            ViewBag.Eliminado = eliminado;
+
             var planes =
-                await _planAlimenticioServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _planAlimenticioServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (planes == null) return HttpNotFound();
 
@@ -181,6 +183,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
 
         // GET: PlanAlimenticio/Details/5
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -369,10 +372,10 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
-            var pageNumber = page ?? 1; 
-
+            var pageNumber = page ?? 1;
+            var eliminado = false;
             var pacientes =
-                await _pacienteServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return HttpNotFound(); 
 

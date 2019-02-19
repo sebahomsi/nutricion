@@ -13,6 +13,16 @@
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
+            @if (@ViewBag.Eliminado == false)
+            {
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary" })
+
+            }
+            else
+            {
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary" })
+
+            }
         </div>
     </div>
     <div class="col-lg-6" align="right">

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio.Entidades;
@@ -46,10 +47,12 @@ namespace Servicio.Patologia
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PatologiaDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<PatologiaDto>> Get(bool eliminado,string cadenaBuscar = "")
         {
+            Expression<Func<Dominio.Entidades.Patologia, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
+
             return await Context.Patologias.AsNoTracking()
-                .Where(x => x.Descripcion.Contains(cadenaBuscar))
+                .Where(expression)
                 .Select(x => new PatologiaDto()
                 {
                     Id = x.Id,

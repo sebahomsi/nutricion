@@ -11,7 +11,7 @@ namespace Servicio.Interface.Grupo
         Task<long> Add(GrupoDto dto);
         Task Update(GrupoDto dto);
         Task Delete(long id);
-        Task<ICollection<GrupoDto>> Get(string cadenaBuscar);
+        Task<ICollection<GrupoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<GrupoDto> GetById(long id);
         Task<int> GetNextCode();
     }

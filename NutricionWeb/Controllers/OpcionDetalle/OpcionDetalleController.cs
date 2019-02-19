@@ -165,9 +165,10 @@ namespace NutricionWeb.Controllers.OpcionDetalle
         public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
+            var eliminado = false;
 
             var alimentos =
-                await _alimentoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _alimentoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (alimentos == null) return HttpNotFound();
 
             return PartialView(alimentos.Select(x => new AlimentoViewModel()
@@ -186,9 +187,9 @@ namespace NutricionWeb.Controllers.OpcionDetalle
         public async Task<ActionResult> BuscarUnidad(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
-
+            var eliminado = false;
             var unidades =
-                await _unidadMedidaServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _unidadMedidaServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (unidades == null) return HttpNotFound();
 

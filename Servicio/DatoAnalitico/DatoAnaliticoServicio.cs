@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.DatoAnalitico;
@@ -59,12 +60,14 @@ namespace Servicio.DatoAnalitico
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<DatoAnaliticoDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<DatoAnaliticoDto>> Get(bool eliminado,string cadenaBuscar = "")
         {
-            int.TryParse(cadenaBuscar, out var codigo);
+            Expression<Func<Dominio.Entidades.DatoAnalitico, bool>> expression = x => x.Eliminado == eliminado && (x.Paciente.Nombre.Contains(cadenaBuscar) || x.Paciente.Apellido.Contains(cadenaBuscar));
+
             return await Context.DatosAnaliticos
                 .AsNoTracking()
                 .Include("Paciente")
+                .Where(expression )
                 .Select(x =>new DatoAnaliticoDto()
                 {
                     Id = x.Id,

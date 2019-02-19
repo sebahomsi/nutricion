@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Opcion;
@@ -49,14 +50,14 @@ namespace Servicio.Opcion
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OpcionDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<OpcionDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
-            int.TryParse(cadenaBuscar, out var codigo);
+            Expression<Func<Dominio.Entidades.Opcion, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
 
             return await Context.Opciones
                 .AsNoTracking()
                 .Include("Comida")
-                .Where(x => x.Codigo == codigo || x.Descripcion.Contains(cadenaBuscar))
+                .Where(expression)
                 .Select(x => new OpcionDto()
                 {
                     Id = x.Id,

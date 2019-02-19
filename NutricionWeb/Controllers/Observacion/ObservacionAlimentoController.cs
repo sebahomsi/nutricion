@@ -115,9 +115,9 @@ namespace NutricionWeb.Controllers.Observacion
         public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
-
+            var eliminado = false;
             var alimentos =
-                await _alimentoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _alimentoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return PartialView(alimentos.Select(x => new AlimentoViewModel()
             {

@@ -4,62 +4,47 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Detalle</h4>
+</div>
 
-<div>
-    <h4>MensajeABMViewModel</h4>
+<div class="row">
+    <p class="info-style" style="margin: 16px;">
+        @Html.DisplayNameFor(model => model.Motivo):
+        @Html.DisplayFor(model => model.Motivo)
+
+    </p>
+            
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailEmisor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailEmisor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailReceptor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailReceptor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Motivo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Motivo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cuerpo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cuerpo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Visto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VistoStr)
-        </dd>
-
-    </dl>
+    <div class="row" style="margin: 2px;">
+        <div class="col-md-6">
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.EmailEmisor):
+                @Html.DisplayFor(model => model.EmailEmisor)
+            </p>
+        </div>
+        <div class="col-md-6">
+            <p class="info-style">
+                @Html.DisplayNameFor(model => model.EmailReceptor):
+                @Html.DisplayFor(model => model.EmailReceptor)
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin: 2px;">
+    <p class="sub-info">
+        @Html.DisplayNameFor(model => model.Cuerpo):
+        @Html.DisplayFor(model => model.Cuerpo)
+    </p>
 </div>
 <p>
     @if (User.Identity.Name == Model.EmailReceptor)
     {
-        @Html.ActionLink("Volver", "IndexRecibidos")
+        @Html.ActionLink("Volver", "IndexRecibidos",new{}, new {@class="btn btn-default"})
     }
     @if (User.Identity.Name == Model.EmailEmisor)
     {
-        @Html.ActionLink("Volver", "IndexEnviados")
+        @Html.ActionLink("Volver", "IndexEnviados",new{}, new { @class = "btn btn-default" })
 
     }
 </p>

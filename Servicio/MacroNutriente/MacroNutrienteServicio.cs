@@ -61,7 +61,7 @@ namespace Servicio.MacroNutriente
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<MacroNutrienteDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<MacroNutrienteDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
             int.TryParse(cadenaBuscar, out var codigo);
             return await Context.MacroNutrientes

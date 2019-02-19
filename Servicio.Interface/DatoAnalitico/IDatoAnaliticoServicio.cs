@@ -12,7 +12,7 @@ namespace Servicio.Interface.DatoAnalitico
         Task<long> Add(DatoAnaliticoDto dto);
         Task Update(DatoAnaliticoDto dto);
         Task Delete(long id);
-        Task<ICollection<DatoAnaliticoDto>> Get(string cadenaBuscar);
+        Task<ICollection<DatoAnaliticoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<DatoAnaliticoDto> GetById(long id);
         Task<int> GetNextCode();
     }

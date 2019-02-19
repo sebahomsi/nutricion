@@ -23,12 +23,14 @@ namespace NutricionWeb.Controllers.MicroNutriente
             _microNutrienteServicio = microNutrienteServicio;
         }
         // GET: MicroNutriente
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
+            ViewBag.Eliminado = eliminado;
+
             var micros =
-                await _microNutrienteServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _microNutrienteServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (micros == null) return HttpNotFound();
 

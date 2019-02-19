@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Comida;
@@ -54,15 +55,12 @@ namespace Servicio.PlanAlimenticio
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PlanAlimenticioDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<PlanAlimenticioDto>> Get(bool eliminado,string cadenaBuscar = "")
         {
-            DateTime.TryParse(cadenaBuscar, out var fecha);
-            int.TryParse(cadenaBuscar, out var codigo);
+            Expression<Func<Dominio.Entidades.PlanAlimenticio, bool>> expression = x => x.Eliminado == eliminado && (x.Paciente.Nombre.Contains(cadenaBuscar) || x.Paciente.Apellido.Contains(cadenaBuscar));
             return await Context.PlanesAlimenticios.AsNoTracking()
                 .Include("Paciente")
-                
-                //.Where(x => x.Fecha == fecha
-                //        || x.Codigo == codigo)
+                .Where(expression)
                 .Select(x => new PlanAlimenticioDto()
                 {
                     Id = x.Id,

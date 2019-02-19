@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.Entity;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Xml;
 using Servicio.Interface.Alimento;
@@ -48,13 +49,12 @@ namespace Servicio.AlergiaIntolerancia
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<AlergiaIntoleranciaDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<AlergiaIntoleranciaDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
-            int.TryParse(cadenaBuscar, out var codigo);
+            Expression<Func<Dominio.Entidades.AlergiaIntolerancia, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
             return await Context.AlergiasIntolerancias
                 .AsNoTracking()
-                .Where(x => x.Descripcion.Contains(cadenaBuscar) 
-                || x.Codigo == codigo)
+                .Where(expression)
                 .Select(x => new AlergiaIntoleranciaDto()
                 {
                     Id = x.Id,

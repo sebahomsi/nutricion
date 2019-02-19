@@ -118,7 +118,7 @@ namespace NutricionWeb.Controllers.Observacion
             var pageNumber = page ?? 1;
 
             var alergias =
-                await _alergiaIntoleranciaServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _alergiaIntoleranciaServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return PartialView(alergias.Select(x => new AlergiaIntoleranciaViewModel()
             {

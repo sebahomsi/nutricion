@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
@@ -69,14 +70,13 @@ namespace Servicio.Paciente
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PacienteDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<PacienteDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
-            int.TryParse(cadenaBuscar, out var codigo);
+            Expression<Func<Dominio.Entidades.Paciente, bool>> expression = x => x.Eliminado == eliminado && (x.Apellido.Contains(cadenaBuscar)
+                                                                                                              || x.Nombre.Contains(cadenaBuscar));
             return await Context.Personas.OfType<Dominio.Entidades.Paciente>()
                 .AsNoTracking()
-                .Where(x => x.Nombre.Contains(cadenaBuscar)
-                            || x.Apellido.Contains(cadenaBuscar)
-                            || x.Codigo == codigo)
+                .Where(expression)
                 .Select(x => new PacienteDto()
                 {
                     Id = x.Id,

@@ -26,12 +26,14 @@ namespace NutricionWeb.Controllers.SubGrupo
             _grupoServicio = grupoServicio;
         }
         // GET: SubGrupo
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
+            ViewBag.Eliminado = eliminado;
+
             var subGrupos =
-                await _subGrupoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _subGrupoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (subGrupos == null) return HttpNotFound();
 
@@ -177,8 +179,9 @@ namespace NutricionWeb.Controllers.SubGrupo
         //===========================================================//
         public async Task<ActionResult> BuscarGrupo(string cadenaBuscar)
         {
-            var grupos = await _grupoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
-
+            var eliminado = false;
+            var grupos = await _grupoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            
             ViewBag.Registros = grupos.Count;
 
             return PartialView(grupos.Take(5).Select(x => new GrupoViewModel()

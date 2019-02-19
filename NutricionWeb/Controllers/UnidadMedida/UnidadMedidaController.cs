@@ -24,12 +24,13 @@ namespace NutricionWeb.Controllers.UnidadMedida
         }
 
         // GET: UnidadMedida
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
+            ViewBag.Eliminado = eliminado;
 
             var unidades =
-                await _unidadMedidaServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _unidadMedidaServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (unidades == null) return HttpNotFound();
 

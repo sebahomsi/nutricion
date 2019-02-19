@@ -30,12 +30,14 @@ namespace NutricionWeb.Controllers.Alimento
             _macroNutrienteServicio = macroNutrienteServicio;
         }
         // GET: Alimento
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar,bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
+            ViewBag.Eliminado = eliminado;
+
             var alimentos =
-                await _alimentoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _alimentoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (alimentos == null) return HttpNotFound();
 
             return View(alimentos.Select(x=> new AlimentoViewModel()
@@ -196,9 +198,10 @@ namespace NutricionWeb.Controllers.Alimento
         public async Task<ActionResult> BuscarSubGrupo(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
+            var eliminado = false;
 
             var subGrupos =
-                await _subGrupoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _subGrupoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return PartialView(subGrupos.Select(x => new SubGrupoViewModel()
             {

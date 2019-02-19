@@ -24,12 +24,14 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
         }
 
         // GET: AlergiaIntolerancia
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
+            ViewBag.Eliminado = eliminado;
+
             var alergiasIntolerancias =
-                await _alergiaIntoleranciaServicio.Get(
+                await _alergiaIntoleranciaServicio.Get(eliminado,
                     !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (alergiasIntolerancias == null) return HttpNotFound();

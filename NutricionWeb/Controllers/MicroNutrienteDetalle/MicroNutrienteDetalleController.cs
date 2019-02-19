@@ -210,7 +210,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
             var pageNumber = page ?? 1;
 
             var alimentos =
-                await _alimentoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _alimentoServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (alimentos == null) return HttpNotFound();
 
             return PartialView(alimentos.Select(x => new AlimentoViewModel()
@@ -231,7 +231,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
             var pageNumber = page ?? 1;
 
             var micros =
-                await _microNutrienteServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _microNutrienteServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (micros == null) return HttpNotFound();
 
@@ -249,7 +249,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
             var pageNumber = page ?? 1;
 
             var unidades =
-                await _unidadMedidaServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _unidadMedidaServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (unidades == null) return HttpNotFound();
 

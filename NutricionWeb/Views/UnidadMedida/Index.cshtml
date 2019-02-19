@@ -16,6 +16,16 @@
             @Html.ActionLink("Ver MicroNutrientes", "Index", "MicroNutriente", new { }, new { @class = "btn btn-primary" })
 
             @Html.ActionLink("Ver Detalles", "Index", "MicroNutrienteDetalle", new { }, new { @class = "btn btn-primary" })
+            @if (@ViewBag.Eliminado == false)
+            {
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary" })
+
+            }
+            else
+            {
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary" })
+
+            }
         </div>
     </div>
     <div class="col-lg-6" align="right">

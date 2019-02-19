@@ -116,9 +116,9 @@ namespace NutricionWeb.Controllers.Observacion
         public async Task<ActionResult> BuscarPatologia(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
-
+            var eliminado = false;
             var patologias =
-                await _patologiaServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _patologiaServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return PartialView(patologias.Select(x => new PatologiaViewModel()
             {

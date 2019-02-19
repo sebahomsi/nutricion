@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Turno;
@@ -50,11 +51,14 @@ namespace Servicio.Turno
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<TurnoDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<TurnoDto>> Get(bool eliminado,string cadenaBuscar = "")
         {
+            Expression<Func<Dominio.Entidades.Turno, bool>> expression = x => x.Eliminado == eliminado && (x.Paciente.Nombre.Contains(cadenaBuscar) || x.Paciente.Apellido.Contains(cadenaBuscar));
+
+
             return await Context.Turnos.AsNoTracking()
                 .Include("Paciente")
-                .Where(x => x.Paciente.Nombre.Contains(cadenaBuscar) || x.Paciente.Apellido.Contains(cadenaBuscar))
+                .Where(expression)
                 .OrderBy(x=> x.HorarioEntrada)
                 .Select(x => new TurnoDto()
                 {

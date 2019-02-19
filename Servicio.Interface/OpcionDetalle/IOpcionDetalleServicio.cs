@@ -12,7 +12,7 @@ namespace Servicio.Interface.OpcionDetalle
         Task<long> Add(OpcionDetalleDto dto);
         Task Update(OpcionDetalleDto dto);
         Task Delete(long id);
-        Task<ICollection<OpcionDetalleDto>> Get(string cadenaBuscar);
+        Task<ICollection<OpcionDetalleDto>> Get(bool eliminado, string cadenaBuscar);
         Task<OpcionDetalleDto> GetById(long id);
         Task<int> GetNextCode();
     }

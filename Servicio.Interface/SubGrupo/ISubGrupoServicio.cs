@@ -11,7 +11,7 @@ namespace Servicio.Interface.SubGrupo
         Task<long> Add(SubGrupoDto dto);
         Task Update(SubGrupoDto dto);
         Task Delete(long id);
-        Task<ICollection<SubGrupoDto>> Get(string cadenaBuscar);
+        Task<ICollection<SubGrupoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<SubGrupoDto> GetById(long id);
         Task<int> GetNextCode();
     }

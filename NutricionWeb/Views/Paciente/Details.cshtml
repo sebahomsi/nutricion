@@ -201,10 +201,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.HoraStr)
             </td>
-
-            <td align="right">
-                @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default" })
-            </td>
+            
+            @if (User.IsInRole("Administrador"))
+            {
+                <td align="right">
+                    @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default" })
+                </td>
+            }
+            
         </tr>
     }
 

@@ -120,6 +120,11 @@ namespace NutricionWeb.Controllers.Mensaje
             {
                 if (ModelState.IsValid)
                 {
+                    if (vm.EmailReceptor == null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Error: Receptor Vacío.");
+                        return View(vm);
+                    }
                     var mensaje = CargarDatos(vm);
                     await _mensajeServicio.Add(mensaje);
                 }

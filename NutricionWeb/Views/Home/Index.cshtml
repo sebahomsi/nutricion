@@ -4,9 +4,7 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 
 <div class="jumbotron">
-    <h1>POWER NUTRITION</h1>
-    <p class="lead">POWER NUTRITION es un software desarrollado por el Doctor Homsi con apoyo moral de Hugo el Mordechotas y Don Granollo.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1 style="font-weight: bold; color: #337ab7;" align="center">POWER NUTRITION</h1>
 </div>
 
 <div class="row">
@@ -15,12 +13,12 @@
         <p>
             En el siguiente enlace podrá encontrar toda la información necesaria sobre el establecimiento.
         </p>
-        <p><a class="btn btn-default" href="/Establecimiento/Details/1">Leer mas &raquo;</a></p>
+        <p><a class="btn btn-default" href="/Establecimiento/Details/1">Leer mas</a></p>
     </div>
     <div class="col-md-4">
         
     </div>
-    @if (!User.IsInRole("Administrador") && !User.IsInRole("Empleado"))
+    @if (User.IsInRole("Paciente"))
     {
         <div class="col-md-4">
             <h2>Ver mi perfil</h2>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.DatoAntropometrico;
@@ -58,15 +59,14 @@ namespace Servicio.DatoAntropometrico
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<DatoAntropometricoDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<DatoAntropometricoDto>> Get(bool eliminado,string cadenaBuscar = "")
         {
-            int.TryParse(cadenaBuscar, out var codigo);
-            DateTime.TryParse(cadenaBuscar, out var fecha);
+            Expression<Func<Dominio.Entidades.DatoAntropometrico, bool>> expression = x => x.Eliminado == eliminado && (x.Paciente.Nombre.Contains(cadenaBuscar) || x.Paciente.Apellido.Contains(cadenaBuscar));
+
             return await Context.DatosAntropometricos
                 .AsNoTracking()
                 .Include("Paciente")
-                //.Where(x => x.Codigo == codigo
-                //|| x.FechaMedicion == fecha)
+                .Where(expression)
                 .Select(x => new DatoAntropometricoDto()
                 {
                     Id = x.Id,

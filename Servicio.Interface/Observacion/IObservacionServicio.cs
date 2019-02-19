@@ -12,7 +12,7 @@ namespace Servicio.Interface.Observacion
         Task<long> Add(ObservacionDto dto);
         Task Update(ObservacionDto dto);
         Task Delete(long id);
-        Task<ICollection<ObservacionDto>> Get(string cadenaBuscar);
+        Task<ICollection<ObservacionDto>> Get(bool eliminado, string cadenaBuscar);
         Task<ObservacionDto> GetById(long id);
         Task<ObservacionDto> GetByPacienteId(long id);
         Task<int> GetNextCode();

@@ -12,7 +12,7 @@ namespace Servicio.Interface.Paciente
         Task<long> Add(PacienteDto dto);
         Task Update(PacienteDto dto);
         Task Delete(long id);
-        Task<ICollection<PacienteDto>> Get(string cadenaBuscar);
+        Task<ICollection<PacienteDto>> Get(bool eliminado, string cadenaBuscar);
         Task<PacienteDto> GetById(long id);
         Task<PacienteDto> GetByEmail(string email);
         Task<int> GetNextCode();

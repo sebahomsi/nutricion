@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
@@ -51,14 +52,14 @@ namespace Servicio.SubGrupo
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<SubGrupoDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<SubGrupoDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
-            int.TryParse(cadenaBuscar, out var codigo);
+            Expression<Func<Dominio.Entidades.SubGrupo, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
+
             return await Context.SubGrupos.AsNoTracking()
                 .Include("Alimentos")
                 .Include("Grupo")
-                .Where(x => x.Descripcion.Contains(cadenaBuscar)
-                        || x.Codigo == codigo)
+                .Where(expression)
                 .Select(x => new SubGrupoDto()
                 {
                     Id = x.Id,

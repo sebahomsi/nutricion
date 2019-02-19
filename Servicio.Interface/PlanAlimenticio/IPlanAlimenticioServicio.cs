@@ -12,7 +12,7 @@ namespace Servicio.Interface.PlanAlimenticio
         Task<long> Add(PlanAlimenticioDto dto);
         Task Update(PlanAlimenticioDto dto);
         Task Delete(long id);
-        Task<ICollection<PlanAlimenticioDto>> Get(string cadenaBuscar);
+        Task<ICollection<PlanAlimenticioDto>> Get(bool eliminado, string cadenaBuscar);
         Task<PlanAlimenticioDto> GetById(long id);
         Task<int> GetNextCode();
     }

@@ -7,10 +7,10 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "ChangePassword", "Account", new { id = User.Identity.GetUserId() }, new {})
+            @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "ChangePassword", "Account", new { id = User.Identity.GetUserId() }, new {})
         </li>
 
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Salir</a></li>
     </ul>
     }
 }

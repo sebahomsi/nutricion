@@ -12,7 +12,7 @@ namespace Servicio.Interface.Patologia
         Task<long> Add(PatologiaDto dto);
         Task Update(PatologiaDto dto);
         Task Delete(long id);
-        Task<ICollection<PatologiaDto>> Get(string cadenaBuscar);
+        Task<ICollection<PatologiaDto>> Get(bool eliminado, string cadenaBuscar);
         Task<PatologiaDto> GetById(long id);
         Task<int> GetNextCode();
     }

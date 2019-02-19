@@ -24,12 +24,12 @@ namespace NutricionWeb.Controllers.Patologia
         }
 
         // GET: Patologia
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
-
+            ViewBag.Eliminado = eliminado;
             var patologias =
-                await _patologiaServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _patologiaServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (patologias == null) return HttpNotFound();
 

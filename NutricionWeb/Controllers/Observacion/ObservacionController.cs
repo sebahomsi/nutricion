@@ -32,12 +32,14 @@ namespace NutricionWeb.Controllers.Observacion
             _pacienteServicio = pacienteServicio;
         }
         // GET: Observacion
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
+            ViewBag.Eliminado = eliminado;
+
             var observaciones =
-                await _observacionServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _observacionServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return View(observaciones.Select(x=> new ObservacionViewModel()
             {

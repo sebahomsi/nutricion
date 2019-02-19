@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.MicroNutrienteDetalle;
@@ -50,10 +51,12 @@ namespace Servicio.UnidadMedida
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<UnidadMedidaDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<UnidadMedidaDto>> Get(bool eliminado,string cadenaBuscar = "")
         {
+            Expression<Func<Dominio.Entidades.UnidadMedida, bool>> expression = x => x.Eliminado == eliminado && (x.Descripcion.Contains(cadenaBuscar) || x.Abreviatura.Contains(cadenaBuscar));
+
             return await Context.UnidadMedidas.AsNoTracking()
-                .Where(x => x.Descripcion.Contains(cadenaBuscar) || x.Abreviatura.Contains(cadenaBuscar)).Select(x =>
+                .Where(expression).Select(x =>
                     new UnidadMedidaDto()
                     {
                         Id = x.Id,

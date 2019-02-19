@@ -14,6 +14,7 @@ namespace NutricionWeb.Models.Mensaje
         public string EmailEmisor { get; set; }
 
         [Display(Name = "Receptor")]
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public string EmailReceptor { get; set; }
 
         public string Motivo { get; set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Grupo;
@@ -44,12 +45,13 @@ namespace Servicio.Grupo
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<GrupoDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<GrupoDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
-            int.TryParse(cadenaBuscar, out var codigo);
+            Expression<Func<Dominio.Entidades.Grupo,bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
+
             return await Context.Grupos
                 .AsNoTracking()
-                .Where(x => x.Codigo == codigo || x.Descripcion.Contains(cadenaBuscar)).Select(x => new GrupoDto()
+                .Where(expression).Select(x => new GrupoDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,

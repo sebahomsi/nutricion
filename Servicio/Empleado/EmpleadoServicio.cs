@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Empleado;
@@ -63,14 +64,13 @@ namespace Servicio.Empleado
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<EmpleadoDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<EmpleadoDto>> Get(bool eliminado,string cadenaBuscar = "")
         {
-            int.TryParse(cadenaBuscar, out var legajo);
+            Expression<Func<Dominio.Entidades.Empleado, bool>> expression = x => x.Eliminado == eliminado && (x.Apellido.Contains(cadenaBuscar)
+                                                                                                              || x.Nombre.Contains(cadenaBuscar));
             return await Context.Personas.OfType<Dominio.Entidades.Empleado>()
                 .AsNoTracking()
-                .Where(x => x.Apellido.Contains(cadenaBuscar)
-                            || x.Nombre.Contains(cadenaBuscar)
-                            || x.Legajo == legajo)
+                .Where(expression)
                 .Select(x => new EmpleadoDto()
                 {
                     Id = x.Id,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.OpcionDetalle;
@@ -51,12 +52,15 @@ namespace Servicio.OpcionDetalle
 
         }
 
-        public async Task<ICollection<OpcionDetalleDto>> Get(string cadenaBuscar = "")
+        public async Task<ICollection<OpcionDetalleDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
+            Expression<Func<Dominio.Entidades.OpcionDetalle, bool>> expression = x => x.Eliminado == eliminado && x.Alimento.Descripcion.Contains(cadenaBuscar);
+
             return await Context.OpcionesDetalles.AsNoTracking()
                 .Include("Alimento")
                 .Include("UnidadMedida")
                 .Include("Opcion")
+                .Where(expression)
                 .Select(x => new OpcionDetalleDto()
                 {
                     Id = x.Id,

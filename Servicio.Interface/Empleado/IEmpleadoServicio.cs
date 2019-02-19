@@ -12,7 +12,7 @@ namespace Servicio.Interface.Empleado
         Task<long> Add(EmpleadoDto dto);
         Task Update(EmpleadoDto dto);
         Task Delete(long id);
-        Task<ICollection<EmpleadoDto>> Get(string cadenaBuscar);
+        Task<ICollection<EmpleadoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<EmpleadoDto> GetById(long id);
         Task<int> GetNextCode();
     }
