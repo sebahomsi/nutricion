@@ -79,4 +79,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+        $('#Energia,  #HidratosCarbono, #Grasa, #Proteina').on('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+</script>
 }

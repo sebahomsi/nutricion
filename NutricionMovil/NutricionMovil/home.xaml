@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutricionMovil.home">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="10" BackgroundColor="#C2D8FA" >
+            <Label Text="Lista de pacientes:" FontSize="Large"/>
             <ListView x:Name="ListaPaciente">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding ApyNom}"/>
+                        <TextCell Text="{Binding ApyNom}" TextColor="Black"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

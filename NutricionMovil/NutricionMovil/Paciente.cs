@@ -57,9 +57,7 @@ namespace NutricionMovil
         public string EliminadoStr => Eliminado ? "SI" : "NO";
 
         public int Codigo { get; set; }
-
-
-
+        
         public bool TieneObservacion { get; set; }
 
         public List<PlanAlimenticio> PlanesAlimenticios { get; set; }

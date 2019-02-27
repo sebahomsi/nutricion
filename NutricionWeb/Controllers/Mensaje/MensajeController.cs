@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -97,6 +98,7 @@ namespace NutricionWeb.Controllers.Mensaje
             {
                 var contactos = await _establecimientoServicio.Get();
                 var contacto = contactos.First();
+                if(contacto == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No existen datos de contacto para mandar mensajes");
 
                 return View(new MensajeABMViewModel()
                 {

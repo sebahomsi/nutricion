@@ -3,8 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutricionMovil.PacienteDetalle">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding ApyNom}" x:Name="ApyNom"/>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="10" BackgroundColor="#C2D8FA">
+                <Label Text="Datos del paciente:" FontSize="Large"/>
+                <Label Text="Nombre completo:"/>
+                <Label Text="{Binding ApyNom}" x:Name="ApyNom" TextColor="Black"/>
+                <Label Text="DNI:"/>
+                <Label Text="{Binding Dni}" x:Name="Dni" TextColor="Black"/>
+                <Label Text="Direccion:"/>
+                <Label Text="{Binding Direccion}" x:Name="Direccion" TextColor="Black"/>
+                <Label Text="E-Mail:"/>
+                <Label Text="{Binding Mail}" x:Name="Mail" TextColor="Black"/>
+                <Label Text="Edad:"/>
+                <Label Text="{Binding Edad}" x:Name="Edad" TextColor="Black"/>
+                <Label Text="Sexo:"/>
+                <Label Text="{Binding SexoStr}" x:Name="SexoStr" TextColor="Black"/>
+                <Label Text="Telefono:"/>
+                <Label Text="{Binding Telefono}" x:Name="Telefono" TextColor="Black"/>
+
+                <Label Text="Datos Antropometricos:" FontSize="Large"/>
+                <Label Text="Altura (en Centimetros):"/>
+                <Label Text="{Binding Altura}" x:Name="Altura" TextColor="Black"/>
+                <Label Text="Peso (en KG)"/>
+                <Label Text="{Binding Peso}" x:Name="Peso" TextColor="Black"/>
+                <Label Text="Porcentaje de masa grasa:"/>
+                <Label Text="{Binding MasaGrasa}" x:Name="MasaGrasa" TextColor="Black"/>
+                <Label Text="Porcentaje de masa corporal:"/>
+                <Label Text="{Binding MasaCorporal}" x:Name="MasaCorporal" TextColor="Black"/>
+                <Label Text="Perimetro de cadera (en Centimetros):"/>
+                <Label Text="{Binding PerimetroCadera}" x:Name="PerimetroCadera" TextColor="Black"/>
+                <Label Text="Perimetro de cintura (en Centimetros):"/>
+                <Label Text="{Binding PerimetroCintura}" x:Name="PerimetroCintura" TextColor="Black"/>
+
+                <Label Text="Datos Analiticos:" FontSize="Large"/>
+                <Label Text="Colesterol Hdl:"/>
+                <Label Text="{Binding ColesterolHdl}" x:Name="ColesterolHdl" TextColor="Black"/>
+                <Label Text="Colesterol Ldl:"/>
+                <Label Text="{Binding ColesterolLdl}" x:Name="ColesterolLdl" TextColor="Black"/>
+                <Label Text="Colesterol total:"/>
+                <Label Text="{Binding ColesterolTotal}" x:Name="ColesterolTotal" TextColor="Black"/>
+                <Label Text="Presion diastolica:"/>
+                <Label Text="{Binding PresionDiastolica}" x:Name="PresionDiastolica" TextColor="Black"/>
+                <Label Text="Presion sistolica:"/>
+                <Label Text="{Binding PresionSistolica}" x:Name="PresionSistolica" TextColor="Black"/>
+                <Label Text="Trigliceridos:"/>
+                <Label Text="{Binding Trigliceridos}" x:Name="Trigliceridos" TextColor="Black"/>
+
+                <Label Text="Proximo turno:" FontSize="Large"/>
+                <Label Text="Día:"/>
+                <Label Text="{Binding DiaTurno}" x:Name="DiaTurno" TextColor="Black"/>
+                <Label Text="Hora:"/>
+                <Label Text="{Binding HoraTurno}" x:Name="HoraTurno" TextColor="Black"/>
+                <Label Text="Motivo:"/>
+                <Label Text="{Binding UltimoMotivo}" x:Name="UltimoMotivo" TextColor="Black"/>
+
+                <Label Text="Plan Alimenticio:" FontSize="Large"/>
+                <Label Text="Motivo:"/>
+                <Label Text="{Binding MotivoPlan}" x:Name="MotivoPlan" TextColor="Black"/>
+                <Label Text="Fech de implementacion:"/>
+                <Label Text="{Binding FechaImplementacion}" x:Name="FechaImplementacion" TextColor="Black"/>
+                <Label Text="Comentarios:"/>
+                <Label Text="{Binding ComentarioPlan}" x:Name="ComentarioPlan" TextColor="Black"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
