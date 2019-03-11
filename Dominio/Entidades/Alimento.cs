@@ -32,5 +32,6 @@ namespace Dominio.Entidades
         public virtual SubGrupo SubGrupo { get; set; }
         //public virtual MacroNutriente MacroNutriente { get; set; }
         public virtual ICollection<Opcion> Opciones { get; set; }
+        public virtual ICollection<Receta> Recetas { get; set; }
     }
 }

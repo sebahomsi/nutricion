@@ -44,6 +44,7 @@ namespace Infraestructura.Contexto
         public IDbSet<Turno> Turnos { get; set; }
         public IDbSet<Establecimiento> Establecimientos { get; set; }
         public IDbSet<Mensaje> Mensajes { get; set; }
+        public IDbSet<Receta> Recetas { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
