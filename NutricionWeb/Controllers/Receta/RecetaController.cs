@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.Receta;
 using PagedList;
 using Servicio.Interface.Receta;
@@ -156,7 +157,14 @@ namespace NutricionWeb.Controllers.Receta
                 Id = receta.Id,
                 Codigo = receta.Codigo,
                 Descripcion = receta.Descripcion,
-                Eliminado = receta.Eliminado
+                Eliminado = receta.Eliminado,
+                Alimentos = receta.Alimentos.Select(t => new AlimentoViewModel()
+                {
+                    Id = t.Id,
+                    Codigo = t.Codigo,
+                    Descripcion = t.Descripcion,
+                    Eliminado = t.Eliminado
+                }).ToList()
             });
         }
 

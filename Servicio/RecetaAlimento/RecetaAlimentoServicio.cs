@@ -12,7 +12,7 @@ namespace Servicio.RecetaAlimento
     {
         public async Task Add(long recetaId, long alimentoId)
         {
-            var receta = await Context.Observaciones.Include("Alimentos").FirstOrDefaultAsync(x => x.Id == recetaId);
+            var receta = await Context.Recetas.Include("Alimentos").FirstOrDefaultAsync(x => x.Id == recetaId);
 
             var alimento = await Context.Alimentos.FirstOrDefaultAsync(x => x.Id == alimentoId);
 
@@ -23,7 +23,7 @@ namespace Servicio.RecetaAlimento
 
         public async Task Delete(long recetaId, long alimentoId)
         {
-            var receta = await Context.Observaciones.Include("Alimentos").FirstOrDefaultAsync(x => x.Id == recetaId);
+            var receta = await Context.Recetas.Include("Alimentos").FirstOrDefaultAsync(x => x.Id == recetaId);
 
             var alimento = await Context.Alimentos.FirstOrDefaultAsync(x => x.Id == alimentoId);
 

@@ -3,7 +3,7 @@
     public static class ConexionDb
     {
         private const string Servidor = @"SEBAHOMSI\SQLEXPRESS";
-        private const string BaseDatos = "Nutricion0014";
+        private const string BaseDatos = "Nutricion0015";
         private const string Usuario = "sa";
         private const string Password = "dumas123";
 
