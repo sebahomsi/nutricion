@@ -259,6 +259,7 @@
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
     <Compile Include="Controllers\PlanAlimenticio\PlanAlimenticioController.cs" />
+    <Compile Include="Controllers\Receta\RecetaAlimentoController.cs" />
     <Compile Include="Controllers\Receta\RecetaController.cs" />
     <Compile Include="Controllers\SubGrupo\SubGrupoController.cs" />
     <Compile Include="Controllers\Turno\TurnoController.cs" />
@@ -713,6 +714,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
+    <Folder Include="Views\RecetaAlimento\" />
     <Folder Include="Views\Receta\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
