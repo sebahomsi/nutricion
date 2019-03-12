@@ -259,6 +259,7 @@
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
     <Compile Include="Controllers\PlanAlimenticio\PlanAlimenticioController.cs" />
+    <Compile Include="Controllers\Receta\RecetaController.cs" />
     <Compile Include="Controllers\SubGrupo\SubGrupoController.cs" />
     <Compile Include="Controllers\Turno\TurnoController.cs" />
     <Compile Include="Controllers\UnidadMedida\UnidadMedidaController.cs" />
@@ -312,6 +313,8 @@
     <Compile Include="Models\Persona\PersonaViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioABMViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
+    <Compile Include="Models\RecetaAlimento\RecetaAlimentoViewModel.cs" />
+    <Compile Include="Models\Receta\RecetaViewModel.cs" />
     <Compile Include="Models\Seguridad\RolViewModel.cs" />
     <Compile Include="Models\Seguridad\UsuarioRolViewModel.cs" />
     <Compile Include="Models\Seguridad\UsuarioViewModel.cs" />
@@ -710,6 +713,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
+    <Folder Include="Views\Receta\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>

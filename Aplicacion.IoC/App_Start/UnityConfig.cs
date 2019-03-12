@@ -31,6 +31,8 @@ using Servicio.Interface.Paciente;
 using Servicio.Interface.Patologia;
 using Servicio.Interface.Persona;
 using Servicio.Interface.PlanAlimenticio;
+using Servicio.Interface.Receta;
+using Servicio.Interface.RecetaAlimento;
 using Servicio.Interface.Rol;
 using Servicio.Interface.SubGrupo;
 using Servicio.Interface.Turno;
@@ -50,6 +52,8 @@ using Servicio.Paciente;
 using Servicio.Patologia;
 using Servicio.Persona;
 using Servicio.PlanAlimenticio;
+using Servicio.Receta;
+using Servicio.RecetaAlimento;
 using Servicio.Rol;
 using Servicio.SubGrupo;
 using Servicio.Turno;
@@ -91,6 +95,8 @@ namespace Aplicacion.IoC
             container.RegisterType<IObservacionPatologiaServicio, ObservacionPatologiaServicio>();
             container.RegisterType<IEstablecimientoServicio, EstablecimientoServicio>();
             container.RegisterType<IMensajeServicio, MensajeServicio>();
+            container.RegisterType<IRecetaServicio, RecetaServicio>();
+            container.RegisterType<IRecetaAlimentoServicio, RecetaAlimentoServicio>();
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();
