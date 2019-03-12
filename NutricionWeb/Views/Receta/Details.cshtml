@@ -1,0 +1,87 @@
+﻿@model NutricionWeb.Models.Receta.RecetaViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Receta</h4>
+</div>
+
+<div class="row">
+    <hr />
+    <div class="col-md-7">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Codigo):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Codigo)
+            </span>
+        </p>
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Descripcion):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Descripcion)
+            </span>
+        </p>
+        
+
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Eliminado):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.EliminadoStr)
+            </span>
+        </p>
+    </div>
+
+
+
+
+
+
+</div>
+<p style="margin-top: 15px;">
+    @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+</p>
+
+<hr />
+
+<p>@Html.ActionLink("Agregar Alimento", "Create", "RecetaAlimento", new { recetaId = Model.Id }, new { @class = "btn btn-primary" }) </p>
+
+<table class="table">
+    <tr class="cabecera-tabla">
+        <th>
+            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Descripcion)
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Alimentos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td align="right">
+                @Html.ActionLink("Eliminar", "Delete", "RecetaAlimento", new { recetaId = Model.Id, alimentoId = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+
+<hr />

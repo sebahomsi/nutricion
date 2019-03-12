@@ -710,13 +710,17 @@
     <Content Include="Views\Mensaje\IndexEnviados.cshtml" />
     <Content Include="Views\Mensaje\Details.cshtml" />
     <Content Include="Views\Mensaje\Create.cshtml" />
+    <Content Include="Views\Receta\Index.cshtml" />
+    <Content Include="Views\Receta\Create.cshtml" />
+    <Content Include="Views\Receta\Edit.cshtml" />
+    <Content Include="Views\Receta\Delete.cshtml" />
+    <Content Include="Views\Receta\Details.cshtml" />
+    <Content Include="Views\RecetaAlimento\Create.cshtml" />
+    <Content Include="Views\RecetaAlimento\BuscarAlimento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
-    <Folder Include="Views\RecetaAlimento\" />
-    <Folder Include="Views\Receta\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

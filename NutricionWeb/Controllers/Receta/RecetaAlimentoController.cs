@@ -4,10 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.RecetaAlimento;
+using PagedList;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.Receta;
 using Servicio.Interface.RecetaAlimento;
+using static NutricionWeb.Helpers.PagedList;
+
 
 namespace NutricionWeb.Controllers.Receta
 {
@@ -107,6 +111,30 @@ namespace NutricionWeb.Controllers.Receta
             {
                 return View();
             }
+        }
+
+        //===========================Metodos especiales
+        public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar)
+        {
+            var pageNumber = page ?? 1;
+            var eliminado = false;
+            var alimentos =
+                await _alimentoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
+            return PartialView(alimentos.Select(x => new AlimentoViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Eliminado = x.Eliminado
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
+
+        public async Task<ActionResult> TraerAlimento(long alimentoId)
+        {
+            var alimento = await _alimentoServicio.GetById(alimentoId);
+
+            return Json(alimento, JsonRequestBehavior.AllowGet);
         }
     }
 }
