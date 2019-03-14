@@ -77,7 +77,7 @@
     <Compile Include="Persona\SexoServicio.cs" />
     <Compile Include="PlanAlimenticio\PlanAlimenticioServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecetaAlimento\RecetaAlimentoServicio.cs" />
+    <Compile Include="RecetaDetalle\RecetaDetalleServicio.cs" />
     <Compile Include="Receta\RecetaServicio.cs" />
     <Compile Include="Rol\RolServicio.cs" />
     <Compile Include="ServicioBase.cs" />

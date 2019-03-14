@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Servicio.Interface.Alimento;
+using Servicio.Interface.RecetaDetalle;
 
 namespace Servicio.Interface.Receta
 {
@@ -7,13 +8,13 @@ namespace Servicio.Interface.Receta
     {
         public RecetaDto()
         {
-            Alimentos = new List<AlimentoDto>();
+            RecetasDetalles = new List<RecetaDetalleDto>();
         }
         public long Id { get; set; }
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public bool Eliminado { get; set; }
 
-        public List<AlimentoDto> Alimentos { get; set; }
+        public List<RecetaDetalleDto> RecetasDetalles { get; set; }
     }
 }

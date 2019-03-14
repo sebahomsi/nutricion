@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.Receta;
+using Servicio.Interface.RecetaDetalle;
 
 namespace Servicio.Receta
 {
@@ -15,6 +16,7 @@ namespace Servicio.Receta
         {
             var receta = new Dominio.Entidades.Receta()
             {
+                Codigo = dto.Codigo,
                 Descripcion = dto.Descripcion,
                 Eliminado = false
             };
@@ -46,16 +48,23 @@ namespace Servicio.Receta
         public async Task<ICollection<RecetaDto>> Get(bool eliminado, string cadenaBuscar)
         {
             return await Context.Recetas.AsNoTracking()
-                .Include("Alimentos")
+                .Include("RecetasDetalles.Alimento")
+                .Include("RecetasDetalles.UnidadMedida")
                 .Where(x => x.Descripcion.Contains(cadenaBuscar)).Select(x => new RecetaDto()
                 {
                     Id = x.Id,
+                    Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
                     Eliminado = x.Eliminado,
-                    Alimentos = x.Alimentos.Select(q=> new AlimentoDto()
+                    RecetasDetalles = x.RecetasDetalles.Select(q=> new RecetaDetalleDto()
                     {
                         Id = q.Id,
-                        Descripcion = q.Descripcion,
+                        Codigo = q.Codigo,
+                        AlimentoId = q.AlimentoId,
+                        AlimentoStr = q.Alimento.Descripcion,
+                        UnidadMedidaId = q.UnidadMedidaId,
+                        UnidadMedidaStr = q.UnidadMedida.Abreviatura,
+                        Cantidad = q.Cantidad,
                         Eliminado = q.Eliminado
                     }).ToList()
                 }).ToListAsync();
@@ -65,18 +74,26 @@ namespace Servicio.Receta
         {
             var receta = await Context.Recetas
                 .AsNoTracking()
-                .Include("Alimentos").FirstOrDefaultAsync(x => x.Id == id);
+                .Include("RecetasDetalles.Alimento")
+                .Include("RecetasDetalles.UnidadMedida")
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return new RecetaDto()
             {
                 Id = receta.Id,
+                Codigo = receta.Codigo,
                 Descripcion = receta.Descripcion,
                 Eliminado = receta.Eliminado,
-                Alimentos = receta.Alimentos.Select(x=> new AlimentoDto()
+                RecetasDetalles = receta.RecetasDetalles.Select(q => new RecetaDetalleDto()
                 {
-                    Id = x.Id,
-                    Descripcion = x.Descripcion,
-                    Eliminado = x.Eliminado
+                    Id = q.Id,
+                    Codigo = q.Codigo,
+                    AlimentoId = q.AlimentoId,
+                    AlimentoStr = q.Alimento.Descripcion,
+                    UnidadMedidaId = q.UnidadMedidaId,
+                    UnidadMedidaStr = q.UnidadMedida.Abreviatura,
+                    Cantidad = q.Cantidad,
+                    Eliminado = q.Eliminado
                 }).ToList()
             };
         }

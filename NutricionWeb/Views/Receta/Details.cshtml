@@ -49,15 +49,18 @@
 
 <hr />
 
-<p>@Html.ActionLink("Agregar Alimento", "Create", "RecetaAlimento", new { recetaId = Model.Id }, new { @class = "btn btn-primary" }) </p>
+<p>@Html.ActionLink("Agregar Alimento", "Create", "RecetaDetalle", new { recetaId = Model.Id }, new { @class = "btn btn-primary" }) </p>
 
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Codigo)
+            @Html.DisplayNameFor(model => model.RecetasDetalles.FirstOrDefault().Codigo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Descripcion)
+            @Html.DisplayNameFor(model => model.RecetasDetalles.FirstOrDefault().AlimentoStr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecetasDetalles.FirstOrDefault().CantidadMostrar)
         </th>
 
 
@@ -65,21 +68,24 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Alimentos)
+    @foreach (var item in Model.RecetasDetalles)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td align="right">
-                @Html.ActionLink("Eliminar", "Delete", "RecetaAlimento", new { recetaId = Model.Id, alimentoId = item.Id }, new { @class = "btn btn-danger" })
-            </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoStr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CantidadMostrar)
+        </td>
+        <td align="right">
+            @Html.ActionLink("Eliminar", "Delete", "RecetaDetalle", new { recetaId = Model.Id, detalleId = item.Id }, new { @class = "btn btn-danger" })
+        </td>
 
 
-        </tr>
+    </tr>
     }
 
 </table>

@@ -259,7 +259,7 @@
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
     <Compile Include="Controllers\PlanAlimenticio\PlanAlimenticioController.cs" />
-    <Compile Include="Controllers\Receta\RecetaAlimentoController.cs" />
+    <Compile Include="Controllers\RecetaDetalle\RecetaDetalleController.cs" />
     <Compile Include="Controllers\Receta\RecetaController.cs" />
     <Compile Include="Controllers\SubGrupo\SubGrupoController.cs" />
     <Compile Include="Controllers\Turno\TurnoController.cs" />
@@ -314,7 +314,7 @@
     <Compile Include="Models\Persona\PersonaViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioABMViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
-    <Compile Include="Models\RecetaAlimento\RecetaAlimentoViewModel.cs" />
+    <Compile Include="Models\RecetaDetalle\RecetaDetalleViewModel.cs" />
     <Compile Include="Models\Receta\RecetaViewModel.cs" />
     <Compile Include="Models\Seguridad\RolViewModel.cs" />
     <Compile Include="Models\Seguridad\UsuarioRolViewModel.cs" />
@@ -715,8 +715,7 @@
     <Content Include="Views\Receta\Edit.cshtml" />
     <Content Include="Views\Receta\Delete.cshtml" />
     <Content Include="Views\Receta\Details.cshtml" />
-    <Content Include="Views\RecetaAlimento\Create.cshtml" />
-    <Content Include="Views\RecetaAlimento\BuscarAlimento.cshtml" />
+    <Content Include="Views\RecetaDetalle\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

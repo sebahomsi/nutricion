@@ -80,6 +80,7 @@
     <Compile Include="Entidades\MetaData\IPersona.cs" />
     <Compile Include="Entidades\MetaData\IPlanAlimenticio.cs" />
     <Compile Include="Entidades\MetaData\IReceta.cs" />
+    <Compile Include="Entidades\MetaData\IRecetaDetalle.cs" />
     <Compile Include="Entidades\MetaData\ISubGrupo.cs" />
     <Compile Include="Entidades\MetaData\IMacroNutriente.cs" />
     <Compile Include="Entidades\MetaData\ITurno.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Entidades\Persona.cs" />
     <Compile Include="Entidades\PlanAlimenticio.cs" />
     <Compile Include="Entidades\Receta.cs" />
+    <Compile Include="Entidades\RecetaDetalle.cs" />
     <Compile Include="Entidades\SubGrupo.cs" />
     <Compile Include="Entidades\Turno.cs" />
     <Compile Include="Entidades\UnidadMedida.cs" />

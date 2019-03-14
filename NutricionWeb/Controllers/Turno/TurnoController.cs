@@ -71,21 +71,16 @@ namespace NutricionWeb.Controllers.Turno
                 if (ModelState.IsValid)
                 {
                     if (vm.HorarioEntrada.Date > vm.HorarioSalida.Date)
-
                     {
-
                         ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
 
                         return View(vm);
-
                     }
-
                     if (vm.HorarioEntrada.Hour > vm.HorarioSalida.Hour)
                     {
                         ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
 
                         return View(vm);
-
                     }
                     var eliminado = false;
 
@@ -95,9 +90,7 @@ namespace NutricionWeb.Controllers.Turno
                     {
                         if (turno.HorarioEntrada.Date == vm.HorarioEntrada.Date)
                         {
-
                             if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntrada.TimeOfDay &&
-
                                 vm.HorarioEntrada.TimeOfDay < turno.HorarioSalida.TimeOfDay)
                             {
                                 ModelState.AddModelError(string.Empty, "Ya existe un turno para ese rango de horarios");

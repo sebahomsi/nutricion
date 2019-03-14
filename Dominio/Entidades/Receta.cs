@@ -14,5 +14,6 @@ namespace Dominio.Entidades
         public bool Eliminado { get; set; }
 
         public virtual ICollection<Alimento> Alimentos { get; set; }
+        public virtual ICollection<RecetaDetalle> RecetasDetalles { get; set; }
     }
 }

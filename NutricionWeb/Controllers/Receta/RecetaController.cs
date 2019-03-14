@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.Receta;
+using NutricionWeb.Models.RecetaDetalle;
 using PagedList;
 using Servicio.Interface.Receta;
 using static NutricionWeb.Helpers.PagedList;
@@ -146,11 +147,11 @@ namespace NutricionWeb.Controllers.Receta
         }
 
         // GET: Receta/Details/5
-        public async Task<ActionResult> Details(long? id)
+        public async Task<ActionResult> Details(long? recetaId)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (recetaId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var receta = await _recetaServicio.GetById(id.Value);
+            var receta = await _recetaServicio.GetById(recetaId.Value);
 
             return View(new RecetaViewModel()
             {
@@ -158,11 +159,17 @@ namespace NutricionWeb.Controllers.Receta
                 Codigo = receta.Codigo,
                 Descripcion = receta.Descripcion,
                 Eliminado = receta.Eliminado,
-                Alimentos = receta.Alimentos.Select(t => new AlimentoViewModel()
+                RecetasDetalles = receta.RecetasDetalles.Select(t => new RecetaDetalleViewModel()
                 {
                     Id = t.Id,
                     Codigo = t.Codigo,
-                    Descripcion = t.Descripcion,
+                    AlimentoId = t.AlimentoId,
+                    AlimentoStr = t.AlimentoStr,
+                    RecetaId = t.RecetaId,
+                    RecetaStr = t.RecetaStr,
+                    UnidadMedidaId = t.UnidadMedidaId,
+                    UnidadMedidaStr = t.UnidadMedidaStr,
+                    Cantidad = t.Cantidad,
                     Eliminado = t.Eliminado
                 }).ToList()
             });

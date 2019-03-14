@@ -23,7 +23,8 @@ namespace Dominio.Entidades
         public bool Eliminado { get; set; }
 
         //Navigation Properties
-        public ICollection<MicroNutrienteDetalle> MicroNutrienteDetalles { get; set; }
-        public ICollection<OpcionDetalle> OpcionDetalles { get; set; }
+        public virtual ICollection<MicroNutrienteDetalle> MicroNutrienteDetalles { get; set; }
+        public virtual ICollection<OpcionDetalle> OpcionDetalles { get; set; }
+        public virtual ICollection<RecetaDetalle> RecetasDetalles { get; set; }
     }
 }
