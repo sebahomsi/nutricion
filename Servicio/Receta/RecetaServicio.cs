@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
@@ -47,10 +48,12 @@ namespace Servicio.Receta
 
         public async Task<ICollection<RecetaDto>> Get(bool eliminado, string cadenaBuscar)
         {
+            Expression<Func<Dominio.Entidades.Receta, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
+
             return await Context.Recetas.AsNoTracking()
                 .Include("RecetasDetalles.Alimento")
                 .Include("RecetasDetalles.UnidadMedida")
-                .Where(x => x.Descripcion.Contains(cadenaBuscar)).Select(x => new RecetaDto()
+                .Where(expression).Select(x => new RecetaDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
@@ -84,7 +87,7 @@ namespace Servicio.Receta
                 Codigo = receta.Codigo,
                 Descripcion = receta.Descripcion,
                 Eliminado = receta.Eliminado,
-                RecetasDetalles = receta.RecetasDetalles.Select(q => new RecetaDetalleDto()
+                RecetasDetalles = receta.RecetasDetalles.Where(q => q.Eliminado == false).Select(q => new RecetaDetalleDto()
                 {
                     Id = q.Id,
                     Codigo = q.Codigo,

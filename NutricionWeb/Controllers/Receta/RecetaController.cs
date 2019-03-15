@@ -175,6 +175,17 @@ namespace NutricionWeb.Controllers.Receta
             });
         }
 
+        //public async Task<ActionResult> BusquedaAlimentos()
+        //{
+            
+        //}
+
+        //[HttpPost]
+        //public async Task<ActionResult> BusquedaAlimentos()
+        //{
+
+        //}
+
         //===============================Hugo sonso
         private RecetaDto CargarDatos(RecetaABMViewModel vm)
         {
