@@ -7,10 +7,10 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "ChangePassword", "Account", new { id = User.Identity.GetUserId() }, new {})
+            @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
 
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Salir</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a></li>
     </ul>
     }
 }
@@ -18,6 +18,6 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         
-        <li>@Html.ActionLink("Ingresar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Iniciar Sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

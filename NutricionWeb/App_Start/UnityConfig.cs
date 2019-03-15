@@ -36,8 +36,8 @@ namespace NutricionWeb
             container.RegisterType<IAuthenticationManager>(
                 new InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));
 
-            //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(
-            //    new InjectionConstructor(typeof(ApplicationDbContext)));
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(
+                new InjectionConstructor(new ApplicationDbContext()));
 
             container.RegisterType<AccountController>(
                 new InjectionConstructor(typeof(ApplicationUserManager), typeof(ApplicationSignInManager)));
