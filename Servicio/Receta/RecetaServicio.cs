@@ -107,5 +107,34 @@ namespace Servicio.Receta
                 ? await Context.Recetas.MaxAsync(x => x.Codigo) + 1
                 : 1;
         }
+
+        public async Task<ICollection<RecetaDto>> GetByFoods(ICollection<AlimentoDto> alimentos)
+        {
+            var recetas = await Context.Recetas.Select(x => new RecetaDto()).ToListAsync();
+            var recetasFiltradas = new List<RecetaDto>();
+
+            var count = 0;
+
+            foreach (var receta in recetas)
+            {
+                foreach (var detalle in receta.RecetasDetalles)
+                {
+                    foreach (var alimento in alimentos)
+                    {
+                        if (detalle.AlimentoId == alimento.Id)
+                        {
+                            count++;
+                        }
+                    }
+                }
+                if (count >= 3)
+                {
+                    recetasFiltradas.Add(receta);
+                    count = 0;
+                }
+            }
+
+            return recetasFiltradas;
+        }
     }
 }

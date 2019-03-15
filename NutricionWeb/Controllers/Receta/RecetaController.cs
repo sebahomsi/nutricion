@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.Receta;
 using NutricionWeb.Models.RecetaDetalle;
 using PagedList;
+using Servicio.Interface.Alimento;
 using Servicio.Interface.Receta;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -175,16 +177,29 @@ namespace NutricionWeb.Controllers.Receta
             });
         }
 
-        //public async Task<ActionResult> BusquedaAlimentos()
-        //{
-            
-        //}
+        public async Task<ActionResult> BusquedaAlimentos()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public async Task<ActionResult> BusquedaAlimentos()
-        //{
-
-        //}
+        [HttpPost]
+        public async Task<ActionResult> BusquedaAlimentos(List<AlimentoViewModel> vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var alimentos = CargarAlimentos(vm);
+                    await _recetaServicio.GetByFoods(alimentos);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            return RedirectToAction("Index");
+        }
 
         //===============================Hugo sonso
         private RecetaDto CargarDatos(RecetaABMViewModel vm)
@@ -196,6 +211,17 @@ namespace NutricionWeb.Controllers.Receta
                 Descripcion = vm.Descripcion,
                 Eliminado = vm.Eliminado
             };
+        }
+
+        private List<AlimentoDto> CargarAlimentos(List<AlimentoViewModel> vm)
+        {
+            return vm.Select(x => new AlimentoDto()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Eliminado = x.Eliminado
+            }).ToList();
         }
     }
 }
