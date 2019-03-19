@@ -92,6 +92,13 @@ namespace Servicio.Alimento
             };
         }
 
+        public async Task<ICollection<string>> GetFoodJson(string term)
+        {
+            return await Context.Alimentos
+                .Where(x => x.Descripcion.Contains(term))
+                .Select(x => x.Descripcion).Take(5).ToListAsync();
+        }
+
         public async Task<int> GetNextCode()
         {
             return await Context.Alimentos.AnyAsync()

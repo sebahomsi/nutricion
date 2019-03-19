@@ -17,10 +17,12 @@ namespace NutricionWeb.Controllers.Receta
     public class RecetaController : Controller
     {
         private readonly IRecetaServicio _recetaServicio;
+        private readonly IAlimentoServicio _alimentoServicio;
 
-        public RecetaController(IRecetaServicio recetaServicio)
+        public RecetaController(IRecetaServicio recetaServicio, IAlimentoServicio alimentoServicio)
         {
             _recetaServicio = recetaServicio;
+            _alimentoServicio = alimentoServicio;
         }
 
         // GET: Receta
@@ -177,29 +179,37 @@ namespace NutricionWeb.Controllers.Receta
             });
         }
 
-        public async Task<ActionResult> BusquedaAlimentos()
+        public async Task<ActionResult> BusquedaFiltrada()
         {
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> BusquedaAlimentos(List<AlimentoViewModel> vm)
+        public async Task<JsonResult> BuscarAlimentos(string term)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var alimentos = CargarAlimentos(vm);
-                    await _recetaServicio.GetByFoods(alimentos);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            return RedirectToAction("Index");
+
+            var resultado = await _alimentoServicio.GetFoodJson(term);
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+
         }
+
+        //[HttpPost]
+        //public async Task<ActionResult> BusquedaAlimentos(List<AlimentoViewModel> vm)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var alimentos = CargarAlimentos(vm);
+        //            await _recetaServicio.GetByFoods(alimentos);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e);
+        //        throw;
+        //    }
+        //    return RedirectToAction("Index");
+        //}
 
         //===============================Hugo sonso
         private RecetaDto CargarDatos(RecetaABMViewModel vm)

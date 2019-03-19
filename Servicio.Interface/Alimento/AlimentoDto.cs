@@ -41,9 +41,6 @@ namespace Servicio.Interface.Alimento
         public List<ObservacionDto> Observaciones { get; set; }
         public List<RecetaDetalleDto> RecetasDetalles { get; set; }
 
-        public static explicit operator AlimentoDto(List<global::NutricionWeb.Models.Alimento.AlimentoViewModel> v)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -1,0 +1,34 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Autocomplete - Default functionality</title>
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
+    <script>
+        $(function () {
+            $("#AlimentoStr").autocomplete({ source: "/Receta/BuscarAlimentos" });
+        });
+
+        $(document).on("click",
+            "#btn-Seleccionar",
+            function () {
+                $("#listaAlimentos").append($("#AlimentoStr").val());
+            });
+
+    </script>
+</head>
+<body>
+ 
+<div class="ui-widget">
+    <label for="AlimentoStr">Buscar: </label>
+    <input id="AlimentoStr">
+    <div id="btn-Seleccionar" class="btn btn-default" type="button">Seleccionar</div>
+</div>
+ 
+<div id="listaAlimentos">
+    
+</div>
+ 
+</body>
+</html>

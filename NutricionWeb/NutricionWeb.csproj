@@ -716,6 +716,7 @@
     <Content Include="Views\Receta\Delete.cshtml" />
     <Content Include="Views\Receta\Details.cshtml" />
     <Content Include="Views\RecetaDetalle\Create.cshtml" />
+    <Content Include="Views\Receta\BusquedaFiltrada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
