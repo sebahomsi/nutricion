@@ -188,7 +188,13 @@ namespace NutricionWeb.Controllers.Receta
         {
 
             var resultado = await _alimentoServicio.GetFoodJson(term);
-            return Json(resultado, JsonRequestBehavior.AllowGet);
+
+            var json = resultado.Select(x => new
+            {
+                id = x.Id,
+                value = x.Descripcion
+            });
+            return Json(json, JsonRequestBehavior.AllowGet);
 
         }
 

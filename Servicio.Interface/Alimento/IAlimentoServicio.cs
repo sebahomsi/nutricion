@@ -15,6 +15,6 @@ namespace Servicio.Interface.Alimento
         Task<ICollection<AlimentoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<AlimentoDto> GetById(long id);
         Task<int> GetNextCode();
-        Task<ICollection<string>> GetFoodJson(string term);
+        Task<ICollection<AlimentoDto>> GetFoodJson(string term);
     }
 }

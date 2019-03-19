@@ -92,11 +92,15 @@ namespace Servicio.Alimento
             };
         }
 
-        public async Task<ICollection<string>> GetFoodJson(string term)
+        public async Task<ICollection<AlimentoDto>> GetFoodJson(string term)
         {
             return await Context.Alimentos
                 .Where(x => x.Descripcion.Contains(term))
-                .Select(x => x.Descripcion).Take(5).ToListAsync();
+                .Select(x => new AlimentoDto()
+                {
+                    Descripcion = x.Descripcion,
+                    Id = x.Id
+                }).Take(5).ToListAsync();
         }
 
         public async Task<int> GetNextCode()

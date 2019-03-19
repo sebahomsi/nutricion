@@ -7,7 +7,21 @@
     <script src="~/Scripts/jquery-1.12.4.js"></script>
     <script>
         $(function () {
-            $("#AlimentoStr").autocomplete({ source: "/Receta/BuscarAlimentos" });
+
+            function log( message ) {
+                //$( "<div>" ).text( message ).prependTo( "#log" );
+                //$( "#log" ).scrollTop( 0 );
+                $("#alimentos").after("<tr><td>"+message +"</td></tr>");
+            }
+
+            $("#AlimentoStr").autocomplete({
+                source: "/Receta/BuscarAlimentos",
+                select: function( event, alimento ) {
+                    log("Seleccionado: " + alimento.item.value + " id " + alimento.item.id );
+                    }
+            });
+
+
         });
 
         $(document).on("click",
@@ -26,9 +40,21 @@
     <div id="btn-Seleccionar" class="btn btn-default" type="button">Seleccionar</div>
 </div>
  
-<div id="listaAlimentos">
     
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+    Result:
+    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
 </div>
+
+<table id="listaAlimentos">
+    <tr class="cabecera-tabla" id="cabecera">
+        <th>
+        Descripcion
+        <th>
+    </tr>
+    <tr id="alimentos"></tr>
+    
+</table>
  
 </body>
 </html>
