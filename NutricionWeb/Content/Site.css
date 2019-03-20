@@ -105,4 +105,13 @@ textarea {
     color: white;
     text-shadow: 0 0 2px black;
 }
-    
+
+.nav.nav-tabs li.active a{
+    border-top: 3px solid blue;
+
+}
+
+
+.nav.nav-tabs li a {
+    margin-top: 10px;
+} 
