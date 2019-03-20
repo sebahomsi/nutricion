@@ -239,5 +239,22 @@ namespace NutricionWeb.Controllers.Receta
                 Eliminado = x.Eliminado
             }).ToList();
         }
+
+        public ActionResult BuscarRecetas(List<long> ids)
+        {
+            //var alimentos = new List<AlimentoDto>();
+
+
+            //var idsvector = ids.Replace('[',' ').Replace(']',' ').Split(',');
+
+            foreach (var id in ids)
+            {
+               
+                var alimento = _alimentoServicio.GetById(id);
+
+            }
+
+            return PartialView("Recetas");
+        }
     }
 }
