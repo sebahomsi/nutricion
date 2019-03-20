@@ -13,21 +13,32 @@ namespace Servicio.OpcionDetalle
     {
         public async Task<long> Add(OpcionDetalleDto dto)
         {
-            var detalle = new Dominio.Entidades.OpcionDetalle()
+            var verify = await VerifyDuplicity(dto);
+
+            if (verify.HasValue)
             {
-                Codigo = dto.Codigo,
-                AlimentoId = dto.AlimentoId,
-                UnidadMedidaId = dto.UnidadMedidaId,
-                Cantidad = dto.Cantidad,
-                OpcionId = dto.OpcionId,
-                Eliminado = false
-            };
+                await IncreaseAmount(verify.Value, dto.Cantidad);
+            }
+            else
+            {
+                var detalle = new Dominio.Entidades.OpcionDetalle()
+                {
+                    Codigo = dto.Codigo,
+                    AlimentoId = dto.AlimentoId,
+                    UnidadMedidaId = dto.UnidadMedidaId,
+                    Cantidad = dto.Cantidad,
+                    OpcionId = dto.OpcionId,
+                    Eliminado = false
+                };
 
-            Context.OpcionesDetalles.Add(detalle);
-            await Context.SaveChangesAsync();
-
-            return detalle.Id;
+                Context.OpcionesDetalles.Add(detalle);
+                await Context.SaveChangesAsync();
+                return detalle.Id;
+            }
+            return verify.Value;
         }
+            
+           
 
         public async Task Update(OpcionDetalleDto dto)
         {
@@ -107,6 +118,26 @@ namespace Servicio.OpcionDetalle
             return await Context.OpcionesDetalles.AnyAsync()
                 ? await Context.OpcionesDetalles.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<long?> VerifyDuplicity(OpcionDetalleDto dto)
+        {
+            var id = await Context.OpcionesDetalles
+                .FirstOrDefaultAsync(x => x.AlimentoId==dto.AlimentoId&&x.OpcionId==dto.OpcionId&&x.UnidadMedidaId==dto.UnidadMedidaId);
+
+            return id?.Id;
+        }
+
+        public async Task IncreaseAmount(long id ,double cantidad)
+        {
+            var detalle = await Context.OpcionesDetalles.FirstOrDefaultAsync(x => x.Id == id);
+
+            detalle.Cantidad = detalle.Cantidad + cantidad;
+
+            await Context.SaveChangesAsync();
+
+
+
         }
     }
 }

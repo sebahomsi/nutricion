@@ -28,6 +28,7 @@ using Servicio.Interface.ObservacionPatologia;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.Paciente;
+using Servicio.Interface.Pago;
 using Servicio.Interface.Patologia;
 using Servicio.Interface.Persona;
 using Servicio.Interface.PlanAlimenticio;
@@ -49,6 +50,7 @@ using Servicio.ObservacionPatologia;
 using Servicio.Opcion;
 using Servicio.OpcionDetalle;
 using Servicio.Paciente;
+using Servicio.Pago;
 using Servicio.Patologia;
 using Servicio.Persona;
 using Servicio.PlanAlimenticio;
@@ -97,6 +99,7 @@ namespace Aplicacion.IoC
             container.RegisterType<IMensajeServicio, MensajeServicio>();
             container.RegisterType<IRecetaServicio, RecetaServicio>();
             container.RegisterType<IRecetaDetalleServicio, RecetaDetalleServicio>();
+            container.RegisterType<IPagoServicio, PagoServicio>();
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();

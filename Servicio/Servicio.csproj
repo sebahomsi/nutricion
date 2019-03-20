@@ -73,6 +73,7 @@
     <Compile Include="OpcionDetalle\OpcionDetalleServicio.cs" />
     <Compile Include="Opcion\OpcionServicio.cs" />
     <Compile Include="Paciente\PacienteServicio.cs" />
+    <Compile Include="Pago\PagoServicio.cs" />
     <Compile Include="Patologia\PatologiaServicio.cs" />
     <Compile Include="Persona\SexoServicio.cs" />
     <Compile Include="PlanAlimenticio\PlanAlimenticioServicio.cs" />

@@ -158,6 +158,7 @@ namespace NutricionWeb.Controllers.Paciente
             catch(Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
+                vm.Sexos = await _comboBoxSexo.Poblar();
                 return View(vm);
             }
 

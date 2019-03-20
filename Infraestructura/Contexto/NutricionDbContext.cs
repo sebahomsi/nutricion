@@ -46,6 +46,7 @@ namespace Infraestructura.Contexto
         public IDbSet<Mensaje> Mensajes { get; set; }
         public IDbSet<Receta> Recetas { get; set; }
         public IDbSet<RecetaDetalle> RecetasDetalles { get; set; }
+        public IDbSet<Pago> Pagos { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

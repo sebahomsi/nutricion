@@ -257,6 +257,7 @@
     <Compile Include="Controllers\OpcionDetalle\OpcionDetalleController.cs" />
     <Compile Include="Controllers\Opcion\OpcionController.cs" />
     <Compile Include="Controllers\Paciente\PacienteController.cs" />
+    <Compile Include="Controllers\Pago\PagoController.cs" />
     <Compile Include="Controllers\Patologia\PatologiaController.cs" />
     <Compile Include="Controllers\PlanAlimenticio\PlanAlimenticioController.cs" />
     <Compile Include="Controllers\RecetaDetalle\RecetaDetalleController.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="Models\Opcion\OpcionViewModel.cs" />
     <Compile Include="Models\Paciente\PacienteABMViewModel.cs" />
     <Compile Include="Models\Paciente\PacienteViewModel.cs" />
+    <Compile Include="Models\Pago\PagoViewModel.cs" />
     <Compile Include="Models\Patologia\PatologiaABMViewModel.cs" />
     <Compile Include="Models\Patologia\PatologiaViewModel.cs" />
     <Compile Include="Models\Persona\PersonaABMViewModel.cs" />
@@ -717,6 +719,8 @@
     <Content Include="Views\Receta\Details.cshtml" />
     <Content Include="Views\RecetaDetalle\Create.cshtml" />
     <Content Include="Views\Receta\BusquedaFiltrada.cshtml" />
+    <Content Include="Views\Pago\Index.cshtml" />
+    <Content Include="Views\Pago\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

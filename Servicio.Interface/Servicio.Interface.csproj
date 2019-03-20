@@ -84,6 +84,8 @@
     <Compile Include="Opcion\OpcionDto.cs" />
     <Compile Include="Paciente\IPacienteServicio.cs" />
     <Compile Include="Paciente\PacienteDto.cs" />
+    <Compile Include="Pago\IPagoServicio.cs" />
+    <Compile Include="Pago\PagoDto.cs" />
     <Compile Include="Patologia\IPatologiaServicio.cs" />
     <Compile Include="Patologia\PatologiaDto.cs" />
     <Compile Include="Persona\ISexoServicio.cs" />
