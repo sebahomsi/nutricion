@@ -228,11 +228,7 @@ namespace NutricionWeb.Controllers.Paciente
 
                 paciente = await _pacienteServicio.GetById(id.Value);
             }
-            
-
-            
-
-
+                     
             return View(new PacienteViewModel()
             {
                 Id = paciente.Id,
@@ -248,58 +244,7 @@ namespace NutricionWeb.Controllers.Paciente
                 Mail = paciente.Mail,
                 FotoStr = paciente.Foto,
                 Eliminado = paciente.Eliminado,
-                TieneObservacion = paciente.TieneObservacion,
-                //DatosAntropometricos = paciente.DatosAntropometricos.Select(p => new DatoAntropometricoViewModel()
-                //{
-                //    Id = p.Id,
-                //    Codigo = p.Codigo,
-                //    PacienteId = p.PacienteId,
-                //    PacienteStr = p.PacienteStr,
-                //    Altura = p.Altura,
-                //    FechaMedicion = p.FechaMedicion,
-                //    MasaGrasa = p.MasaGrasa,
-                //    MasaCorporal = p.MasaCorporal,
-                //    Peso = p.Peso,
-                //    PerimetroCintura = p.PerimetroCintura,
-                //    PerimetroCadera = p.PerimetroCadera,
-                //    Eliminado = p.Eliminado
-                //}).ToList(),
-                //PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q => q.Fecha).Select(q => new PlanAlimenticioViewModel()
-                //{
-                //    Id = q.Id,
-                //    Codigo = q.Codigo,
-                //    Motivo = q.Motivo,
-                //    Fecha = q.Fecha,
-                //    PacienteId = q.PacienteId,
-                //    PacienteStr = q.PacienteStr,
-                //    Eliminado = q.Eliminado
-                //}).ToList(),
-                //Turnos = paciente.Turnos.OrderBy(t => t.HorarioEntrada).Select(t => new TurnoViewModel()
-                //{
-                //    Id = t.Id,
-                //    Numero = t.Numero,
-                //    Motivo = t.Motivo,
-                //    PacienteId = t.PacienteId,
-                //    PacienteStr = t.PacienteStr,
-                //    HorarioEntrada = t.HorarioEntrada,
-                //    HorarioSalida = t.HorarioSalida,
-                //    Eliminado = t.Eliminado
-                //}).ToList(),
-                //DatosAnaliticos = paciente.DatosAnaliticos.OrderBy(x => x.Codigo).Select(x => new DatoAnaliticoViewModel()
-                //{
-                //    Id = x.Id,
-                //    Codigo = x.Codigo,
-                //    ColesterolHdl = x.ColesterolHdl,
-                //    ColesterolLdl = x.ColesterolLdl,
-                //    ColesterolTotal = x.ColesterolTotal,
-                //    PresionDiastolica = x.PresionDiastolica,
-                //    PresionSistolica = x.PresionSistolica,
-                //    Trigliceridos = x.Trigliceridos,
-                //    PacienteId = x.PacienteId,
-                //    PacienteStr = x.PacienteStr,
-                //    FechaMedicion = x.FechaMedicion,
-                //    Eliminado = x.Eliminado
-                //}).ToList()
+                TieneObservacion = paciente.TieneObservacion
             });
         }
 
@@ -322,7 +267,7 @@ namespace NutricionWeb.Controllers.Paciente
             };
         }
 
-        [Authorize(Roles = "Administrador, Empleado, Paciente")]
+        [Authorize(Roles = "Paciente")]
         public async Task<ActionResult> DatosAdicionales(long? id, string email = "")
         {
             PacienteDto paciente;
@@ -376,7 +321,7 @@ namespace NutricionWeb.Controllers.Paciente
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
-            return PartialView(paciente.PlanesAlimenticios.Select(x => new PlanAlimenticioABMViewModel()
+            return PartialView(paciente.PlanesAlimenticios.Select(x => new PlanAlimenticioViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
@@ -395,25 +340,22 @@ namespace NutricionWeb.Controllers.Paciente
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
-            return PartialView(new PacienteViewModel()
+            return PartialView(paciente.DatosAnaliticos.Select(x => new DatoAnaliticoViewModel()
             {
-                DatosAnaliticos = paciente.DatosAnaliticos
-                    .Select(x => new DatoAnaliticoViewModel()
-                    {
-                        Id = x.Id,
-                        Codigo = x.Codigo,
-                        ColesterolHdl = x.ColesterolHdl,
-                        ColesterolLdl = x.ColesterolLdl,
-                        ColesterolTotal = x.ColesterolTotal,
-                        PresionDiastolica = x.PresionDiastolica,
-                        PresionSistolica = x.PresionSistolica,
-                        Trigliceridos = x.Trigliceridos,
-                        PacienteId = x.PacienteId,
-                        PacienteStr = x.PacienteStr,
-                        FechaMedicion = x.FechaMedicion,
-                        Eliminado = x.Eliminado
-                    }).ToList()
-            });
+                Id = x.Id,
+                Codigo = x.Codigo,
+                ColesterolHdl = x.ColesterolHdl,
+                ColesterolLdl = x.ColesterolLdl,
+                ColesterolTotal = x.ColesterolTotal,
+                PresionDiastolica = x.PresionDiastolica,
+                PresionSistolica = x.PresionSistolica,
+                Trigliceridos = x.Trigliceridos,
+                PacienteId = x.PacienteId,
+                PacienteStr = x.PacienteStr,
+                FechaMedicion = x.FechaMedicion,
+                Eliminado = x.Eliminado
+
+            }).ToList());
         }
 
         public async Task<ActionResult> TurnosParcial(long? id)
@@ -422,21 +364,18 @@ namespace NutricionWeb.Controllers.Paciente
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
-            return PartialView(new PacienteViewModel()
+            return PartialView(paciente.Turnos.Select(x => new TurnoViewModel()
             {
-                Turnos = paciente.Turnos
-                    .Select(x => new TurnoViewModel()
-                    {
-                        Id = x.Id,
-                        Numero = x.Numero,
-                        Motivo = x.Motivo,
-                        PacienteId = x.PacienteId,
-                        PacienteStr = x.PacienteStr,
-                        HorarioEntrada = x.HorarioEntrada,
-                        HorarioSalida = x.HorarioSalida,
-                        Eliminado = x.Eliminado
-                    }).ToList()
-            });
+                Id = x.Id,
+                Numero = x.Numero,
+                Motivo = x.Motivo,
+                PacienteId = x.PacienteId,
+                PacienteStr = x.PacienteStr,
+                HorarioEntrada = x.HorarioEntrada,
+                HorarioSalida = x.HorarioSalida,
+                Eliminado = x.Eliminado
+
+            }).ToList());
         }
     }
 }
