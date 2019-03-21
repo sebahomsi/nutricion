@@ -1,4 +1,3 @@
-using System.Web.Mvc;
 using Servicio.AlergiaIntolerancia;
 using Servicio.Alimento;
 using Servicio.Comida;
@@ -61,6 +60,9 @@ using Servicio.SubGrupo;
 using Servicio.Turno;
 using Servicio.UnidadMedida;
 using Servicio.Usuario;
+using System.Web.Mvc;
+using Servicio.Estado;
+using Servicio.Interface.Estado;
 using Unity;
 using Unity.Mvc5;
 
@@ -100,6 +102,7 @@ namespace Aplicacion.IoC
             container.RegisterType<IRecetaServicio, RecetaServicio>();
             container.RegisterType<IRecetaDetalleServicio, RecetaDetalleServicio>();
             container.RegisterType<IPagoServicio, PagoServicio>();
+            container.RegisterType<IEstadoServicio, EstadoServicio>();
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();

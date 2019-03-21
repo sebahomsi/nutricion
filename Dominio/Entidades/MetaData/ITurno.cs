@@ -22,7 +22,9 @@ namespace Dominio.Entidades.MetaData
         DateTime HorarioSalida { get; set; }
 
         string Motivo { get; set; }
-        
+
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
+        long EstadoId { get; set; }
 
         bool Eliminado { get; set; }
     }

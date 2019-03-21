@@ -69,6 +69,8 @@
     <Compile Include="Empleado\IEmpleadoServicio.cs" />
     <Compile Include="Establecimiento\EstablecimientoDto.cs" />
     <Compile Include="Establecimiento\IEstablecimientoServicio.cs" />
+    <Compile Include="Estado\Dto\EstadoDto.cs" />
+    <Compile Include="Estado\IEstadoServicio.cs" />
     <Compile Include="Grupo\GrupoDto.cs" />
     <Compile Include="Grupo\IGrupoServicio.cs" />
     <Compile Include="MacroNutriente\IMacroNutrienteServicio.cs" />

@@ -267,7 +267,7 @@ namespace NutricionWeb.Controllers.Paciente
             };
         }
 
-        [Authorize(Roles = "Paciente")]
+        [Authorize(Roles = "Administrador,Empleado,Paciente")]
         public async Task<ActionResult> DatosAdicionales(long? id, string email = "")
         {
             PacienteDto paciente;
