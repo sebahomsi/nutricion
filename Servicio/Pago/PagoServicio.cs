@@ -36,6 +36,7 @@ namespace Servicio.Pago
             var dato = await Context.Pagos.FirstOrDefaultAsync(x => x.Id == dto.Id);
 
             if(dato==null) throw new ArgumentNullException();
+            dato.PacienteId = dto.PacienteId;
             dato.Concepto = dto.Concepto;
             dato.Monto = dto.Monto;
             await Context.SaveChangesAsync();
@@ -49,6 +50,7 @@ namespace Servicio.Pago
 
             if (dato == null) throw new ArgumentNullException();
             dato.EstaEliminado = !dato.EstaEliminado;
+            await Context.SaveChangesAsync();
         }
 
         public async Task<ICollection<PagoDto>> Get(bool eliminado, string cadenaBuscar)
@@ -91,7 +93,7 @@ namespace Servicio.Pago
 
         public async Task<PagoDto> GetById(long id)
         {
-            var dato = await Context.Pagos.FirstOrDefaultAsync(x => x.Id == id);
+            var dato = await Context.Pagos.Include("Paciente").FirstOrDefaultAsync(x => x.Id == id);
             if (dato == null) throw new ArgumentNullException();
 
             var dto=new PagoDto()
@@ -103,7 +105,7 @@ namespace Servicio.Pago
                 Fecha = dato.Fecha,
                 PacienteId = dato.PacienteId,
                 Monto = dato.Monto,
-                
+                PacienteStr = dato.Paciente.Nombre + " " + dato.Paciente.Apellido
             };
 
             return dto;

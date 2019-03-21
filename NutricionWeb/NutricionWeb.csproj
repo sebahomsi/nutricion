@@ -723,6 +723,9 @@
     <Content Include="Views\Pago\Create.cshtml" />
     <Content Include="Views\Paciente\DatosAdicionales.cshtml" />
     <Content Include="Views\Paciente\DatosAntropometricosParcial.cshtml" />
+    <Content Include="Views\Pago\Details.cshtml" />
+    <Content Include="Views\Pago\Delete.cshtml" />
+    <Content Include="Views\Pago\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

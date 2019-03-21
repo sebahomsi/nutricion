@@ -14,6 +14,8 @@ namespace NutricionWeb.Models.Pago
 
         public DateTime Fecha { get; set; }
 
+        public string FechaStr => Fecha.ToString("dd/MM/yyyy");
+
         public string Concepto { get; set; }
 
         public double Monto { get; set; }
