@@ -22,13 +22,18 @@ namespace Infraestructura.Migrations
         private static void AddSubGrupos(NutricionDbContext context)
         {
             context.SubGrupos.AddOrUpdate(x => x.Id,
-                new SubGrupo() {Id = 1, Codigo = 1, Descripcion = "Derivados", GrupoId = 1, Eliminado = false},
-                new SubGrupo() {Id = 2, Codigo = 2, Descripcion = "Leche-Bebidas Lacteas", GrupoId = 1, Eliminado = false },
-                new SubGrupo() {Id = 3, Codigo = 3, Descripcion = "Queso", GrupoId = 1, Eliminado = false},
-                new SubGrupo() {Id = 4, Codigo = 4, Descripcion = "Al natural", GrupoId = 2, Eliminado = false},
-                new SubGrupo() {Id = 5, Codigo = 5, Descripcion = "Otras bebidas", GrupoId = 2, Eliminado = false},
-                new SubGrupo() {Id = 6, Codigo = 6, Descripcion = "Procesados", GrupoId = 2, Eliminado = false},
-                new SubGrupo() {Id = 7, Codigo = 7, Descripcion = "Pan", GrupoId = 3, Eliminado = false});
+                new SubGrupo() { Id = 1, Codigo = 1, Descripcion = "Derivados", GrupoId = 1, Eliminado = false},
+                new SubGrupo() { Id = 2, Codigo = 2, Descripcion = "Leche-Bebidas Lacteas", GrupoId = 1, Eliminado = false },
+                new SubGrupo() { Id = 3, Codigo = 3, Descripcion = "Queso", GrupoId = 1, Eliminado = false},
+                new SubGrupo() { Id = 4, Codigo = 4, Descripcion = "Al natural", GrupoId = 2, Eliminado = false},
+                new SubGrupo() { Id = 5, Codigo = 5, Descripcion = "Otras bebidas", GrupoId = 2, Eliminado = false},
+                new SubGrupo() { Id = 6, Codigo = 6, Descripcion = "Procesados", GrupoId = 2, Eliminado = false},
+                new SubGrupo() { Id = 7, Codigo = 7, Descripcion = "Pan", GrupoId = 3, Eliminado = false},
+                new SubGrupo() { Id = 8, Codigo = 8, Descripcion = "Arroz", GrupoId = 3, Eliminado = false },
+                new SubGrupo() { Id = 9, Codigo = 9, Descripcion = "Galletas", GrupoId = 3, Eliminado = false },
+                new SubGrupo() { Id = 10, Codigo = 10, Descripcion = "Maiz", GrupoId = 3, Eliminado = false },
+                new SubGrupo() { Id = 11, Codigo = 11, Descripcion = "Pasta", GrupoId = 3, Eliminado = false },
+                new SubGrupo() { Id = 12, Codigo = 12, Descripcion = "Al natural", GrupoId = 3, Eliminado = false });
         }
 
         private static void AddGrupos(NutricionDbContext context)

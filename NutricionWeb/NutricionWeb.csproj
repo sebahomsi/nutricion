@@ -249,6 +249,7 @@
     <Compile Include="Controllers\Dia\DiaController.cs" />
     <Compile Include="Controllers\Empleado\EmpleadoController.cs" />
     <Compile Include="Controllers\Establecimiento\EstablecimientoController.cs" />
+    <Compile Include="Controllers\Estado\EstadoController.cs" />
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MacroNutriente\MacroNutrienteController.cs" />
@@ -295,6 +296,7 @@
     <Compile Include="Models\Empleado\EmpleadoABMViewModel.cs" />
     <Compile Include="Models\Empleado\EmpleadoViewModel.cs" />
     <Compile Include="Models\Establecimiento\EstablecimientoViewModel.cs" />
+    <Compile Include="Models\Estado\EstadoViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoABMViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -737,6 +739,7 @@
     <Content Include="Views\Paciente\PlanesAlimenticiosParcial.cshtml" />
     <Content Include="Views\Paciente\DatosAnaliticosParcial.cshtml" />
     <Content Include="Views\Paciente\TurnosParcial.cshtml" />
+    <Content Include="Views\Estado\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
