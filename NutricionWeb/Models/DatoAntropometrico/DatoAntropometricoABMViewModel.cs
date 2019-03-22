@@ -20,7 +20,19 @@ namespace NutricionWeb.Models.DatoAntropometrico
         public string PacienteStr { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido")]
-        public string Peso { get; set; }
+        public string PesoActual { get; set; }
+
+        [Required(ErrorMessage = "Campo Requerido")]
+        public string PesoHabitual { get; set; }
+
+        [Required(ErrorMessage = "Campo Requerido")]
+        public string PesoDeseado { get; set; }
+
+        [Required(ErrorMessage = "Campo Requerido")]
+        public string PesoIdeal { get; set; }
+
+        [Required(ErrorMessage = "Campo Requerido")]
+        public string PerimetroCuello { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido")]
         public string Altura { get; set; }
@@ -43,6 +55,12 @@ namespace NutricionWeb.Models.DatoAntropometrico
         [Display(Name = "Masa Corporal")]
         [Required(ErrorMessage = "Campo Requerido")]
         public string MasaCorporal { get; set; }
+
+        [Display(Name = "Buscar Foto")]
+        public HttpPostedFileBase Foto { get; set; }
+
+        [Display(Name = "Foto")]
+        public string FotoStr { get; set; }
 
         public bool Eliminado { get; set; }
     }

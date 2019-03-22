@@ -11,6 +11,7 @@ using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
+using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.DatoAntropometrico
@@ -40,8 +41,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
             if (datos == null) return HttpNotFound();
 
-            return View(datos.Select(x=> new DatoAntropometricoViewModel()
-            {
+            return View(datos.Select(x=> new DatoAntropometricoViewModel(){
+                
                 Id = x.Id,
                 Codigo = x.Codigo,
                 PacienteId = x.PacienteId,
@@ -50,10 +51,13 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 FechaMedicion = x.FechaMedicion,
                 MasaGrasa = x.MasaGrasa,
                 MasaCorporal = x.MasaCorporal,
-                Peso = x.Peso,
+                PesoActual = x.PesoActual,
                 PerimetroCintura = x.PerimetroCintura,
                 PerimetroCadera = x.PerimetroCadera,
-                Eliminado = x.Eliminado
+                Eliminado = x.Eliminado,
+                PesoHabitual = x.PesoHabitual,
+                PesoIdeal = x.PesoIdeal,
+                PesoDeseado = x.PesoDeseado,
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
@@ -74,7 +78,9 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             {
                 if (ModelState.IsValid)
                 {
-                    var datosDto = CargarDatos(vm);
+                    var pic = string.Empty;
+                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var datosDto = CargarDatos(vm,pic);
                     datosDto.Codigo = await _datoAntropometricoServicio.GetNextCode();
 
                     await _datoAntropometricoServicio.Add(datosDto);
@@ -107,10 +113,14 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 FechaMedicion = dato.FechaMedicion,
                 MasaGrasa = dato.MasaGrasa,
                 MasaCorporal = dato.MasaCorporal,
-                Peso = dato.Peso,
+                PesoActual = dato.PesoActual,
                 PerimetroCintura = dato.PerimetroCintura,
                 PerimetroCadera = dato.PerimetroCadera,
-                Eliminado = dato.Eliminado
+                Eliminado = dato.Eliminado,
+                PesoHabitual = dato.PesoHabitual,
+                PesoIdeal = dato.PesoIdeal,
+                PesoDeseado = dato.PesoDeseado,
+                PerimetroCuello = dato.PerimetroCuello
             });
         }
 
@@ -123,7 +133,9 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             {
                 if (ModelState.IsValid)
                 {
-                    var datosDto = CargarDatos(vm);
+                    var pic = string.Empty;
+                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var datosDto = CargarDatos(vm,pic);
                     await _datoAntropometricoServicio.Update(datosDto);
                 }
             }
@@ -154,10 +166,15 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 FechaMedicion = dato.FechaMedicion,
                 MasaGrasa = dato.MasaGrasa,
                 MasaCorporal = dato.MasaCorporal,
-                Peso = dato.Peso,
+                PesoActual = dato.PesoActual,
                 PerimetroCintura = dato.PerimetroCintura,
                 PerimetroCadera = dato.PerimetroCadera,
-                Eliminado = dato.Eliminado
+                Eliminado = dato.Eliminado,
+                PesoHabitual = dato.PesoHabitual,
+                PesoIdeal = dato.PesoIdeal,
+                PesoDeseado = dato.PesoDeseado,
+                PerimetroCuello = dato.PerimetroCuello,
+                FotoStr = dato.Foto,
             });
         }
 
@@ -199,10 +216,16 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 FechaMedicion = dato.FechaMedicion,
                 MasaGrasa = dato.MasaGrasa,
                 MasaCorporal = dato.MasaCorporal,
-                Peso = dato.Peso,
+                PesoActual = dato.PesoActual,
                 PerimetroCintura = dato.PerimetroCintura,
                 PerimetroCadera = dato.PerimetroCadera,
-                Eliminado = dato.Eliminado
+                Eliminado = dato.Eliminado,
+                PesoHabitual = dato.PesoHabitual,
+                PesoIdeal = dato.PesoIdeal,
+                PesoDeseado = dato.PesoDeseado,
+                PerimetroCuello = dato.PerimetroCuello,
+                FotoStr = dato.Foto,
+
             });
         }
 
@@ -244,7 +267,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             return Json(paciente, JsonRequestBehavior.AllowGet);
         }
 
-        private DatoAntropometricoDto CargarDatos(DatoAntropometricoABMViewModel vm)
+        private DatoAntropometricoDto CargarDatos(DatoAntropometricoABMViewModel vm,string pic)
         {
             return new DatoAntropometricoDto()
             {
@@ -256,10 +279,16 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 FechaMedicion = vm.FechaMedicion,
                 MasaGrasa = vm.MasaGrasa,
                 MasaCorporal = vm.MasaCorporal,
-                Peso = vm.Peso,
+                PesoActual = vm.PesoActual,
                 PerimetroCintura = vm.PerimetroCintura,
                 PerimetroCadera = vm.PerimetroCadera,
-                Eliminado = vm.Eliminado
+                Eliminado = vm.Eliminado,
+                Foto = pic,
+                PesoHabitual = vm.PesoHabitual,
+                PesoIdeal = vm.PesoIdeal,
+                PesoDeseado = vm.PesoDeseado,
+                PerimetroCuello = vm.PerimetroCuello,
+                
             };
         }
     }

@@ -228,10 +228,6 @@ namespace NutricionWeb.Controllers.Paciente
 
                 paciente = await _pacienteServicio.GetById(id.Value);
             }
-            
-
-            
-
 
             return View(new PacienteViewModel()
             {
@@ -361,10 +357,13 @@ namespace NutricionWeb.Controllers.Paciente
                 FechaMedicion = x.FechaMedicion,
                 MasaGrasa = x.MasaGrasa,
                 MasaCorporal = x.MasaCorporal,
-                Peso = x.Peso,
+                PesoActual = x.PesoActual,
                 PerimetroCintura = x.PerimetroCintura,
                 PerimetroCadera = x.PerimetroCadera,
-                Eliminado = x.Eliminado
+                Eliminado = x.Eliminado,
+                PesoHabitual = x.PesoHabitual,
+                PesoIdeal = x.PesoIdeal,
+                PesoDeseado = x.PesoDeseado,
 
             }).ToList());
         
