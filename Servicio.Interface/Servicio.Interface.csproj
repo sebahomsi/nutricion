@@ -57,6 +57,8 @@
     <Compile Include="AlergiaIntolerancia\IAlergiaIntoleranciaServicio.cs" />
     <Compile Include="Alimento\AlimentoDto.cs" />
     <Compile Include="Alimento\IAlimentoServicio.cs" />
+    <Compile Include="ComidaDetalle\ComidaDetalleDto.cs" />
+    <Compile Include="ComidaDetalle\IComidaDetalleServicio.cs" />
     <Compile Include="Comida\ComidaDto.cs" />
     <Compile Include="Comida\IComidaServicio.cs" />
     <Compile Include="DatoAnalitico\DatoAnaliticoDto.cs" />

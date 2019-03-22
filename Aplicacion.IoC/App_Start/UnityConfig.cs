@@ -61,7 +61,9 @@ using Servicio.Turno;
 using Servicio.UnidadMedida;
 using Servicio.Usuario;
 using System.Web.Mvc;
+using Servicio.ComidaDetalle;
 using Servicio.Estado;
+using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Estado;
 using Unity;
 using Unity.Mvc5;
@@ -103,6 +105,7 @@ namespace Aplicacion.IoC
             container.RegisterType<IRecetaDetalleServicio, RecetaDetalleServicio>();
             container.RegisterType<IPagoServicio, PagoServicio>();
             container.RegisterType<IEstadoServicio, EstadoServicio>();
+            container.RegisterType<IComidaDetalleServicio, ComidaDetalleServicio>();
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();
