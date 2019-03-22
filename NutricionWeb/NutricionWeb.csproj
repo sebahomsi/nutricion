@@ -243,6 +243,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlergiaIntolerancia\AlergiaIntoleranciaController.cs" />
     <Compile Include="Controllers\Alimento\AlimentoController.cs" />
+    <Compile Include="Controllers\ComidaDetalle\ComidaDetalleController.cs" />
     <Compile Include="Controllers\Comida\ComidaController.cs" />
     <Compile Include="Controllers\DatoAnalitico\DatoAnaliticoController.cs" />
     <Compile Include="Controllers\DatoAntropometrico\DatoAntropometricoController.cs" />
@@ -287,6 +288,7 @@
     <Compile Include="Models\AlergiaIntolerancia\AlergiaIntoleranciaViewModel.cs" />
     <Compile Include="Models\Alimento\AlimentoABMViewModel.cs" />
     <Compile Include="Models\Alimento\AlimentoViewModel.cs" />
+    <Compile Include="Models\ComidaDetalle\ComidaDetalleViewModel.cs" />
     <Compile Include="Models\Comida\ComidaViewModel.cs" />
     <Compile Include="Models\DatoAnalitico\DatoAnaliticoABMViewModel.cs" />
     <Compile Include="Models\DatoAnalitico\DatoAnaliticoViewModel.cs" />
@@ -744,6 +746,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
+    <Folder Include="Views\ComidaDetalle\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
