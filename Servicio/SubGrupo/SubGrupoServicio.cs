@@ -60,6 +60,7 @@ namespace Servicio.SubGrupo
                 .Include("Alimentos")
                 .Include("Grupo")
                 .Where(expression)
+                .OrderBy(x=>x.GrupoId)
                 .Select(x => new SubGrupoDto()
                 {
                     Id = x.Id,
