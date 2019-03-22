@@ -18,7 +18,17 @@ namespace Dominio.Entidades
 
         public long PacienteId { get; set; }
 
-        public string Peso { get; set; }
+        public string PesoActual { get; set; }
+
+        public string PesoHabitual { get; set; }
+
+        public string PesoDeseado { get; set; }
+
+        public string PesoIdeal { get; set; }
+
+        public string PerimetroCuello { get; set; }
+
+        public string Foto { get; set; }
 
         public string Altura { get; set; }
 
