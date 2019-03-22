@@ -48,8 +48,9 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Peso) 
+            @Html.DisplayNameFor(model => model.FirstOrDefault().PesoActual) 
         </th>
+
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Altura) 
         </th>
@@ -80,7 +81,7 @@
                 @Html.DisplayFor(modelItem => item.PacienteStr)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Peso) kg
+                @Html.DisplayFor(modelItem => item.PesoActual) kg
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Altura) cm

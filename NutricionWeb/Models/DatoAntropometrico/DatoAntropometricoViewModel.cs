@@ -17,7 +17,20 @@ namespace NutricionWeb.Models.DatoAntropometrico
         [Display(Name = "Paciente")]
         public string PacienteStr { get; set; }
 
-        public string Peso { get; set; }
+        [Display(Name = "Peso Actual")]
+        public string PesoActual { get; set; }
+
+        [Display(Name = "Peso Habitual")]
+        public string PesoHabitual { get; set; }
+
+        [Display(Name = "Peso Deseado")]
+        public string PesoDeseado { get; set; }
+
+        [Display(Name = "Peso Ideal")]
+        public string PesoIdeal { get; set; }
+
+        [Display(Name = "Perimetro de Cuello")]
+        public  string PerimetroCuello { get; set; }
 
         public string Altura { get; set; }
 
@@ -43,6 +56,8 @@ namespace NutricionWeb.Models.DatoAntropometrico
         public string MasaCorporal { get; set; }
 
         public bool Eliminado { get; set; }
+
+        public string FotoStr { get; set; }
 
         [Display(Name = "Eliminado")]
         [ScaffoldColumn(false)]

@@ -139,10 +139,15 @@ namespace Servicio.Paciente
                     FechaMedicion = p.FechaMedicion,
                     MasaGrasa = p.MasaGrasa,
                     MasaCorporal = p.MasaCorporal,
-                    Peso = p.Peso,
+                    PesoActual = p.PesoActual,
                     PerimetroCintura = p.PerimetroCintura,
                     PerimetroCadera = p.PerimetroCadera,
-                    Eliminado = p.Eliminado
+                    PesoHabitual = p.PesoHabitual,
+                    Eliminado = p.Eliminado,
+                    PesoIdeal = p.PesoIdeal,
+                    PesoDeseado = p.PesoDeseado,
+                    PerimetroCuello = p.PerimetroCuello
+
                 }).ToList(),
                 PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q=> q.Fecha).Select(q=> new PlanAlimenticioDto()
                 {
@@ -220,10 +225,15 @@ namespace Servicio.Paciente
                     FechaMedicion = p.FechaMedicion,
                     MasaGrasa = p.MasaGrasa,
                     MasaCorporal = p.MasaCorporal,
-                    Peso = p.Peso,
+                    PesoActual = p.PesoActual,
                     PerimetroCintura = p.PerimetroCintura,
                     PerimetroCadera = p.PerimetroCadera,
-                    Eliminado = p.Eliminado
+                    PesoHabitual = p.PesoHabitual,
+                    Eliminado = p.Eliminado,
+                    PesoIdeal = p.PesoIdeal,
+                    PesoDeseado = p.PesoDeseado,
+                    PerimetroCuello = p.PerimetroCuello,
+                    
                 }).ToList(),
                 PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q => q.Fecha).Select(q => new PlanAlimenticioDto()
                 {

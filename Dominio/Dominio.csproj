@@ -51,6 +51,7 @@
     <Compile Include="Entidades\AlergiaIntolerancia.cs" />
     <Compile Include="Entidades\Alimento.cs" />
     <Compile Include="Entidades\Comida.cs" />
+    <Compile Include="Entidades\ComidaDetalle.cs" />
     <Compile Include="Entidades\DatoAnalitico.cs" />
     <Compile Include="Entidades\DatoAntropometrico.cs" />
     <Compile Include="Entidades\Dia.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Entidades\MacroNutriente.cs" />
     <Compile Include="Entidades\Mensaje.cs" />
     <Compile Include="Entidades\MetaData\IComida.cs" />
+    <Compile Include="Entidades\MetaData\IComidaDetalle.cs" />
     <Compile Include="Entidades\MetaData\IDia.cs" />
     <Compile Include="Entidades\MetaData\IAlergiaIntolerancia.cs" />
     <Compile Include="Entidades\MetaData\IAlimento.cs" />

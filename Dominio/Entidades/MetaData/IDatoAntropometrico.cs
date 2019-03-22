@@ -15,7 +15,20 @@ namespace Dominio.Entidades.MetaData
         long PacienteId { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
-        string Peso { get; set; }
+        string PesoActual { get; set; }
+        
+
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
+        string PesoHabitual { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
+        string PesoDeseado { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
+        string PesoIdeal { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
+        string PerimetroCuello { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string Altura { get; set; }
@@ -33,6 +46,8 @@ namespace Dominio.Entidades.MetaData
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string MasaCorporal { get; set; }
+
+        string Foto { get; set; }
 
         bool Eliminado { get; set; }
     }

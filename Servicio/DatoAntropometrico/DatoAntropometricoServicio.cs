@@ -20,10 +20,15 @@ namespace Servicio.DatoAntropometrico
                 FechaMedicion = DateTime.Now,
                 MasaGrasa = dto.MasaGrasa,
                 MasaCorporal = dto.MasaCorporal,
-                Peso = dto.Peso,
+                PesoActual = dto.PesoActual,
                 PerimetroCintura = dto.PerimetroCintura,
                 PerimetroCadera = dto.PerimetroCadera,
-                Eliminado = false
+                PerimetroCuello = dto.PerimetroCuello,
+                Eliminado = false,
+                PesoDeseado = dto.PesoDeseado,
+                PesoHabitual = dto.PesoHabitual,
+                PesoIdeal = dto.PesoIdeal,
+                Foto = dto.Foto,
             };
 
             Context.DatosAntropometricos.Add(dato);
@@ -41,9 +46,14 @@ namespace Servicio.DatoAntropometrico
             dato.FechaMedicion = dto.FechaMedicion; //no se modifica
             dato.MasaGrasa = dto.MasaGrasa;
             dato.MasaCorporal = dto.MasaCorporal;
-            dato.Peso = dto.Peso;
+            dato.PesoActual = dto.PesoActual;
             dato.PerimetroCintura = dto.PerimetroCintura;
             dato.PerimetroCadera = dto.PerimetroCadera;
+            dato.PerimetroCuello = dto.PerimetroCuello;
+            dato.PesoDeseado = dto.PesoDeseado;
+            dato.PesoHabitual = dto.PesoHabitual;
+            dato.PesoIdeal = dto.PesoIdeal;
+            dato.Foto = dto.Foto;
 
             await Context.SaveChangesAsync();
         }
@@ -71,15 +81,20 @@ namespace Servicio.DatoAntropometrico
                     Id = x.Id,
                     Codigo = x.Codigo,
                     PacienteId = x.PacienteId,
-                    PacienteStr = x.Paciente.Apellido +" "+ x.Paciente.Nombre,
+                    PacienteStr = x.Paciente.Apellido + " " + x.Paciente.Nombre,
                     Altura = x.Altura,
-                    FechaMedicion = x.FechaMedicion,
+                    FechaMedicion = DateTime.Now,
                     MasaGrasa = x.MasaGrasa,
                     MasaCorporal = x.MasaCorporal,
-                    Peso = x.Peso,
+                    PesoActual = x.PesoActual,
                     PerimetroCintura = x.PerimetroCintura,
                     PerimetroCadera = x.PerimetroCadera,
-                    Eliminado = x.Eliminado
+                    PerimetroCuello = x.PerimetroCuello,
+                    Eliminado = false,
+                    PesoDeseado = x.PesoDeseado,
+                    PesoHabitual = x.PesoHabitual,
+                    PesoIdeal = x.PesoIdeal,
+                    Foto = x.Foto,
                 }).ToListAsync();
         }
 
@@ -99,13 +114,18 @@ namespace Servicio.DatoAntropometrico
                     PacienteId = dato.PacienteId,
                     PacienteStr = dato.Paciente.Apellido + " " + dato.Paciente.Nombre,
                     Altura = dato.Altura,
-                    FechaMedicion = dato.FechaMedicion,
+                    FechaMedicion = DateTime.Now,
                     MasaGrasa = dato.MasaGrasa,
                     MasaCorporal = dato.MasaCorporal,
-                    Peso = dato.Peso,
+                    PesoActual = dato.PesoActual,
                     PerimetroCintura = dato.PerimetroCintura,
                     PerimetroCadera = dato.PerimetroCadera,
-                    Eliminado = dato.Eliminado
+                    PerimetroCuello = dato.PerimetroCuello,
+                    Eliminado = false,
+                    PesoDeseado = dato.PesoDeseado,
+                    PesoHabitual = dato.PesoHabitual,
+                    PesoIdeal = dato.PesoIdeal,
+                    Foto = dato.Foto,
                 };
         }
 
