@@ -44,9 +44,6 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().GrupoStr)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
         </th>
         <th>
@@ -54,15 +51,26 @@
         </th>
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
+    
+    @{long grupo = 0;}
+    @foreach (var item in Model.OrderBy(x=>x.GrupoId))
     {
+       
+
+        if (grupo != item.GrupoId)
+        {
+            <tr>
+                <td colspan="5" style="background-color: #538fec">
+                    <strong>Grupo: @item.GrupoStr</strong>
+                </td>
+          
+            </tr>
+            grupo = item.GrupoId;
+        }
+
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GrupoStr)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
@@ -71,16 +79,16 @@
                 @Html.DisplayFor(modelItem => item.EliminadoStr)
             </td>
             <td align="right">
-                @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm" })
                 @if (item.Eliminado)
                 {
-                    @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
 
                 }
                 else
                 {
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
 
                 }
             </td>

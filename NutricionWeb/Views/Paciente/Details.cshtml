@@ -4,8 +4,6 @@
     ViewBag.Title = "Details";
 }
 
-
-
 <div class="row">
     <div class="titulo-ABM">
         <h4 class="detail-h4">Detalles del Paciente</h4>
@@ -21,14 +19,12 @@
                 </span>
             </p>
 
-
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.ApyNom):
                 <span class="sub-info">
                     @Html.DisplayFor(model => model.ApyNom)
                 </span>
             </p>
-
 
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.Dni):
@@ -37,14 +33,12 @@
                 </span>
             </p>
 
-
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.Direccion):
                 <span class="sub-info">
                     @Html.DisplayFor(model => model.Direccion)
                 </span>
             </p>
-
 
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.Mail):
@@ -64,15 +58,12 @@
                 </span>
             </p>
 
-
-
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.SexoStr):
                 <span class="sub-info">
                     @Html.DisplayFor(model => model.SexoStr)
                 </span>
             </p>
-
 
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.Telefono):
@@ -82,8 +73,6 @@
                 </span>
             </p>
 
-
-
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.Celular):
                 <span class="sub-info">
@@ -91,15 +80,12 @@
                 </span>
             </p>
 
-
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.EliminadoStr):
                 <span class="sub-info">
                     @Html.DisplayFor(model => model.EliminadoStr)
                 </span>
             </p>
-
-
 
         </div>
     </div>
@@ -133,159 +119,3 @@
         </p>
     </div>
 }
-
-
-<hr />
-
-<div class="titulo-ABM">
-    <h4 class="detail-h4">Turnos</h4>
-</div>
-
-
-
-<table class="table">
-    <tr class="cabecera-tabla">
-        <th>
-            Fecha
-        </th>
-        <th>
-            Hora
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Turnos)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaEntradaStr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HorarioEntradaStr)
-            </td>
-
-            <td align="right">
-                @Html.ActionLink("Detalles", "Details", "Turno", new { id = item.Id }, new { @class = "btn btn-default" })
-            </td>
-        </tr>
-    }
-
-</table>
-
-<hr />
-
-<div class="titulo-ABM">
-    <h4 class="detail-h4">Planes Alimenticios</h4>
-</div>
-
-
-<table class="table">
-    <tr class="cabecera-tabla">
-        <th>
-            Fecha
-        </th>
-        <th>
-            Hora
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.PlanesAlimenticios)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaStr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoraStr)
-            </td>
-            
-            @if (User.IsInRole("Administrador"))
-            {
-                <td align="right">
-                    @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default" })
-                </td>
-            }
-            
-        </tr>
-    }
-
-</table>
-
-<hr />
-
-<div class="titulo-ABM">
-    <h4 class="detail-h4">Datos Analiticos</h4>
-</div>
-
-
-
-<table class="table">
-    <tr class="cabecera-tabla">
-        <th>
-            Fecha
-        </th>
-        <th>
-            Hora
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.DatosAnaliticos)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaMedicionStr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoraMedicionStr)
-            </td>
-
-            <td align="right">
-                @Html.ActionLink("Detalles", "Details", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-default" })
-            </td>
-        </tr>
-    }
-
-</table>
-
-<hr />
-
-<div class="titulo-ABM">
-    <h4 class="detail-h4">Datos Antropometricos</h4>
-</div>
-
-
-
-<table class="table">
-    <tr class="cabecera-tabla">
-        <th>
-            Fecha
-        </th>
-        <th>
-            Hora
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.DatosAntropometricos)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaMedicionStr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoraMedicionStr)
-            </td>
-
-            <td align="right">
-                @Html.ActionLink("Detalles", "Details", "DatoAntropometrico", new { id = item.Id }, new { @class = "btn btn-default" })
-            </td>
-        </tr>
-    }
-
-</table>

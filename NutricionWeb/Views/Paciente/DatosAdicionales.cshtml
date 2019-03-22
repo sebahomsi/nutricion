@@ -1,0 +1,89 @@
+﻿@model NutricionWeb.Models.Paciente.PacienteViewModel
+
+@helper AgregarVista(string idVista,string idParcial){
+    <div id="@idVista" class="tab-pane fade in active">
+        @*imagen cargando*@
+        <div id="@idParcial"></div>
+    </div>
+}
+
+@helper AgregarTabs(string idTab, string idVista,string texto,string clase){
+    <li class="@clase"   id="@idTab"><a data-toggle="tab" href="#@idVista">@texto</a></li>
+}
+
+
+
+<ul class="nav nav-tabs">
+    @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista","Datos Atropometricos", "active")   
+    @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
+    @AgregarTabs("datosAnaliticos", "datosAnaliticos-Vista", "Datos Analiticos", "")
+    @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
+</ul>
+
+<div class="tab-content">
+    @AgregarVista("datosAntropometricos-Vista", "datosAntropometricos-Parcial")
+    @AgregarVista("planesAlimenticios-Vista", "planesAlimenticios-Parcial")
+    @AgregarVista("datosAnaliticos-Vista", "datosAnaliticos-Parcial")
+    @AgregarVista("turnos-Vista", "turnos-Parcial")
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        var datosAntropometricos = function() {
+            var url = '@Url.Action("DatosAntropometricosParcial", "Paciente")';
+            $.get(url, { id: @Model.Id }, function(parcial) {
+                $("#datosAntropometricos-Parcial").empty();
+                $("#datosAntropometricos-Parcial").append(parcial);
+            });
+        }
+
+        var planesAlimenticios = function() {
+            var url = '@Url.Action("PlanesAlimenticiosParcial", "Paciente")';
+            $.get(url, { id: @Model.Id }, function(parcial) {
+                $("#planesAlimenticios-Parcial").empty();
+                $("#planesAlimenticios-Parcial").append(parcial);
+            });
+        }
+
+        var datosAnaliticos = function() {
+            var url = '@Url.Action("DatosAnaliticosParcial", "Paciente")';
+            $.get(url, { id: @Model.Id }, function(parcial) {
+                $("#datosAnaliticos-Parcial").empty();
+                $("#datosAnaliticos-Parcial").append(parcial);
+            });
+        }
+
+        var turnos = function() {
+            var url = '@Url.Action("TurnosParcial", "Paciente")';
+            $.get(url, { id: @Model.Id }, function(parcial) {
+                $("#turnos-Parcial").empty();
+                $("#turnos-Parcial").append(parcial);
+            });
+        }
+
+
+        $(function() {
+
+            datosAntropometricos();
+
+            $("#datosAntropometricos").click(function() {
+                datosAntropometricos();
+            });
+
+            $("#planesAlimenticios").click(function() {
+                planesAlimenticios();
+            });
+
+            $("#datosAnaliticos").click(function() {
+                datosAnaliticos();
+            });
+
+            $("#turnos").click(function() {
+                turnos();
+            });
+
+        });
+    </script>
+}

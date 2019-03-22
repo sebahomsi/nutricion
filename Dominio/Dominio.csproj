@@ -57,6 +57,7 @@
     <Compile Include="Entidades\Empleado.cs" />
     <Compile Include="Entidades\EntidadBase.cs" />
     <Compile Include="Entidades\Establecimiento.cs" />
+    <Compile Include="Entidades\Estado.cs" />
     <Compile Include="Entidades\Grupo.cs" />
     <Compile Include="Entidades\MacroNutriente.cs" />
     <Compile Include="Entidades\Mensaje.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Entidades\MetaData\IDatoAntropometrico.cs" />
     <Compile Include="Entidades\MetaData\IEmpleado.cs" />
     <Compile Include="Entidades\MetaData\IEstablecimiento.cs" />
+    <Compile Include="Entidades\MetaData\IEstado.cs" />
     <Compile Include="Entidades\MetaData\IGrupo.cs" />
     <Compile Include="Entidades\MetaData\IMensaje.cs" />
     <Compile Include="Entidades\MetaData\IMicroNutriente.cs" />

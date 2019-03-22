@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Helpers.Persona;
+﻿using NutricionWeb.Helpers.Persona;
 using NutricionWeb.Models.DatoAnalitico;
 using NutricionWeb.Models.DatoAntropometrico;
 using NutricionWeb.Models.Paciente;
@@ -13,12 +6,18 @@ using NutricionWeb.Models.PlanAlimenticio;
 using NutricionWeb.Models.Turno;
 using PagedList;
 using Servicio.Interface.Paciente;
-using static NutricionWeb.Helpers.PagedList;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.File;
+using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Paciente
 {
-    
+
     public class PacienteController : Controller
     {
         private readonly IPacienteServicio _pacienteServicio; //llaman e inicializan abajo para poder usar los servicios en el controlador
@@ -216,7 +215,7 @@ namespace NutricionWeb.Controllers.Paciente
         [Authorize(Roles = "Administrador, Empleado, Paciente")]
         public async Task<ActionResult> Details(long? id, string email="")
         {
-            var paciente = new PacienteDto();
+            PacienteDto paciente;
             if (!string.IsNullOrEmpty(email))
             {
                paciente = await _pacienteServicio.GetByEmail(email);
@@ -229,11 +228,7 @@ namespace NutricionWeb.Controllers.Paciente
 
                 paciente = await _pacienteServicio.GetById(id.Value);
             }
-            
-
-            
-
-
+                     
             return View(new PacienteViewModel()
             {
                 Id = paciente.Id,
@@ -249,58 +244,7 @@ namespace NutricionWeb.Controllers.Paciente
                 Mail = paciente.Mail,
                 FotoStr = paciente.Foto,
                 Eliminado = paciente.Eliminado,
-                TieneObservacion = paciente.TieneObservacion,
-                DatosAntropometricos = paciente.DatosAntropometricos.Select(p => new DatoAntropometricoViewModel()
-                {
-                    Id = p.Id,
-                    Codigo = p.Codigo,
-                    PacienteId = p.PacienteId,
-                    PacienteStr = p.PacienteStr,
-                    Altura = p.Altura,
-                    FechaMedicion = p.FechaMedicion,
-                    MasaGrasa = p.MasaGrasa,
-                    MasaCorporal = p.MasaCorporal,
-                    Peso = p.Peso,
-                    PerimetroCintura = p.PerimetroCintura,
-                    PerimetroCadera = p.PerimetroCadera,
-                    Eliminado = p.Eliminado
-                }).ToList(),
-                PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q => q.Fecha).Select(q => new PlanAlimenticioViewModel()
-                {
-                    Id = q.Id,
-                    Codigo = q.Codigo,
-                    Motivo = q.Motivo,
-                    Fecha = q.Fecha,
-                    PacienteId = q.PacienteId,
-                    PacienteStr = q.PacienteStr,
-                    Eliminado = q.Eliminado
-                }).ToList(),
-                Turnos = paciente.Turnos.OrderBy(t => t.HorarioEntrada).Select(t => new TurnoViewModel()
-                {
-                    Id = t.Id,
-                    Numero = t.Numero,
-                    Motivo = t.Motivo,
-                    PacienteId = t.PacienteId,
-                    PacienteStr = t.PacienteStr,
-                    HorarioEntrada = t.HorarioEntrada,
-                    HorarioSalida = t.HorarioSalida,
-                    Eliminado = t.Eliminado
-                }).ToList(),
-                DatosAnaliticos = paciente.DatosAnaliticos.OrderBy(x => x.Codigo).Select(x => new DatoAnaliticoViewModel()
-                {
-                    Id = x.Id,
-                    Codigo = x.Codigo,
-                    ColesterolHdl = x.ColesterolHdl,
-                    ColesterolLdl = x.ColesterolLdl,
-                    ColesterolTotal = x.ColesterolTotal,
-                    PresionDiastolica = x.PresionDiastolica,
-                    PresionSistolica = x.PresionSistolica,
-                    Trigliceridos = x.Trigliceridos,
-                    PacienteId = x.PacienteId,
-                    PacienteStr = x.PacienteStr,
-                    FechaMedicion = x.FechaMedicion,
-                    Eliminado = x.Eliminado
-                }).ToList()
+                TieneObservacion = paciente.TieneObservacion
             });
         }
 
@@ -321,6 +265,117 @@ namespace NutricionWeb.Controllers.Paciente
                 FechaNac = vm.FechaNac,
                 Foto = pic 
             };
+        }
+
+        [Authorize(Roles = "Administrador,Empleado,Paciente")]
+        public async Task<ActionResult> DatosAdicionales(long? id, string email = "")
+        {
+            PacienteDto paciente;
+            if (!string.IsNullOrEmpty(email))
+            {
+                paciente = await _pacienteServicio.GetByEmail(email);
+
+                if (paciente == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontró el perfil");
+            }
+            else
+            {
+                if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                paciente = await _pacienteServicio.GetById(id.Value);
+            }
+
+            return View(new PacienteViewModel()
+            {
+                Id = paciente.Id,
+            });
+        }
+
+        public async Task<ActionResult> DatosAntropometricosParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return PartialView(paciente.DatosAntropometricos.Select(x=> new DatoAntropometricoViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                PacienteId = x.PacienteId,
+                PacienteStr = x.PacienteStr,
+                Altura = x.Altura,
+                FechaMedicion = x.FechaMedicion,
+                MasaGrasa = x.MasaGrasa,
+                MasaCorporal = x.MasaCorporal,
+                Peso = x.Peso,
+                PerimetroCintura = x.PerimetroCintura,
+                PerimetroCadera = x.PerimetroCadera,
+                Eliminado = x.Eliminado
+
+            }).ToList());
+        
+        }
+
+        public async Task<ActionResult> PlanesAlimenticiosParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return PartialView(paciente.PlanesAlimenticios.Select(x => new PlanAlimenticioViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Motivo = x.Motivo,
+                Fecha = x.Fecha,
+                PacienteId = x.PacienteId,
+                PacienteStr = x.PacienteStr,
+                Eliminado = x.Eliminado
+
+            }).ToList());
+        }
+
+        public async Task<ActionResult> DatosAnaliticosParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return PartialView(paciente.DatosAnaliticos.Select(x => new DatoAnaliticoViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                ColesterolHdl = x.ColesterolHdl,
+                ColesterolLdl = x.ColesterolLdl,
+                ColesterolTotal = x.ColesterolTotal,
+                PresionDiastolica = x.PresionDiastolica,
+                PresionSistolica = x.PresionSistolica,
+                Trigliceridos = x.Trigliceridos,
+                PacienteId = x.PacienteId,
+                PacienteStr = x.PacienteStr,
+                FechaMedicion = x.FechaMedicion,
+                Eliminado = x.Eliminado
+
+            }).ToList());
+        }
+
+        public async Task<ActionResult> TurnosParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return PartialView(paciente.Turnos.Select(x => new TurnoViewModel()
+            {
+                Id = x.Id,
+                Numero = x.Numero,
+                Motivo = x.Motivo,
+                PacienteId = x.PacienteId,
+                PacienteStr = x.PacienteStr,
+                HorarioEntrada = x.HorarioEntrada,
+                HorarioSalida = x.HorarioSalida,
+                Eliminado = x.Eliminado
+
+            }).ToList());
         }
     }
 }

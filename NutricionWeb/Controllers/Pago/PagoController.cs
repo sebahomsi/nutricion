@@ -46,9 +46,24 @@ namespace NutricionWeb.Controllers.Pago
         }
 
         // GET: Pago/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(long id)
         {
-            return View();
+
+            var pago = await _pagoServicio.GetById(id);
+
+            if (pago == null) return HttpNotFound();
+
+            return View(new PagoViewModel
+            {
+                Id = pago.Id,
+                EstaEliminado = pago.EstaEliminado,
+                Concepto = pago.Concepto,
+                Monto = pago.Monto,
+                Fecha = pago.Fecha,
+                PacienteId = pago.PacienteId,
+                PacienteStr = pago.PacienteStr,
+                Codigo = pago.Codigo
+            });
         }
 
         // GET: Pago/Create
@@ -91,47 +106,85 @@ namespace NutricionWeb.Controllers.Pago
         }
 
         // GET: Pago/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long id)
         {
-            return View();
+            var pago = await _pagoServicio.GetById(id);
+
+            return View(new PagoViewModel
+            {
+                Id = pago.Id,
+                EstaEliminado = pago.EstaEliminado,
+                Concepto = pago.Concepto,
+                Monto = pago.Monto,
+                Fecha = pago.Fecha,
+                PacienteId = pago.PacienteId,
+                PacienteStr = pago.PacienteStr,
+                Codigo = pago.Codigo
+            });
         }
 
         // POST: Pago/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> Edit(PagoViewModel vm)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    var dto = CargarDatos(vm);
 
-                return RedirectToAction("Index");
+                    await _pagoServicio.Update(dto);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Pago/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long id)
         {
-            return View();
+            var pago = await _pagoServicio.GetById(id);
+
+            if (pago == null) return HttpNotFound();
+
+            return View(new PagoViewModel
+            {
+                Id = pago.Id,
+                EstaEliminado = pago.EstaEliminado,
+                Concepto = pago.Concepto,
+                Monto = pago.Monto,
+                Fecha = pago.Fecha,
+                PacienteId = pago.PacienteId,
+                PacienteStr = pago.PacienteStr,
+                Codigo = pago.Codigo
+            });
         }
 
         // POST: Pago/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(PagoViewModel vm)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _pagoServicio.Delete(vm.Id);
+                }
+                
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+
+            return RedirectToAction("Index");
         }
         
     }
