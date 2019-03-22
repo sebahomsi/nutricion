@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NutricionWeb.Models;
 using Servicio.Interface.Rol;
 using Servicio.Interface.Usuario;
 using Servicio.Rol;
 using Servicio.Usuario;
+using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
+using NutricionWeb.Helpers.AutoMapper;
 
 namespace NutricionWeb
 {
@@ -45,6 +42,7 @@ namespace NutricionWeb
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            IniciarAutoMapper.Iniciar();
         }
 
         private void AsignarSuperUsuarioRoles(ApplicationDbContext db)

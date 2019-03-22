@@ -1,11 +1,6 @@
 ﻿using Dominio.Entidades;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Aplicacion.Conexion.ConexionDb;
 
 namespace Infraestructura.Contexto
@@ -47,7 +42,7 @@ namespace Infraestructura.Contexto
         public IDbSet<Receta> Recetas { get; set; }
         public IDbSet<RecetaDetalle> RecetasDetalles { get; set; }
         public IDbSet<Pago> Pagos { get; set; }
-
+        public IDbSet<Estado> Estados { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

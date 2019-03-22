@@ -51,14 +51,22 @@
                 @Html.DisplayFor(modelItem => item.Monto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
+                @Html.DisplayFor(modelItem => item.FechaStr)
             </td>
            
           
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                @if (item.EstaEliminado)
+                {
+                    @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
+                }
+                else
+                {
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                }
+
             </td>
         </tr>
     }

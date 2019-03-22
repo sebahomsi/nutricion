@@ -38,75 +38,86 @@
     </div>
 </div>
 <div class="table-responsive">
-<table class="table">
-    <tr class="cabecera-tabla">
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().ApyNom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Mail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Celular)
-        </th>
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ApyNom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Celular)
+            </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().EliminadoStr)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApyNom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Celular)
-            </td>
-
-
-            <td>
-                @Html.DisplayFor(modelItem => item.EliminadoStr)
-            </td>
-            <td align="right">
-                @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
-                @if (item.Eliminado)
-                {
-                    @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
-
-                }
-                else
-                {
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-
-                }
-                @Html.ActionLink("Datos Adicionales", "DatosAdicionales", new { id = item.Id }, new { @class = "btn btn-info" })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().EliminadoStr)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr ondblclick="datosAdicionales(@item.Id)" id="@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApyNom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Celular)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EliminadoStr)
+                </td>
+                <td align="right">
+
+                    @if (!item.Eliminado)
+                {
+                        <div>
+                            @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm" })
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
 </div>
 
 <div align="center">
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Index", "Paciente", new { page, cadenaBuscar = ViewBag.FilterValue }))
 </div>
+
+@section scripts
+{
+    <script>
+        var datosAdicionales = function (id) {
+            $("#" + id).attr("style", "background-color: #0080FF;");
+            var url = '@Url.Action("DatosAdicionales","Paciente")';
+            window.location.href = url + "?id=" + id;
+        }
+    </script>
+}

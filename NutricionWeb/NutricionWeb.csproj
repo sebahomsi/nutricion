@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.2.0\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -76,6 +79,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -243,6 +249,7 @@
     <Compile Include="Controllers\Dia\DiaController.cs" />
     <Compile Include="Controllers\Empleado\EmpleadoController.cs" />
     <Compile Include="Controllers\Establecimiento\EstablecimientoController.cs" />
+    <Compile Include="Controllers\Estado\EstadoController.cs" />
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MacroNutriente\MacroNutrienteController.cs" />
@@ -269,6 +276,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AutoMapper\IniciarAutoMapper.cs" />
+    <Compile Include="Helpers\AutoMapper\TurnosProfileView.cs" />
     <Compile Include="Helpers\FIle.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\Persona\ComboBoxSexo.cs" />
@@ -287,6 +296,7 @@
     <Compile Include="Models\Empleado\EmpleadoABMViewModel.cs" />
     <Compile Include="Models\Empleado\EmpleadoViewModel.cs" />
     <Compile Include="Models\Establecimiento\EstablecimientoViewModel.cs" />
+    <Compile Include="Models\Estado\EstadoViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoABMViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -723,6 +733,13 @@
     <Content Include="Views\Pago\Create.cshtml" />
     <Content Include="Views\Paciente\DatosAdicionales.cshtml" />
     <Content Include="Views\Paciente\DatosAntropometricosParcial.cshtml" />
+    <Content Include="Views\Pago\Details.cshtml" />
+    <Content Include="Views\Pago\Delete.cshtml" />
+    <Content Include="Views\Pago\Edit.cshtml" />
+    <Content Include="Views\Paciente\PlanesAlimenticiosParcial.cshtml" />
+    <Content Include="Views\Paciente\DatosAnaliticosParcial.cshtml" />
+    <Content Include="Views\Paciente\TurnosParcial.cshtml" />
+    <Content Include="Views\Estado\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
