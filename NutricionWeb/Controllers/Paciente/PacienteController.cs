@@ -5,13 +5,18 @@ using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using NutricionWeb.Models.Turno;
 using PagedList;
+using Servicio.Interface.DatoAnalitico;
+using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
+using Servicio.Interface.PlanAlimenticio;
+using Servicio.Interface.Turno;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AutoMapper;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -22,12 +27,23 @@ namespace NutricionWeb.Controllers.Paciente
     {
         private readonly IPacienteServicio _pacienteServicio; //llaman e inicializan abajo para poder usar los servicios en el controlador
         private readonly IComboBoxSexo _comboBoxSexo;
+        private readonly IDatoAnaliticoServicio _datoAnaliticoServicio;
+        private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
+        private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
+        private readonly ITurnoServicio _turnoServicio;
 
-        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo)
+
+        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio)
         {
             _pacienteServicio = pacienteServicio;
             _comboBoxSexo = comboBoxSexo;
+            _datoAnaliticoServicio = datoAnaliticoServicio;
+            _planAlimenticioServicio = planAlimenticioServicio;
+            _datoAntropometricoServicio = datoAntropometricoServicio;
+            _turnoServicio = turnoServicio;
         }
+
+        
 
         // GET: Paciente
         [Authorize(Roles = "Administrador, Empleado")]
@@ -78,8 +94,7 @@ namespace NutricionWeb.Controllers.Paciente
             {
                 if (ModelState.IsValid)
                 {
-                    var pic = string.Empty;
-                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
 
                     var pacienteDto = CargarDatos(vm, pic);
 
@@ -146,8 +161,7 @@ namespace NutricionWeb.Controllers.Paciente
             {
                 if (ModelState.IsValid)
                 {
-                    var pic = string.Empty;
-                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
 
                     var pacienteDto = CargarDatos(vm, pic);
 
@@ -294,27 +308,11 @@ namespace NutricionWeb.Controllers.Paciente
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var paciente = await _pacienteServicio.GetById(id.Value);
+            var datos = await _datoAntropometricoServicio.GetByIdPaciente(id.Value);
 
-            return PartialView(paciente.DatosAntropometricos.Select(x=> new DatoAntropometricoViewModel()
-            {
-                Id = x.Id,
-                Codigo = x.Codigo,
-                PacienteId = x.PacienteId,
-                PacienteStr = x.PacienteStr,
-                Altura = x.Altura,
-                FechaMedicion = x.FechaMedicion,
-                MasaGrasa = x.MasaGrasa,
-                MasaCorporal = x.MasaCorporal,
-                PesoActual = x.PesoActual,
-                PerimetroCintura = x.PerimetroCintura,
-                PerimetroCadera = x.PerimetroCadera,
-                Eliminado = x.Eliminado,
-                PesoHabitual = x.PesoHabitual,
-                PesoIdeal = x.PesoIdeal,
-                PesoDeseado = x.PesoDeseado,
+            var datosAntropometricos = Mapper.Map<IEnumerable<DatoAntropometricoViewModel>>(datos);
 
-            }).ToList());
+            return PartialView(datosAntropometricos.ToList());
         
         }
 
@@ -322,63 +320,33 @@ namespace NutricionWeb.Controllers.Paciente
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var paciente = await _pacienteServicio.GetById(id.Value);
+            var datos = await _planAlimenticioServicio.GetByIdPaciente(id.Value);
 
-            return PartialView(paciente.PlanesAlimenticios.Select(x => new PlanAlimenticioViewModel()
-            {
-                Id = x.Id,
-                Codigo = x.Codigo,
-                Motivo = x.Motivo,
-                Fecha = x.Fecha,
-                PacienteId = x.PacienteId,
-                PacienteStr = x.PacienteStr,
-                Eliminado = x.Eliminado
+            var planesAlimenticios = Mapper.Map<IEnumerable<PlanAlimenticioViewModel>>(datos);
 
-            }).ToList());
+            return PartialView(planesAlimenticios.ToList());
         }
 
         public async Task<ActionResult> DatosAnaliticosParcial(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var paciente = await _pacienteServicio.GetById(id.Value);
+            var datos = await _datoAnaliticoServicio.GetByIdPaciente(id.Value);
 
-            return PartialView(paciente.DatosAnaliticos.Select(x => new DatoAnaliticoViewModel()
-            {
-                Id = x.Id,
-                Codigo = x.Codigo,
-                ColesterolHdl = x.ColesterolHdl,
-                ColesterolLdl = x.ColesterolLdl,
-                ColesterolTotal = x.ColesterolTotal,
-                PresionDiastolica = x.PresionDiastolica,
-                PresionSistolica = x.PresionSistolica,
-                Trigliceridos = x.Trigliceridos,
-                PacienteId = x.PacienteId,
-                PacienteStr = x.PacienteStr,
-                FechaMedicion = x.FechaMedicion,
-                Eliminado = x.Eliminado
+            var datosAnaliticos = Mapper.Map<IEnumerable<DatoAnaliticoViewModel>>(datos);
 
-            }).ToList());
+            return PartialView(datosAnaliticos.ToList());
         }
 
         public async Task<ActionResult> TurnosParcial(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var paciente = await _pacienteServicio.GetById(id.Value);
+            var datos = await _turnoServicio.GetByIdPaciente(id.Value);
 
-            return PartialView(paciente.Turnos.Select(x => new TurnoViewModel()
-            {
-                Id = x.Id,
-                Numero = x.Numero,
-                Motivo = x.Motivo,
-                PacienteId = x.PacienteId,
-                PacienteStr = x.PacienteStr,
-                HorarioEntrada = x.HorarioEntrada,
-                HorarioSalida = x.HorarioSalida,
-                Eliminado = x.Eliminado
+            var turnos = Mapper.Map<IEnumerable<TurnoViewModel>>(datos);
 
-            }).ToList());
+            return PartialView(turnos.ToList());
         }
     }
 }

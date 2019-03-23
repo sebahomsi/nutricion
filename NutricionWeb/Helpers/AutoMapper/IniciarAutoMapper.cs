@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Servicio.Interface.AutoMapper;
 
 namespace NutricionWeb.Helpers.AutoMapper
 {
@@ -6,19 +7,22 @@ namespace NutricionWeb.Helpers.AutoMapper
     {
         public static void Iniciar()
         {
+            Mapper.Initialize(cfg =>
+            {
+                #region Dtos a View Models
 
-            #region Dtos a View Models
+                cfg.AddProfile(new TurnosProfileView());
 
-            Mapper.Initialize(cfg => cfg.AddProfile<TurnosProfileView>());
+                #endregion
 
-            #endregion
 
-            #region Entidades a Dtos
+                #region Entidades a Dtos
 
-           
+                cfg.AddProfile(new PlanAlimenticioProfile());
+                cfg.AddProfile(new TurnoProfile());
 
-            #endregion
-
+                #endregion
+            });
         }
     }
 }

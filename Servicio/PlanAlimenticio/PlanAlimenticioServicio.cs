@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Servicio.Interface.Comida;
 using Servicio.Interface.Dia;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.PlanAlimenticio;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Servicio.PlanAlimenticio
 {
@@ -140,6 +140,17 @@ namespace Servicio.PlanAlimenticio
             return await Context.PlanesAlimenticios.AnyAsync()
                 ? await Context.PlanesAlimenticios.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<IEnumerable<PlanAlimenticioDto>> GetByIdPaciente(long id)
+        {
+            var datos = await Context.PlanesAlimenticios
+                .Include(x=>x.Paciente)
+                .Where(x => x.PacienteId == id).ToListAsync();
+
+            var planesAlimenticios = Mapper.Map<IEnumerable<PlanAlimenticioDto>>(datos);
+
+            return planesAlimenticios;
         }
     }
 }

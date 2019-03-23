@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Servicio.Interface.SubGrupo;
 
 namespace Servicio.Interface.DatoAnalitico
 {
@@ -15,5 +11,6 @@ namespace Servicio.Interface.DatoAnalitico
         Task<ICollection<DatoAnaliticoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<DatoAnaliticoDto> GetById(long id);
         Task<int> GetNextCode();
+        Task<IEnumerable<DatoAnaliticoDto>> GetByIdPaciente(long id);
     }
 }

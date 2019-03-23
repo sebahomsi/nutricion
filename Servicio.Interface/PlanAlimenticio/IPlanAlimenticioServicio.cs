@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Servicio.Interface.Patologia;
 
 namespace Servicio.Interface.PlanAlimenticio
 {
@@ -15,5 +11,6 @@ namespace Servicio.Interface.PlanAlimenticio
         Task<ICollection<PlanAlimenticioDto>> Get(bool eliminado, string cadenaBuscar);
         Task<PlanAlimenticioDto> GetById(long id);
         Task<int> GetNextCode();
+        Task<IEnumerable<PlanAlimenticioDto>> GetByIdPaciente(long id);
     }
 }

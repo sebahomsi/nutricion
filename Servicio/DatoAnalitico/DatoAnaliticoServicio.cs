@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Servicio.Interface.DatoAnalitico;
 
 namespace Servicio.DatoAnalitico
@@ -116,6 +117,15 @@ namespace Servicio.DatoAnalitico
             return await Context.DatosAnaliticos.AnyAsync()
                 ? await Context.DatosAnaliticos.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<IEnumerable<DatoAnaliticoDto>> GetByIdPaciente(long id)
+        {
+            var datos = await Context.DatosAnaliticos.Where(x => x.PacienteId == id).ToListAsync();
+
+            var datoAnaliticos = Mapper.Map<IEnumerable<DatoAnaliticoDto>>(datos);
+
+            return datoAnaliticos;
         }
     }
 }

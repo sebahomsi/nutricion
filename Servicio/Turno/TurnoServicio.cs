@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Servicio.Turno
 {
@@ -108,7 +109,16 @@ namespace Servicio.Turno
         public async Task<int> GetNextCode()
         {
             return await Context.Turnos.AnyAsync() ? await Context.Turnos.MaxAsync(x => x.Numero) + 1 : 1;
-
         }
+
+        public async Task<IEnumerable<TurnoDto>> GetByIdPaciente(long id)
+        {
+            var datos = await Context.Turnos.Where(x => x.PacienteId == id).ToListAsync();
+
+            var turnos = Mapper.Map<IEnumerable<TurnoDto>>(datos);
+
+            return turnos;
+        }
+
     }
 }

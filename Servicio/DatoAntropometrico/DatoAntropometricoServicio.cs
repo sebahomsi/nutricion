@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Servicio.DatoAntropometrico
 {
@@ -134,6 +135,15 @@ namespace Servicio.DatoAntropometrico
             return await Context.DatosAntropometricos.AnyAsync()
                 ? await Context.DatosAntropometricos.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<IEnumerable<DatoAntropometricoDto>> GetByIdPaciente(long id)
+        {
+            var datos = await Context.DatosAntropometricos.Where(x => x.PacienteId == id).ToListAsync();
+
+            var datosAntopometricos = Mapper.Map<IEnumerable<DatoAntropometricoDto>>(datos);
+
+            return datosAntopometricos;
         }
     }
 }

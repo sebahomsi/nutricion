@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Servicio.Interface.SubGrupo;
 
 namespace Servicio.Interface.Turno
 {
@@ -15,5 +11,6 @@ namespace Servicio.Interface.Turno
         Task<ICollection<TurnoDto>> Get(bool eliminado, string cadenaBuscar);
         Task<TurnoDto> GetById(long id);
         Task<int> GetNextCode();
+        Task<IEnumerable<TurnoDto>> GetByIdPaciente(long id);
     }
 }
