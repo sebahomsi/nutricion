@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Servicio.Interface.Turno;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using Servicio.Interface.Turno;
 
 namespace Servicio.Turno
 {
@@ -17,6 +16,7 @@ namespace Servicio.Turno
             {
                 Numero = dto.Numero,
                 PacienteId = dto.PacienteId,
+                EstadoId = dto.EstadoId,
                 HorarioEntrada = dto.HorarioEntrada,
                 HorarioSalida = dto.HorarioSalida,
                 Motivo = dto.Motivo,
@@ -36,6 +36,7 @@ namespace Servicio.Turno
             turno.PacienteId = dto.PacienteId;
             turno.HorarioEntrada = dto.HorarioEntrada;
             turno.HorarioSalida = dto.HorarioSalida;
+            turno.EstadoId = dto.EstadoId;
             turno.Motivo = dto.Motivo;
 
             await Context.SaveChangesAsync();
@@ -58,6 +59,7 @@ namespace Servicio.Turno
 
             return await Context.Turnos.AsNoTracking()
                 .Include("Paciente")
+                .Include("Estado")
                 .Where(expression)
                 .OrderBy(x=> x.HorarioEntrada)
                 .Select(x => new TurnoDto()
@@ -65,9 +67,13 @@ namespace Servicio.Turno
                     Id = x.Id,
                     Numero = x.Numero,
                     PacienteId = x.PacienteId,
+
                     PacienteStr = x.Paciente.Apellido +" "+ x.Paciente.Nombre,
                     HorarioEntrada = x.HorarioEntrada,
                     HorarioSalida = x.HorarioSalida,
+                    EstadoColor = x.Estado.Color,
+                    EstadoDescripcion = x.Estado.Descripcion,
+                    EstadoId = x.EstadoId,
                     Motivo = x.Motivo,
                     Eliminado = x.Eliminado
                 }).ToListAsync();
@@ -75,7 +81,10 @@ namespace Servicio.Turno
 
         public async Task<TurnoDto> GetById(long id)
         {
-            var turno = await Context.Turnos.AsNoTracking().Include("Paciente").FirstOrDefaultAsync(x => x.Id == id);
+            var turno = await Context.Turnos.AsNoTracking()
+                .Include("Paciente")
+                .Include("Estado")
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (turno == null) throw new ArgumentNullException();
 
@@ -88,7 +97,10 @@ namespace Servicio.Turno
                 HorarioEntrada = turno.HorarioEntrada,
                 HorarioSalida = turno.HorarioSalida,
                 Motivo = turno.Motivo,
-                Eliminado = turno.Eliminado
+                Eliminado = turno.Eliminado,
+                EstadoId = turno.EstadoId,
+                EstadoDescripcion = turno.Estado.Descripcion,
+                EstadoColor = turno.Estado.Color
             };
 
         }

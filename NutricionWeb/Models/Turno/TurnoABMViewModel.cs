@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace NutricionWeb.Models.Turno
 {
@@ -28,7 +25,15 @@ namespace NutricionWeb.Models.Turno
         [Required(ErrorMessage = "Campo Requerido")]
         public DateTime HorarioSalida { get; set; }
 
+        public long EstadoId { get; set; }
+
+        [Display(Name = "Estado")]
+        public string EstadoDescripcion { get; set; }
+
         public string Motivo { get; set; }
+
+        public string EstadoColor { get; set; }
+
 
         public bool Eliminado { get; set; }
     }

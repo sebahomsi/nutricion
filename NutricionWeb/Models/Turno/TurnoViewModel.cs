@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace NutricionWeb.Models.Turno
 {
@@ -36,7 +33,10 @@ namespace NutricionWeb.Models.Turno
 
         public string FechaSalidaStr => HorarioSalida.ToString("dd/MM/yyyy");
 
+        public long EstadoId { get; set; }
 
+        [Display(Name = "Estado")]
+        public string EstadoDescripcion { get; set; }
 
         public bool Eliminado { get; set; }
 

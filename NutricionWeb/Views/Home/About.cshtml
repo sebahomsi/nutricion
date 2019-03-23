@@ -1,5 +1,4 @@
-﻿@using System.Web.UI.WebControls
-@model IEnumerable<NutricionWeb.Models.Turno.TurnoViewModel>
+﻿@model IEnumerable<NutricionWeb.Models.Turno.TurnoViewModel>
 
 @{
     ViewBag.Title = "Calendario";
@@ -38,6 +37,8 @@
                             description: v.Motivo,
                             start: moment(v.HorarioEntrada),
                             pacienteID: v.PacienteId,
+                            color: v.EstadoColor,
+                            url : '@Url.Action("Edit","Turno")/?id='+v.Id+'&volver=1'
                         });
                     });
                 generateCalender(events);
@@ -50,9 +51,10 @@
                 defaultDate: new Date(),
                 timeFormat: 'H(:mm)',
                 eventLimit: true,
-                eventColor: ' #34495e',
                 events: events
-            })
+            });
         }
+
+
     });
 </script>

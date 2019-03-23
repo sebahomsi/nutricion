@@ -20,6 +20,6 @@ namespace Dominio.Entidades
 
         //======================
 
-        public virtual ICollection<Turno> Turno { get; set; }
+        public virtual ICollection<Turno> Turnos { get; set; }
     }
 }

@@ -742,6 +742,11 @@
     <Content Include="Views\Paciente\DatosAnaliticosParcial.cshtml" />
     <Content Include="Views\Paciente\TurnosParcial.cshtml" />
     <Content Include="Views\Estado\Index.cshtml" />
+    <Content Include="Views\Estado\Create.cshtml" />
+    <Content Include="Views\Estado\Edit.cshtml" />
+    <Content Include="Views\Estado\Delete.cshtml" />
+    <Content Include="Views\Estado\Details.cshtml" />
+    <Content Include="Views\Turno\BuscarEstado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

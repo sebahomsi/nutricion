@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Servicio.Interface.Turno
 {
@@ -22,7 +18,15 @@ namespace Servicio.Interface.Turno
 
         public string Motivo { get; set; }
 
-
         public bool Eliminado { get; set; }
+
+        //==============Estado
+
+        public long EstadoId { get; set; }
+
+        public string EstadoColor { get; set; }
+
+        public string EstadoDescripcion { get; set; }
+
     }
 }
