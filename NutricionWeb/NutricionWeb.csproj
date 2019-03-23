@@ -279,6 +279,7 @@
     </Compile>
     <Compile Include="Helpers\AutoMapper\IniciarAutoMapper.cs" />
     <Compile Include="Helpers\AutoMapper\TurnosProfileView.cs" />
+    <Compile Include="Helpers\Diccionario.cs" />
     <Compile Include="Helpers\FIle.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\Persona\ComboBoxSexo.cs" />
@@ -751,6 +752,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
+    <Folder Include="Helpers\Enums\" />
     <Folder Include="Views\ComidaDetalle\" />
   </ItemGroup>
   <ItemGroup>

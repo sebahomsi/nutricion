@@ -1,4 +1,5 @@
-﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioViewModel
+﻿@using NutricionWeb.Helpers
+@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioViewModel
 
 @{
     ViewBag.Title = "ExportarPlan";
@@ -41,44 +42,97 @@
 </div>
 
 
-
 @foreach (var dia in Model.Dias)
 {
+    <h3 class="detail-h3"><p>@dia.Descripcion</p></h3>
+        <div class="row row-plan" >
 
 
-<h3 class="detail-h3"><p>@dia.Descripcion</p></h3>
-    <div class="row row-plan" >
 
-        @foreach (var comida in dia.Comidas)
-        {
-            <div class="col-md-2" style="border-right: 1px solid #ccc;">
-                <h4><p>@comida.Descripcion</p></h4>
+            @foreach (var comida in dia.Comidas)
+            {
+                <div class="col-md-2" style="border-right: 1px solid #ccc;">
+                    <h4><p>@comida.Descripcion</p></h4>
 
-                @foreach (var opcion in comida.Opciones)
-                {
-                <hr/>
-                <strong><p>@opcion.Descripcion
-                            <span style="margin-left: 50%;">
-                                @Html.ActionLink("+", "CreateRapido", "OpcionDetalle", new { opcionId = @opcion.Id }, new { @class = "btn-xs btn-primary" })
-                            </span> 
-                        
-                </p></strong>
-                    foreach (var opcionDetalle in opcion.OpcionDetalles)
+                    @foreach (var opcion in comida.Opciones)
                     {
-                        <p>@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
+                    <hr/>
+                    <strong><p>@opcion.Descripcion
+                                <span style="margin-left: 50%;">
+                                    @Html.ActionLink("+", "CreateRapido", "OpcionDetalle", new { opcionId = @opcion.Id }, new { @class = "btn-xs btn-primary" })
+                                </span>
+
+                    </p></strong>
+                        foreach (var opcionDetalle in opcion.OpcionDetalles)
+                        {
+                            <p>@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
+                        }
                     }
-                }
-            </div>
+                </div>
 
-        }
+            }
 
+        </div>
+        <br>
+}
+
+
+@*@foreach (var dia in Model.Dias)
+{    
+    <div class="col-md-2" style="border: 1px solid #ccc;width: 14.2%">
+        <h4>@dia.Descripcion</h4>
     </div>
-    <br>
+}
+
+@{
+    var contador = 0;
+    var comidaInt = 1;
+}
+
+
+@while (contador < Model.Dias.Count * Model.Dias.First().Comidas.Count)
+{
+
+    foreach (var dia in Model.Dias)
+    {
+      
+        foreach (var comida in dia.Comidas)
+        {
+            if (comida.Descripcion == Diccionario.ObtenerComidaStr(comidaInt))
+            {
+
+                 <div class="col-md-2" style="border: 1px solid #ccc; width: 14.2%; height:150px; background-color: @Diccionario.ObtenerComidaColor(comidaInt); overflow: auto" >
+                     @foreach (var opcion in comida.Opciones)
+                     {
+                         <p>@opcion.Descripcion
+                             <span>
+                                @Html.ActionLink("+", "CreateRapido", "OpcionDetalle", new { opcionId = @opcion.Id }, new { @class = "btn-xs btn-primary" })
+                            </span>
+                        </p>
+
+                          foreach (var opcionDetalle in opcion.OpcionDetalles)
+                          {
+                              <p>@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
+                          }
+                      }   
+                 </div>
+                 contador++;
+             }
 
         }
-    
+ 
+     }
+
+    comidaInt++;
+}*@
 
 
-    <p>
-        @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new{ planId = Model.Id })
-    </p>
+
+
+
+ 
+
+
+<p>
+     @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new{ planId = Model.Id })
+</p>
