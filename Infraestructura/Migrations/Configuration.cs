@@ -40,10 +40,10 @@ namespace Infraestructura.Migrations
                 new SubGrupo() { Id = 10, Codigo = 10, Descripcion = "Maiz", GrupoId = 3, Eliminado = false },
                 new SubGrupo() { Id = 11, Codigo = 11, Descripcion = "Pasta", GrupoId = 3, Eliminado = false },
                 new SubGrupo() { Id = 12, Codigo = 12, Descripcion = "Al natural", GrupoId = 3, Eliminado = false },
-            new SubGrupo() { Id = 13, Codigo = 13, Descripcion = "Carnes Blancas", GrupoId = 4, Eliminado = false },
-            new SubGrupo() { Id = 14, Codigo = 14, Descripcion = "Carnes Rojas", GrupoId = 4, Eliminado = false },
-            new SubGrupo() { Id = 15, Codigo = 15, Descripcion = "Tropicales", GrupoId = 5, Eliminado = false },
-            new SubGrupo() { Id = 16, Codigo = 16, Descripcion = "Citricas", GrupoId = 5, Eliminado = false });
+                new SubGrupo() { Id = 13, Codigo = 13, Descripcion = "Carnes Blancas", GrupoId = 4, Eliminado = false },
+                new SubGrupo() { Id = 14, Codigo = 14, Descripcion = "Carnes Rojas", GrupoId = 4, Eliminado = false },
+                new SubGrupo() { Id = 15, Codigo = 15, Descripcion = "Tropicales", GrupoId = 5, Eliminado = false },
+                new SubGrupo() { Id = 16, Codigo = 16, Descripcion = "Citricas", GrupoId = 5, Eliminado = false });
         }
 
         private static void AddGrupos(NutricionDbContext context)

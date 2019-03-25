@@ -1,4 +1,5 @@
-﻿using Servicio.Interface.Paciente;
+﻿using System;
+using Servicio.Interface.Paciente;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace NutricionWebApi.Controllers
         // GET api/values
         public async Task<List<PacienteViewModel>> Get()
         {
-            var paceintes = await _pacienteServicio.Get(string.Empty);
+            var paceintes = await _pacienteServicio.Get(false,String.Empty);
 
             return paceintes.Select(x => new PacienteViewModel()
             {
@@ -77,7 +78,7 @@ namespace NutricionWebApi.Controllers
                     FechaMedicion = p.FechaMedicion,
                     MasaGrasa = p.MasaGrasa,
                     MasaCorporal = p.MasaCorporal,
-                    Peso = p.Peso,
+                    Peso = p.PesoActual,
                     PerimetroCintura = p.PerimetroCintura,
                     PerimetroCadera = p.PerimetroCadera,
                     Eliminado = p.Eliminado

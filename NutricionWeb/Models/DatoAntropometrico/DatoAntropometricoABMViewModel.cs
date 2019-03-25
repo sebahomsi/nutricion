@@ -49,11 +49,11 @@ namespace NutricionWeb.Models.DatoAntropometrico
         public DateTime FechaMedicion { get; set; }
 
         [Display(Name = "Masa Grasa")]
-        [Required(ErrorMessage = "Campo Requerido")]
+
         public string MasaGrasa { get; set; }
 
         [Display(Name = "Masa Corporal")]
-        [Required(ErrorMessage = "Campo Requerido")]
+
         public string MasaCorporal { get; set; }
 
         [Display(Name = "Buscar Foto")]

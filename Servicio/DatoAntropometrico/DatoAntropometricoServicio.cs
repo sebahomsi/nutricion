@@ -13,14 +13,17 @@ namespace Servicio.DatoAntropometrico
     {
         public async Task<long> Add(DatoAntropometricoDto dto)
         {
+            var imc = await CalculateImc(dto.PesoActual, dto.Altura);
+            var pgc = await CalculatePgc(imc, dto.PacienteId);
+
             var dato = new Dominio.Entidades.DatoAntropometrico()
             {
                 Codigo = dto.Codigo,
                 PacienteId = dto.PacienteId,
                 Altura = dto.Altura,
                 FechaMedicion = DateTime.Now,
-                MasaGrasa = dto.MasaGrasa,
-                MasaCorporal = dto.MasaCorporal,
+                MasaGrasa = pgc,
+                MasaCorporal = imc,
                 PesoActual = dto.PesoActual,
                 PerimetroCintura = dto.PerimetroCintura,
                 PerimetroCadera = dto.PerimetroCadera,
@@ -41,12 +44,14 @@ namespace Servicio.DatoAntropometrico
         {
             var dato = await Context.DatosAntropometricos.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (dato == null) throw new ArgumentNullException();
+            var imc = await CalculateImc(dto.PesoActual, dto.Altura);
+            var pgc = await CalculatePgc(imc, dto.PacienteId);
 
             dato.PacienteId = dto.PacienteId;
             dato.Altura = dto.Altura;
             dato.FechaMedicion = dto.FechaMedicion; //no se modifica
-            dato.MasaGrasa = dto.MasaGrasa;
-            dato.MasaCorporal = dto.MasaCorporal;
+            dato.MasaGrasa = pgc;
+            dato.MasaCorporal = imc;
             dato.PesoActual = dto.PesoActual;
             dato.PerimetroCintura = dto.PerimetroCintura;
             dato.PerimetroCadera = dto.PerimetroCadera;
@@ -144,6 +149,44 @@ namespace Servicio.DatoAntropometrico
             var datosAntopometricos = Mapper.Map<IEnumerable<DatoAntropometricoDto>>(datos);
 
             return datosAntopometricos;
+        }
+
+        public async Task<string> CalculateImc(string peso, string altura)
+        {         
+            return await Task.Run(() =>
+            {
+                double.TryParse(peso, out var pesoDecimal);
+                double.TryParse(altura, out var alturaDecimal);
+                var alturaM = alturaDecimal / 100;
+                var resultado = pesoDecimal / (alturaM * alturaM);
+                return resultado.ToString("##.00");
+            });           
+        }
+
+        public async Task<string> CalculatePgc(string imc, long pacienteId)
+        {
+            var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+                .FirstOrDefaultAsync(x => x.Id == pacienteId);
+
+            if (paciente == null) throw new ArgumentNullException($"No se encontro el paciente");
+
+            var edad = DateTime.Now.Year - paciente.FechaNac.Date.Year;
+
+            var nacimientoAhora = paciente.FechaNac.Date.AddYears(edad);
+
+            if (DateTime.Now.CompareTo(nacimientoAhora) < 0)
+            {
+                edad--;
+            }
+
+            return await Task.Run(() =>
+            {
+                double.TryParse(imc, out var imcDecimal);
+                double.TryParse(edad.ToString(), out var edadD);
+                var resultado = (imcDecimal * 1.2) + (0.23 * edadD) - (10.8 * paciente.Sexo) - 5.4;
+               
+                return resultado.ToString("##.000");
+            });
         }
     }
 }

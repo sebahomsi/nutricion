@@ -277,6 +277,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AutoMapper\DatoAntropometricoProfileView.cs" />
     <Compile Include="Helpers\AutoMapper\IniciarAutoMapper.cs" />
     <Compile Include="Helpers\AutoMapper\TurnosProfileView.cs" />
     <Compile Include="Helpers\Diccionario.cs" />

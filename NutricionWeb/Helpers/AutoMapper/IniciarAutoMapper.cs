@@ -12,7 +12,7 @@ namespace NutricionWeb.Helpers.AutoMapper
                 #region Dtos a View Models
 
                 cfg.AddProfile(new TurnosProfileView());
-
+                cfg.AddProfile(new DatoAntropometricoProfileView());
                 #endregion
 
 
@@ -20,7 +20,7 @@ namespace NutricionWeb.Helpers.AutoMapper
 
                 cfg.AddProfile(new PlanAlimenticioProfile());
                 cfg.AddProfile(new TurnoProfile());
-
+                cfg.AddProfile(new DatoAntropometricoProfile());
                 #endregion
             });
         }
