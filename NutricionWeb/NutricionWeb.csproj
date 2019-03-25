@@ -748,12 +748,16 @@
     <Content Include="Views\Estado\Delete.cshtml" />
     <Content Include="Views\Estado\Details.cshtml" />
     <Content Include="Views\Turno\BuscarEstado.cshtml" />
+    <Content Include="Views\Opcion\Index.cshtml" />
+    <Content Include="Views\Opcion\Edit.cshtml" />
+    <Content Include="Views\Opcion\Delete.cshtml" />
+    <Content Include="Views\ComidaDetalle\Create.cshtml" />
+    <Content Include="Views\ComidaDetalle\BuscarOpcion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
     <Folder Include="Helpers\Enums\" />
-    <Folder Include="Views\ComidaDetalle\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

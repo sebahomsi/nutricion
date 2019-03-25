@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Opcion;
 using NutricionWeb.Models.OpcionDetalle;
 using PagedList;
-using Servicio.Interface.Alimento;
-using Servicio.Interface.Comida;
 using Servicio.Interface.Opcion;
-using Servicio.Interface.UnidadMedida;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -20,44 +17,41 @@ namespace NutricionWeb.Controllers.Opcion
     public class OpcionController : Controller
     {
         private readonly IOpcionServicio _opcionServicio;
-        private readonly IComidaServicio _comidaServicio;
 
-        public OpcionController(IOpcionServicio opcionServicio, IComidaServicio comidaServicio)
+        public OpcionController(IOpcionServicio opcionServicio)
         {
             _opcionServicio = opcionServicio;
-            _comidaServicio = comidaServicio;
         }
 
         // GET: Opcion
-        public async Task<ActionResult> Index(long comidaId, int? page, string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
-            var comida = await _comidaServicio.GetById(comidaId);
-            var opciones = comida.Opciones;
+            ViewBag.Eliminado = eliminado;
+
+            var opciones =
+                await _opcionServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
 
             return View(opciones.Select(x=> new OpcionViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
-                ComidaId = x.ComidaId,
-                ComidaStr = x.ComidaStr,
                 Descripcion = x.Descripcion,
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
         // GET: Opcion/Details/5
-        public async Task<ActionResult> Details(long opcionId)
+        public async Task<ActionResult> Details(long? id)
         {
-            var opcion = await _opcionServicio.GetById(opcionId);
+            var opcion = await _opcionServicio.GetById(id.Value);
 
             return View(new OpcionViewModel()
             {
                 Id = opcion.Id,
                 Codigo = opcion.Codigo,
-                ComidaId = opcion.ComidaId,
-                ComidaStr = opcion.ComidaStr,
                 Descripcion = opcion.Descripcion,
                 Eliminado = opcion.Eliminado,
                 OpcionDetalles = opcion.OpcionDetalles.Select(x => new OpcionDetalleViewModel()
@@ -77,12 +71,9 @@ namespace NutricionWeb.Controllers.Opcion
         }
 
         // GET: Opcion/Create
-        public async Task<ActionResult> Create(long comidaId)
+        public async Task<ActionResult> Create()
         {
-            return View(new OpcionABMViewModel()
-            {
-                ComidaId = comidaId
-            });
+            return View(new OpcionABMViewModel());
         }
 
         // POST: Opcion/Create
@@ -105,52 +96,82 @@ namespace NutricionWeb.Controllers.Opcion
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("Details", "Comida", new {id = vm.ComidaId});
+            return RedirectToAction("Index");
 
         }
 
         // GET: Opcion/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var opcion = await _opcionServicio.GetById(id.Value);
+
+            return View(new OpcionABMViewModel()
+            {
+                Id = opcion.Id,
+                Codigo = opcion.Codigo,
+                Descripcion = opcion.Descripcion,
+                Eliminado = opcion.Eliminado
+            });
         }
 
         // POST: Opcion/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(OpcionABMViewModel vm)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    var opcionDto = CargarDatos(vm);
 
-                return RedirectToAction("Index");
+                    await _opcionServicio.Update(opcionDto);
+                }
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index");
         }
 
         // GET: Opcion/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long? id)
         {
-            return View();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var opcion = await _opcionServicio.GetById(id.Value);
+
+            return View(new OpcionViewModel()
+            {
+                Id = opcion.Id,
+                Codigo = opcion.Codigo,
+                Descripcion = opcion.Descripcion,
+                Eliminado = opcion.Eliminado
+            });
         }
 
-        // POST: Opcion/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(OpcionViewModel vm)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _opcionServicio.Delete(vm.Id);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
             }
+            return RedirectToAction("Index");
         }
 
         //=======================Metodos con sindrome de Down
@@ -161,8 +182,6 @@ namespace NutricionWeb.Controllers.Opcion
             {
                 Id = vm.Id,
                 Codigo = vm.Codigo,
-                ComidaId = vm.ComidaId,
-                ComidaStr = vm.ComidaStr,
                 Descripcion = vm.Descripcion,
                 Eliminado = vm.Eliminado
             };

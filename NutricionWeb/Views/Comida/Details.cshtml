@@ -42,7 +42,9 @@
 
 </div>
 <p style="margin-left: 10px;">
-    @Html.ActionLink("Nueva Opcion", "Create", "Opcion", new { comidaId = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Ver Recetas", "Index", "Opcion", new { }, new { @class = "btn btn-primary" , target ="_blank"})
+
+    @Html.ActionLink("Agregar Receta", "Create", "ComidaDetalle", new { comidaId = Model.Id }, new { @class = "btn btn-primary" })
 
     @Html.ActionLink("Volver al Dia", "Details", "Dia", new { id = Model.DiaId }, new { @class = "btn btn-default" })
 </p>
@@ -56,27 +58,27 @@
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.Opciones.FirstOrDefault().Codigo)
+            @Html.DisplayNameFor(model => model.ComidasDetalles.FirstOrDefault().Codigo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Opciones.FirstOrDefault().Descripcion)
+            @Html.DisplayNameFor(model => model.ComidasDetalles.FirstOrDefault().Comentario)
         </th>
 
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Opciones)
+    @foreach (var item in Model.ComidasDetalles)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
+                @Html.DisplayFor(modelItem => item.Comentario)
             </td>
 
             <td align="right">
-                @Html.ActionLink("Detalles", "Details", "Opcion", new { opcionId = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Detalles", "Details", "Opcion", new { id = item.OpcionId }, new { @class = "btn btn-default", target="_blank" })
             </td>
         </tr>
     }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Servicio.Interface.Opcion;
+﻿using System.Collections.Generic;
+using Servicio.Interface.ComidaDetalle;
 
 namespace Servicio.Interface.Comida
 {
@@ -11,7 +7,7 @@ namespace Servicio.Interface.Comida
     {
         public ComidaDto()
         {
-            Opciones =  new List<OpcionDto>();
+            ComidasDetalles =  new List<ComidaDetalleDto>();
         }
         public long Id { get; set; }
         public int Codigo { get; set; }
@@ -19,6 +15,6 @@ namespace Servicio.Interface.Comida
         public long DiaId { get; set; }
         public string DiaStr { get; set; }
         
-        public List<OpcionDto> Opciones { get; set; }
+        public List<ComidaDetalleDto> ComidasDetalles { get; set; }
     }
 }

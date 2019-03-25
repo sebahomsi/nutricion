@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Servicio.Interface.ComidaDetalle;
 
 namespace Servicio.Comida
 {
@@ -18,7 +19,7 @@ namespace Servicio.Comida
             {
                 Codigo = codigo,
                 Descripcion = @"Desayuno",
-                Opciones = new List<Dominio.Entidades.Opcion>(),
+                ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
             };
             Context.Comidas.Add(desayuno);
@@ -27,7 +28,7 @@ namespace Servicio.Comida
             {
                 Codigo = codigo + 1,
                 Descripcion = @"Media Mañana",
-                Opciones = new List<Dominio.Entidades.Opcion>(),
+                ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
             };
             Context.Comidas.Add(mediaMa);
@@ -36,7 +37,7 @@ namespace Servicio.Comida
             {
                 Codigo = codigo + 2,
                 Descripcion = @"Almuerzo",
-                Opciones = new List<Dominio.Entidades.Opcion>(),
+                ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
             };
             Context.Comidas.Add(almuerzo);
@@ -45,7 +46,7 @@ namespace Servicio.Comida
             {
                 Codigo = codigo + 3,
                 Descripcion = @"Merienda",
-                Opciones = new List<Dominio.Entidades.Opcion>(),
+                ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
             };
             Context.Comidas.Add(merienda);
@@ -54,7 +55,7 @@ namespace Servicio.Comida
             {
                 Codigo = codigo + 4,
                 Descripcion = @"Media Tarde",
-                Opciones = new List<Dominio.Entidades.Opcion>(),
+                ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
             };
             Context.Comidas.Add(mediaTa);
@@ -63,7 +64,7 @@ namespace Servicio.Comida
             {
                 Codigo = codigo + 5,
                 Descripcion = @"Cena",
-                Opciones = new List<Dominio.Entidades.Opcion>(),
+                ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
             };
             Context.Comidas.Add(cena);
@@ -97,7 +98,7 @@ namespace Servicio.Comida
             var comida = await Context.Comidas
                 .AsNoTracking()
                 .Include("Dia")
-                .Include("Opciones.OpcionDetalles")
+                .Include("ComidasDetalles.Opcion")
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (comida == null) throw new ArgumentNullException();
@@ -109,13 +110,16 @@ namespace Servicio.Comida
                 Descripcion = comida.Descripcion,
                 DiaId = comida.DiaId,
                 DiaStr = comida.Dia.Descripcion,
-                Opciones = comida.Opciones.Select(x => new OpcionDto()
+                ComidasDetalles = comida.ComidasDetalles.Select(x => new ComidaDetalleDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
-                    Descripcion = x.Descripcion,
+                    Comentario = x.Comentario,
                     ComidaId = x.ComidaId,
-                    ComidaStr = x.Comida.Descripcion
+                    OpcionId = x.OpcionId,
+                    OpcionStr = x.Opcion.Descripcion,
+                    ComidaStr = x.Comida.Descripcion,
+                    Eliminado = x.Eliminado
                 }).ToList()
             };
         }

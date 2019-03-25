@@ -18,7 +18,6 @@
 
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ComidaId)
 
 
 
@@ -34,7 +33,7 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Aceptar" class="btn btn-success" />
-            @Html.ActionLink("Volver", "Details", "Comida", new { id= @Model.ComidaId }, new {@class = "btn btn-default"})
+            @Html.ActionLink("Volver", "Index", new {@class = "btn btn-default"})
         </div>
     </div>
 </div>

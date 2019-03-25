@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using NutricionWeb.Models.Opcion;
+using NutricionWeb.Models.ComidaDetalle;
 
 namespace NutricionWeb.Models.Comida
 {
@@ -20,6 +17,6 @@ namespace NutricionWeb.Models.Comida
         [Display(Name = "Dia")]
         public string DiaStr { get; set; }
 
-        public List<OpcionViewModel> Opciones { get; set; }
+        public List<ComidaDetalleViewModel> ComidasDetalles { get; set; }
     }
 }

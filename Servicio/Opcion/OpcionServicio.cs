@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.OpcionDetalle;
 
@@ -17,7 +18,6 @@ namespace Servicio.Opcion
             var opcion = new Dominio.Entidades.Opcion()
             {
                 Codigo = dto.Codigo,
-                ComidaId = dto.ComidaId,
                 Descripcion = dto.Descripcion,
                 Eliminado = false
             };
@@ -33,7 +33,6 @@ namespace Servicio.Opcion
 
             if (opcion == null) throw new ArgumentNullException();
 
-            opcion.ComidaId = dto.ComidaId;
             opcion.Descripcion = dto.Descripcion;
 
             await Context.SaveChangesAsync();
@@ -56,15 +55,12 @@ namespace Servicio.Opcion
 
             return await Context.Opciones
                 .AsNoTracking()
-                .Include("Comida")
                 .Where(expression)
                 .Select(x => new OpcionDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
-                    ComidaId = x.ComidaId,
-                    ComidaStr = x.Comida.Descripcion,
                     Eliminado = x.Eliminado
                 }).ToListAsync();
         }
@@ -73,7 +69,7 @@ namespace Servicio.Opcion
         {
             var opcion = await Context.Opciones
                 .AsNoTracking()
-                .Include("Comida")
+                .Include("ComidasDetalles.Comida")
                 .Include("OpcionDetalles.Alimento")
                 .Include("OpcionDetalles.UnidadMedida")
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -85,8 +81,6 @@ namespace Servicio.Opcion
                 Id = opcion.Id,
                 Codigo = opcion.Codigo,
                 Descripcion = opcion.Descripcion,
-                ComidaId = opcion.ComidaId,
-                ComidaStr = opcion.Comida.Descripcion,
                 Eliminado = opcion.Eliminado,
                 OpcionDetalles = opcion.OpcionDetalles.Where(x=> x.Eliminado == false).Select(x=> new OpcionDetalleDto()
                 {
@@ -100,6 +94,17 @@ namespace Servicio.Opcion
                     UnidadMedidaId = x.UnidadMedidaId,
                     UnidadMedidaStr = x.UnidadMedida.Abreviatura,
                     Eliminado = x.Eliminado
+                }).ToList(),
+                ComidasDetalles = opcion.ComidasDetalles.Select(t => new ComidaDetalleDto()
+                {
+                    Id = t.Id,
+                    Codigo = t.Codigo,
+                    Comentario = t.Comentario,
+                    ComidaId = t.ComidaId,
+                    OpcionId = t.OpcionId,
+                    OpcionStr = t.Opcion.Descripcion,
+                    ComidaStr = t.Comida.Descripcion,
+                    Eliminado = t.Eliminado
                 }).ToList()
             };
         }

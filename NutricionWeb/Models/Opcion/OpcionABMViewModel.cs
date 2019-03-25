@@ -15,12 +15,6 @@ namespace NutricionWeb.Models.Opcion
         [Required(ErrorMessage = "Campo Obligatorio")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
-        public long ComidaId { get; set; }
-
-        [Display(Name = "Comida")]
-        public string ComidaStr { get; set; }
-
         public bool Eliminado { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Servicio.Interface.ComidaDetalle;
 
 namespace Servicio.PlanAlimenticio
 {
@@ -79,8 +80,7 @@ namespace Servicio.PlanAlimenticio
         {
             var plan = await Context.PlanesAlimenticios
                 .Include("Paciente")
-                .Include("Dias.Comidas.Opciones.OpcionDetalles.Alimento")
-                .Include("Dias.Comidas.Opciones.OpcionDetalles.UnidadMedida")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion")
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (plan == null) throw new ArgumentNullException();
 
@@ -108,27 +108,16 @@ namespace Servicio.PlanAlimenticio
                         Descripcion = q.Descripcion,
                         DiaId = q.DiaId,
                         DiaStr = q.Dia.Descripcion,
-                        Opciones = q.Opciones.Select(t=> new OpcionDto()
+                        ComidasDetalles = q.ComidasDetalles.Select(t=> new ComidaDetalleDto()
                         {
                             Id = t.Id,
                             Codigo = t.Codigo,
-                            Descripcion = t.Descripcion,
+                            Comentario = t.Comentario,
                             ComidaId = t.ComidaId,
                             ComidaStr = t.Comida.Descripcion,
-                            Eliminado = t.Eliminado,
-                            OpcionDetalles = t.OpcionDetalles.Select(r => new OpcionDetalleDto()
-                            {
-                                Id = r.Id,
-                                Codigo = r.Codigo,
-                                AlimentoId = r.AlimentoId,
-                                AlimentoStr = r.Alimento.Descripcion,
-                                Cantidad = r.Cantidad,
-                                OpcionId = r.OpcionId,
-                                OpcionStr = r.Opcion.Descripcion,
-                                UnidadMedidaId = r.UnidadMedidaId,
-                                UnidadMedidaStr = r.UnidadMedida.Abreviatura,
-                                Eliminado = r.Eliminado
-                            }).ToList()
+                            OpcionId = t.OpcionId,
+                            OpcionStr = t.Opcion.Descripcion,
+                            Eliminado = t.Eliminado
                         }).ToList()
                     }).ToList()
                 }).ToList()

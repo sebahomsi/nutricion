@@ -6,7 +6,7 @@
 
 
 <div class="titulo-ABM">
-    <h4 class="detail-plan-h4">Detalles del Plan - @Model.ComidaStr: @Model.Descripcion</h4>
+    <h4 class="detail-plan-h4">Detalles de: @Model.Descripcion</h4>
 </div>
 
 <div class="row">
@@ -30,13 +30,6 @@
 
         </p>
 
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.ComidaStr):
-            <span class="sub-info">
-                @Html.DisplayFor(model => model.ComidaStr)
-            </span>
-
-        </p>
 
 
     </div>
@@ -45,7 +38,6 @@
 <p style="margin-left: 10px;">
     @Html.ActionLink("Nuevo Detalle", "Create", "OpcionDetalle", new { opcionId = Model.Id }, new { @class = "btn btn-primary" })
 
-    @Html.ActionLink("Volver a la Comida", "Details", "Comida", new { id = Model.ComidaId }, new { @class = "btn btn-default" })
 </p>
 
 <hr />

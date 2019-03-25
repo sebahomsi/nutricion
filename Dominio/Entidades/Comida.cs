@@ -20,6 +20,6 @@ namespace Dominio.Entidades
 
         //Propiedades de Navegacion
         public virtual Dia Dia { get; set; }
-        public virtual ICollection<Opcion> Opciones { get; set; }
+        public virtual ICollection<ComidaDetalle> ComidasDetalles { get; set; }
     }
 }

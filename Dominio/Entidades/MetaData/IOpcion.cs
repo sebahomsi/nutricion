@@ -15,8 +15,6 @@ namespace Dominio.Entidades.MetaData
         [StringLength(30, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         string Descripcion { get; set; }
 
-        long ComidaId { get; set; }
-
         bool Eliminado { get; set; }
     }
 }

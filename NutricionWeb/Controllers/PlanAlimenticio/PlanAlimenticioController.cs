@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using NutricionWeb.Models.Comida;
+using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Dia;
 using NutricionWeb.Models.Opcion;
 using NutricionWeb.Models.OpcionDetalle;
@@ -213,27 +214,16 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                         Descripcion = q.Descripcion,
                         DiaId = q.DiaId,
                         DiaStr = q.DiaStr,
-                        Opciones = q.Opciones.Select(t => new OpcionViewModel()
+                        ComidasDetalles = q.ComidasDetalles.Select(t => new ComidaDetalleViewModel()
                         {
                             Id = t.Id,
                             Codigo = t.Codigo,
-                            Descripcion = t.Descripcion,
+                            Comentario = t.Comentario,
                             ComidaId = t.ComidaId,
                             ComidaStr = t.ComidaStr,
+                            OpcionId = t.OpcionId,
+                            OpcionStr = t.OpcionStr,
                             Eliminado = t.Eliminado,
-                            OpcionDetalles = t.OpcionDetalles.Select(r => new OpcionDetalleViewModel()
-                            {
-                                Id = r.Id,
-                                Codigo = r.Codigo,
-                                AlimentoId = r.AlimentoId,
-                                AlimentoStr = r.AlimentoStr,
-                                Cantidad = r.Cantidad,
-                                OpcionId = r.OpcionId,
-                                OpcionStr = r.OpcionStr,
-                                UnidadMedidaId = r.UnidadMedidaId,
-                                UnidadMedidaStr = r.UnidadMedidaStr,
-                                Eliminado = r.Eliminado
-                            }).ToList()
                         }).ToList()
                     }).ToList()
                 }).ToList()
@@ -269,27 +259,16 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                         Descripcion = q.Descripcion,
                         DiaId = q.DiaId,
                         DiaStr = q.DiaStr,
-                        Opciones = q.Opciones.Select(t => new OpcionViewModel()
+                        ComidasDetalles = q.ComidasDetalles.Select(t => new ComidaDetalleViewModel()
                         {
                             Id = t.Id,
                             Codigo = t.Codigo,
-                            Descripcion = t.Descripcion,
+                            Comentario = t.Comentario,
                             ComidaId = t.ComidaId,
                             ComidaStr = t.ComidaStr,
+                            OpcionId = t.OpcionId,
+                            OpcionStr = t.OpcionStr,
                             Eliminado = t.Eliminado,
-                            OpcionDetalles = t.OpcionDetalles.Select(r => new OpcionDetalleViewModel()
-                            {
-                                Id = r.Id,
-                                Codigo = r.Codigo,
-                                AlimentoId = r.AlimentoId,
-                                AlimentoStr = r.AlimentoStr,
-                                Cantidad = r.Cantidad,
-                                OpcionId = r.OpcionId,
-                                OpcionStr = r.OpcionStr,
-                                UnidadMedidaId = r.UnidadMedidaId,
-                                UnidadMedidaStr = r.UnidadMedidaStr,
-                                Eliminado = r.Eliminado
-                            }).ToList()
                         }).ToList()
                     }).ToList()
                 }).ToList()
@@ -323,27 +302,17 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                         Descripcion = q.Descripcion,
                         DiaId = q.DiaId,
                         DiaStr = q.DiaStr,
-                        Opciones = q.Opciones.Select(t => new OpcionViewModel()
+                        ComidasDetalles = q.ComidasDetalles.Select(t => new ComidaDetalleViewModel()
                         {
                             Id = t.Id,
                             Codigo = t.Codigo,
-                            Descripcion = t.Descripcion,
+                            Comentario = t.Comentario,
                             ComidaId = t.ComidaId,
                             ComidaStr = t.ComidaStr,
+                            OpcionId = t.OpcionId,
+                            OpcionStr = t.OpcionStr,
                             Eliminado = t.Eliminado,
-                            OpcionDetalles = t.OpcionDetalles.Select(r => new OpcionDetalleViewModel()
-                            {
-                                Id = r.Id,
-                                Codigo = r.Codigo,
-                                AlimentoId = r.AlimentoId,
-                                AlimentoStr = r.AlimentoStr,
-                                Cantidad = r.Cantidad,
-                                OpcionId = r.OpcionId,
-                                OpcionStr = r.OpcionStr,
-                                UnidadMedidaId = r.UnidadMedidaId,
-                                UnidadMedidaStr = r.UnidadMedidaStr,
-                                Eliminado = r.Eliminado
-                            }).ToList()
+                            
                         }).ToList()
                     }).ToList()
                 }).ToList()

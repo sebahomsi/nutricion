@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using NutricionWeb.Models.ComidaDetalle;
+using NutricionWeb.Models.Opcion;
 using PagedList;
 using Servicio.Interface.Comida;
 using Servicio.Interface.ComidaDetalle;
@@ -55,9 +56,12 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         // GET: ComidaDetalle/Create
-        public async Task<ActionResult> Create()
+        public async Task<ActionResult> Create(long comidaId)
         {
-            return View(new ComidaDetalleABMViewModel());
+            return View(new ComidaDetalleABMViewModel()
+            {
+                ComidaId = comidaId
+            });
         }
 
         // POST: ComidaDetalle/Create
@@ -80,7 +84,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Comida", new {id = vm.ComidaId});
 
         }
 
@@ -187,6 +191,30 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         //======================Hugo pelotudo
+
+        public async Task<ActionResult> TraerOpcion(long opcionId)
+        {
+            var opcion = await _opcionServicio.GetById(opcionId);
+
+            return Json(opcion, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> BuscarOpcion(int? page, string cadenaBuscar)
+        {
+            var pageNumber = page ?? 1;
+            var eliminado = false;
+
+            var opciones =
+                await _opcionServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
+            return PartialView(opciones.Select(x => new OpcionViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Eliminado = x.Eliminado
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
         private ComidaDetalleDto CargarDatos(ComidaDetalleABMViewModel vm)
         {
             return new ComidaDetalleDto()

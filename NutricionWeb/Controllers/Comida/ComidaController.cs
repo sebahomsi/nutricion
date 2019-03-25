@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using NutricionWeb.Models.Comida;
+using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Opcion;
 using Servicio.Interface.Comida;
 using Servicio.Interface.Dia;
@@ -46,13 +47,15 @@ namespace NutricionWeb.Controllers.Comida
                 Descripcion = comida.Descripcion,
                 DiaId = comida.DiaId,
                 DiaStr = comida.DiaStr,
-                Opciones = comida.Opciones.Select(x=> new OpcionViewModel()
+                ComidasDetalles = comida.ComidasDetalles.Select(x=> new ComidaDetalleViewModel()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
-                    Descripcion = x.Descripcion,
+                    Comentario = x.Comentario,
                     ComidaId = x.ComidaId,
                     ComidaStr = x.ComidaStr,
+                    OpcionId = x.OpcionId,
+                    OpcionStr = x.OpcionStr,
                     Eliminado = x.Eliminado,
                     
                 }).ToList()

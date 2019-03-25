@@ -80,7 +80,7 @@ namespace NutricionWeb.Controllers.OpcionDetalle
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("Details", "Opcion", new {opcionId = vm.OpcionId});
+            return RedirectToAction("Details", "Opcion", new {id = vm.OpcionId});
 
         }
 
@@ -155,8 +155,8 @@ namespace NutricionWeb.Controllers.OpcionDetalle
         {
             await _opcionDetalleServicio.Delete(detalleId);
             var detalle = await _opcionDetalleServicio.GetById(detalleId);
-            var id = detalle.OpcionId;
-            return RedirectToAction("Details", "Opcion", new {opcionId = id});
+            var opcionId = detalle.OpcionId;
+            return RedirectToAction("Details", "Opcion", new {id = opcionId });
         }
         
 

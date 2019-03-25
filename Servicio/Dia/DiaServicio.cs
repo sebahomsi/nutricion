@@ -133,7 +133,7 @@ namespace Servicio.Dia
             var dia = await Context.Dias
                 .AsNoTracking()
                 .Include("PlanAlimenticio")
-                .Include("Comidas.Opciones")
+                .Include("Comidas")
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (dia == null) throw new ArgumentNullException();
