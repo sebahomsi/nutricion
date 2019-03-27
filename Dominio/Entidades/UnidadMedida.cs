@@ -25,6 +25,5 @@ namespace Dominio.Entidades
         //Navigation Properties
         public virtual ICollection<MicroNutrienteDetalle> MicroNutrienteDetalles { get; set; }
         public virtual ICollection<OpcionDetalle> OpcionDetalles { get; set; }
-        public virtual ICollection<RecetaDetalle> RecetasDetalles { get; set; }
     }
 }

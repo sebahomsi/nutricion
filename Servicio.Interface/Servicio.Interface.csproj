@@ -107,10 +107,6 @@
     <Compile Include="PlanAlimenticio\IPlanAlimenticioServicio.cs" />
     <Compile Include="PlanAlimenticio\PlanAlimenticioDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecetaDetalle\IRecetaDetalleServicio.cs" />
-    <Compile Include="RecetaDetalle\RecetaDetalleDto.cs" />
-    <Compile Include="Receta\IRecetaServicio.cs" />
-    <Compile Include="Receta\RecetaDto.cs" />
     <Compile Include="Rol\IRolServicio.cs" />
     <Compile Include="SubGrupo\ISubGrupoServicio.cs" />
     <Compile Include="SubGrupo\SubGrupoDto.cs" />

@@ -10,7 +10,8 @@
 
 <div class="row" style="margin: 10px 10px;">
     <hr />
-    <div class="col-md-7">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
         <p class="info-style">
             @Html.DisplayNameFor(model => model.Codigo):
             <span class="sub-info">
@@ -23,7 +24,7 @@
             @Html.DisplayNameFor(model => model.PacienteStr):
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PacienteStr)
-                </span>
+            </span>
         </p>
 
         <p class="info-style">
@@ -32,21 +33,21 @@
                 @Html.DisplayFor(model => model.PesoActual) kg
             </span>
         </p>
-        
+
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PesoHabitual):
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PesoHabitual) kg
             </span>
         </p>
-        
+
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PesoDeseado):
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PesoDeseado) kg
             </span>
         </p>
-        
+
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PesoIdeal):
             <span class="sub-info">
@@ -60,7 +61,7 @@
                 @Html.DisplayFor(model => model.Altura) cm
             </span>
         </p>
-        
+
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PerimetroCuello):
             <span class="sub-info">
@@ -72,12 +73,9 @@
             @Html.DisplayNameFor(model => model.PerimetroCadera):
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PerimetroCadera) cm
-                </span>
+            </span>
         </p>
 
-        
-    </div>
-    <div class="col-md-5">
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PerimetroCintura):
             <span class="sub-info">
@@ -105,28 +103,30 @@
             </span>
         </p>
 
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.Eliminado):
-            <span class="sub-info">
-                @Html.DisplayFor(model => model.EliminadoStr)
-            </span>
-        </p>
+    </div>
+    <div class="col-md-5">
+
         @if (Model.FotoStr != null)
         {
-            <div class="col-md-4">
+            <div class="col">
                 <div class="imagen-fondo">
-                    <img src="@Url.Content(Model.FotoStr)" alt="Image" style="margin-left: 60px; width:100%; height: 340px; max-width: 240px; max-height: 340px;" />
+                    <img src="@Url.Content(Model.FotoStr)" alt="Image" style="width:100%; height: auto;" />
                 </div>
             </div>
         }
     </div>
 
-        
-    <p style="margin-top: 15px; margin-left: 10px">
-        @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
-        @Html.ActionLink("Ir al Paciente", "Details", "Paciente", new { id = Model.PacienteId }, new { @class = "btn btn-info" })
-    </p>
+    <div class="col-md-2"></div>
+
 
 </div>
 
+<div class="row">
+    <div class="col">
+        <p style="margin-top: 15px; margin-left: 10px">
+            @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Ir al Paciente", "Details", "Paciente", new { id = Model.PacienteId }, new { @class = "btn btn-info" })
+        </p>
+    </div>
+</div>

@@ -7,7 +7,6 @@ using Servicio.Interface.MicroNutriente;
 using Servicio.Interface.MicroNutrienteDetalle;
 using Servicio.Interface.Observacion;
 using Servicio.Interface.Opcion;
-using Servicio.Interface.RecetaDetalle;
 
 namespace Servicio.Interface.Alimento
 {
@@ -18,7 +17,6 @@ namespace Servicio.Interface.Alimento
             MicroNutrienteDetalles = new List<MicroNutrienteDetalleDto>();
             Opciones = new List<OpcionDto>();
             Observaciones = new List<ObservacionDto>();
-            RecetasDetalles = new List<RecetaDetalleDto>();
         }
         public long Id { get; set; }
 
@@ -39,7 +37,6 @@ namespace Servicio.Interface.Alimento
         public List<MicroNutrienteDetalleDto> MicroNutrienteDetalles { get; set; }
         public List<OpcionDto> Opciones { get; set; }
         public List<ObservacionDto> Observaciones { get; set; }
-        public List<RecetaDetalleDto> RecetasDetalles { get; set; }
 
         
     }
