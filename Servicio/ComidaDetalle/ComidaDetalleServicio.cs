@@ -12,6 +12,13 @@ namespace Servicio.ComidaDetalle
     {
         public async Task<long> Add(ComidaDetalleDto dto)
         {
+
+            var verify = await VerifyDuplicity(dto);
+
+            if (verify.HasValue)
+            {
+                throw new ArgumentException("Ya existe una opcion igual");
+            }
             var detalle = new Dominio.Entidades.ComidaDetalle()
             {
                 Codigo = dto.Codigo,
@@ -100,6 +107,14 @@ namespace Servicio.ComidaDetalle
             return await Context.ComidasDetalles.AnyAsync()
                 ? await Context.ComidasDetalles.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<long?> VerifyDuplicity(ComidaDetalleDto dto)
+        {
+            var id = await Context.ComidasDetalles
+                .FirstOrDefaultAsync(x => x.ComidaId == dto.ComidaId&&x.OpcionId==dto.OpcionId);
+
+            return id?.Id;
         }
     }
 }
