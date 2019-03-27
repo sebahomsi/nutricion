@@ -148,6 +148,8 @@ namespace Servicio.DatoAntropometrico
 
             var datosAntopometricos = Mapper.Map<IEnumerable<DatoAntropometricoDto>>(datos);
 
+            
+
             return datosAntopometricos;
         }
 

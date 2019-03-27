@@ -9,7 +9,8 @@ namespace Servicio.Interface.AutoMapper
         {
             var cfg = CreateMap<Dominio.Entidades.DatoAntropometrico, DatoAntropometricoDto>();
 
-            cfg.ForMember(x => x.PacienteStr, o => o.Ignore());
+            cfg.ForMember(x => x.PacienteStr, o =>o.MapFrom(x=>x.Paciente.Nombre+" "+x.Paciente.Apellido));
+            
         }
     }
 }

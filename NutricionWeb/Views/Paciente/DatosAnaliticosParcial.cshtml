@@ -1,87 +1,88 @@
 ﻿@model IEnumerable<NutricionWeb.Models.DatoAnalitico.DatoAnaliticoViewModel>
+<br/>
+<div class="row">
+    <div class="col-lg-6" align="left">
+        <div class="btn-group">
+            @Html.ActionLink("Nuevo", "Create", "DatoAnalitico", new { }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+<br/>
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
+            </th>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PacienteId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PacienteStr)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ColesterolHdl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaMedicion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ColesterolLdl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ColesterolTotal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PresionDiastolica)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PresionSistolica)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trigliceridos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </th>
-        <th></th>
-    </tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PacienteId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PacienteStr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColesterolHdl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaMedicion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColesterolLdl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColesterolTotal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PresionDiastolica)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PresionSistolica)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trigliceridos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Eliminado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FechaMedicion)
+            </th>
 
-</table>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ColesterolTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PresionDiastolica)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PresionSistolica)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PacienteStr)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaMedicionStr)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ColesterolTotal) mg/dl
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresionDiastolica) mmHg
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresionSistolica) mmHg
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EliminadoStr)
+                </td>
+
+                <td align="right">
+                    @Html.ActionLink("Actualizar", "Edit", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Detalles", "Details", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @if (item.Eliminado)
+                    {
+                        @Html.ActionLink("Activar", "Delete", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Eliminar", "Delete", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

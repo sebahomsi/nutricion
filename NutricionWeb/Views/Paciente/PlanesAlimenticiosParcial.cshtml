@@ -1,63 +1,77 @@
 ﻿@model IEnumerable<NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioViewModel>
+<br/>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PacienteId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PacienteStr)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Motivo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comentarios)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-lg-6" align="left">
+        <div class="btn-group">
+            @Html.ActionLink("Nuevo", "Create", "PlanAlimenticio", new { }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PacienteId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PacienteStr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Motivo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comentarios)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Eliminado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<br/>
 
-</table>
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Motivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Fecha)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PacienteStr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Motivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaStr)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EliminadoStr)
+                </td>
+                <td align="right">
+                    @Html.ActionLink("Actualizar", "Edit", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @if (item.Eliminado)
+                    {
+                        @Html.ActionLink("Activar", "Delete", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Eliminar", "Delete", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                    }
+                    @Html.ActionLink("Ver Plan", "ExportarPlan", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
