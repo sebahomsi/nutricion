@@ -39,8 +39,6 @@ namespace Infraestructura.Contexto
         public IDbSet<Turno> Turnos { get; set; }
         public IDbSet<Establecimiento> Establecimientos { get; set; }
         public IDbSet<Mensaje> Mensajes { get; set; }
-        public IDbSet<Receta> Recetas { get; set; }
-        public IDbSet<RecetaDetalle> RecetasDetalles { get; set; }
         public IDbSet<Pago> Pagos { get; set; }
         public IDbSet<Estado> Estados { get; set; }
         public IDbSet<ComidaDetalle> ComidasDetalles { get; set; }
