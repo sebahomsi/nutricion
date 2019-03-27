@@ -30,20 +30,22 @@ namespace Infraestructura.Migrations
             context.SubGrupos.AddOrUpdate(x => x.Id,
                 new SubGrupo() { Id = 1, Codigo = 1, Descripcion = "Derivados", GrupoId = 1, Eliminado = false},
                 new SubGrupo() { Id = 2, Codigo = 2, Descripcion = "Leche-Bebidas Lacteas", GrupoId = 1, Eliminado = false },
-                new SubGrupo() { Id = 3, Codigo = 3, Descripcion = "Queso", GrupoId = 1, Eliminado = false},
+                new SubGrupo() { Id = 3, Codigo = 3, Descripcion = "Quesos", GrupoId = 1, Eliminado = false},
                 new SubGrupo() { Id = 4, Codigo = 4, Descripcion = "Al natural", GrupoId = 2, Eliminado = false},
                 new SubGrupo() { Id = 5, Codigo = 5, Descripcion = "Otras bebidas", GrupoId = 2, Eliminado = false},
                 new SubGrupo() { Id = 6, Codigo = 6, Descripcion = "Procesados", GrupoId = 2, Eliminado = false},
-                new SubGrupo() { Id = 7, Codigo = 7, Descripcion = "Pan", GrupoId = 3, Eliminado = false},
+                new SubGrupo() { Id = 7, Codigo = 7, Descripcion = "Panes", GrupoId = 3, Eliminado = false},
                 new SubGrupo() { Id = 8, Codigo = 8, Descripcion = "Arroz", GrupoId = 3, Eliminado = false },
                 new SubGrupo() { Id = 9, Codigo = 9, Descripcion = "Galletas", GrupoId = 3, Eliminado = false },
                 new SubGrupo() { Id = 10, Codigo = 10, Descripcion = "Maiz", GrupoId = 3, Eliminado = false },
-                new SubGrupo() { Id = 11, Codigo = 11, Descripcion = "Pasta", GrupoId = 3, Eliminado = false },
+                new SubGrupo() { Id = 11, Codigo = 11, Descripcion = "Pastas", GrupoId = 3, Eliminado = false },
                 new SubGrupo() { Id = 12, Codigo = 12, Descripcion = "Al natural", GrupoId = 3, Eliminado = false },
                 new SubGrupo() { Id = 13, Codigo = 13, Descripcion = "Carnes Blancas", GrupoId = 4, Eliminado = false },
                 new SubGrupo() { Id = 14, Codigo = 14, Descripcion = "Carnes Rojas", GrupoId = 4, Eliminado = false },
                 new SubGrupo() { Id = 15, Codigo = 15, Descripcion = "Tropicales", GrupoId = 5, Eliminado = false },
-                new SubGrupo() { Id = 16, Codigo = 16, Descripcion = "Citricas", GrupoId = 5, Eliminado = false });
+                new SubGrupo() { Id = 16, Codigo = 16, Descripcion = "Citricas", GrupoId = 5, Eliminado = false },
+                new SubGrupo() { Id = 17, Codigo = 17, Descripcion = "Hojas y tallos tiernos", GrupoId = 6, Eliminado = false },
+                new SubGrupo() { Id = 18, Codigo = 18, Descripcion = "Condimentos", GrupoId = 7, Eliminado = false });
         }
 
         private static void AddGrupos(NutricionDbContext context)
@@ -53,7 +55,9 @@ namespace Infraestructura.Migrations
                 new Grupo() {Id = 2, Codigo = 2, Descripcion = "Frutos secos y semillas", Eliminado = false},
                 new Grupo() {Id = 3, Codigo = 3, Descripcion = "Cereales", Eliminado = false},
                 new Grupo() {Id = 4, Codigo = 4, Descripcion = "Carnes", Eliminado = false},
-                new Grupo() {Id = 5, Codigo = 5, Descripcion = "Frutas", Eliminado = false});
+                new Grupo() { Id = 5, Codigo = 5, Descripcion = "Frutas", Eliminado = false },
+                new Grupo() { Id = 6, Codigo = 6, Descripcion = "Verduras", Eliminado = false },
+                new Grupo() { Id = 7, Codigo = 7, Descripcion = "Salsas, Condimentos y Especias", Eliminado = false });
         }
 
         private static void AddAlimentos(NutricionDbContext context)
@@ -63,7 +67,12 @@ namespace Infraestructura.Migrations
                 new Alimento() { Id = 2, Codigo = 2, SubGrupoId = 15, Descripcion = "Melón", Eliminado = false },
                 new Alimento() { Id = 3, Codigo = 3, SubGrupoId = 3, Descripcion = "Queso", Eliminado = false },
                 new Alimento() { Id = 4, Codigo = 4, SubGrupoId = 14, Descripcion = "Bife de Hígado", Eliminado = false },
-                new Alimento() { Id = 5, Codigo = 5, SubGrupoId = 13, Descripcion = "Pechuga de Pollo", Eliminado = false });
+                new Alimento() { Id = 5, Codigo = 5, SubGrupoId = 14, Descripcion = "Carne Molida", Eliminado = false },
+                new Alimento() { Id = 6, Codigo = 6, SubGrupoId = 13, Descripcion = "Pechuga de Pollo", Eliminado = false },
+                new Alimento() { Id = 7, Codigo = 7, SubGrupoId = 17, Descripcion = "Lechuga", Eliminado = false },
+                new Alimento() { Id = 8, Codigo = 8, SubGrupoId = 17, Descripcion = "Acelga", Eliminado = false },
+                new Alimento() { Id = 9, Codigo = 9, SubGrupoId = 17, Descripcion = "Repollo", Eliminado = false },
+                new Alimento() { Id = 10, Codigo = 10, SubGrupoId = 18, Descripcion = "Sal", Eliminado = false });
         }
 
         private static void AddUnidades(NutricionDbContext context)
