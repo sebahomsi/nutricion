@@ -12,7 +12,7 @@ namespace Servicio.Interface.Estado
 
         Task Delete(long id);
 
-        Task<ICollection<EstadoDto>> Get(string cadenaBuscar);
+        Task<ICollection<EstadoDto>> Get(bool eliminado, string cadenaBuscar);
 
         Task<EstadoDto> GetById(long id);
 

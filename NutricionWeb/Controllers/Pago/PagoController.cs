@@ -25,10 +25,13 @@ namespace NutricionWeb.Controllers.Pago
 
         
         // GET: Pago
-        public async Task<ActionResult> Index(int? page)
+        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
-            var pagos =await _pagoServicio.GetByDate(DateTime.Today);
+
+            ViewBag.Eliminado = eliminado;
+
+            var pagos =await _pagoServicio.GetByDate(DateTime.Today, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (pagos == null) return HttpNotFound();
 
             return View(pagos.Select(x=>new PagoViewModel()
@@ -41,7 +44,6 @@ namespace NutricionWeb.Controllers.Pago
                 PacienteId = x.PacienteId,
                 PacienteStr = x.PacienteStr,
                 Codigo = x.Codigo,
-                
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 

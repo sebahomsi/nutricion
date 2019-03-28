@@ -236,7 +236,9 @@ namespace NutricionWeb.Controllers.Turno
         {
             var pageNumber = page ?? 1;
 
-            var datos = await _estadoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            var eliminado = false;
+
+            var datos = await _estadoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             var estados = Mapper.Map<IEnumerable<EstadoViewModel>>(datos);
 

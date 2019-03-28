@@ -22,11 +22,13 @@ namespace NutricionWeb.Controllers.Estado
         }
 
         // GET: Estado
-        public async Task<ActionResult> Index(int? page,string cadenaBuscar)
+        public async Task<ActionResult> Index(int? page,string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
-            var datos = await _estadoServicio.Get(!string.IsNullOrEmpty(cadenaBuscar)? cadenaBuscar:string.Empty);
+            ViewBag.Eliminado = eliminado;
+
+            var datos = await _estadoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar)? cadenaBuscar:string.Empty);
 
             var estados = Mapper.Map<IEnumerable<EstadoViewModel>>(datos);
 
@@ -47,6 +49,9 @@ namespace NutricionWeb.Controllers.Estado
                 if (ModelState.IsValid)
                 {
                     var estadoDto = CargarDatos(vm);
+
+                    estadoDto.Codigo = await _estadoServicio.GetNextCode();
+
                     await _estadoServicio.Add(estadoDto);
                 }
             }
