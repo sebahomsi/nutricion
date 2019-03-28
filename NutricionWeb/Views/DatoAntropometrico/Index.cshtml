@@ -48,66 +48,67 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().PesoActual) 
+            @Html.DisplayNameFor(model => model.FirstOrDefault().PesoActual)
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Altura) 
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Altura)
         </th>
 
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().FechaMedicion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().MasaGrasa) 
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MasaGrasa)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().MasaCorporal) 
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MasaCorporal)
         </th>
+
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.PacienteStr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PesoActual) kg
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Altura) cm
-            </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PacienteStr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PesoActual) kg
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Altura) cm
+        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaMedicionStr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MasaGrasa) %
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MasaCorporal) Kg/M²
-            </td>
-            <td align="right">
-                @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
-                @if (item.Eliminado)
-                {
-                    @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaMedicionStr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MasaGrasa) %
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MasaCorporal) Kg/M²
+        </td>
+        <td align="right">
+            @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+            @if (item.Eliminado)
+        {
+            @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
 
-                }
-                else
-                {
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+    }
+    else
+    {
+        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
 
-                }
-            </td>
-        </tr>
+}
+        </td>
+    </tr>
     }
 
 </table>

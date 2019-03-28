@@ -61,7 +61,7 @@ namespace Servicio.Pago
                 .Select(x => new PagoDto()
                 {
                     Id = x.Id,
-                    PacienteId=x.Id,
+                    PacienteId=x.PacienteId,
                     Codigo = x.Codigo,
                     Concepto = x.Concepto,
                     Fecha = x.Fecha,
@@ -71,10 +71,10 @@ namespace Servicio.Pago
                 }).ToListAsync();
         }
 
-        public async Task<ICollection<PagoDto>> GetByDate(DateTime fecha)
+        public async Task<ICollection<PagoDto>> GetByDate(DateTime fecha, bool eliminado, string cadenaBuscar = "")
         {
 
-            Expression<Func<Dominio.Entidades.Pago, bool>> expression = x => x.Fecha==fecha;
+            Expression<Func<Dominio.Entidades.Pago, bool>> expression = x => x.Fecha==fecha && x.EstaEliminado == eliminado && (x.Concepto.Contains(cadenaBuscar));
             return await Context.Pagos.AsNoTracking().Include("Paciente")
                 .Where(expression)
                 .Select(x => new PagoDto()

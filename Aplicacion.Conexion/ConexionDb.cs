@@ -2,10 +2,10 @@
 {
     public static class ConexionDb
     {
-        private const string Servidor = @"LUCAS-PC";
-        private const string BaseDatos = "Nutricion0018";
+        private const string Servidor = @"SEBAHOMSI\SQLEXPRESS";
+        private const string BaseDatos = "Nutricion0023";
         private const string Usuario = "sa";
-        private const string Password = "minimi";
+        private const string Password = "dumas123";
 
         public static string ObtenerCadenaConexion => $"Data Source={Servidor}; Initial Catalog={BaseDatos}; User Id={Usuario}; Password={Password}";
     }
