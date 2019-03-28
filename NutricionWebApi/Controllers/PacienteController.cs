@@ -1,15 +1,14 @@
-﻿using System;
+﻿using NutricionWebApi.Models.DatoAnalitico;
+using NutricionWebApi.Models.DatoAntropometrico;
+using NutricionWebApi.Models.Paciente;
+using NutricionWebApi.Models.PlanAlimenticio;
+using NutricionWebApi.Models.Turno;
 using Servicio.Interface.Paciente;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Mvc;
-using NutricionWebApi.Models.Paciente;
-using NutricionWebApi.Models.DatoAntropometrico;
-using NutricionWebApi.Models.PlanAlimenticio;
-using NutricionWebApi.Models.Turno;
-using NutricionWebApi.Models.DatoAnalitico;
 
 namespace NutricionWebApi.Controllers
 {
