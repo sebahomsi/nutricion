@@ -29,7 +29,8 @@ namespace NutricionWeb
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-datetimepicker.js",
                       "~/Scripts/fullcalendar/fullcalendar.js",
-                      "~/Scripts/fullcalendar/lang/es.js"));
+                      "~/Scripts/fullcalendar/lang/es.js",
+                      "~/Scripts/jquery.unobtrusive-ajax.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",

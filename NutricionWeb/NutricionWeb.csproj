@@ -254,6 +254,7 @@
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MacroNutriente\MacroNutrienteController.cs" />
+    <Compile Include="Controllers\Mail\MailController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Mensaje\MensajeController.cs" />
     <Compile Include="Controllers\MicroNutrienteDetalle\MicroNutrienteDetalleController.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MacroNutriente\MacroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MacroNutriente\MacroNutrienteViewModel.cs" />
+    <Compile Include="Models\Mail\MailViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Mensaje\MensajeViewModel.cs" />
     <Compile Include="Models\MicroNutrienteDetalle\MicroNutrienteDetalleABMViewModel.cs" />
@@ -532,6 +534,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -743,6 +747,7 @@
     <Content Include="Views\Opcion\Delete.cshtml" />
     <Content Include="Views\ComidaDetalle\Create.cshtml" />
     <Content Include="Views\ComidaDetalle\BuscarOpcion.cshtml" />
+    <Content Include="Views\Mail\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
