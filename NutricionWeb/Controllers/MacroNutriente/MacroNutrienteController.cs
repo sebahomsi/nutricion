@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using NutricionWeb.Models.MacroNutriente;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.MacroNutriente;
@@ -78,6 +79,7 @@ namespace NutricionWeb.Controllers.MacroNutriente
                 Energia = macro.Energia,
                 Grasa = macro.Grasa,
                 Proteina = macro.Proteina,
+                Calorias = macro.Calorias,
                 Eliminado = macro.Eliminado
             });
         }
@@ -120,6 +122,7 @@ namespace NutricionWeb.Controllers.MacroNutriente
                 Energia = macro.Energia,
                 Grasa = macro.Grasa,
                 Proteina = macro.Proteina,
+                Calorias = macro.Calorias,
                 Eliminado = macro.Eliminado
             });
         }
@@ -161,8 +164,22 @@ namespace NutricionWeb.Controllers.MacroNutriente
                 Energia = macro.Energia,
                 Grasa = macro.Grasa,
                 Proteina = macro.Proteina,
+                Calorias = macro.Calorias,
                 Eliminado = macro.Eliminado
             });
+        }
+
+        //===========================Hugo masticador de penes
+
+        public ActionResult CalcularCalorias(int prote, int hc, int grasa)
+        {
+            //if (prote == null || hc == null || grasa == null)
+            //    return Json(total, JsonRequestBehavior.AllowGet);
+
+            var total = (prote * 4) + (hc*4) + (grasa * 9);
+
+            return Json(total, JsonRequestBehavior.AllowGet);
+
         }
 
         private MacroNutrienteDto CargarDatosMacro(MacroNutrienteABMViewModel vm)
@@ -177,6 +194,7 @@ namespace NutricionWeb.Controllers.MacroNutriente
                 Grasa = vm.Grasa,
                 HidratosCarbono = vm.HidratosCarbono,
                 Proteina = vm.Proteina,
+                Calorias = vm.Calorias,
                 Eliminado = vm.Eliminado
             };
         }

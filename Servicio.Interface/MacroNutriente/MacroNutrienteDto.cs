@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Servicio.Interface.MacroNutriente
+﻿namespace Servicio.Interface.MacroNutriente
 {
     public class MacroNutrienteDto
     {
@@ -16,13 +10,15 @@ namespace Servicio.Interface.MacroNutriente
 
         public string AlimentoStr { get; set; }
 
-        public string Proteina { get; set; }
+        public int Proteina { get; set; }
 
-        public string Grasa { get; set; }
+        public int Grasa { get; set; }
 
-        public string Energia { get; set; }
+        public int Energia { get; set; }
 
-        public string HidratosCarbono { get; set; }
+        public int HidratosCarbono { get; set; }
+
+        public int Calorias { get; set; }
 
         public bool Eliminado { get; set; }
     }

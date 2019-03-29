@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NutricionWeb.Models.MacroNutriente
 {
@@ -19,22 +15,20 @@ namespace NutricionWeb.Models.MacroNutriente
         [Required(ErrorMessage = "Campo Requerido")]
         public string AlimentoStr { get; set; }
 
-        [RegularExpression(@"\d+(\,\d{1,2})?", ErrorMessage = "Ingrese un número decimal.")]
         [Required(ErrorMessage = "Campo Requerido")]
-        public string Proteina { get; set; }
+        public int Proteina { get; set; }
 
-        [RegularExpression(@"\d+(\,\d{1,2})?", ErrorMessage = "Ingrese un número decimal.")]
         [Required(ErrorMessage = "Campo Requerido")]
-        public string Grasa { get; set; }
+        public int Grasa { get; set; }
 
-        [RegularExpression(@"\d+(\,\d{1,2})?", ErrorMessage = "Ingrese un número decimal.")]
         [Required(ErrorMessage = "Campo Requerido")]
-        public string Energia { get; set; }
+        public int Energia { get; set; }
 
-        [RegularExpression(@"\d+(\,\d{1,2})?", ErrorMessage = "Ingrese un número decimal.")]
         [Display(Name = "Hidratos de Carbono")]
         [Required(ErrorMessage = "Campo Requerido")]
-        public string HidratosCarbono { get; set; }
+        public int HidratosCarbono { get; set; }
+
+        public int Calorias { get; set; }
 
         public bool Eliminado { get; set; }
     }

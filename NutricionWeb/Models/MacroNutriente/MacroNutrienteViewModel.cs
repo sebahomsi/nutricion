@@ -17,14 +17,16 @@ namespace NutricionWeb.Models.MacroNutriente
         [Display(Name = "Alimento")]
         public string AlimentoStr { get; set; }
 
-        public string Proteina { get; set; }
+        public int Proteina { get; set; }
 
-        public string Grasa { get; set; }
+        public int Grasa { get; set; }
 
-        public string Energia { get; set; }
+        public int Energia { get; set; }
 
         [Display(Name = "Hidratos de Carbono")]
-        public string HidratosCarbono { get; set; }
+        public int HidratosCarbono { get; set; }
+
+        public int Calorias { get; set; }
 
         public bool Eliminado { get; set; }
 

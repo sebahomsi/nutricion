@@ -14,21 +14,20 @@ namespace Dominio.Entidades.MetaData
         [Required(ErrorMessage = "Campo Obligatorio")]
         long AlimentoId { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
-        [StringLength(50, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
-        string Proteina { get; set; }
+        [Required(ErrorMessage = "Campo Obligatorio")]
+        int Proteina { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
-        [StringLength(50, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
-        string Grasa { get; set; }
+        [Required(ErrorMessage = "Campo Obligatorio")]
+        int Grasa { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
-        [StringLength(50, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
-        string Energia { get; set; }
+        [Required(ErrorMessage = "Campo Obligatorio")]
+        int Energia { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
-        [StringLength(50, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
-        string HidratosCarbono { get; set; }
+        [Required(ErrorMessage = "Campo Obligatorio")]
+        int HidratosCarbono { get; set; }
+
+        [Required(ErrorMessage = "Campo Obligatorio")]
+        int Calorias { get; set; }
 
         bool Eliminado { get; set; }
     }

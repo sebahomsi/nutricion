@@ -21,6 +21,7 @@ namespace Servicio.MacroNutriente
                 Grasa = dto.Grasa,
                 HidratosCarbono = dto.HidratosCarbono,
                 Proteina = dto.Proteina,
+                Calorias = dto.Calorias,
                 Eliminado = false
             };
 
@@ -47,6 +48,7 @@ namespace Servicio.MacroNutriente
             macro.Grasa = dto.Grasa;
             macro.HidratosCarbono = dto.HidratosCarbono;
             macro.Proteina = dto.Proteina;
+            macro.Calorias = dto.Calorias;
             
             await Context.SaveChangesAsync();
         }
@@ -78,6 +80,7 @@ namespace Servicio.MacroNutriente
                     Grasa = x.Grasa,
                     HidratosCarbono = x.HidratosCarbono,
                     Proteina = x.Proteina,
+                    Calorias = x.Calorias,
                     Eliminado = x.Eliminado
                 }).ToListAsync();
         }
@@ -100,6 +103,7 @@ namespace Servicio.MacroNutriente
                 Grasa = macro.Grasa,
                 HidratosCarbono = macro.HidratosCarbono,
                 Proteina = macro.Proteina,
+                Calorias = macro.Calorias,
                 Eliminado = macro.Eliminado,
                 AlimentoStr = macro.Alimento.Descripcion
             };
