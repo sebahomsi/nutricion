@@ -16,8 +16,6 @@ namespace Dominio.Entidades
     {
         public int Codigo { get; set; }
 
-        public long AlimentoId { get; set; }
-
         public int Proteina { get; set; }
 
         public int Grasa { get; set; }

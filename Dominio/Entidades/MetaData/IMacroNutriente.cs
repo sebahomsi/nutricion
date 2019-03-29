@@ -12,9 +12,6 @@ namespace Dominio.Entidades.MetaData
         int Codigo { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]
-        long AlimentoId { get; set; }
-
-        [Required(ErrorMessage = "Campo Obligatorio")]
         int Proteina { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using NutricionWeb.Models.MacroNutriente;
 
 namespace NutricionWeb.Models.Alimento
 {
@@ -24,8 +25,7 @@ namespace NutricionWeb.Models.Alimento
 
         public bool Eliminado { get; set; }
 
-        public long? MacroNutrienteId { get; set; }
+        public MacroNutrienteViewModel MacroNutriente { get; set; }
 
-        public bool TieneMacroNutriente { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Servicio.Interface.Alimento;
 
 namespace Servicio.Alimento
@@ -18,9 +19,17 @@ namespace Servicio.Alimento
                 Codigo = dto.Codigo,
                 Descripcion = dto.Descripcion,
                 Eliminado = false,
-                MacroNutrienteId = null,
-                TieneMacroNutriente = false,
-                SubGrupoId = dto.SubGrupoId
+                SubGrupoId = dto.SubGrupoId,
+                MacroNutriente = new Dominio.Entidades.MacroNutriente()
+                {
+                    Codigo = dto.MacroNutriente.Codigo,
+                    Energia = dto.MacroNutriente.Energia,
+                    Grasa = dto.MacroNutriente.Grasa,
+                    HidratosCarbono = dto.MacroNutriente.HidratosCarbono,
+                    Proteina = dto.MacroNutriente.Proteina,
+                    Calorias = dto.MacroNutriente.Calorias,
+                    Eliminado = false
+                }
             };
 
             Context.Alimentos.Add(alimento);
@@ -35,6 +44,12 @@ namespace Servicio.Alimento
 
             alimento.Descripcion = dto.Descripcion;
             alimento.SubGrupoId = dto.SubGrupoId;
+
+            alimento.MacroNutriente.Energia = dto.MacroNutriente.Energia;
+            alimento.MacroNutriente.Grasa = dto.MacroNutriente.Grasa;
+            alimento.MacroNutriente.HidratosCarbono = dto.MacroNutriente.HidratosCarbono;
+            alimento.MacroNutriente.Proteina = dto.MacroNutriente.Proteina;
+            alimento.MacroNutriente.Calorias = dto.MacroNutriente.Calorias;
 
             await Context.SaveChangesAsync();
         }
@@ -56,6 +71,7 @@ namespace Servicio.Alimento
             return await Context.Alimentos
                 .AsNoTracking()
                 .Include("SubGrupo")
+                .Include("MacroNutriente")
                 .Where(expression)
                 .Select(x => new AlimentoDto()
                 {
@@ -64,9 +80,7 @@ namespace Servicio.Alimento
                     Descripcion = x.Descripcion,
                     SubGrupoId = x.SubGrupoId,
                     SubGrupoStr = x.SubGrupo.Descripcion,
-                    MacroNutrienteId = x.MacroNutrienteId,
-                    TieneMacroNutriente = x.TieneMacroNutriente,
-                    Eliminado = x.Eliminado
+                    Eliminado = x.Eliminado,
                 }).ToListAsync();
         }
 
@@ -75,6 +89,7 @@ namespace Servicio.Alimento
             var alimento = await Context.Alimentos
                 .AsNoTracking()
                 .Include("SubGrupo")
+                .Include("MacroNutriente")
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (alimento == null) throw new ArgumentNullException();
@@ -85,10 +100,8 @@ namespace Servicio.Alimento
                 Codigo = alimento.Codigo,
                 Descripcion = alimento.Descripcion,
                 Eliminado = alimento.Eliminado,
-                MacroNutrienteId = alimento.MacroNutrienteId,
                 SubGrupoId = alimento.SubGrupoId,
                 SubGrupoStr = alimento.SubGrupo.Descripcion,
-                TieneMacroNutriente = alimento.TieneMacroNutriente
             };
         }
 

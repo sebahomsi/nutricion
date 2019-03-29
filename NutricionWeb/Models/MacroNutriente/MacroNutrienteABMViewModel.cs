@@ -8,9 +8,6 @@ namespace NutricionWeb.Models.MacroNutriente
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
-        public long AlimentoId { get; set; }
-
         [Display(Name = "Alimento")]
         [Required(ErrorMessage = "Campo Requerido")]
         public string AlimentoStr { get; set; }

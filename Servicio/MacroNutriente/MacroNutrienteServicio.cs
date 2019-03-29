@@ -16,7 +16,6 @@ namespace Servicio.MacroNutriente
             var macro = new Dominio.Entidades.MacroNutriente()
             {
                 Codigo = dto.Codigo,
-                AlimentoId = dto.AlimentoId,
                 Energia = dto.Energia,
                 Grasa = dto.Grasa,
                 HidratosCarbono = dto.HidratosCarbono,
@@ -28,10 +27,7 @@ namespace Servicio.MacroNutriente
             Context.MacroNutrientes.Add(macro);
 
             await Context.SaveChangesAsync();
-            var alimento = await Context.Alimentos.FirstOrDefaultAsync(x => x.Id == macro.AlimentoId);
 
-            alimento.MacroNutrienteId = macro.Id;
-            alimento.TieneMacroNutriente = true;
 
             await Context.SaveChangesAsync();
 
@@ -43,7 +39,6 @@ namespace Servicio.MacroNutriente
             var macro = await Context.MacroNutrientes.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (macro == null) throw new ArgumentNullException();
 
-            macro.AlimentoId = dto.AlimentoId;
             macro.Energia = dto.Energia;
             macro.Grasa = dto.Grasa;
             macro.HidratosCarbono = dto.HidratosCarbono;
@@ -74,7 +69,6 @@ namespace Servicio.MacroNutriente
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
-                    AlimentoId = x.AlimentoId,
                     AlimentoStr = x.Alimento.Descripcion,
                     Energia = x.Energia,
                     Grasa = x.Grasa,
@@ -98,7 +92,6 @@ namespace Servicio.MacroNutriente
             {
                 Id = macro.Id,
                 Codigo = macro.Codigo,
-                AlimentoId = macro.AlimentoId,
                 Energia = macro.Energia,
                 Grasa = macro.Grasa,
                 HidratosCarbono = macro.HidratosCarbono,

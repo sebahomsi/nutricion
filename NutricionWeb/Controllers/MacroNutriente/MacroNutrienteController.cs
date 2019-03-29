@@ -36,7 +36,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
 
             return View(new MacroNutrienteABMViewModel()
             {
-                AlimentoId = alimentoId,
                 AlimentoStr = alimento.Descripcion
             });
         }
@@ -73,7 +72,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             {
                 Id = macro.Id,
                 Codigo = macro.Codigo,
-                AlimentoId = macro.AlimentoId,
                 AlimentoStr = macro.AlimentoStr,
                 HidratosCarbono = macro.HidratosCarbono,
                 Energia = macro.Energia,
@@ -116,7 +114,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             {
                 Id = macro.Id,
                 Codigo = macro.Codigo,
-                AlimentoId = macro.AlimentoId,
                 AlimentoStr = macro.AlimentoStr,
                 HidratosCarbono = macro.HidratosCarbono,
                 Energia = macro.Energia,
@@ -158,7 +155,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             {
                 Id = macro.Id,
                 Codigo = macro.Codigo,
-                AlimentoId = macro.AlimentoId,
                 AlimentoStr = macro.AlimentoStr,
                 HidratosCarbono = macro.HidratosCarbono,
                 Energia = macro.Energia,
@@ -188,7 +184,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             {
                 Id = vm.Id,
                 Codigo = vm.Codigo,
-                AlimentoId = vm.AlimentoId,
                 AlimentoStr = vm.AlimentoStr,
                 Energia = vm.Energia,
                 Grasa = vm.Grasa,

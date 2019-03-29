@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.MacroNutriente;
 using Servicio.Interface.MicroNutriente;
 using Servicio.Interface.MicroNutrienteDetalle;
 using Servicio.Interface.Observacion;
@@ -30,9 +31,8 @@ namespace Servicio.Interface.Alimento
 
         public bool Eliminado { get; set; }
 
-        public long? MacroNutrienteId { get; set; }
 
-        public bool TieneMacroNutriente { get; set; }
+        public MacroNutrienteDto MacroNutriente { get; set; }
 
         public List<MicroNutrienteDetalleDto> MicroNutrienteDetalles { get; set; }
         public List<OpcionDto> Opciones { get; set; }

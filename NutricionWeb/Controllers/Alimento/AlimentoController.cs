@@ -47,8 +47,6 @@ namespace NutricionWeb.Controllers.Alimento
                 Descripcion = x.Descripcion,
                 SubGrupoId = x.SubGrupoId,
                 SubGrupoStr = x.SubGrupoStr,
-                MacroNutrienteId = x.MacroNutrienteId,
-                TieneMacroNutriente = x.TieneMacroNutriente,
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
@@ -96,8 +94,6 @@ namespace NutricionWeb.Controllers.Alimento
                 Descripcion = alimento.Descripcion,
                 SubGrupoId = alimento.SubGrupoId,
                 SubGrupoStr = alimento.SubGrupoStr,
-                MacroNutrienteId = alimento.MacroNutrienteId,
-                TieneMacroNutriente = alimento.TieneMacroNutriente,
                 Eliminado = alimento.Eliminado
             });
         }
@@ -138,8 +134,6 @@ namespace NutricionWeb.Controllers.Alimento
                 Descripcion = alimento.Descripcion,
                 SubGrupoId = alimento.SubGrupoId,
                 SubGrupoStr = alimento.SubGrupoStr,
-                MacroNutrienteId = alimento.MacroNutrienteId,
-                TieneMacroNutriente = alimento.TieneMacroNutriente,
                 Eliminado = alimento.Eliminado
             });
         }
@@ -178,8 +172,6 @@ namespace NutricionWeb.Controllers.Alimento
                 Descripcion = alimento.Descripcion,
                 SubGrupoId = alimento.SubGrupoId,
                 SubGrupoStr = alimento.SubGrupoStr,
-                MacroNutrienteId = alimento.MacroNutrienteId,
-                TieneMacroNutriente = alimento.TieneMacroNutriente,
                 Eliminado = alimento.Eliminado
             });
         }
@@ -223,8 +215,6 @@ namespace NutricionWeb.Controllers.Alimento
                 Descripcion = vm.Descripcion,
                 SubGrupoId = vm.SubGrupoId,
                 SubGrupoStr = vm.SubGrupoStr,
-                MacroNutrienteId = vm.MacroNutrienteId,
-                TieneMacroNutriente = vm.TieneMacroNutriente,
                 Eliminado = vm.Eliminado
             };
         }

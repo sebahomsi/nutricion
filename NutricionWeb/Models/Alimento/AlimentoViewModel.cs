@@ -26,9 +26,7 @@ namespace NutricionWeb.Models.Alimento
         [ScaffoldColumn(false)]
         public string EliminadoStr => Eliminado ? "SI" : "NO";
 
-        public long? MacroNutrienteId { get; set; }
 
-        public bool TieneMacroNutriente { get; set; }
 
     }
 }
