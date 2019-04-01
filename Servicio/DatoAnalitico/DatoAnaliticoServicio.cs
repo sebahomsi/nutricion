@@ -121,7 +121,7 @@ namespace Servicio.DatoAnalitico
 
         public async Task<IEnumerable<DatoAnaliticoDto>> GetByIdPaciente(long id)
         {
-            var datos = await Context.DatosAnaliticos.Where(x => x.PacienteId == id).ToListAsync();
+            var datos = await Context.DatosAnaliticos.Include("Paciente").Where(x => x.PacienteId == id).ToListAsync();
 
             var datoAnaliticos = Mapper.Map<IEnumerable<DatoAnaliticoDto>>(datos);
 

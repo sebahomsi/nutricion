@@ -89,6 +89,43 @@ namespace NutricionWeb.Controllers.DatoAnalitico
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> CreateParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return PartialView(new DatoAnaliticoABMViewModel()
+            {
+                PacienteId = paciente.Id,
+                PacienteStr = $"{paciente.Apellido} {paciente.Nombre}"
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(DatoAnaliticoABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var datosDto = CargarDatos(vm);
+                    datosDto.Codigo = await _datoAnaliticoServicio.GetNextCode();
+
+                    await _datoAnaliticoServicio.Add(datosDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("Index");
+
+        }
+
         // GET: DatoAnalitico/Edit/5
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)

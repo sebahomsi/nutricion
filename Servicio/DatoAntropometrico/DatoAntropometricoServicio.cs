@@ -96,7 +96,7 @@ namespace Servicio.DatoAntropometrico
                     PerimetroCintura = x.PerimetroCintura,
                     PerimetroCadera = x.PerimetroCadera,
                     PerimetroCuello = x.PerimetroCuello,
-                    Eliminado = false,
+                    Eliminado = x.Eliminado,
                     PesoDeseado = x.PesoDeseado,
                     PesoHabitual = x.PesoHabitual,
                     PesoIdeal = x.PesoIdeal,
@@ -127,7 +127,7 @@ namespace Servicio.DatoAntropometrico
                     PerimetroCintura = dato.PerimetroCintura,
                     PerimetroCadera = dato.PerimetroCadera,
                     PerimetroCuello = dato.PerimetroCuello,
-                    Eliminado = false,
+                    Eliminado = dato.Eliminado,
                     PesoDeseado = dato.PesoDeseado,
                     PesoHabitual = dato.PesoHabitual,
                     PesoIdeal = dato.PesoIdeal,
@@ -144,7 +144,7 @@ namespace Servicio.DatoAntropometrico
 
         public async Task<IEnumerable<DatoAntropometricoDto>> GetByIdPaciente(long id)
         {
-            var datos = await Context.DatosAntropometricos.Where(x => x.PacienteId == id).ToListAsync();
+            var datos = await Context.DatosAntropometricos.Include("Paciente").Where(x => x.PacienteId == id).ToListAsync();
 
             var datosAntopometricos = Mapper.Map<IEnumerable<DatoAntropometricoDto>>(datos);
 
