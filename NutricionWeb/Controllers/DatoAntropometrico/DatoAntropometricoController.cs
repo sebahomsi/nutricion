@@ -121,13 +121,17 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
                     await _datoAntropometricoServicio.Add(datosDto);
                 }
+                else
+                {
+                    return PartialView(vm);
+                }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return PartialView(vm);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("DatosAntropometricosParcial", "Paciente", new { id = vm.PacienteId });
 
         }
 
