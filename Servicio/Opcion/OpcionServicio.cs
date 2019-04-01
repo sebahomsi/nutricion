@@ -15,6 +15,8 @@ namespace Servicio.Opcion
     {
         public async Task<long> Add(OpcionDto dto)
         {
+            var verify = await VerifyDuplicity(dto);
+            if (verify.HasValue) throw new ArgumentException("Ya existe una opcion con esa Descripcion");
             var opcion = new Dominio.Entidades.Opcion()
             {
                 Codigo = dto.Codigo,
@@ -114,6 +116,14 @@ namespace Servicio.Opcion
             return await Context.Opciones.AnyAsync()
                 ? await Context.Opciones.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<long?> VerifyDuplicity(OpcionDto dto)
+        {
+            var id = await Context.Opciones
+                .FirstOrDefaultAsync(x => x.Descripcion == dto.Descripcion);
+
+            return id?.Id;
         }
     }
 }
