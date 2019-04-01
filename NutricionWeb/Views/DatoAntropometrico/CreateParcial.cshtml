@@ -9,12 +9,12 @@
 </div>
 
 
-@using (Ajax.BeginForm("CreateParcial","DatoAntropometrico",new AjaxOptions()
+@using (Ajax.BeginForm("CreateParcial","DatoAntropometrico",new {},new AjaxOptions()
 {
     HttpMethod = "POST",
     InsertionMode = InsertionMode.Replace,
     UpdateTargetId = "datosAntropometricos-Parcial"
-}))
+},new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -127,7 +127,7 @@
 
 
 
-@section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
@@ -146,4 +146,4 @@
 
 
     </script>
-}
+
