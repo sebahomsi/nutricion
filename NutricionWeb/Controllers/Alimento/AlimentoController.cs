@@ -206,6 +206,17 @@ namespace NutricionWeb.Controllers.Alimento
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
+        public ActionResult CalcularCalorias(int prote, int hc, int grasa)
+        {
+            //if (prote == null || hc == null || grasa == null)
+            //    return Json(total, JsonRequestBehavior.AllowGet);
+
+            var total = (prote * 4) + (hc * 4) + (grasa * 9);
+
+            return Json(total, JsonRequestBehavior.AllowGet);
+
+        }
+
         private AlimentoDto CargarDatos(AlimentoABMViewModel vm)
         {
             return new AlimentoDto()
@@ -215,7 +226,16 @@ namespace NutricionWeb.Controllers.Alimento
                 Descripcion = vm.Descripcion,
                 SubGrupoId = vm.SubGrupoId,
                 SubGrupoStr = vm.SubGrupoStr,
-                Eliminado = vm.Eliminado
+                Eliminado = vm.Eliminado,
+                MacroNutriente = new MacroNutrienteDto()
+                {
+                    Energia = vm.MacroNutriente.Energia,
+                    Grasa = vm.MacroNutriente.Grasa,
+                    HidratosCarbono = vm.MacroNutriente.HidratosCarbono,
+                    Proteina = vm.MacroNutriente.Proteina,
+                    Calorias = vm.MacroNutriente.Calorias,
+                    Eliminado = vm.MacroNutriente.Eliminado
+                }
             };
         }
 

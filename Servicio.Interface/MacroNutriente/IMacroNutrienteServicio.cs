@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Servicio.Interface.DatoAnalitico;
 
 namespace Servicio.Interface.MacroNutriente
 {
@@ -14,6 +10,5 @@ namespace Servicio.Interface.MacroNutriente
         Task Delete(long id);
         Task<ICollection<MacroNutrienteDto>> Get(bool eliminado, string cadenaBuscar);
         Task<MacroNutrienteDto> GetById(long id);
-        Task<int> GetNextCode();
     }
 }

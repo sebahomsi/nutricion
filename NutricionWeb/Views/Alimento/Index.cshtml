@@ -90,14 +90,7 @@
 
                     }
 
-                    @if (!item.TieneMacroNutriente)
-                    {
-                        @Html.ActionLink("MacroNutrientes", "Create", "MacroNutriente", new { alimentoId = item.Id }, new { @class = "btn btn-success" })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("MacroNutrientes", "Edit", "MacroNutriente", new { id = item.MacroNutrienteId }, new { @class = "btn btn-info" })
-                    }
+                   
 
                 </td>
             </tr>

@@ -21,7 +21,7 @@ namespace Infraestructura.Migrations
             AddGrupos(context);
             AddSubGrupos(context);
             AddUnidades(context);
-            AddAlimentos(context);
+            //AddAlimentos(context);
             AddPacientes(context);
         }
 

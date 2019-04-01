@@ -10,8 +10,6 @@ namespace NutricionWeb.Models.MacroNutriente
     {
         public long Id { get; set; }
 
-        public int Codigo { get; set; }
-
         [Display(Name = "Alimento")]
         public string AlimentoStr { get; set; }
 

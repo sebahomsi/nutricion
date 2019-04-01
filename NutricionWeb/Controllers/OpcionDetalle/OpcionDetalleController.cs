@@ -178,8 +178,6 @@ namespace NutricionWeb.Controllers.OpcionDetalle
                 Descripcion = x.Descripcion,
                 SubGrupoId = x.SubGrupoId,
                 SubGrupoStr = x.SubGrupoStr,
-                MacroNutrienteId = x.MacroNutrienteId,
-                TieneMacroNutriente = x.TieneMacroNutriente,
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }

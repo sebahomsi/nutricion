@@ -4,8 +4,6 @@
     {
         public long Id { get; set; }
 
-        public int Codigo { get; set; }
-
         public long AlimentoId { get; set; }
 
         public string AlimentoStr { get; set; }

@@ -22,7 +22,6 @@ namespace Servicio.Alimento
                 SubGrupoId = dto.SubGrupoId,
                 MacroNutriente = new Dominio.Entidades.MacroNutriente()
                 {
-                    Codigo = dto.MacroNutriente.Codigo,
                     Energia = dto.MacroNutriente.Energia,
                     Grasa = dto.MacroNutriente.Grasa,
                     HidratosCarbono = dto.MacroNutriente.HidratosCarbono,

@@ -96,8 +96,6 @@ namespace Servicio.SubGrupo
                     Descripcion = t.Descripcion,
                     SubGrupoId = t.SubGrupoId,
                     SubGrupoStr = t.SubGrupo.Descripcion,
-                    MacroNutrienteId = t.MacroNutrienteId,
-                    TieneMacroNutriente = t.TieneMacroNutriente,
                     Eliminado = t.Eliminado
                 }).ToList()
             };

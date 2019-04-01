@@ -49,7 +49,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
                 if (ModelState.IsValid)
                 {
                     var macroDto = CargarDatosMacro(vm);
-                    macroDto.Codigo = await _macroNutrienteServicio.GetNextCode();
                     await _macroNutrienteServicio.Add(macroDto);
                 }
             }
@@ -71,7 +70,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             return View(new MacroNutrienteABMViewModel()
             {
                 Id = macro.Id,
-                Codigo = macro.Codigo,
                 AlimentoStr = macro.AlimentoStr,
                 HidratosCarbono = macro.HidratosCarbono,
                 Energia = macro.Energia,
@@ -113,7 +111,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             return View(new MacroNutrienteViewModel()
             {
                 Id = macro.Id,
-                Codigo = macro.Codigo,
                 AlimentoStr = macro.AlimentoStr,
                 HidratosCarbono = macro.HidratosCarbono,
                 Energia = macro.Energia,
@@ -154,7 +151,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             return View(new MacroNutrienteViewModel()
             {
                 Id = macro.Id,
-                Codigo = macro.Codigo,
                 AlimentoStr = macro.AlimentoStr,
                 HidratosCarbono = macro.HidratosCarbono,
                 Energia = macro.Energia,
@@ -183,7 +179,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             return new MacroNutrienteDto()
             {
                 Id = vm.Id,
-                Codigo = vm.Codigo,
                 AlimentoStr = vm.AlimentoStr,
                 Energia = vm.Energia,
                 Grasa = vm.Grasa,

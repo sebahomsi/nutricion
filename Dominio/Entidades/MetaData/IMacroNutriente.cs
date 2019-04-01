@@ -9,8 +9,6 @@ namespace Dominio.Entidades.MetaData
 {
     public interface IMacroNutriente
     {
-        int Codigo { get; set; }
-
         [Required(ErrorMessage = "Campo Obligatorio")]
         int Proteina { get; set; }
 
