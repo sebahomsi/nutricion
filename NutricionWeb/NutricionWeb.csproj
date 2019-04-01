@@ -749,6 +749,7 @@
     <Content Include="Views\ComidaDetalle\Create.cshtml" />
     <Content Include="Views\ComidaDetalle\BuscarOpcion.cshtml" />
     <Content Include="Views\Mail\Create.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
