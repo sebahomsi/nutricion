@@ -9,113 +9,119 @@
 </div>
 
 
-@using (Html.BeginForm("Create", "DatoAnalitico", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Ajax.BeginForm("CreateParcial", "DatoAnalitico", new AjaxOptions()
 {
-    @Html.AntiForgeryToken()
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "datosAnaliticos-Parcial"
+}))
+{
+   
+        @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4 style="margin-left: 17%;">Complete los campos con los datos solicitados.</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.PacienteId)
-    @Html.HiddenFor(model => model.FechaMedicion)
-    @Html.HiddenFor(model => model.Codigo)
+        <div class="form-horizontal">
+            <h4 style="margin-left: 17%;">Complete los campos con los datos solicitados.</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.PacienteId)
+            @Html.HiddenFor(model => model.FechaMedicion)
+            @Html.HiddenFor(model => model.Codigo)
 
 
 
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.PacienteStr, new { @class = "control-label col-md-2" })
-        <div class="col-md-4" style="width: 310px">
-            @Html.EditorFor(model => model.PacienteStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.PacienteStr, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.PacienteStr, new { @class = "control-label col-md-2" })
+                <div class="col-md-4" style="width: 310px">
+                    @Html.EditorFor(model => model.PacienteStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.PacienteStr, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ColesterolHdl, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ColesterolHdl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ColesterolHdl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ColesterolLdl, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ColesterolLdl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ColesterolLdl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PresionDiastolica, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PresionDiastolica, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PresionDiastolica, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PresionSistolica, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PresionSistolica, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PresionSistolica, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Trigliceridos, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Trigliceridos, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Trigliceridos, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ColesterolTotal, new { @class = "control-label col-md-2" })
+                <div class="col-md-4" style="width: 310px">
+                    @Html.EditorFor(model => model.ColesterolTotal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.ColesterolTotal, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2" align="left">
+                    <div id="btn-Total" class="btn btn-default" type="button">Calcular</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Aceptar" class="btn btn-success" />
+                    @Ajax.ActionLink("Volver", "DatosAnaliticosParcial", "Paciente", new { id = @Model.PacienteId }, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "datosAnaliticos-Parcial",
+
+                    }, new { @class = "btn btn-default" })
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ColesterolHdl, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ColesterolHdl, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ColesterolHdl, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ColesterolLdl, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ColesterolLdl, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ColesterolLdl, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    }
 
 
 
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
 
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PresionDiastolica, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PresionDiastolica, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PresionDiastolica, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PresionSistolica, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PresionSistolica, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PresionSistolica, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Trigliceridos, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Trigliceridos, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Trigliceridos, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ColesterolTotal, new { @class = "control-label col-md-2" })
-        <div class="col-md-4" style="width: 310px">
-            @Html.EditorFor(model => model.ColesterolTotal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.ColesterolTotal, "", new { @class = "text-danger" })
-        </div>
-        <div class="col-md-2" align="left">
-            <div id="btn-Total" class="btn btn-default" type="button">Calcular</div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Aceptar" class="btn btn-success" />
-            @Ajax.ActionLink("Volver", "DatosAnaliticosParcial", "Paciente", new { id = @Model.PacienteId }, new AjaxOptions()
-            {
-                HttpMethod = "GET",
-                InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = "datosAnaliticos-Parcial",
-
-            }, new { @class = "btn btn-default" })
-        </div>
-    </div>
-</div>
-}
-
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-
-<script type="text/javascript">
+        <script type="text/javascript">
 
         $(function () {
 
             $('#ColesterolHdl, #ColesterolLdl, #Trigliceridos, #PresionSistolica, #PresionDiastolica').on('input', function () {
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
-            
+
 
             $(document).on("click",
                 "#btn-Total",
@@ -139,6 +145,6 @@
         });
 
 
-</script>
-}
+        </script>
+    }
 

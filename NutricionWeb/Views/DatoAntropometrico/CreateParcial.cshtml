@@ -9,7 +9,12 @@
 </div>
 
 
-@using (Html.BeginForm("Create", "DatoAntropometrico", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Ajax.BeginForm("CreateParcial","DatoAntropometrico",new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "datosAntropometricos-Parcial"
+}))
 {
     @Html.AntiForgeryToken()
 
