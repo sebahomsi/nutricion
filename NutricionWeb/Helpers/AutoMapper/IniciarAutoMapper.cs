@@ -21,6 +21,7 @@ namespace NutricionWeb.Helpers.AutoMapper
                 cfg.AddProfile(new PlanAlimenticioProfile());
                 cfg.AddProfile(new TurnoProfile());
                 cfg.AddProfile(new DatoAntropometricoProfile());
+                cfg.AddProfile(new DatoAnaliticoProfile());
                 #endregion
             });
         }

@@ -3,7 +3,13 @@
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            @Html.ActionLink("Nuevo", "Create", "DatoAnalitico", new { }, new { @class = "btn btn-primary" })
+            @Ajax.ActionLink("Nuevo", "CreateParcial", "DatoAnalitico", new { id = Model.FirstOrDefault().PacienteId }, new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "datosAnaliticos-Parcial",
+
+            }, new { @class = "btn btn-primary" })
         </div>
     </div>
 </div>

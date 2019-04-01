@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.Owin.Security.Provider;
-using NutricionWeb.Models.DatoAntropometrico;
+﻿using NutricionWeb.Models.DatoAntropometrico;
 using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -94,6 +91,46 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             return RedirectToAction("Index");
 
         }
+
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> CreateParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return PartialView(new DatoAntropometricoABMViewModel()
+            {
+                PacienteId = paciente.Id,
+                PacienteStr = $"{paciente.Apellido} {paciente.Nombre}"
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(DatoAntropometricoABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var pic = string.Empty;
+                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var datosDto = CargarDatos(vm, pic);
+                    datosDto.Codigo = await _datoAntropometricoServicio.GetNextCode();
+
+                    await _datoAntropometricoServicio.Add(datosDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("Index");
+
+        }
+
 
         // GET: DatoAntropometrico/Edit/5
         [Authorize(Roles = "Administrador")]

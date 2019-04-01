@@ -39,7 +39,7 @@ namespace Servicio.Estado
 
         public async Task<ICollection<EstadoDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
-            var estados = await Context.Estados.Where(x => x.Descripcion.Contains(cadenaBuscar) && x.Eliminado == false).ToListAsync();
+            var estados = await Context.Estados.Where(x => x.Descripcion.Contains(cadenaBuscar) && x.Eliminado == eliminado).ToListAsync();
 
             var estadosDto = Mapper.Map<ICollection<EstadoDto>>(estados);
 

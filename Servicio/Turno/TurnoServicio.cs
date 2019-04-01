@@ -113,7 +113,7 @@ namespace Servicio.Turno
 
         public async Task<IEnumerable<TurnoDto>> GetByIdPaciente(long id)
         {
-            var datos = await Context.Turnos.Where(x => x.PacienteId == id).ToListAsync();
+            var datos = await Context.Turnos.Include("Paciente").Where(x => x.PacienteId == id).ToListAsync();
 
             var turnos = Mapper.Map<IEnumerable<TurnoDto>>(datos);
 

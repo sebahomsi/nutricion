@@ -57,6 +57,7 @@
     <Compile Include="AlergiaIntolerancia\IAlergiaIntoleranciaServicio.cs" />
     <Compile Include="Alimento\AlimentoDto.cs" />
     <Compile Include="Alimento\IAlimentoServicio.cs" />
+    <Compile Include="AutoMapper\DatoAnaliticoProfile.cs" />
     <Compile Include="AutoMapper\DatoAntropometricoProfile.cs" />
     <Compile Include="AutoMapper\PlanAlimenticioProfile.cs" />
     <Compile Include="AutoMapper\TurnoProfile.cs" />

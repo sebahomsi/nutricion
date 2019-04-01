@@ -540,6 +540,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jscolor.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -748,6 +749,9 @@
     <Content Include="Views\ComidaDetalle\Create.cshtml" />
     <Content Include="Views\ComidaDetalle\BuscarOpcion.cshtml" />
     <Content Include="Views\Mail\Create.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\DatoAntropometrico\CreateParcial.cshtml" />
+    <Content Include="Views\DatoAnalitico\CreateParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
