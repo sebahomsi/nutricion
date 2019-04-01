@@ -16,6 +16,12 @@ namespace Servicio.PlanAlimenticio
 {
     public class PlanAlimenticioServicio : ServicioBase, IPlanAlimenticioServicio
     {
+        private readonly IDiaServicio _diaServicio;
+
+        public PlanAlimenticioServicio(IDiaServicio diaServicio)
+        {
+            _diaServicio = diaServicio;
+        }
         public async Task<long> Add(PlanAlimenticioDto dto)
         {
             var plan = new Dominio.Entidades.PlanAlimenticio()
@@ -140,6 +146,48 @@ namespace Servicio.PlanAlimenticio
             var planesAlimenticios = Mapper.Map<IEnumerable<PlanAlimenticioDto>>(datos);
 
             return planesAlimenticios;
+        }
+
+        public async Task DuplicatePlan(long planId, long pacienteId)
+        {
+            var planAjeno = await GetById(planId);
+            var codigo = await GetNextCode();
+            var plan =new Dominio.Entidades.PlanAlimenticio()
+            {
+                Codigo = codigo,
+                PacienteId = pacienteId,
+                Comentarios=planAjeno.Comentarios,
+                Fecha=DateTime.Now,
+                Motivo=planAjeno.Motivo,
+            };
+            Context.PlanesAlimenticios.Add(plan);
+            await Context.SaveChangesAsync();
+            await _diaServicio.GenerarDias(plan.Id);
+
+            var planNuevo = await Context.PlanesAlimenticios
+                .Include("Paciente")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion")
+                .FirstOrDefaultAsync(x => x.Id == plan.Id);//Obtengo entidad recien creada
+            var Detalles = new List<ComidaDetalleDto>();
+            
+            foreach (var dia in planAjeno.Dias)
+            {
+                foreach (var comida in dia.Comidas)
+                {
+                    foreach (var comidaDetalle in comida.ComidasDetalles)
+                    {
+                        Detalles.Add(comidaDetalle);
+                    }
+                }
+            }
+            //sin terminar
+
+
+
+
+
+
+
         }
     }
 }
