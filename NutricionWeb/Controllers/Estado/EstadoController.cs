@@ -50,6 +50,8 @@ namespace NutricionWeb.Controllers.Estado
                 {
                     var estadoDto = CargarDatos(vm);
 
+                    estadoDto.Color = "#" + vm.Color;
+
                     estadoDto.Codigo = await _estadoServicio.GetNextCode();
 
                     await _estadoServicio.Add(estadoDto);
