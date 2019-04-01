@@ -116,13 +116,17 @@ namespace NutricionWeb.Controllers.DatoAnalitico
 
                     await _datoAnaliticoServicio.Add(datosDto);
                 }
+                else
+                {
+                    return PartialView(vm);
+                }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return PartialView(vm);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("DatosAnaliticosParcial", "Paciente", new { id = vm.PacienteId });
 
         }
 
