@@ -12,5 +12,6 @@ namespace Servicio.Interface.PlanAlimenticio
         Task<PlanAlimenticioDto> GetById(long id);
         Task<int> GetNextCode();
         Task<IEnumerable<PlanAlimenticioDto>> GetByIdPaciente(long id);
+        Task DuplicatePlan(long planId, long pacienteId);
     }
 }

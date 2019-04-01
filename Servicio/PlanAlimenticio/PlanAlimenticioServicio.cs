@@ -150,43 +150,43 @@ namespace Servicio.PlanAlimenticio
 
         public async Task DuplicatePlan(long planId, long pacienteId)
         {
-            var planAjeno = await GetById(planId);
-            var codigo = await GetNextCode();
-            var plan =new Dominio.Entidades.PlanAlimenticio()
-            {
-                Codigo = codigo,
-                PacienteId = pacienteId,
-                Comentarios=planAjeno.Comentarios,
-                Fecha=DateTime.Now,
-                Motivo=planAjeno.Motivo,
-            };
-            Context.PlanesAlimenticios.Add(plan);
-            await Context.SaveChangesAsync();
-            await _diaServicio.GenerarDias(plan.Id);
-
-            var planNuevo = await Context.PlanesAlimenticios
+            var planAjeno = await Context.PlanesAlimenticios
                 .Include("Paciente")
                 .Include("Dias.Comidas.ComidasDetalles.Opcion")
-                .FirstOrDefaultAsync(x => x.Id == plan.Id);//Obtengo entidad recien creada
-            var Detalles = new List<ComidaDetalleDto>();
-            
-            foreach (var dia in planAjeno.Dias)
+                .FirstOrDefaultAsync(x => x.Id == planId);
+            var planNuevo = new Dominio.Entidades.PlanAlimenticio()
             {
-                foreach (var comida in dia.Comidas)
+                Motivo = planAjeno.Motivo,
+                Fecha = DateTime.Now,
+                PacienteId = pacienteId,
+                Codigo = planAjeno.Codigo,
+                Comentarios = planAjeno.Comentarios,
+                Dias = planAjeno.Dias.Select(x => new Dominio.Entidades.Dia()
                 {
-                    foreach (var comidaDetalle in comida.ComidasDetalles)
+                    //Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    
+                    Comidas = x.Comidas.Select(c => new Dominio.Entidades.Comida()
                     {
-                        Detalles.Add(comidaDetalle);
-                    }
-                }
-            }
-            //sin terminar
+                        //Codigo = c.Codigo,
+                        Descripcion = c.Descripcion,
+                        ComidasDetalles = c.ComidasDetalles.Select(cd => new Dominio.Entidades.ComidaDetalle()
+                        {
+                            //Codigo = cd.Codigo,
+                            Comentario = cd.Comentario,
+                            Eliminado = cd.Eliminado,
+                            OpcionId = cd.OpcionId,
+                            
 
+                        }).ToList(),
 
+                    }).ToList(),
+                }).ToList()
+            };
 
-
-
-
+            var paciente =await Context.Personas.OfType<Dominio.Entidades.Paciente>().Include(x => x.PlanesAlimenticios).FirstAsync(x=>x.Id==pacienteId);
+            paciente.PlanesAlimenticios.Add(planNuevo);
+            await Context.SaveChangesAsync();
 
         }
     }

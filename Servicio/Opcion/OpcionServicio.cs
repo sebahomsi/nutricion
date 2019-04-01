@@ -21,7 +21,8 @@ namespace Servicio.Opcion
             {
                 Codigo = dto.Codigo,
                 Descripcion = dto.Descripcion,
-                Eliminado = false
+                Eliminado = false,               
+
             };
 
             Context.Opciones.Add(opcion);

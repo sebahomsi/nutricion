@@ -51,6 +51,15 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 await _planAlimenticioServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (planes == null) return HttpNotFound();
+            try
+            {
+                await _planAlimenticioServicio.DuplicatePlan(1, 2);
+            }
+            catch (Exception ex)
+            {
+                var a = ex;
+            }
+
 
             return View(planes.Select(x => new PlanAlimenticioViewModel()
             {
@@ -63,6 +72,8 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 Comentarios = x.Comentarios,
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+
+            
         }
 
 
@@ -83,7 +94,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 if (ModelState.IsValid)
                 {
                     var planDto = CargarDatos(vm);
-                    planDto.Codigo = await _planAlimenticioServicio.GetNextCode();
+                    //planDto.Codigo = await _planAlimenticioServicio.GetNextCode();
 
                     var planId = await _planAlimenticioServicio.Add(planDto);
                     await _diaServicio.GenerarDias(planId);

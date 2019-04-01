@@ -1,4 +1,6 @@
-﻿namespace Dominio.Entidades.MetaData
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Dominio.Entidades.MetaData
 {
     public interface IComidaDetalle
     {
