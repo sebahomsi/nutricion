@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Servicio.Interface.Comida;
+using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Dia;
-using Servicio.Interface.Opcion;
-using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.PlanAlimenticio;
 using System;
 using System.Collections.Generic;
@@ -10,18 +9,28 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Servicio.Interface.ComidaDetalle;
 
 namespace Servicio.PlanAlimenticio
 {
     public class PlanAlimenticioServicio : ServicioBase, IPlanAlimenticioServicio
     {
-        private readonly IDiaServicio _diaServicio;
+        private static int CodigoPlan { get; set; }
+        private static int CodigoDia { get; set; }
+        private static int CodigoComida { get; set; }
+        private static int CodigoComidaDetalle { get; set; }
 
-        public PlanAlimenticioServicio(IDiaServicio diaServicio)
+        private readonly IDiaServicio _diaServicio;
+        private readonly IComidaServicio _comidaServicio;
+        private readonly IComidaDetalleServicio _comidaDetalleServicio;
+
+        public PlanAlimenticioServicio(IDiaServicio diaServicio, IComidaServicio comidaServicio, IComidaDetalleServicio comidaDetalleServicio)
         {
+            //_planAlimenticioServicio = planAlimenticioServicio;
             _diaServicio = diaServicio;
+            _comidaServicio = comidaServicio;
+            _comidaDetalleServicio = comidaDetalleServicio;
         }
+
         public async Task<long> Add(PlanAlimenticioDto dto)
         {
             var plan = new Dominio.Entidades.PlanAlimenticio()
@@ -150,36 +159,36 @@ namespace Servicio.PlanAlimenticio
 
         public async Task DuplicatePlan(long planId, long pacienteId)
         {
+            await SetCodes();
             var planAjeno = await Context.PlanesAlimenticios
                 .Include("Paciente")
                 .Include("Dias.Comidas.ComidasDetalles.Opcion")
                 .FirstOrDefaultAsync(x => x.Id == planId);
+
+            if (planAjeno == null) throw new ArgumentNullException();
             var planNuevo = new Dominio.Entidades.PlanAlimenticio()
             {
                 Motivo = planAjeno.Motivo,
                 Fecha = DateTime.Now,
                 PacienteId = pacienteId,
-                Codigo = planAjeno.Codigo,
+                Codigo = GetNextCode("Plan"),
                 Comentarios = planAjeno.Comentarios,
                 Dias = planAjeno.Dias.Select(x => new Dominio.Entidades.Dia()
                 {
-                    //Codigo = x.Codigo,
-                    Descripcion = x.Descripcion,
-                    
+                    Codigo = GetNextCode("Dia"),
+                    Descripcion = x.Descripcion,                 
                     Comidas = x.Comidas.Select(c => new Dominio.Entidades.Comida()
                     {
-                        //Codigo = c.Codigo,
+                        Codigo = GetNextCode("Comida"),
                         Descripcion = c.Descripcion,
                         ComidasDetalles = c.ComidasDetalles.Select(cd => new Dominio.Entidades.ComidaDetalle()
                         {
-                            //Codigo = cd.Codigo,
+                            Codigo = GetNextCode("ComidaDetalle"),
                             Comentario = cd.Comentario,
                             Eliminado = cd.Eliminado,
                             OpcionId = cd.OpcionId,
                             
-
                         }).ToList(),
-
                     }).ToList(),
                 }).ToList()
             };
@@ -189,5 +198,31 @@ namespace Servicio.PlanAlimenticio
             await Context.SaveChangesAsync();
 
         }
+
+        private async Task SetCodes()
+        {
+            CodigoPlan = await GetNextCode();
+            CodigoDia = await _diaServicio.GetNextCode();
+            CodigoComida = await _comidaServicio.GetNextCode();
+            CodigoComidaDetalle = await _comidaDetalleServicio.GetNextCode();
+        }
+
+        private static int GetNextCode(string codigo)
+        {
+            switch (codigo)
+            {
+                case "Plan":
+                    return CodigoPlan++;
+                case "Dia":
+                    return CodigoDia++;
+                case "Comida":
+                    return CodigoComida++;
+                case "ComidaDetalle":
+                    return CodigoComidaDetalle++;
+                default:
+                    return 0;
+            }
+        }
+
     }
 }

@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.Comida;
+﻿using NutricionWeb.Models.Comida;
 using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Dia;
-using NutricionWeb.Models.Opcion;
-using NutricionWeb.Models.OpcionDetalle;
 using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using PagedList;
-using RazorPDF;
 using Rotativa;
-using Servicio.Interface.Comida;
 using Servicio.Interface.Dia;
-using Servicio.Interface.Opcion;
-using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 
