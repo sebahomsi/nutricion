@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            @Ajax.ActionLink("Nuevo", "CreateParcial", "DatoAnalitico", new { id = Model.FirstOrDefault().PacienteId }, new AjaxOptions()
+            @Ajax.ActionLink("Nuevo", "CreateParcial", "DatoAnalitico", new { id = (long)ViewBag.PacienteId }, new AjaxOptions()
             {
                 HttpMethod = "GET",
                 InsertionMode = InsertionMode.Replace,

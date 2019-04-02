@@ -312,6 +312,8 @@ namespace NutricionWeb.Controllers.Paciente
 
             var datosAntropometricos = Mapper.Map<IEnumerable<DatoAntropometricoViewModel>>(datos);
 
+            ViewBag.PacienteId = id;
+
             return PartialView(datosAntropometricos.ToList());
         
         }
@@ -324,6 +326,8 @@ namespace NutricionWeb.Controllers.Paciente
 
             var planesAlimenticios = Mapper.Map<IEnumerable<PlanAlimenticioViewModel>>(datos);
 
+            ViewBag.PacienteId = id;
+
             return PartialView(planesAlimenticios.ToList());
         }
 
@@ -335,6 +339,8 @@ namespace NutricionWeb.Controllers.Paciente
 
             var datosAnaliticos = Mapper.Map<IEnumerable<DatoAnaliticoViewModel>>(datos);
 
+            ViewBag.PacienteId = id;
+
             return PartialView(datosAnaliticos.ToList());
         }
 
@@ -345,6 +351,8 @@ namespace NutricionWeb.Controllers.Paciente
             var datos = await _turnoServicio.GetByIdPaciente(id.Value);
 
             var turnos = Mapper.Map<IEnumerable<TurnoViewModel>>(datos);
+
+            ViewBag.PacienteId = id;
 
             return PartialView(turnos.ToList());
         }
