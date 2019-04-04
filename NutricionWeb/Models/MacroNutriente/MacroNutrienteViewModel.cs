@@ -10,8 +10,7 @@ namespace NutricionWeb.Models.MacroNutriente
     {
         public long Id { get; set; }
 
-        [Display(Name = "Alimento")]
-        public string AlimentoStr { get; set; }
+        
 
         public int Proteina { get; set; }
 
@@ -26,8 +25,6 @@ namespace NutricionWeb.Models.MacroNutriente
 
         public bool Eliminado { get; set; }
 
-        [Display(Name = "Eliminado")]
-        [ScaffoldColumn(false)]
-        public string EliminadoStr => Eliminado ? "SI" : "NO";
+       
     }
 }

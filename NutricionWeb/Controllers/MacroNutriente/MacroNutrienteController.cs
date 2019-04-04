@@ -111,7 +111,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             return View(new MacroNutrienteViewModel()
             {
                 Id = macro.Id,
-                AlimentoStr = macro.AlimentoStr,
                 HidratosCarbono = macro.HidratosCarbono,
                 Energia = macro.Energia,
                 Grasa = macro.Grasa,
@@ -151,7 +150,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             return View(new MacroNutrienteViewModel()
             {
                 Id = macro.Id,
-                AlimentoStr = macro.AlimentoStr,
                 HidratosCarbono = macro.HidratosCarbono,
                 Energia = macro.Energia,
                 Grasa = macro.Grasa,

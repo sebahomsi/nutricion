@@ -79,12 +79,13 @@
     </div>
 
 
-    <h4 class="card-title">
-        Macro Nutrientes
-    </h4>
     <hr />
 
-    <div class="form-row">
+    <div class="titulo-ABM">
+        <h4 class="create-h4">MacroNutrientes</h4>
+    </div>
+
+    <div class="row" style="margin-left: 5%;">
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.MacroNutriente.HidratosCarbono)
             @Html.EditorFor(model => model.MacroNutriente.HidratosCarbono, new { htmlAttributes = new { @class = "form-control" } })
@@ -97,7 +98,7 @@
         </div>
     </div>
 
-    <div class="form-row">
+    <div class="row" style="margin-left: 5%;">
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.MacroNutriente.Proteina)
             @Html.EditorFor(model => model.MacroNutriente.Proteina, new { htmlAttributes = new { @class = "form-control" } })
@@ -110,18 +111,20 @@
         </div>
     </div>
 
-    <div class="form-row">
+    <div class="row" style="margin-left: 5%;">
         <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.MacroNutriente.Calorias, new { @class = "control-label col-md-2" })
-            <div class="col-md-4" style="width: 310px">
-                @Html.EditorFor(model => model.MacroNutriente.Calorias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.MacroNutriente.Calorias, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2" align="left">
-                <div id="btn-Total" class="btn btn-default" type="button">Calcular</div>
+            @Html.LabelFor(model => model.MacroNutriente.Calorias)
+            <div class="form-group">
+                <div class="col-md-4" style="width: 310px">
+                    @Html.EditorFor(model => model.MacroNutriente.Calorias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.MacroNutriente.Calorias, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-md-2" align="left">
+                    <div id="btn-Total" class="btn btn-default" type="button">Calcular</div>
+                </div>
             </div>
         </div>
-
     </div>
 
 

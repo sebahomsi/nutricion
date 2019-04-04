@@ -21,7 +21,7 @@ namespace Infraestructura.Migrations
             AddGrupos(context);
             AddSubGrupos(context);
             AddUnidades(context);
-            ////AddAlimentos(context);
+            AddAlimentos(context);
             AddPacientes(context);
         }
 
@@ -63,16 +63,124 @@ namespace Infraestructura.Migrations
         private static void AddAlimentos(NutricionDbContext context)
         {
             context.Alimentos.AddOrUpdate(x => x.Id,
-                new Alimento() { Id = 1, Codigo = 1, SubGrupoId = 11, Descripcion = "Fideos", Eliminado = false },
-                new Alimento() { Id = 2, Codigo = 2, SubGrupoId = 15, Descripcion = "Melón", Eliminado = false },
-                new Alimento() { Id = 3, Codigo = 3, SubGrupoId = 3, Descripcion = "Queso", Eliminado = false },
-                new Alimento() { Id = 4, Codigo = 4, SubGrupoId = 14, Descripcion = "Bife de Hígado", Eliminado = false },
-                new Alimento() { Id = 5, Codigo = 5, SubGrupoId = 14, Descripcion = "Carne Molida", Eliminado = false },
-                new Alimento() { Id = 6, Codigo = 6, SubGrupoId = 13, Descripcion = "Pechuga de Pollo", Eliminado = false },
-                new Alimento() { Id = 7, Codigo = 7, SubGrupoId = 17, Descripcion = "Lechuga", Eliminado = false },
-                new Alimento() { Id = 8, Codigo = 8, SubGrupoId = 17, Descripcion = "Acelga", Eliminado = false },
-                new Alimento() { Id = 9, Codigo = 9, SubGrupoId = 17, Descripcion = "Repollo", Eliminado = false },
-                new Alimento() { Id = 10, Codigo = 10, SubGrupoId = 18, Descripcion = "Sal", Eliminado = false });
+                new Alimento() { Id = 1, Codigo = 1, SubGrupoId = 11, Descripcion = "Fideos", Eliminado = false, MacroNutriente = new MacroNutriente()
+                {
+                    Id = 1,
+                    Calorias = 109,
+                    Energia = 5,
+                    Grasa = 9,
+                    HidratosCarbono = 4,
+                    Proteina = 3,
+                    Eliminado = false
+                }},
+                new Alimento() { Id = 2, Codigo = 2, SubGrupoId = 15, Descripcion = "Melón", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 2,
+                        Calorias = 113,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 5,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                },
+                new Alimento() { Id = 3, Codigo = 3, SubGrupoId = 3, Descripcion = "Queso", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 3,
+                        Calorias = 100,
+                        Energia = 5,
+                        Grasa = 8,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                },
+                new Alimento() { Id = 4, Codigo = 4, SubGrupoId = 14, Descripcion = "Bife de Hígado", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 4,
+                        Calorias = 109,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                },
+                new Alimento() { Id = 5, Codigo = 5, SubGrupoId = 14, Descripcion = "Carne Molida", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 5,
+                        Calorias = 109,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                },
+                new Alimento() { Id = 6, Codigo = 6, SubGrupoId = 13, Descripcion = "Pechuga de Pollo", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 6,
+                        Calorias = 109,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                },
+                new Alimento() { Id = 7, Codigo = 7, SubGrupoId = 17, Descripcion = "Lechuga", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 7,
+                        Calorias = 109,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                },
+                new Alimento() { Id = 8, Codigo = 8, SubGrupoId = 17, Descripcion = "Acelga", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 8,
+                        Calorias = 109,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                },
+                new Alimento() { Id = 9, Codigo = 9, SubGrupoId = 17, Descripcion = "Repollo", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 9,
+                        Calorias = 109,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                },
+                new Alimento() { Id = 10, Codigo = 10, SubGrupoId = 18, Descripcion = "Sal", Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 10,
+                        Calorias = 109,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
+                });
         }
 
         private static void AddUnidades(NutricionDbContext context)
