@@ -1,6 +1,7 @@
 ﻿using NutricionWeb.Models.Mail;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -35,11 +36,14 @@ namespace NutricionWeb.Controllers.Mail
                     mmsg.From = new MailAddress(vm.MailEmisor);
                     mmsg.Body = vm.CuerpoMensaje;
                     mmsg.BodyEncoding = Encoding.UTF8;
-                    if (vm.Imagen != null)
+                    if (vm.Imagenes.Any())
                     {
-                        var fileName = Path.GetFileName(vm.Imagen.FileName);
-                        mmsg.Attachments.Add(new Attachment(vm.Imagen.InputStream, fileName));
+                        foreach (var imagen in vm.Imagenes)
+                        {
+                            var fileName = Path.GetFileName(imagen.FileName);
+                            mmsg.Attachments.Add(new Attachment(imagen.InputStream, fileName));
 
+                        }
                     }
 
                     var cliente = new SmtpClient

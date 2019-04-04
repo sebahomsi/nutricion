@@ -1,10 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web;
 
 namespace NutricionWeb.Models.Mail
 {
     public class MailViewModel
     {
+        public MailViewModel()
+        {
+            Imagenes = new List<HttpPostedFileBase>();
+        }
+
         [DataType(DataType.EmailAddress)]
         public string MailDestino { get; set; }
 
@@ -20,7 +26,7 @@ namespace NutricionWeb.Models.Mail
         [DataType(DataType.Text)]
         public string Asunto { get; set; }
 
-        public HttpPostedFileBase Imagen { get; set; }
+        public List<HttpPostedFileBase> Imagenes { get; set; }
 
     }
 }

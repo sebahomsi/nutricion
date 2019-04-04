@@ -64,10 +64,10 @@
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.Imagen, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Imagenes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <span class="btn btn-primary btn-primary">
-                    @Html.TextBoxFor(model => model.Imagen, new { type = "file" })
+                    @Html.TextBoxFor(model => model.Imagenes, new { type = "file" , @multiple="multiple" })
                 </span>
             </div>
         </div>
