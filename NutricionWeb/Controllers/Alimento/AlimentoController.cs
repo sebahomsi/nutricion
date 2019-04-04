@@ -143,7 +143,16 @@ namespace NutricionWeb.Controllers.Alimento
                 Descripcion = alimento.Descripcion,
                 SubGrupoId = alimento.SubGrupoId,
                 SubGrupoStr = alimento.SubGrupoStr,
-                Eliminado = alimento.Eliminado
+                Eliminado = alimento.Eliminado,
+                MacroNutriente = new MacroNutrienteViewModel()
+                {
+                    Id = alimento.MacroNutriente.Id,
+                    HidratosCarbono = alimento.MacroNutriente.HidratosCarbono,
+                    Grasa = alimento.MacroNutriente.Grasa,
+                    Proteina = alimento.MacroNutriente.Proteina,
+                    Energia = alimento.MacroNutriente.Energia,
+                    Calorias = alimento.MacroNutriente.Calorias
+                }
             });
         }
 
@@ -181,7 +190,16 @@ namespace NutricionWeb.Controllers.Alimento
                 Descripcion = alimento.Descripcion,
                 SubGrupoId = alimento.SubGrupoId,
                 SubGrupoStr = alimento.SubGrupoStr,
-                Eliminado = alimento.Eliminado
+                Eliminado = alimento.Eliminado,
+                MacroNutriente = new MacroNutrienteViewModel()
+                {
+                    Id = alimento.MacroNutriente.Id,
+                    HidratosCarbono = alimento.MacroNutriente.HidratosCarbono,
+                    Grasa = alimento.MacroNutriente.Grasa,
+                    Proteina = alimento.MacroNutriente.Proteina,
+                    Energia = alimento.MacroNutriente.Energia,
+                    Calorias = alimento.MacroNutriente.Calorias
+                }
             });
         }
 
