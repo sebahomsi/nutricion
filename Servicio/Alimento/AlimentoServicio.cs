@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Servicio.Interface.Alimento;
+using Servicio.Interface.MacroNutriente;
 
 namespace Servicio.Alimento
 {
@@ -38,7 +39,7 @@ namespace Servicio.Alimento
 
         public async Task Update(AlimentoDto dto)
         {
-            var alimento = await Context.Alimentos.FirstOrDefaultAsync(x => x.Id == dto.Id);
+            var alimento = await Context.Alimentos.Include("MacroNutriente").FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (alimento == null) throw new ArgumentNullException();
 
             alimento.Descripcion = dto.Descripcion;
@@ -101,6 +102,15 @@ namespace Servicio.Alimento
                 Eliminado = alimento.Eliminado,
                 SubGrupoId = alimento.SubGrupoId,
                 SubGrupoStr = alimento.SubGrupo.Descripcion,
+                MacroNutriente = new MacroNutrienteDto()
+                {
+                    Id = alimento.MacroNutriente.Id,
+                    HidratosCarbono = alimento.MacroNutriente.HidratosCarbono,
+                    Grasa = alimento.MacroNutriente.Grasa,
+                    Proteina = alimento.MacroNutriente.Proteina,
+                    Energia = alimento.MacroNutriente.Energia,
+                    Calorias = alimento.MacroNutriente.Calorias
+                }
             };
         }
 
