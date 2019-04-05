@@ -23,6 +23,8 @@ namespace Servicio.Interface.PlanAlimenticio
         public string Comentarios { get; set; }
         public bool Eliminado { get; set; }
 
+        public int TotalCalorias { get; set; }
+
         public List<DiaDto> Dias { get; set; }
     }
 }

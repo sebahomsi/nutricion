@@ -27,5 +27,7 @@ namespace NutricionWeb.Models.PlanAlimenticio
         public string Comentarios { get; set; }
 
         public bool Eliminado { get; set; }
+
+        public int TotalCalorias { get; set; }
     }
 }

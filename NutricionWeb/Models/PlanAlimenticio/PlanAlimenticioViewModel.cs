@@ -36,6 +36,8 @@ namespace NutricionWeb.Models.PlanAlimenticio
         [ScaffoldColumn(false)]
         public string EliminadoStr => Eliminado ? "SI" : "NO";
 
+        public int TotalCalorias { get; set; }
+
         public List<DiaViewModel> Dias { get; set; }
     }
 }
