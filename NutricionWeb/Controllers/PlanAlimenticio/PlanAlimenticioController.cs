@@ -68,7 +68,8 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PacienteId = x.PacienteId,
                 PacienteStr = x.PacienteStr,
                 Comentarios = x.Comentarios,
-                Eliminado = x.Eliminado
+                Eliminado = x.Eliminado,
+                TotalCalorias = x.TotalCalorias
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
 
             
@@ -167,7 +168,8 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PacienteId = plan.PacienteId,
                 PacienteStr = plan.PacienteStr,
                 Comentarios = plan.Comentarios,
-                Eliminado = plan.Eliminado
+                Eliminado = plan.Eliminado,
+                TotalCalorias = plan.TotalCalorias
             });
         }
 
@@ -210,6 +212,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PacienteStr = plan.PacienteStr,
                 Comentarios = plan.Comentarios,
                 Eliminado = plan.Eliminado,
+                TotalCalorias = plan.TotalCalorias,
                 Dias = plan.Dias.Select(x=> new DiaViewModel()
                 {
                     Id = x.Id,
@@ -282,6 +285,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PacienteStr = plan.PacienteStr,
                 Comentarios = plan.Comentarios,
                 Eliminado = plan.Eliminado,
+                TotalCalorias = plan.TotalCalorias,
                 Dias = plan.Dias.Select(x => new DiaViewModel()
                 {
                     Id = x.Id,
@@ -325,6 +329,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PacienteStr = plan.PacienteStr,
                 Comentarios = plan.Comentarios,
                 Eliminado = plan.Eliminado,
+                TotalCalorias = plan.TotalCalorias,
                 Dias = plan.Dias.Select(x => new DiaViewModel()
                 {
                     Id = x.Id,
@@ -355,11 +360,13 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             });
         }
 
-        public ActionResult GeneratePdf(long planId)
+        public async Task<ActionResult> GeneratePdf(long planId)
         {
+            var plan = await _planAlimenticioServicio.GetById(planId);
+
             return new ActionAsPdf("ExportarPlanPdf", new {id = planId})
             {
-                FileName = "PlanAlimenticio" + ".pdf",
+                FileName = "PlanAlimenticio"+ plan.PacienteStr + ".pdf",
                 PageSize = Rotativa.Options.Size.A4,
                 PageOrientation = Rotativa.Options.Orientation.Landscape,
             };
@@ -412,7 +419,8 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PacienteId = vm.PacienteId,
                 PacienteStr = vm.PacienteStr,
                 Comentarios = vm.Comentarios,
-                Eliminado = vm.Eliminado
+                Eliminado = vm.Eliminado,
+                TotalCalorias = 0
             };
         }
     }

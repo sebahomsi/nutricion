@@ -20,5 +20,7 @@ namespace Dominio.Entidades.MetaData
         DateTime Fecha { get; set; }
 
         bool Eliminado { get; set; }
+
+        int TotalCalorias { get; set; }
     }
 }

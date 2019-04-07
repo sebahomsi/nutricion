@@ -157,7 +157,8 @@ namespace Servicio.Paciente
                     Fecha = q.Fecha,
                     PacienteId = q.PacienteId,
                     PacienteStr = q.Paciente.Apellido + " " + q.Paciente.Nombre,
-                    Eliminado = q.Eliminado
+                    Eliminado = q.Eliminado,
+                    TotalCalorias = q.TotalCalorias
                 }).ToList(),
                 Turnos = paciente.Turnos.OrderBy(t=> t.HorarioEntrada).Where(t=> t.HorarioEntrada >= DateTime.Today).Select(t=> new TurnoDto()
                 {
