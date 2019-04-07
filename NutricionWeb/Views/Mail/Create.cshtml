@@ -134,32 +134,30 @@
 
                         var fileReader = new FileReader();
                         var file = files[i];
-
+                        console.log(file.type);
+                        console.log(file.name);
                         if (file.type.includes("image")) {
                             fileReader.onload = (function (e) {
-
                                 insertarImagen(e.target.result);
-
+                            });
+                        } 
+                        if (file.type.includes("zip")) {
+                            fileReader.onload = (function (e) {
+                                insertarImagen("/Content/Imagenes/icono-ZIP.png");
+                            });
+                         
+                        } 
+                        if (file.name.includes("rar")) {
+                            fileReader.onload = (function (e) {
+                                insertarImagen("/Content/Imagenes/rar.png");
                             });
 
-                        } else {
-
-                            if (file.type.includes("zip")) {
-
-                                insertarImagen("/Content/Imagenes/icono-ZIP.png");
-
-                            } else {
-
-                                if (file.name.includes("rar")) {
-
-                                    insertarImagen("/Content/Imagenes/rar.png");
-
-                                } else {
-
-                                    insertarImagen("/Content/Imagenes/word.png");
-                                }
-                            }
-                        }
+                        } 
+                        if (file.name.includes("docx") || file.name.includes(".txt") ) {
+                            fileReader.onload = (function (e) {
+                            insertarImagen("/Content/Imagenes/word.png");
+                            });
+                        }                                                                                                                     
                         fileReader.readAsDataURL(files[i]);
                     }
                 });
