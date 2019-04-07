@@ -1,20 +1,22 @@
 ﻿@model NutricionWeb.Models.Paciente.PacienteViewModel
 
-@helper AgregarVista(string idVista,string idParcial){
+@helper AgregarVista(string idVista, string idParcial)
+{
     <div id="@idVista" class="tab-pane fade in active">
         @*imagen cargando*@
         <div id="@idParcial"></div>
     </div>
 }
 
-@helper AgregarTabs(string idTab, string idVista,string texto,string clase){
-    <li class="@clase"   id="@idTab"><a data-toggle="tab" href="#@idVista">@texto</a></li>
+@helper AgregarTabs(string idTab, string idVista, string texto, string clase)
+{
+    <li class="@clase" id="@idTab"><a data-toggle="tab" href="#@idVista">@texto</a></li>
 }
 
 
 
 <ul class="nav nav-tabs">
-    @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista","Datos Atropometricos", "active")   
+    @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista", "Datos Atropometricos", "active")
     @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
     @AgregarTabs("datosAnaliticos", "datosAnaliticos-Vista", "Datos Analiticos", "")
     @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
@@ -30,60 +32,88 @@
 @section scripts
 {
     <script type="text/javascript">
+        //=======================JavaScriptPuro==========================
 
         var datosAntropometricos = function() {
             var url = '@Url.Action("DatosAntropometricosParcial", "Paciente")';
-            $.get(url, { id: @Model.Id }, function(parcial) {
-                $("#datosAntropometricos-Parcial").empty();
-                $("#datosAntropometricos-Parcial").append(parcial);
-            });
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url + "?id=" + @Model.Id, true);
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("datosAntropometricos-Parcial").innerHTML = "";
+                    document.getElementById("datosAntropometricos-Parcial").innerHTML = xhr.response;
+                }
+            }
         }
 
         var planesAlimenticios = function() {
             var url = '@Url.Action("PlanesAlimenticiosParcial", "Paciente")';
-            $.get(url, { id: @Model.Id }, function(parcial) {
-                $("#planesAlimenticios-Parcial").empty();
-                $("#planesAlimenticios-Parcial").append(parcial);
-            });
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url + "?id=" + @Model.Id, true);
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("planesAlimenticios-Parcial").innerHTML = "";
+                    document.getElementById("planesAlimenticios-Parcial").innerHTML = xhr.response;
+                }
+            }
         }
 
         var datosAnaliticos = function() {
-            var url = '@Url.Action("DatosAnaliticosParcial", "Paciente")';
-            $.get(url, { id: @Model.Id }, function(parcial) {
-                $("#datosAnaliticos-Parcial").empty();
-                $("#datosAnaliticos-Parcial").append(parcial);
-            });
+            var url = '@Url.Action("DatosAnaliticosParcial")';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url + "?id=" + @Model.Id, true);
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("datosAnaliticos-Parcial").innerHTML = "";
+                    document.getElementById("datosAnaliticos-Parcial").innerHTML = xhr.response;
+                }
+            }
+
         }
 
         var turnos = function() {
-            var url = '@Url.Action("TurnosParcial", "Paciente")';
-            $.get(url, { id: @Model.Id }, function(parcial) {
-                $("#turnos-Parcial").empty();
-                $("#turnos-Parcial").append(parcial);
-            });
+            var url = '@Url.Action("TurnosParcial")';
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url + "?id=" + @Model.Id, true);
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("turnos-Parcial").innerHTML = "";
+                    document.getElementById("turnos-Parcial").innerHTML = xhr.response;
+                }
+            }
         }
 
-
-        $(function() {
+        var inicio = function() {
 
             datosAntropometricos();
 
-            $("#datosAntropometricos").click(function() {
-                datosAntropometricos();
-            });
+            document.getElementById("datosAntropometricos").addEventListener("click",
+                function() {
+                    datosAntropometricos();
+                });
 
-            $("#planesAlimenticios").click(function() {
-                planesAlimenticios();
-            });
+            document.getElementById("planesAlimenticios").addEventListener("click",
+                function () {                    
+                    planesAlimenticios();
+                });
 
-            $("#datosAnaliticos").click(function() {
-                datosAnaliticos();
-            });
+            document.getElementById("datosAnaliticos").addEventListener("click",
+                function() {
+                    datosAnaliticos();
+                });
 
-            $("#turnos").click(function() {
-                turnos();
-            });
+            document.getElementById("turnos").addEventListener("click",
+                function() {
+                    turnos();
+                });
+        };
 
-        });
+        window.addEventListener("load", inicio);
+
     </script>
 }

@@ -343,6 +343,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Imagenes\ajax-loader %283%29.gif" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -358,7 +359,11 @@
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\Imagenes\better.jpg" />
     <Content Include="Content\Imagenes\fondito.png" />
+    <Content Include="Content\Imagenes\archivo.png" />
+    <Content Include="Content\Imagenes\Icono-ZIP.png" />
+    <Content Include="Content\Imagenes\rar.png" />
     <Content Include="Content\Imagenes\user-icon.jpg" />
+    <Content Include="Content\Imagenes\word.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\regular.css" />

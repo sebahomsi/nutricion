@@ -114,14 +114,18 @@
 @section scripts
 {
     <script>
-        
-        var oscurecerFila = function (id, accion) {
-            var fila = $("#" + id);
+
+        //====================JavaScriptPuro====================
+
+        var oscurecerFila = function(id, accion) {
+            var fila = document.getElementById(id);
             if (accion === 1) {
-                fila.attr("style", "background-color: #0080FF;color:white; cursor:pointer;");
+                fila.style.backgroundColor = "#0080FF";
+                fila.style.color = "white";
+                fila.style.cursor = "pointer";
             } else {
-                fila.removeAttr("style");
-            }      
+                fila.style = null;
+            }
         }
 
         var datosAdicionales = function(id) {

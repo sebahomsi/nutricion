@@ -21,7 +21,7 @@ namespace NutricionWeb.Controllers.Mail
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create(MailViewModel vm)
         {
 
@@ -36,7 +36,7 @@ namespace NutricionWeb.Controllers.Mail
                     mmsg.From = new MailAddress(vm.MailEmisor);
                     mmsg.Body = vm.CuerpoMensaje;
                     mmsg.BodyEncoding = Encoding.UTF8;
-                    if (vm.Imagenes.Any())
+                    if (vm.Imagenes.Any(x=>x != null))
                     {
                         foreach (var imagen in vm.Imagenes)
                         {
