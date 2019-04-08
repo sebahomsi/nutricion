@@ -13,16 +13,18 @@
     <div class="col-lg-6" align="left">
         <div class="btn-group">
             @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
+
+            @Html.ActionLink("Duplicar Existente", "DuplicarPlan", new { }, new { @class = "btn btn-primary" })
             @if (@ViewBag.Eliminado == false)
-            {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary" })
+    {
+        @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary" })
 
-            }
-            else
-            {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary" })
+}
+else
+{
+        @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary" })
 
-            }
+}
         </div>
     </div>
     <div class="col-lg-6" align="right">

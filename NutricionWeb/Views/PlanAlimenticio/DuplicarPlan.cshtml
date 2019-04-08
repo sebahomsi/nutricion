@@ -1,0 +1,214 @@
+﻿@model NutricionWeb.Models.PlanAlimenticio.DuplicarViewModel
+
+@{
+    ViewBag.Title = "DuplicarPlan";
+}
+
+<div class="titulo-ABM">
+    <h4 class="create-h4">Duplicar Registro</h4>
+</div>
+
+<!--Modal -->
+<div class="modal fade" id="modal-pacientes" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Paciente</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarPaciente" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarPaciente" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindPaciente"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-paciente" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal -->
+<div class="modal fade" id="modal-planes" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Plan</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarPlan" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarPlan" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindPlan"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-plan" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4 style="margin-left: 17%;">Seleccione Paciente al cual se le asignará el plan y el plan ya existente.</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PlanId)
+        @Html.HiddenFor(model => model.PacienteId)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PacienteStr, new { @class = "control-label col-md-2" })
+            <div class="col-md-4" style="width: 310px">
+                @Html.EditorFor(model => model.PacienteStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.PacienteStr, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2" align="left">
+                <div id="btn-Paciente" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-pacientes" value="Modal BuscarPacientes" title="Seleccionar paciente">...</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlanStr, new { @class = "control-label col-md-2" })
+            <div class="col-md-4" style="width: 310px">
+                @Html.EditorFor(model => model.PlanStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.PlanStr, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2" align="left">
+                <div id="btn-Plan" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-planes" value="Modal BuscarPlanes" title="Seleccionar plan">...</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Aceptar" class="btn btn-success" />
+                @Html.ActionLink("Volver", "Index", new {}, new {@class = "btn btn-default"})
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#btn-Paciente").click(function() {
+                    listaPaciente();
+                }
+            );
+
+
+            function listaPaciente() {
+                $("#partialFindPaciente").empty();
+
+                $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAntropometrico"))',
+                    {
+                        cadenaBuscar: $("#txt-BuscarPaciente").val()
+                    },
+                    function (listaPaciente) {
+                        $("#partialFindPaciente").append(listaPaciente);
+                    });
+            }
+
+
+
+            $(document).on("click",
+                "#seleccionar-paciente",
+                function() {
+
+                    var url = '@Html.Raw(Url.Action("TraerPaciente", "DatoAntropometrico"))';
+
+                    $.get(url,
+                        { pacienteId: $(this).attr("name") },
+                        function(paciente) {
+
+                            $('#PacienteStr').val(paciente.Apellido + " " + paciente.Nombre);
+                            $('#PacienteId').val(paciente.Id);
+                            $('#cancelar-paciente').trigger("click");
+                        });
+                });
+
+            $("#btn-Plan").click(function() {
+                    listaPlan();
+                }
+            );
+
+
+            function listaPlan() {
+                $("#partialFindPlan").empty();
+
+                $.get('@Html.Raw(Url.Action("BuscarPlan", "PlanAlimenticio"))',
+                    {
+                        cadenaBuscar: $("#txt-BuscarPlan").val()
+                    },
+                    function (listaPlan) {
+                        $("#partialFindPlan").append(listaPlan);
+                    });
+            }
+
+
+
+            $(document).on("click",
+                "#seleccionar-plan",
+                function() {
+
+                    var url = '@Html.Raw(Url.Action("TraerPlan", "PlanAlimenticio"))';
+
+                    $.get(url,
+                        { planId: $(this).attr("name") },
+                        function(plan) {
+
+                            $('#PlanStr').val(plan.Motivo);
+                            $('#PlanId').val(plan.Id);
+                            $('#cancelar-plan').trigger("click");
+                        });
+                });
+
+
+        });
+
+
+    </script>
+}

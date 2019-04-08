@@ -49,14 +49,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 await _planAlimenticioServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (planes == null) return HttpNotFound();
-            try
-            {
-                await _planAlimenticioServicio.DuplicatePlan(1, 2);
-            }
-            catch (Exception ex)
-            {
-                var a = ex;
-            }
+           
 
 
             return View(planes.Select(x => new PlanAlimenticioViewModel()
@@ -73,6 +66,30 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
 
             
+        }
+
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> DuplicarPlan()
+        {
+            return View(new DuplicarViewModel());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DuplicarPlan(DuplicarViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _planAlimenticioServicio.DuplicatePlan(vm.PlanId, vm.PacienteId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
+            }
+            return RedirectToAction("Index");
         }
 
 
@@ -93,7 +110,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 if (ModelState.IsValid)
                 {
                     var planDto = CargarDatos(vm);
-                    //planDto.Codigo = await _planAlimenticioServicio.GetNextCode();
+                    planDto.Codigo = await _planAlimenticioServicio.GetNextCode();
 
                     var planId = await _planAlimenticioServicio.Add(planDto);
                     await _diaServicio.GenerarDias(planId);
@@ -404,6 +421,35 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 FechaNac = x.FechaNac,
                 Sexo = x.Sexo,
                 Mail = x.Mail,
+                Eliminado = x.Eliminado,
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
+
+        public async Task<ActionResult> TraerPlan(long? planId)
+        {
+            if (planId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var plan = await _planAlimenticioServicio.GetById(planId.Value);
+
+            return Json(plan, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> BuscarPlan(int? page, string cadenaBuscar)
+        {
+            var pageNumber = page ?? 1;
+            var eliminado = false;
+            var planes =
+                await _planAlimenticioServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
+            if (planes == null) return HttpNotFound();
+
+            return PartialView(planes.Select(x => new PlanAlimenticioViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                PacienteStr = x.PacienteStr,
+                Motivo = x.Motivo,
+                Comentarios = x.Comentarios,
                 Eliminado = x.Eliminado,
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }

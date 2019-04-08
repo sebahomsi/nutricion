@@ -30,4 +30,17 @@ namespace NutricionWeb.Models.PlanAlimenticio
 
         public int TotalCalorias { get; set; }
     }
+
+    public class DuplicarViewModel
+    {
+        public long PlanId { get; set; }
+
+        [Display(Name = "Plan Existente")]
+        public string PlanStr { get; set; }
+        public long PacienteId { get; set; }
+
+        [Display(Name = "Paciente Destino")]
+        public string PacienteStr { get; set; }
+
+    }
 }

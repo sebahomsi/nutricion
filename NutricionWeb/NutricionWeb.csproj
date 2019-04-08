@@ -757,6 +757,8 @@
     <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
     <Content Include="Views\DatoAntropometrico\CreateParcial.cshtml" />
     <Content Include="Views\DatoAnalitico\CreateParcial.cshtml" />
+    <Content Include="Views\PlanAlimenticio\DuplicarPlan.cshtml" />
+    <Content Include="Views\PlanAlimenticio\BuscarPlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
