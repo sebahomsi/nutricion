@@ -10,7 +10,9 @@ using NutricionWeb.Models.Opcion;
 using PagedList;
 using Servicio.Interface.Comida;
 using Servicio.Interface.ComidaDetalle;
+using Servicio.Interface.Dia;
 using Servicio.Interface.Opcion;
+using Servicio.Interface.PlanAlimenticio;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.ComidaDetalle
@@ -20,12 +22,16 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         private readonly IComidaDetalleServicio _comidaDetalleServicio;
         private readonly IOpcionServicio _opcionServicio;
         private readonly IComidaServicio _comidaServicio;
+        private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
+        private readonly IDiaServicio _diaServicio;
 
-        public ComidaDetalleController(IComidaDetalleServicio comidaDetalleServicio, IOpcionServicio opcionServicio, IComidaServicio comidaServicio)
+        public ComidaDetalleController(IComidaDetalleServicio comidaDetalleServicio, IOpcionServicio opcionServicio, IComidaServicio comidaServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDiaServicio diaServicio)
         {
             _comidaDetalleServicio = comidaDetalleServicio;
             _opcionServicio = opcionServicio;
             _comidaServicio = comidaServicio;
+            _planAlimenticioServicio = planAlimenticioServicio;
+            _diaServicio = diaServicio;
         }
 
         // GET: ComidaDetalle
@@ -74,9 +80,16 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 if (ModelState.IsValid)
                 {
                     var dto = CargarDatos(vm);
+
+                    var comida = await _comidaServicio.GetById(vm.ComidaId);
+
+                    var dia = await _diaServicio.GetById(comida.DiaId);
+
                     dto.Codigo = await _comidaDetalleServicio.GetNextCode();
 
                     await _comidaDetalleServicio.Add(dto);
+
+                    await _planAlimenticioServicio.CalculateTotalCalories(dia.PlanAlimenticioId);
                 }
             }
             catch(Exception ex)

@@ -9,6 +9,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Servicio.Interface.Alimento;
+using Servicio.Interface.Opcion;
 
 namespace Servicio.PlanAlimenticio
 {
@@ -22,13 +24,16 @@ namespace Servicio.PlanAlimenticio
         private readonly IDiaServicio _diaServicio;
         private readonly IComidaServicio _comidaServicio;
         private readonly IComidaDetalleServicio _comidaDetalleServicio;
+        private readonly IOpcionServicio _opcionServicio;
+        private readonly IAlimentoServicio _alimentoServicio;
 
-        public PlanAlimenticioServicio(IDiaServicio diaServicio, IComidaServicio comidaServicio, IComidaDetalleServicio comidaDetalleServicio)
+        public PlanAlimenticioServicio(IDiaServicio diaServicio, IComidaServicio comidaServicio, IComidaDetalleServicio comidaDetalleServicio, IOpcionServicio opcionServicio, IAlimentoServicio alimentoServicio)
         {
-            //_planAlimenticioServicio = planAlimenticioServicio;
             _diaServicio = diaServicio;
             _comidaServicio = comidaServicio;
             _comidaDetalleServicio = comidaDetalleServicio;
+            _opcionServicio = opcionServicio;
+            _alimentoServicio = alimentoServicio;
         }
 
         public async Task<long> Add(PlanAlimenticioDto dto)
@@ -200,6 +205,37 @@ namespace Servicio.PlanAlimenticio
             paciente.PlanesAlimenticios.Add(planNuevo);
             await Context.SaveChangesAsync();
 
+        }
+
+        public async Task CalculateTotalCalories(long plandId)
+        {
+            var plan = await Context.PlanesAlimenticios.Include("Dias.Comidas.ComidasDetalles").FirstOrDefaultAsync(x=> x.Id == plandId);
+
+            if (plan == null) throw new ArgumentNullException();
+
+            var dias = plan.Dias;
+            var caloriasPlan = 0;
+
+            foreach (var dia in dias)
+            {
+                foreach (var comida in dia.Comidas)
+                {
+                    foreach (var comidaDetalle in comida.ComidasDetalles)
+                    {
+                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
+
+                        foreach (var detalle in opcion.OpcionDetalles)
+                        {
+                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
+
+                            var caloria = alimento.MacroNutriente.Calorias;
+                            caloriasPlan += caloria;
+                        }
+                    }
+                }
+            }
+            plan.TotalCalorias = caloriasPlan;
+            await Context.SaveChangesAsync();
         }
 
         private async Task SetCodes()

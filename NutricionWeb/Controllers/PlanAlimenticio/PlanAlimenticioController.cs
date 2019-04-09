@@ -261,33 +261,6 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
         //================================================================Metodos Especiales
 
-        public async Task<ActionResult> CalcularCalorias(long id)
-        {
-            var plan = await _planAlimenticioServicio.GetById(id);
-            var dias = plan.Dias;
-            var caloriasPlan = 0;
-
-            foreach (var dia in dias)
-            {
-                foreach (var comida in dia.Comidas)
-                {
-                    foreach (var comidaDetalle in comida.ComidasDetalles)
-                    {
-                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
-            
-                        foreach (var detalle in opcion.OpcionDetalles)
-                        {
-                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
-
-                            var caloria = alimento.MacroNutriente.Calorias;
-                            caloriasPlan += caloria;
-                        }
-                    }
-                }
-            }
-            return Json(caloriasPlan, JsonRequestBehavior.AllowGet);
-        }
-
         public async Task<ActionResult> ExportarPlan(long id)
         {
             var plan = await _planAlimenticioServicio.GetById(id);

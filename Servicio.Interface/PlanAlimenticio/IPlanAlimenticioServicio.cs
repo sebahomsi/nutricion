@@ -13,5 +13,6 @@ namespace Servicio.Interface.PlanAlimenticio
         Task<int> GetNextCode();
         Task<IEnumerable<PlanAlimenticioDto>> GetByIdPaciente(long id);
         Task DuplicatePlan(long planId, long pacienteId);
+        Task CalculateTotalCalories(long plandId);
     }
 }
