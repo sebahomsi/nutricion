@@ -214,7 +214,7 @@ namespace Servicio.PlanAlimenticio
             if (plan == null) throw new ArgumentNullException();
 
             var dias = plan.Dias;
-            var caloriasPlan = 0;
+            var caloriasPlan = 0m;
 
             foreach (var dia in dias)
             {
@@ -229,12 +229,42 @@ namespace Servicio.PlanAlimenticio
                             var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
 
                             var caloria = alimento.MacroNutriente.Calorias;
+
+                            switch (detalle.UnidadMedidaStr)
+                            {
+                                case "g":
+                                    caloria = (int) (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "ml":
+                                    caloria = (int)(detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "l":
+                                    caloria = (int)((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "kg":
+                                    caloria = (int) ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "cdta":
+                                    caloria = (int) ((detalle.Cantidad * 5) * caloria / 100);
+                                    break;
+                                case "cda":
+                                    caloria = (int) ((detalle.Cantidad * 15) * caloria / 100);
+                                    break;
+                                case "tz":
+                                    caloria = (int) ((detalle.Cantidad * 150) * caloria / 100);
+                                    break;
+                                case "tcta":
+                                    caloria = (int) ((detalle.Cantidad * 100) * caloria / 100);
+                                    break;
+                                default :
+                                    return;
+                            }
                             caloriasPlan += caloria;
                         }
                     }
                 }
             }
-            plan.TotalCalorias = caloriasPlan;
+            plan.TotalCalorias = (int) caloriasPlan;
             await Context.SaveChangesAsync();
         }
 
