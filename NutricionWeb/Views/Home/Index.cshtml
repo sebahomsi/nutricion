@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<p class="text-success">@ViewBag.StatusMessage</p>
 
 <div class="jumbotron">
     <h1 style="font-weight: bold; color: #337ab7;" align="center">POWER NUTRITION</h1>
@@ -16,7 +15,7 @@
         <p><a class="btn btn-default" href="/Establecimiento/Details/1">Leer mas</a></p>
     </div>
     <div class="col-md-4">
-        
+
     </div>
     @if (User.IsInRole("Paciente"))
     {
@@ -26,5 +25,5 @@
             <p>@Html.ActionLink("Leer mas", "Details", "Paciente", new { email = User.Identity.Name }, new { @class = "btn btn-default" })</p>
         </div>
     }
-    
+
 </div>

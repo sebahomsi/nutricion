@@ -1,7 +1,6 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url("/Content/Imagenes/better.jpg")
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -114,5 +113,4 @@ textarea {
 
 .nav.nav-tabs li a {
     margin-top: 10px;
-} 
-
+}
