@@ -12,18 +12,19 @@
     <hr />
     <div class="col-md-1"></div>
     <div class="col-md-4">
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.Codigo):
-            <span class="sub-info">
-                @Html.DisplayFor(model => model.Codigo)
-            </span>
-        </p>
-
+        <br/>
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PacienteStr):
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PacienteStr)
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.FechaMedicion):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.FechaMedicionStr)
             </span>
         </p>
 
@@ -82,12 +83,7 @@
                 @Html.DisplayFor(model => model.PerimetroCintura) cm
             </span>
         </p>
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.FechaMedicion):
-            <span class="sub-info">
-                @Html.DisplayFor(model => model.FechaMedicionStr)
-            </span>
-        </p>
+
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.MasaGrasa):
@@ -104,7 +100,7 @@
         </p>
 
     </div>
-    <div class="col-md-5">
+    <div class="col-md-offset-1 col-md-5">
 
         @if (Model.FotoStr != null)
         {
@@ -116,7 +112,7 @@
         }
     </div>
 
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
 
 
 </div>

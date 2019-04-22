@@ -5,7 +5,7 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="create-h4">Actualizar Registro</h4>
+    <h4 class="create-h4">Alergia/Intolerancia</h4>
 </div>
 
 
@@ -14,7 +14,6 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4 style="margin-left: 17%;">Actualice los campos requeridos.</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)

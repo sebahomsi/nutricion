@@ -5,18 +5,12 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="detail-h4">Datos Analíticos</h4>
+    <h4 class="detail-h4">Dato Analítico</h4>
 </div>
 
 <div class="row">
     <hr />
     <div class="col-md-7">
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.Codigo)
-            <span class="sub-info">
-                @Html.DisplayFor(model => model.Codigo)
-            </span>
-        </p>
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PacienteStr)
@@ -38,14 +32,15 @@
                 @Html.DisplayFor(model => model.ColesterolLdl) mg/dl
             </span>
         </p>
-    </div>
-    <div class="col-md-5">
         <p class="info-style">
             @Html.DisplayNameFor(model => model.ColesterolTotal)
             <span class="sub-info">
                 @Html.DisplayFor(model => model.ColesterolTotal) mg/dl
             </span>
         </p>
+    </div>
+    <div class="col-md-5">
+        
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PresionDiastolica)
@@ -68,23 +63,27 @@
             </span>
         </p>
     </div>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-actions no-color" style="margin-left: 20px;">
-            @if (Model.Eliminado)
-            {
-                <input type="submit" value="Activar" class="btn btn-info" />
-
-            }
-            else
-            {
-                <input type="submit" value="Eliminar" class="btn btn-danger" />
-
-            }
-            @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
-
-        </div>
-    }
+    
 
 </div>
+
+<br/>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color" style="margin-left: 0px;">
+        @if (Model.Eliminado)
+        {
+            <input type="submit" value="Activar" class="btn btn-info" />
+
+        }
+        else
+        {
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+
+        }
+        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+
+    </div>
+}

@@ -11,14 +11,7 @@
 <div class="row">
     <hr />
     <div class="col-md-7" style="margin-left: 10px;">
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.Codigo):
-            <span class="sub-info">
-
-                @Html.DisplayFor(model => model.Codigo)
-            </span>
-
-        </p>
+        
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.Descripcion):
@@ -54,9 +47,6 @@
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.Comidas.FirstOrDefault().Codigo)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Comidas.FirstOrDefault().Descripcion)
         </th>
 
@@ -66,9 +56,6 @@
     @foreach (var item in Model.Comidas)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>

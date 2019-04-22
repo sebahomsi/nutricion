@@ -11,14 +11,6 @@
 <div class="row">
     <hr />
     <div class="col-md-7" style="margin-left: 10px;">
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.Codigo):
-            <span class="sub-info">
-
-                @Html.DisplayFor(model => model.Codigo)
-            </span>
-
-        </p>
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.Descripcion):
@@ -42,9 +34,9 @@
 
 </div>
 <p style="margin-left: 10px;">
-    @Html.ActionLink("Ver Recetas", "Index", "Opcion", new { }, new { @class = "btn btn-primary" , target ="_blank"})
+    @Html.ActionLink("Ver Recetas", "Index", "Opcion", new { }, new { @class = "btn btn-primary-custom" , target ="_blank"})
 
-    @Html.ActionLink("Agregar Receta", "Create", "ComidaDetalle", new { comidaId = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Agregar Receta", "Create", "ComidaDetalle", new { comidaId = Model.Id }, new { @class = "btn btn-primary-custom" })
 
     @Html.ActionLink("Volver al Dia", "Details", "Dia", new { id = Model.DiaId }, new { @class = "btn btn-default" })
 </p>
@@ -58,9 +50,6 @@
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.ComidasDetalles.FirstOrDefault().Codigo)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ComidasDetalles.FirstOrDefault().OpcionStr)
         </th>
 
@@ -70,9 +59,6 @@
     @foreach (var item in Model.ComidasDetalles)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OpcionStr)
             </td>

@@ -57,12 +57,10 @@ a, a:hover, a:focus {
 
     #sidebar.sidebar-header {
         padding: 20px;
-        background: #6d7fcc;
     }
 
     #sidebar ul.component {
         padding: 20px 0px;
-        border-bottom: 1px solid #47748b;
     }
 
     #sidebar ul p {
@@ -83,7 +81,7 @@ a, a:hover, a:focus {
 
     #sidebar ul li.sidebar-active > a, a[aria-expanded="true"] {
         color: #fff;
-        background: #6d7fcc;
+        background: #89bc94;
     }
 
     #sidebar.sidebar-active {
@@ -93,7 +91,6 @@ a, a:hover, a:focus {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
 }
 
 a[data-toggle="collapse"] {
