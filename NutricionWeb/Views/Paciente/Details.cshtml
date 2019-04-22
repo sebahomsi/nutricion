@@ -6,18 +6,12 @@
 
 <div class="row">
     <div class="titulo-ABM">
-        <h4 class="detail-h4">Detalles del Paciente</h4>
+        <h4 class="detail-h4">Paciente</h4>
     </div>
 
     <hr />
     <div class="col-md-8">
         <div class="col-md-7">
-            <p class="info-style">
-                @Html.DisplayNameFor(model => model.Codigo):
-                <span class="sub-info">
-                    @Html.DisplayFor(model => model.Codigo)
-                </span>
-            </p>
 
             <p class="info-style">
                 @Html.DisplayNameFor(model => model.ApyNom):
@@ -80,21 +74,14 @@
                 </span>
             </p>
 
-            <p class="info-style">
-                @Html.DisplayNameFor(model => model.EliminadoStr):
-                <span class="sub-info">
-                    @Html.DisplayFor(model => model.EliminadoStr)
-                </span>
-            </p>
-
         </div>
     </div>
 
     @if (Model.FotoStr != null)
     {
         <div class="col-md-4">
-            <div class="imagen-fondo">
-                <img src="@Url.Content(Model.FotoStr)" alt="Image" style="margin-left: 60px; width:100%; height: 340px; max-width: 240px; max-height: 340px;" />
+            <div>
+                <img src="@Url.Content(Model.FotoStr)" alt="Image" style="margin-left: 60px; width:100%; height: 310px; max-width: 240px; max-height: 310px;" />
             </div>
         </div>
     }

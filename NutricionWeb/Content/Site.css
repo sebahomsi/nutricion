@@ -39,13 +39,21 @@ textarea {
     margin: 1px;
 }
 .detail-h4 {
-    font-size: 35px;
+    font-size: 4em;
     text-align: center;
-    border: 2px solid #337ab7;
     width: 50%;
     margin-left: 25%;
-    border-radius: 4px;
-    background-color: floralwhite;
+}
+
+.btn-primary-custom {
+    color: #fff;
+    background-color: #89bc94;
+}
+
+.btn-primary-custom1 {
+    color: #fff;
+    background-color: #89bc94;
+    margin-right: 2px;
 }
 
 .detail-h3 {
@@ -70,18 +78,15 @@ textarea {
 .titulo-ABM {
     padding-top: 5px;
     padding-bottom: 5px;
-    color: #337ab7;
+    color: #89bc94;
     text-align: left;
 }
 
 .create-h4 {
-    font-size: 35px;
+    font-size: 4em;
     text-align: center;
-    border: 2px solid #337ab7;
     width: 50%;
     margin-left: 17%;
-    border-radius: 4px;
-    background-color: floralwhite;
 }
 .info-style{
     font-weight: bold;  
@@ -89,12 +94,12 @@ textarea {
 }
 .sub-info {
     font-weight: normal;
-    color: #337ab7;
+    color: #89bc94;
     font-size: 19px;
 }
 .cabecera-tabla {
-    background-color: #C2D8FA;
-    border: 2px solid #337ab7;
+    background-color: rgba(137, 188, 148, .5);
+    border: 2px solid #89bc94;
     border-radius: 4px;
 }
 .navbar-lay {

@@ -6,21 +6,21 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="detail-h4">Lista de Pacientes</h4>
+    <h4 class="detail-h4">Pacientes</h4>
 </div>
 
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary-custom1" })
             @if (@ViewBag.Eliminado == false)
             {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary-custom" })
 
             }
             else
             {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary-custom" })
 
             }
         </div>
@@ -120,7 +120,7 @@
         var oscurecerFila = function(id, accion) {
             var fila = document.getElementById(id);
             if (accion === 1) {
-                fila.style.backgroundColor = "#0080FF";
+                fila.style.backgroundColor = "#89bc94";
                 fila.style.color = "white";
                 fila.style.cursor = "pointer";
             } else {

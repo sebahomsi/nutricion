@@ -361,6 +361,7 @@
     <Content Include="Content\Imagenes\fondito.png" />
     <Content Include="Content\Imagenes\archivo.png" />
     <Content Include="Content\Imagenes\Icono-ZIP.png" />
+    <Content Include="Content\Imagenes\logo-novillo.png" />
     <Content Include="Content\Imagenes\portada.png" />
     <Content Include="Content\Imagenes\rar.png" />
     <Content Include="Content\Imagenes\user-icon.jpg" />

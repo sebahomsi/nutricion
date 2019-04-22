@@ -49,8 +49,9 @@ a, a:hover, a:focus {
     left: 0;
     height: 100vh;
     z-index: 99;
-    background: #7386d5;
-    color: #fff;
+    background: white;
+    color: #89bc94;
+    border-left: #89bc94 solid 5px;
     transition: all 0.3s;
 }
 
@@ -76,8 +77,8 @@ a, a:hover, a:focus {
     }
 
         #sidebar ul li a:hover {
-            color: #7386d5;
-            background: #fff;
+            color: #fff;
+            background: #89bc94;
         }
 
     #sidebar ul li.sidebar-active > a, a[aria-expanded="true"] {
@@ -154,3 +155,10 @@ a[data-toggle="collapse"] {
         visibility: visible;
         margin: 5px auto;
     }
+
+    .img-portada {
+        max-height: 320px;
+        max-width: 450px;
+        margin: 0px auto;
+    }
+
