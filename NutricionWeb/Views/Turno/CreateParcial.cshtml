@@ -1,0 +1,216 @@
+﻿@model NutricionWeb.Models.Turno.TurnoABMViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="titulo-ABM">
+    <h4 class="create-h4">Nuevo Registro</h4>
+</div>
+
+<div class="modal fade" id="modal-estados" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Estado</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarEstado" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarEstado" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindEstado"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-estado" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Ajax.BeginForm("CreateParcial", "Turno", new { }, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "turnos-Parcial"
+}, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4 style="margin-left: 17%;">Complete los campos con los datos solicitados.</h4>
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PacienteId)
+        @Html.HiddenFor(model => model.EstadoId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PacienteStr, new { @class = "control-label col-md-2" })
+            <div class="col-md-4" style="width: 310px">
+                @Html.EditorFor(model => model.PacienteStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.PacienteStr, "", new { @class = "text-danger" })
+            </div>
+            
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HorarioEntrada, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="width: 310px">
+                <div class="input-group datepicker" id="entrada">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time">
+                        </span>
+                    </span>
+                    @Html.EditorFor(model => model.HorarioEntrada, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.HorarioEntrada, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HorarioSalida, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="width: 310px">
+                <div class="input-group datepicker" id="salida">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time">
+                        </span>
+                    </span>
+                    @Html.EditorFor(model => model.HorarioSalida, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.HorarioSalida, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Motivo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Motivo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Motivo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstadoDescripcion, new { @class = "control-label col-md-2" })
+            <div class="col-md-4" style="width: 310px">
+                @Html.EditorFor(model => model.EstadoDescripcion, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.EstadoDescripcion, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2" align="left">
+                <div id="btn-Estado" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-estados" value="Modal BuscarEstados" title="Seleccionar estado">...</div>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Aceptar" class="btn btn-success" />
+                @Ajax.ActionLink("Volver", "TurnosParcial", "Paciente", new { id = @Model.PacienteId }, new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "turnos-Parcial",
+
+        }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(function() {
+
+
+            $("#btn-Estado").click(function () {
+                listaEstado();
+            });
+
+            function listaEstado() {
+            $("#partialFindEstado").empty();
+
+                $.get('@Url.Action("BuscarEstado", "Turno")',
+                {
+                    cadenaBuscar: $("#txt-BuscarEstado").val()
+                },
+                function(listaEstado) {
+                    $("#partialFindEstado").append(listaEstado);
+                });
+            }
+
+
+
+
+            $(document).on("click",
+                "div [data-seleccionar]",
+                function() {
+
+                    var url = '@Html.Raw(Url.Action("TraerEstado", "Turno"))';
+
+                    $.get(url,
+                        { id: $(this).attr("id") },
+                        function(estado) {
+
+                            $('#EstadoDescripcion').val(estado.Descripcion);
+                            $('#EstadoId').val(estado.Id);
+                            $('#cancelar-estado').trigger("click");
+                        });
+                });
+
+
+
+            $(function() {
+                var now = new Date();
+
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+
+                $("#HorarioEntrada, #HorarioSalida").datetimepicker({
+                    locale: "es",
+                    useCurrent: true,
+                    minDate: today,
+                    format: "DD/MM/YYYY HH:mm",
+                    ignoreReadonly: true,
+                });
+
+                $(document).ready(function() {
+                    var now = new Date();
+
+                    var day = ("0" + now.getDate()).slice(-2);
+                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+                });
+            });
+        });
+
+
+    </script>
+
