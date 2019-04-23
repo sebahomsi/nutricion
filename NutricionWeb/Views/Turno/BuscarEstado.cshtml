@@ -1,21 +1,15 @@
 ﻿@model IEnumerable<NutricionWeb.Models.Estado.EstadoViewModel>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo", "Create", "Estado", new {}, new{@class="btn btn-primary-custom"})
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Color)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Eliminado)
         </th>
         <th></th>
     </tr>
@@ -23,19 +17,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Descripcion)
         </td>
         <td>
             <div style="background-color:@item.Color; height: 30px;width: 30px"></div>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Eliminado)
-        </td>
-        <td>
-            <div data-seleccionar id="@item.Id" class="btn btn-primary">Seleccionar</div>
+            <div data-seleccionar id="@item.Id" class="btn btn-primary-custom">Seleccionar</div>
         </td>
     </tr>
 }

@@ -3,9 +3,6 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
 
         <th>
             @Html.DisplayNameFor(model => model.PacienteStr)
@@ -14,10 +11,6 @@
             @Html.DisplayNameFor(model => model.Motivo)
         </th>
 
-
-        <th>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.TotalCalorias)
         </th>
@@ -26,9 +19,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
 
         <td>
             @Html.DisplayFor(modelItem => item.PacienteStr)
@@ -36,15 +26,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Motivo)
         </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.EliminadoStr)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.TotalCalorias)
         </td>
         <td>
-            <input type="button" id="seleccionar-plan" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
+            <input type="button" id="seleccionar-plan" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
 
         </td>
     </tr>

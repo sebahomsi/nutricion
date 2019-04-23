@@ -5,7 +5,7 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="create-h4">Nuevo Registro</h4>
+    <h4 class="create-h4">Datos Antropométricos</h4>
 </div>
 
 
@@ -19,7 +19,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4 style="margin-left: 17%;">Complete los campos con los datos solicitados.</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.PacienteId)
@@ -104,7 +103,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <span class="btn btn-primary btn-primary">
+                <span class="btn btn-primary-custom">
                     @Html.TextBoxFor(model => model.Foto, new { type = "file" })
                 </span>
             </div>

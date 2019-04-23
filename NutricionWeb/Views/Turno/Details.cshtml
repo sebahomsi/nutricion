@@ -5,20 +5,12 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="detail-h4">Detalles del Turno</h4>
+    <h4 class="detail-h4">Turno</h4>
 </div>
 
 <div class="row">
     <hr />
     <div class="col-md-7">
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.Numero):
-            <span class="sub-info">
-
-                @Html.DisplayFor(model => model.Numero)
-            </span>
-
-        </p>
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PacienteStr):
@@ -52,14 +44,6 @@
             <span class="sub-info">
 
                 @Html.DisplayFor(model => model.Motivo)
-            </span>
-
-        </p>
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.Eliminado):
-            <span class="sub-info">
-
-                @Html.DisplayFor(model => model.EliminadoStr)
             </span>
 
         </p>

@@ -6,20 +6,20 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="detail-h4">Lista de Pagos del dia</h4>
+    <h4 class="detail-h4">Pagos</h4>
 </div>
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary-custom1" })
             @if (@ViewBag.Eliminado == false)
             {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary-custom" })
 
             }
             else
             {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary-custom" })
 
             }
         </div>
@@ -40,9 +40,6 @@
 <table class="table">
     <tr class="cabecera-tabla">
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
         </th>
 
@@ -55,9 +52,6 @@
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Fecha)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().EstaEliminado)
-        </th>
 
 
         <th></th>
@@ -66,9 +60,6 @@
     @foreach (var item in Model)
     {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.PacienteStr)
         </td>
@@ -81,9 +72,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FechaStr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstaEliminado)
         </td>
 
 

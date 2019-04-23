@@ -4,9 +4,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ApyNom)
         </th>
 
@@ -15,16 +12,13 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
 
         <td>
             @Html.DisplayFor(modelItem => item.ApyNom)
         </td>
         
         <td>
-            <input type="button" id="seleccionar-paciente" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
+            <input type="button" id="seleccionar-paciente" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
 
         </td>
     </tr>
