@@ -125,6 +125,47 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
         }
 
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> CreateParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return PartialView(new PlanAlimenticioABMViewModel()
+            {
+                PacienteId = paciente.Id,
+                PacienteStr = $"{paciente.Apellido} {paciente.Nombre}"
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(PlanAlimenticioABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var datosDto = CargarDatos(vm);
+                    datosDto.Codigo = await _planAlimenticioServicio.GetNextCode();
+
+                    await _planAlimenticioServicio.Add(datosDto);
+                }
+                else
+                {
+                    return PartialView(vm);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("PlanesAlimenticiosParcial", "Paciente", new { id = vm.PacienteId });
+
+        }
+
         // GET: PlanAlimenticio/Edit/5
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)

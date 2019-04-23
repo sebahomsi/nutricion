@@ -4,7 +4,13 @@
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            @Html.ActionLink("Nuevo", "Create", "PlanAlimenticio", new { }, new { @class = "btn btn-primary-custom" })
+            @Ajax.ActionLink("Nuevo", "CreateParcial", "PlanAlimenticio", new { id = (long)ViewBag.PacienteId }, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "planesAlimenticios-Parcial",
+
+    }, new { @class = "btn btn-primary-custom" })
         </div>
     </div>
 </div>

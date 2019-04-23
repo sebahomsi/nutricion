@@ -1,0 +1,84 @@
+﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioABMViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="titulo-ABM">
+    <h4 class="create-h4">Nuevo Registro</h4>
+</div>
+
+
+@using (Ajax.BeginForm("CreateParcial", "PlanAlimenticio", new { }, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "planesAlimenticios-Parcial"
+}, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4 style="margin-left: 17%;">Complete los campos con los datos solicitados.</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PacienteId)
+        @Html.HiddenFor(model => model.Codigo)
+        @Html.HiddenFor(model => model.Fecha)
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PacienteStr, new { @class = "control-label col-md-2" })
+            <div class="col-md-4" style="width: 310px">
+                @Html.EditorFor(model => model.PacienteStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.PacienteStr, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Motivo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Motivo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Motivo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comentarios, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Comentarios, new { htmlAttributes = new { @class = "comentarios" } })
+
+                @Html.ValidationMessageFor(model => model.Comentarios, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Aceptar" class="btn btn-success" />
+                @Ajax.ActionLink("Volver", "PlanesAlimenticiosParcial", "Paciente", new { id = @Model.PacienteId }, new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "planesAlimenticios-Parcial",
+
+                }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+
+    </script>
+}
