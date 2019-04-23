@@ -5,7 +5,7 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="create-h4">Nuevo Registro</h4>
+    <h4 class="create-h4">Turno</h4>
 </div>
 
 <div class="modal fade" id="modal-estados" tabindex="-1" role="dialog">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="cancelar-estado" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button type="button" id="cancelar-estado" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             </div>
         </div>
     </div>
@@ -54,7 +54,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4 style="margin-left: 17%;">Complete los campos con los datos solicitados.</h4>
 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
