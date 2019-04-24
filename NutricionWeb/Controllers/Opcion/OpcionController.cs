@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -35,6 +36,31 @@ namespace NutricionWeb.Controllers.Opcion
 
 
             return View(opciones.Select(x=> new OpcionViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Eliminado = x.Eliminado
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
+
+        public async Task<ActionResult> BuscarRecetasPorAlimentos(int? page, List<long> ids)
+        {
+            var pageNumber = page ?? 1;
+
+            var opciones = new List<OpcionDto>();
+
+            if(ids == null)
+            {
+                opciones = (List<OpcionDto>) await _opcionServicio.Get(false, string.Empty);
+            }
+            else
+            {
+                opciones = await _opcionServicio.FindRecipeByFoods(ids);
+            }           
+
+
+            return View(opciones.Select(x => new OpcionViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,

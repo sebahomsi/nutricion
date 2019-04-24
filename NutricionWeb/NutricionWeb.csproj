@@ -764,6 +764,7 @@
     <Content Include="Views\PlanAlimenticio\BuscarPlan.cshtml" />
     <Content Include="Views\PlanAlimenticio\CreateParcial.cshtml" />
     <Content Include="Views\Turno\CreateParcial.cshtml" />
+    <Content Include="Views\Opcion\BuscarRecetasPorAlimentos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
