@@ -18,11 +18,7 @@
 <div class="table-responsive">
     <table class="table">
         <tr class="cabecera-tabla">
-
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
-            </th>
-
+            
             <th>
                 Fecha
             </th>
@@ -38,10 +34,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PacienteStr)
-                </td>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaEntradaStr)
                 </td>

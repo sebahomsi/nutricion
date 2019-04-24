@@ -20,34 +20,32 @@
         <tr class="cabecera-tabla">
 
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FechaMedicion)
             </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().PesoActual) 
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Altura) 
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PesoDeseado) 
             </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().FechaMedicion)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().MasaGrasa) 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().MasaCorporal) 
+                IMC
             </th>
             <th></th>
         </tr>
-
-        @foreach (var item in Model)
+        
+        @foreach (var item in Model.OrderBy(model => model.FechaMedicion))
         {
             <tr>
-
                 <td>
-                    @Html.DisplayFor(modelItem => item.PacienteStr)
+                    @Html.DisplayFor(modelItem => item.FechaMedicionStr)
                 </td>
 
                 <td>
@@ -55,12 +53,10 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Altura) cm
+                    @Html.DisplayFor(modelItem => item.PesoDeseado) kg
                 </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaMedicionStr)
-                </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.MasaGrasa) %
                 </td>
