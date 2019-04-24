@@ -18,9 +18,6 @@
 <div class="table-responsive">
     <table class="table">
         <tr class="cabecera-tabla">
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Numero)
-            </th>
 
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
@@ -35,18 +32,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Motivo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
-            </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Numero)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PacienteStr)
                 </td>
@@ -60,9 +51,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Motivo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EliminadoStr)
                 </td>
                 <td align="right">
                     @Html.ActionLink("Actualizar", "Edit", "Turno", new { id = item.Id }, new { @class = "btn btn-warning" })
