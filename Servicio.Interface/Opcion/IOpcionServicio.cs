@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Servicio.Interface.Observacion;
 
 namespace Servicio.Interface.Opcion
 {
@@ -15,5 +11,6 @@ namespace Servicio.Interface.Opcion
         Task<ICollection<OpcionDto>> Get(bool eliminado, string cadenaBuscar);
         Task<OpcionDto> GetById(long id);
         Task<int> GetNextCode();
+        Task<List<OpcionDto>> FindRecipeByFoods(List<long> alimentosIds);
     }
 }

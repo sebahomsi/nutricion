@@ -126,5 +126,54 @@ namespace Servicio.Opcion
 
             return id?.Id;
         }
+
+        public async Task<List<OpcionDto>> FindRecipeByFoods(List<long> alimentosIds)
+        {
+            var recetasFiltradas = new List<OpcionDto>();
+            var flag = false;
+            var recetas = await Context.Opciones
+                .AsNoTracking()
+                .Include("OpcionesDetalles")
+                .Select(opcion => new OpcionDto()
+                {
+                    Id = opcion.Id,
+                    Codigo = opcion.Codigo,
+                    Descripcion = opcion.Descripcion,
+                    Eliminado = opcion.Eliminado,
+                    OpcionDetalles = opcion.OpcionDetalles.Where(x => x.Eliminado == false).Select(x => new OpcionDetalleDto()
+                    {
+                        Id = x.Id,
+                        Codigo = x.Codigo,
+                        AlimentoId = x.AlimentoId,
+                        AlimentoStr = x.Alimento.Descripcion,
+                        Cantidad = x.Cantidad,
+                        OpcionId = x.OpcionId,
+                        OpcionStr = x.Opcion.Descripcion,
+                        UnidadMedidaId = x.UnidadMedidaId,
+                        UnidadMedidaStr = x.UnidadMedida.Abreviatura,
+                        Eliminado = x.Eliminado
+                    }).ToList()
+                }).ToListAsync();
+
+            foreach (var receta in recetas)
+            {
+                foreach (var detalle in receta.OpcionDetalles)
+                {
+                    foreach (var alimento in alimentosIds)
+                    {
+                        if (detalle.AlimentoId == alimento)
+                        {
+                            flag = true;
+                        }
+                    }
+                }
+                if (flag == true)
+                {
+                    recetasFiltradas.Add(receta);
+                    flag = false;
+                }
+            }
+            return recetasFiltradas;
+        }
     }
 }
