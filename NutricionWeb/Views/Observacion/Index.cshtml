@@ -6,7 +6,7 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="detail-h4">Lista de Observaciones</h4>
+    <h4 class="detail-h4">Observaciones</h4>
 </div>
 
 
@@ -15,12 +15,12 @@
         <div class="btn-group">
             @if (@ViewBag.Eliminado == false)
             {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary-custom" })
 
             }
             else
             {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary-custom" })
 
             }
         </div>

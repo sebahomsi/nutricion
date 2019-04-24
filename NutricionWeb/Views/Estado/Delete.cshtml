@@ -4,54 +4,55 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Estado</h4>
+</div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>EstadoViewModel</h4>
+<div class="row">
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
+    <div class="col-md-7">
 
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Descripcion):
+            <span class="sub-info">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
+                @Html.DisplayFor(model => model.Descripcion)
+            </span>
 
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
+        </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Color):
+            <div style="background-color: @Model.Color; height: 30px; width: 30px"></div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Color)
-        </dd>
+        </p>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </dt>
+</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Eliminado)
-        </dd>
 
-    </dl>
+<div class="row">
+    <div class="col">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Descripcion)
+            @Html.HiddenFor(x => x.Color)
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(x=>x.Descripcion)
-        @Html.HiddenFor(x=>x.Color)
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+            <div class="form-actions no-color" style="margin-left: 20px;">
+                @if (Model.Eliminado)
+                {
+                    <input type="submit" value="Activar" class="btn btn-info" />
+
+                }
+                else
+                {
+                    <input type="submit" value="Eliminar" class="btn btn-danger" />
+
+                }
+                @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+
+            </div>
+        }
+    </div>
 </div>

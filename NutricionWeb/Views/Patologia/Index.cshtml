@@ -6,21 +6,21 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="detail-h4">Lista de Patologias</h4>
+    <h4 class="detail-h4">Patologías</h4>
 </div>
 
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary-custom1" })
             @if (@ViewBag.Eliminado == false)
             {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary-custom" })
 
             }
             else
             {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary-custom" })
 
             }
         </div>
@@ -41,28 +41,16 @@
     <table class="table">
         <tr class="cabecera-tabla">
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
             </th>
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.OrderBy(model => model.Descripcion))
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Codigo)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EliminadoStr)
                 </td>
                 <td align="right">
                     @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
