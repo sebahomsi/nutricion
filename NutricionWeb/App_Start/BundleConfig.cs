@@ -14,7 +14,8 @@ namespace NutricionWeb
                         "~/Scripts/jquery.validate.js",
                         "~/Scripts/jquery.validate.unobtrusive.js",
                         "~/Scripts/moment.js",
-                        "~/Scripts/fontawesome/all.js"));
+                        "~/Scripts/fontawesome/all.js",
+                        "~/Scripts/chosen.jquery.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -39,7 +40,8 @@ namespace NutricionWeb
                 "~/Content/site.css",
                 "~/Content/MiHojita.css",
                 "~/Content/bootstrap-datetimepicker.css",
-                "~/Content/fullcalendar.css"
+                "~/Content/fullcalendar.css",
+                "~/Content/Chosen/chosen.min.css"
             ).Include("~/Content/fontawesome.css", new CssRewriteUrlTransform()));
         }
     }
