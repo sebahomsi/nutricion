@@ -1,10 +1,17 @@
-﻿@model IEnumerable<NutricionWeb.Models.Opcion.OpcionABMViewModel>
+﻿@model IEnumerable<NutricionWeb.Models.Opcion.OpcionViewModel>
 
 @{
     ViewBag.Title = "BuscarRecetasPorAlimentos";
 }
 
 <h2>BuscarRecetasPorAlimentos</h2>
+
+
+
+@using (Html.BeginForm())
+{
+
+}
 
 
 <table class="table">
@@ -21,21 +28,22 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Eliminado)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) 
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eliminado)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

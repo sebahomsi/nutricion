@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using NutricionWeb.Models.ComidaDetalle;
@@ -21,6 +22,9 @@ namespace NutricionWeb.Models.Opcion
         [Display(Name = "Eliminado")]
         [ScaffoldColumn(false)]
         public string EliminadoStr => Eliminado ? "SI" : "NO";
+
+        [NotMapped]
+        public List<long> AlimentosSeleccionadosId { get; set; }
 
         public List<OpcionDetalleViewModel> OpcionDetalles { get; set; }
         public List<ComidaDetalleViewModel> ComidasDetalles { get; set; }
