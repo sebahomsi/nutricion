@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Antlr.Runtime.Misc;
 using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Opcion;
 using NutricionWeb.Models.OpcionDetalle;
 using PagedList;
+using Servicio.Interface.Alimento;
 using Servicio.Interface.Opcion;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -18,14 +20,16 @@ namespace NutricionWeb.Controllers.Opcion
     public class OpcionController : Controller
     {
         private readonly IOpcionServicio _opcionServicio;
+        private readonly IAlimentoServicio _alimentoServicio;
 
-        public OpcionController(IOpcionServicio opcionServicio)
+        public OpcionController(IOpcionServicio opcionServicio, IAlimentoServicio alimentoServicio)
         {
             _opcionServicio = opcionServicio;
+            _alimentoServicio = alimentoServicio;
         }
 
         // GET: Opcion
-        public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
+        public async Task<ActionResult> Index(List<long> recetas,int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
@@ -44,29 +48,49 @@ namespace NutricionWeb.Controllers.Opcion
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
-        public async Task<ActionResult> BuscarRecetasPorAlimentos(int? page, List<long> ids)
+        public async Task<ActionResult> BuscarRecetasPorAlimentos()
         {
-            var pageNumber = page ?? 1;
-
-            var opciones = new List<OpcionDto>();
-
-            if(ids == null)
+            return View(new BuscarRecetaViewModel()
             {
-                opciones = (List<OpcionDto>) await _opcionServicio.Get(false, string.Empty);
+                Alimentos = await _alimentoServicio.Get(false,string.Empty)
+            });
+        }
+        [HttpPost]
+        public async Task<ActionResult> BuscarRecetasPorAlimentos(BuscarRecetaViewModel vm)
+        {
+            var lista = new List<long>();
+            if (vm.AlimentosSeleccionados != null)
+            {
+                foreach (var alimento in vm.AlimentosSeleccionados)
+                {
+                    lista.Add(long.Parse(alimento));
+                }
             }
-            else
+            
+            var recetasDto = await _opcionServicio.FindRecipeByFoods(lista);
+
+            var recetas = recetasDto.Select(x => new OpcionViewModel()
             {
-                opciones = await _opcionServicio.FindRecipeByFoods(ids);
-            }           
+                Eliminado = x.Eliminado,
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
 
+            }).ToList();
+            TempData["recetas"] = recetas;
+            return RedirectToAction("RecetasFiltradas", "Opcion");
+        }
 
-            return View(opciones.Select(x => new OpcionViewModel()
+        public ActionResult RecetasFiltradas()
+        {
+            var dtos = (List<OpcionViewModel>) TempData["recetas"] ?? new ListStack<OpcionViewModel>();
+            return View(dtos.Select(x => new OpcionViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
                 Descripcion = x.Descripcion,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(1, CantidadFilasPorPaginas));
         }
 
         // GET: Opcion/Details/5

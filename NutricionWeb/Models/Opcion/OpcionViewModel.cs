@@ -4,8 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.OpcionDetalle;
+using Servicio.Interface.Alimento;
 
 namespace NutricionWeb.Models.Opcion
 {
@@ -22,11 +24,17 @@ namespace NutricionWeb.Models.Opcion
         [Display(Name = "Eliminado")]
         [ScaffoldColumn(false)]
         public string EliminadoStr => Eliminado ? "SI" : "NO";
-
-        [NotMapped]
-        public List<long> AlimentosSeleccionadosId { get; set; }
+        
 
         public List<OpcionDetalleViewModel> OpcionDetalles { get; set; }
         public List<ComidaDetalleViewModel> ComidasDetalles { get; set; }
+    }
+
+    public class BuscarRecetaViewModel
+    {
+        [NotMapped]
+        public ICollection<AlimentoDto> Alimentos { get; set; }
+
+        public string[] AlimentosSeleccionados { get; set; }
     }
 }
