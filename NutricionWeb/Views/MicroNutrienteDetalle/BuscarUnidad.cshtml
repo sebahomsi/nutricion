@@ -4,9 +4,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
@@ -16,11 +13,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderBy(model => model.Descripcion)) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descripcion)
         </td>
@@ -29,7 +23,7 @@
         </td>
         
         <td>
-            <input type="button" id="seleccionar-unidad" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
+            <input type="button" id="seleccionar-unidad" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
         </td>
     </tr>
 }

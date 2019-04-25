@@ -301,6 +301,8 @@ namespace NutricionWeb.Controllers.Paciente
             return View(new PacienteViewModel()
             {
                 Id = paciente.Id,
+                Nombre = paciente.Nombre,
+                Apellido = paciente.Apellido,
             });
         }
 

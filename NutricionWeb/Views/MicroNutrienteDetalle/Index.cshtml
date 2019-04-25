@@ -6,16 +6,16 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="detail-h4">Lista de Detalles</h4>
+    <h4 class="detail-h4">Detalles</h4>
 </div>
 
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Ver MicroNutrientes", "Index", "MicroNutriente", new { }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary-custom1" })
+            @Html.ActionLink("Ver MicroNutrientes", "Index", "MicroNutriente", new { }, new { @class = "btn btn-primary-custom1" })
 
-            @Html.ActionLink("Ver Unidades de Medida", "Index", "UnidadMedida", new { }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Ver Unidades de Medida", "Index", "UnidadMedida", new { }, new { @class = "btn btn-primary-custom" })
         </div>
     </div>
     <div class="col-lg-6" align="right">
@@ -33,9 +33,6 @@
 <div class="table-responsive">
 <table class="table">
     <tr class="cabecera-tabla">
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
-        </th>
 
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().AlimentoStr)
@@ -55,10 +52,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-
             <td>
                 @Html.DisplayFor(modelItem => item.AlimentoStr)
             </td>

@@ -21,21 +21,13 @@
     <table class="table">
         <tr class="cabecera-tabla">
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Fecha)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Motivo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Fecha)
-            </th>
+            
 
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
-            </th>
             <th></th>
         </tr>
 
@@ -43,22 +35,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Codigo)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.PacienteStr)
+                    @Html.DisplayFor(modelItem => item.FechaStr)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Motivo)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaStr)
-                </td>
+                
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.EliminadoStr)
-                </td>
                 <td align="right">
                     @Html.ActionLink("Actualizar", "Edit", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-warning" })
                     @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default" })

@@ -17,13 +17,6 @@
 <div class="table-responsive">
     <table class="table">
         <tr class="cabecera-tabla">
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
-            </th>
 
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().FechaMedicion)
@@ -38,9 +31,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().PresionSistolica)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Eliminado)
-            </th>
 
             <th></th>
         </tr>
@@ -48,13 +38,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Codigo)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.PacienteStr)
-                </td>
 
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaMedicionStr)
@@ -68,9 +51,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PresionSistolica) mmHg
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EliminadoStr)
                 </td>
 
                 <td align="right">
