@@ -47,6 +47,34 @@ namespace NutricionWeb.Controllers.Pago
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
+        public async Task<ActionResult> IndexComplete(int? page, string cadenaBuscar,string fecha, bool eliminado)
+        {
+            var pageNumber = page ?? 1;
+
+            ViewBag.Eliminado = eliminado;
+            var fechaD = DateTime.Now.Date;
+
+            if (!string.IsNullOrEmpty(fecha))
+            {
+                fechaD = DateTime.Parse(fecha);
+            }
+
+            var pagos = await _pagoServicio.GetByDate(fechaD, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            if (pagos == null) return HttpNotFound();
+
+            return PartialView(pagos.Select(x => new PagoViewModel()
+            {
+                Id = x.Id,
+                EstaEliminado = x.EstaEliminado,
+                Concepto = x.Concepto,
+                Monto = x.Monto,
+                Fecha = x.Fecha,
+                PacienteId = x.PacienteId,
+                PacienteStr = x.PacienteStr,
+                Codigo = x.Codigo,
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
+
         // GET: Pago/Details/5
         public async Task<ActionResult> Details(long id)
         {

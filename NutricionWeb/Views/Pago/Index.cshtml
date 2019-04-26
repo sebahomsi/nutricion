@@ -8,92 +8,107 @@
 <div class="titulo-ABM">
     <h4 class="detail-h4">Pagos</h4>
 </div>
-<div class="row">
-    <div class="col-lg-6" align="left">
-        <div class="btn-group">
-            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary-custom1" })
-            @if (@ViewBag.Eliminado == false)
-            {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary-custom" })
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4" align="left">
+            <div class="btn-group">
+                @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary-custom1" })
 
-            }
-            else
-            {
-                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary-custom" })
 
-            }
+                @if (@ViewBag.Eliminado == false)
+                {
+                    
+                    <button type="submit" class="btn btn-primary-custom" id="verEliminados">Eliminados/Activos</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary-custom" id="verActivos">Ver Activos</button>
+
+                }
+            </div>
         </div>
+
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="col-lg-2" align="right">
+                    @Html.Label("Desde", htmlAttributes: new { @class = "control-label", @style = "margin-top:5px;" })
+                </div>
+
+                <div class="col-lg-10">
+                    <div class="input-group datepicker" id="FechaDesde">
+                        <span class="input-group-addon primarySpan">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        <input type="hidden" class="form-control" name="Desde" id="Desde" />
+                        <input type="text" class="form-control" readonly="readonly" id="DesdeR" placeholder="DD/MM/YYYY" />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4" align="right">
+           
+                        @Html.TextBox("CadenaBuscar", ViewBag.FilterValue as string, new { placeholder = "Ingrese una cadena...", @class = "form-control", autocomplete = "off" })
+                        <button type="submit" class="btn btn-default" id="txtBuscar">Buscar</button>
+
+        </div>
+
+        
+
     </div>
-    <div class="col-lg-6" align="right">
-        <form class="navbar-form navbar-right">
-            @using (Html.BeginForm("Index", "Pago", FormMethod.Get))
-            {
-                <form class="form-group-lg">
-                    @Html.TextBox("CadenaBuscar", ViewBag.FilterValue as string, new { placeholder = "Ingrese una cadena...", @class = "form-control", autocomplete = "off" })
-                    <button type="submit" class="btn btn-default">Buscar</button>
-                </form>
-            }
-        </form>
+    <br />
+    <div class="row">
+        <div id="contenedor" class="col"></div>
     </div>
 </div>
-<div class="table-responsive">
-<table class="table">
-    <tr class="cabecera-tabla">
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Concepto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Monto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Fecha)
-        </th>
 
 
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PacienteStr)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Concepto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Monto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaStr)
-        </td>
 
 
-        <td align="right">
-            @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-            @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
-            @if (item.EstaEliminado)
-        {
-            @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
-    }
-    else
-    {
-        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+        var eliminadoD = false;
+        $("#FechaDesde").datetimepicker({
+            locale: 'es',
+            format: 'L'
+
+        });
+        var filtrar = function () {
+            var cadenaBuscar = $("#txtBuscar").val();
+            console.log(cadenaBuscar);
+            var fecha = $("#Desde").val();
+            var eliminado = eliminadoD;
+            console.log(fecha);
+            var url = '@Url.Action("IndexComplete", "Pago")';
+            $.get(url,
+                { cadenaBuscar, fecha, eliminado },
+                function (pagos) {
+                    $("#contenedor").empty();
+                    $("#contenedor").append(pagos);
+                    
+                    console.log(pagos);
+                    
+
+                });
+        }
+        filtrar();
+
+        $("#txtBuscar").click(function () {
+
+                filtrar();
+        });
+    $("#verEliminados").click(function () {
+        console.log($("#verEliminados"));
+        eliminadoD = !eliminadoD;          
+                filtrar();
+            });
+</script>
 }
 
-        </td>
-    </tr>
-    }
 
-</table>
-    </div>
-    <div align="center">
-        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("Index", "Pago", new { page, cadenaBuscar = ViewBag.FilterValue }))
-    </div>
+
