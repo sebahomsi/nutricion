@@ -775,6 +775,7 @@
     <Content Include="Views\Opcion\BuscarRecetasPorAlimentos.cshtml" />
     <Content Include="Views\Estadisticas\Index.cshtml" />
     <Content Include="Views\Pago\IndexComplete.cshtml" />
+    <Content Include="Views\Opcion\RecetasFiltradas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

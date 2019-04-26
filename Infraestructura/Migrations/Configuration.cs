@@ -23,6 +23,8 @@ namespace Infraestructura.Migrations
             AddUnidades(context);
             AddAlimentos(context);
             AddPacientes(context);
+            AddRecetas(context);
+            AddOpcionesDetalles(context);
         }
 
         private static void AddSubGrupos(NutricionDbContext context)
@@ -180,8 +182,27 @@ namespace Infraestructura.Migrations
                         Proteina = 3,
                         Eliminado = false
                     }
+                },
+                new Alimento()
+                {
+                    Id = 11,
+                    Codigo = 11,
+                    SubGrupoId = 18,
+                    Descripcion = "Salsa",
+                    Eliminado = false,
+                    MacroNutriente = new MacroNutriente()
+                    {
+                        Id = 11,
+                        Calorias = 209,
+                        Energia = 5,
+                        Grasa = 9,
+                        HidratosCarbono = 4,
+                        Proteina = 3,
+                        Eliminado = false
+                    }
                 });
         }
+
 
         private static void AddUnidades(NutricionDbContext context)
         {
@@ -213,6 +234,104 @@ namespace Infraestructura.Migrations
                 },
                 new UnidadMedida() {Id = 5, Codigo = 5, Descripcion = "Unidad", Abreviatura = "u", Eliminado = false});
 
+        }
+
+        private static void AddRecetas(NutricionDbContext context)
+        {
+            context.Opciones.AddOrUpdate(x=> x.Id,
+                new Opcion()
+                {
+                    Id = 1,
+                    Codigo = 1,
+                    Eliminado = false,
+                    Descripcion = "Hamburguejas al vapor"
+                },
+                new Opcion()
+                {
+                    Id = 2,
+                    Codigo = 2,
+                    Eliminado = false,
+                    Descripcion = "Fideos con salsa y queso"
+                },
+                new Opcion()
+                {
+                    Id = 3,
+                    Codigo = 3,
+                    Eliminado = false,
+                    Descripcion = "Ensalada de frutas"
+                },
+                new Opcion()
+                {
+                    Id = 4,
+                    Codigo = 4,
+                    Eliminado = false,
+                    Descripcion = "Bife de higado con ensalada"
+                });
+        }
+
+        private static void AddOpcionesDetalles(NutricionDbContext context)
+        {
+            context.OpcionesDetalles.AddOrUpdate(x => x.Id,
+                new OpcionDetalle()
+                {
+                    Id = 1,
+                    Codigo = 1,
+                    OpcionId = 1,
+                    AlimentoId = 5,
+                    Cantidad = 200,
+                    UnidadMedidaId = 2,
+                    Eliminado = false
+                },
+                new OpcionDetalle()
+                {
+                    Id = 2,
+                    Codigo = 2,
+                    OpcionId = 1,
+                    AlimentoId = 10,
+                    Cantidad = 10,
+                    UnidadMedidaId = 2,
+                    Eliminado = false
+                },
+                new OpcionDetalle()
+                {
+                    Id = 3,
+                    Codigo = 3,
+                    OpcionId = 1,
+                    AlimentoId = 3,
+                    Cantidad = 50,
+                    UnidadMedidaId = 2,
+                    Eliminado = false
+                },
+                new OpcionDetalle()
+                {
+                    Id = 4,
+                    Codigo = 4,
+                    OpcionId = 2,
+                    AlimentoId = 1,
+                    Cantidad = 100,
+                    UnidadMedidaId = 2,
+                    Eliminado = false
+                },
+                new OpcionDetalle()
+                {
+                    Id = 5,
+                    Codigo = 5,
+                    OpcionId = 2,
+                    AlimentoId = 11,
+                    Cantidad = 4,
+                    UnidadMedidaId = 3,
+                    Eliminado = false
+                },
+                new OpcionDetalle()
+                {
+                    Id = 6,
+                    Codigo = 6,
+                    OpcionId = 2,
+                    AlimentoId = 3,
+                    Cantidad = 80,
+                    UnidadMedidaId = 2,
+                    Eliminado = false
+                });
         }
 
         private static void AddPacientes(NutricionDbContext context)
