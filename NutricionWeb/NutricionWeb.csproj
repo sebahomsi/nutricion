@@ -250,6 +250,7 @@
     <Compile Include="Controllers\Dia\DiaController.cs" />
     <Compile Include="Controllers\Empleado\EmpleadoController.cs" />
     <Compile Include="Controllers\Establecimiento\EstablecimientoController.cs" />
+    <Compile Include="Controllers\Estadisticas\EstadisticasController.cs" />
     <Compile Include="Controllers\Estado\EstadoController.cs" />
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -343,6 +344,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Chart.css" />
+    <Content Include="Content\Chart.min.css" />
     <Content Include="Content\Chosen\chosen-sprite.png" />
     <Content Include="Content\Chosen\chosen.min.css" />
     <Content Include="Content\Imagenes\ajax-loader %283%29.gif" />
@@ -506,6 +509,8 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\fontawesome\all.js" />
     <Content Include="Scripts\fontawesome\all.min.js" />
@@ -768,6 +773,7 @@
     <Content Include="Views\PlanAlimenticio\CreateParcial.cshtml" />
     <Content Include="Views\Turno\CreateParcial.cshtml" />
     <Content Include="Views\Opcion\BuscarRecetasPorAlimentos.cshtml" />
+    <Content Include="Views\Estadisticas\Index.cshtml" />
     <Content Include="Views\Pago\IndexComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>

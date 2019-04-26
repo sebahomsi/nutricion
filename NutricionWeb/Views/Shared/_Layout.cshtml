@@ -7,7 +7,7 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+
     <link rel="stylesheet" href="~/Content/sidebar.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -118,7 +118,7 @@
                         {
                             <li>@Html.ActionLink("Empleados", "Index", "Empleado")</li>
                             <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
-                            <li>@Html.ActionLink("Crear Usuario", "Register", "Account", routeValues: null, htmlAttributes: new {id = "registerLink"})</li>
+                            <li>@Html.ActionLink("Crear Usuario", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                             <li>@Html.ActionLink("Establecimiento", "Create", "Establecimiento")</li>
                         }
                         <li>@Html.ActionLink("Patologias", "Index", "Patologia")</li>
@@ -131,6 +131,7 @@
                         <li>@Html.ActionLink("Micro Nutrientes Detalles", "Index", "MicroNutrienteDetalle")</li>
                         <li>@Html.ActionLink("Alimentos", "Index", "Alimento")</li>
                         <li>@Html.ActionLink("Estados", "Index", "Estado")</li>
+                        <li>@Html.ActionLink("Estadisticas", "Index", "Estadisticas")</li>
                     </ul>
                 </li>
             }

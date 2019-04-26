@@ -20,13 +20,17 @@
 
 
 <ul class="nav nav-tabs">
+    @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
     @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista", "Datos Atropometricos", "active")
     @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
     @AgregarTabs("datosAnaliticos", "datosAnaliticos-Vista", "Datos Analiticos", "")
     @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
+
 </ul>
 
 <div class="tab-content">
+
+    @AgregarVista("estadisticas-Vista", "estadisticas-Parcial")
     @AgregarVista("datosAntropometricos-Vista", "datosAntropometricos-Parcial")
     @AgregarVista("planesAlimenticios-Vista", "planesAlimenticios-Parcial")
     @AgregarVista("datosAnaliticos-Vista", "datosAnaliticos-Parcial")
@@ -81,15 +85,29 @@
 
         var turnos = function() {
             var url = '@Url.Action("TurnosParcial")';
-            var xhr = new XMLHttpRequest();
+            $.get(url, {id : @Model.Id}, function (parcial) {
+                $("#turnos-Parcial").empty();
+                $("#turnos-Parcial").append(parcial);
+            });
+        }
+
+        var estadisticas = function() {
+
+            var url = '@Url.Action("Index", "Estadisticas")';
+            $.get(url, {id : @Model.Id}, function (parcial) {
+                $("#estadisticas-Parcial").empty();
+                $("#estadisticas-Parcial").append(parcial);
+            });
+            @*var xhr = new XMLHttpRequest();
             xhr.open("GET", url + "?id=" + @Model.Id, true);
             xhr.send();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    document.getElementById("turnos-Parcial").innerHTML = "";
-                    document.getElementById("turnos-Parcial").innerHTML = xhr.response;
+                    console.log("d");
+                    document.getElementById("estadisticas-Parcial").innerHTML = "";
+                    document.getElementById("estadisticas-Parcial").innerHTML = xhr.response;
                 }
-            }
+            }*@
         }
 
         var inicio = function() {
@@ -114,6 +132,10 @@
             document.getElementById("turnos").addEventListener("click",
                 function() {
                     turnos();
+                });
+            document.getElementById("estadisticas").addEventListener("click",
+                function() {
+                    estadisticas();
                 });
         };
 
