@@ -1,6 +1,7 @@
 ﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioViewModel
 
 @{
+    Layout = null;
 }
 
 <div class="titulo-ABM">
@@ -53,20 +54,17 @@
             <div class="col-md-2 col-sm-2 col-xs-2" style="border-right: 1px solid #ccc;">
                 <h4><p>@comida.Descripcion</p></h4>
 
-                @foreach (var opcion in comida.Opciones)
+                @foreach (var opcion in comida.ComidasDetalles)
                 {
                     <hr />
                     <strong>
                         <p>
-                            @opcion.Descripcion
+                            @opcion.OpcionStr
                         
 
                     </p>
                 </strong>
-                foreach (var opcionDetalle in opcion.OpcionDetalles)
-                {
-                    <p>@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
-                }
+                
             }
             </div>
 

@@ -54,19 +54,13 @@
                 <div class="col-md-2" style="border-right: 1px solid #ccc;">
                     <h4><p>@comida.Descripcion</p></h4>
 
-                    @foreach (var opcion in comida.Opciones)
+                    @foreach (var opcion in comida.ComidasDetalles)
                     {
                     <hr/>
-                    <strong><p>@opcion.Descripcion
-                                <span style="margin-left: 50%;">
-                                    @Html.ActionLink("+", "CreateRapido", "OpcionDetalle", new { opcionId = @opcion.Id }, new { @class = "btn-xs btn-primary" })
-                                </span>
+                    <strong><p>@opcion.OpcionStr
+                                
 
-                    </p></strong>
-                        foreach (var opcionDetalle in opcion.OpcionDetalles)
-                        {
-                            <p>@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
-                        }
+                    </p></strong>                        
                     }
                 </div>
 
