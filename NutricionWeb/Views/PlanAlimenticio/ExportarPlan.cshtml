@@ -54,13 +54,14 @@
                 <div class="col-md-2" style="border-right: 1px solid #ccc;">
                     <h4><p>@comida.Descripcion</p></h4>
 
-                    @foreach (var opcion in comida.ComidasDetalles)
+                    @foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
-                    <hr/>
-                    <strong><p>@opcion.OpcionStr
-                                
-
-                    </p></strong>                        
+                        <hr/>
+                        <strong><p>@comidaDetalle.OpcionStr</p></strong>
+                         foreach (var opcionDetalle in comidaDetalle.Opcion.OpcionDetalles)
+                         {
+                             <p>@opcionDetalle.AlimentoStr, @opcionDetalle.CantidadMostrar</p>
+                         }
                     }
                 </div>
 

@@ -13,6 +13,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using NutricionWeb.Models.Opcion;
+using NutricionWeb.Models.OpcionDetalle;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.Opcion;
 using static NutricionWeb.Helpers.PagedList;
@@ -340,6 +342,22 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                             OpcionId = t.OpcionId,
                             OpcionStr = t.OpcionStr,
                             Eliminado = t.Eliminado,
+                            Opcion = new OpcionViewModel()
+                            {
+                                OpcionDetalles = t.Opcion.OpcionDetalles.Select(o => new OpcionDetalleViewModel()
+                                {
+                                    Id = o.Id,
+                                    AlimentoId = o.AlimentoId,
+                                    AlimentoStr = o.AlimentoStr,
+                                    Cantidad = o.Cantidad,
+                                    Codigo = o.Codigo,
+                                    Eliminado = o.Eliminado,
+                                    OpcionId = o.OpcionId,
+                                    OpcionStr = o.OpcionStr,
+                                    UnidadMedidaId = o.UnidadMedidaId,
+                                    UnidadMedidaStr = o.UnidadMedidaStr
+                                }).ToList()
+                            }
                         }).ToList()
                     }).ToList()
                 }).ToList()
