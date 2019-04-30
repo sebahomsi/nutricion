@@ -402,7 +402,23 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                             OpcionId = t.OpcionId,
                             OpcionStr = t.OpcionStr,
                             Eliminado = t.Eliminado,
-                            
+                            Opcion = new OpcionViewModel()
+                            {
+                                OpcionDetalles = t.Opcion.OpcionDetalles.Select(o => new OpcionDetalleViewModel()
+                                {
+                                    Id = o.Id,
+                                    AlimentoId = o.AlimentoId,
+                                    AlimentoStr = o.AlimentoStr,
+                                    Cantidad = o.Cantidad,
+                                    Codigo = o.Codigo,
+                                    Eliminado = o.Eliminado,
+                                    OpcionId = o.OpcionId,
+                                    OpcionStr = o.OpcionStr,
+                                    UnidadMedidaId = o.UnidadMedidaId,
+                                    UnidadMedidaStr = o.UnidadMedidaStr
+                                }).ToList()
+                            }
+
                         }).ToList()
                     }).ToList()
                 }).ToList()
