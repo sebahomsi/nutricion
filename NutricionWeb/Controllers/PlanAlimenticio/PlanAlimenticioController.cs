@@ -149,10 +149,11 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             {
                 if (ModelState.IsValid)
                 {
-                    var datosDto = CargarDatos(vm);
-                    datosDto.Codigo = await _planAlimenticioServicio.GetNextCode();
+                    var planDto = CargarDatos(vm);
+                    planDto.Codigo = await _planAlimenticioServicio.GetNextCode();
 
-                    await _planAlimenticioServicio.Add(datosDto);
+                    var planId = await _planAlimenticioServicio.Add(planDto);
+                    await _diaServicio.GenerarDias(planId);
                 }
                 else
                 {
