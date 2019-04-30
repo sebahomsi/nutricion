@@ -77,13 +77,7 @@ namespace NutricionWeb.Controllers.Turno
                         ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
 
                         return View(vm);
-                    }
-                    if (vm.HorarioEntrada.Hour > vm.HorarioSalida.Hour)
-                    {
-                        ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
-
-                        return View(vm);
-                    }
+                    }                   
 
                     var turnos = await _turnoServicio.Get(false, string.Empty);
 
@@ -190,12 +184,46 @@ namespace NutricionWeb.Controllers.Turno
             {
                 if (ModelState.IsValid)
                 {
+                    if (vm.HorarioEntrada > vm.HorarioSalida)
+                    {
+                        ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
+
+                        return View(vm);
+                    }
+                    //if (vm.HorarioEntrada.Hour > vm.HorarioSalida.Hour)
+                    //{
+                    //    ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
+
+                    //    return View(vm);
+                    //}
+                    //if (vm.HorarioEntrada.Minute > vm.HorarioSalida.Minute)
+                    //{
+                    //    ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
+
+                    //    return View(vm);
+                    //}
+
+                    var turnos = await _turnoServicio.Get(false, string.Empty);
+
+                    foreach (var turno in turnos)
+                    {
+                        if (turno.HorarioEntrada.Date == vm.HorarioEntrada.Date)
+                        {
+                            if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntrada.TimeOfDay &&
+                                vm.HorarioEntrada.TimeOfDay < turno.HorarioSalida.TimeOfDay)
+                            {
+                                ModelState.AddModelError(string.Empty, "Ya existe un turno para ese rango de horarios");
+
+                                return View(vm);
+                            }
+                        }
+                    }
                     var turnoDto = CargarDatos(vm);
 
                     await _turnoServicio.Update(turnoDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
