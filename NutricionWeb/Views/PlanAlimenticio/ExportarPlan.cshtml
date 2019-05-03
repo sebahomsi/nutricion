@@ -74,7 +74,7 @@
 }
 
 
-@*@foreach (var dia in Model.Dias)
+@foreach (var dia in Model.Dias)
 {    
     <div class="col-md-2" style="border: 1px solid #ccc;width: 14.2%">
         <h4>@dia.Descripcion</h4>
@@ -98,30 +98,27 @@
             if (comida.Descripcion == Diccionario.ObtenerComidaStr(comidaInt))
             {
 
-                 <div class="col-md-2" style="border: 1px solid #ccc; width: 14.2%; height:150px; background-color: @Diccionario.ObtenerComidaColor(comidaInt); overflow: auto" >
-                     @foreach (var opcion in comida.Opciones)
-                     {
-                         <p>@opcion.Descripcion
-                             <span>
-                                @Html.ActionLink("+", "CreateRapido", "OpcionDetalle", new { opcionId = @opcion.Id }, new { @class = "btn-xs btn-primary" })
-                            </span>
-                        </p>
+                <div class="col-md-2" style="border: 1px solid #ccc; width: 14.2%; height:350px; overflow: auto">
+                    @foreach (var opcion in comida.ComidasDetalles)
+                    {
+                        <p style="font-size: 15px; color: black; margin: auto;">@opcion.OpcionStr</p>
+                        <p style="font-size: 13px; color: black; margin: auto;">Consejo: @opcion.Comentario</p>
 
-                          foreach (var opcionDetalle in opcion.OpcionDetalles)
-                          {
-                              <p>@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
-                          }
-                      }   
-                 </div>
+                        foreach (var opcionDetalle in opcion.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
+                        }
+                    }
+                </div>
                  contador++;
-             }
+            }
 
         }
  
      }
 
     comidaInt++;
-}*@
+}
 
 
 
