@@ -75,6 +75,7 @@
     <Compile Include="Mensaje\MensajeServicio.cs" />
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleServicio.cs" />
     <Compile Include="MicroNutriente\MicroNutrienteServicio.cs" />
+    <Compile Include="Objetivo\ObjetivoServicio.cs" />
     <Compile Include="ObservacionAlergiaIntolerancia\ObservacionAlergiaIntoleranciaServicio.cs" />
     <Compile Include="ObservacionAlimento\ObservacionAlimentoServicio.cs" />
     <Compile Include="ObservacionPatologia\ObservacionPatologiaServicio.cs" />

@@ -76,6 +76,7 @@
     <Compile Include="Entidades\MetaData\IMensaje.cs" />
     <Compile Include="Entidades\MetaData\IMicroNutriente.cs" />
     <Compile Include="Entidades\MetaData\IMicroNutrienteDetalle.cs" />
+    <Compile Include="Entidades\MetaData\IObjetivo.cs" />
     <Compile Include="Entidades\MetaData\IObservacion.cs" />
     <Compile Include="Entidades\MetaData\IOpcion.cs" />
     <Compile Include="Entidades\MetaData\IOpcionDetalle.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Entidades\MetaData\IUnidadMedida.cs" />
     <Compile Include="Entidades\MicroNutriente.cs" />
     <Compile Include="Entidades\MicroNutrienteDetalle.cs" />
+    <Compile Include="Entidades\Objetivo.cs" />
     <Compile Include="Entidades\Observacion.cs" />
     <Compile Include="Entidades\Opcion.cs" />
     <Compile Include="Entidades\OpcionDetalle.cs" />
