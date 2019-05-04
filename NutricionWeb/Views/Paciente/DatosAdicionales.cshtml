@@ -20,21 +20,23 @@
 
 
 <ul class="nav nav-tabs">
-    @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
     @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista", "Datos Atropometricos", "active")
     @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
     @AgregarTabs("datosAnaliticos", "datosAnaliticos-Vista", "Datos Analiticos", "")
     @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
-
+    @AgregarTabs("objetivo", "objetivo-Vista", "Objetivo", "")
+    @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
 </ul>
 
 <div class="tab-content">
 
-    @AgregarVista("estadisticas-Vista", "estadisticas-Parcial")
+
     @AgregarVista("datosAntropometricos-Vista", "datosAntropometricos-Parcial")
     @AgregarVista("planesAlimenticios-Vista", "planesAlimenticios-Parcial")
     @AgregarVista("datosAnaliticos-Vista", "datosAnaliticos-Parcial")
     @AgregarVista("turnos-Vista", "turnos-Parcial")
+    @AgregarVista("objetivo-Vista", "objetivo-Parcial")
+    @AgregarVista("estadisticas-Vista", "estadisticas-Parcial")
 </div>
 
 @section scripts
@@ -91,10 +93,22 @@
             });
         }
 
+        var objetivo = function() {
+            var url = '@Url.Action("ObjetivosParcial")';
+            $.get(url,
+                { id: @Model.Id },
+                function (parcial) {
+                    console.log(parcial);
+                    $("#objetivo-Parcial").empty();
+                    $("#objetivo-Parcial").append(parcial);
+                });
+        }
+
         var estadisticas = function() {
 
             var url = '@Url.Action("Index", "Estadisticas")';
-            $.get(url, {id : @Model.Id}, function (parcial) {
+            $.get(url, { id: @Model.Id}, function (parcial) {
+                
                 $("#estadisticas-Parcial").empty();
                 $("#estadisticas-Parcial").append(parcial);
             });
@@ -136,6 +150,10 @@
             document.getElementById("estadisticas").addEventListener("click",
                 function() {
                     estadisticas();
+                });
+            document.getElementById("objetivo").addEventListener("click",
+                function() {
+                    objetivo();
                 });
         };
 

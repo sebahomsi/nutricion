@@ -17,6 +17,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
+using NutricionWeb.Models.Objetivo;
+using Servicio.Interface.Objetivo;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -31,9 +33,10 @@ namespace NutricionWeb.Controllers.Paciente
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
         private readonly ITurnoServicio _turnoServicio;
+        private readonly IObjetivoServicio _objetivoServicio;
 
 
-        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio)
+        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio)
         {
             _pacienteServicio = pacienteServicio;
             _comboBoxSexo = comboBoxSexo;
@@ -41,6 +44,7 @@ namespace NutricionWeb.Controllers.Paciente
             _planAlimenticioServicio = planAlimenticioServicio;
             _datoAntropometricoServicio = datoAntropometricoServicio;
             _turnoServicio = turnoServicio;
+            _objetivoServicio = objetivoServicio;
         }
 
         
@@ -357,6 +361,22 @@ namespace NutricionWeb.Controllers.Paciente
             ViewBag.PacienteId = id;
 
             return PartialView(turnos.ToList());
+        }
+
+        public async Task<ActionResult> ObjetivosParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var datos = await _objetivoServicio.GetByPacienteId(id.Value);
+
+            var objetivo = new ObjetivoViewModel()
+            {
+                Descripcion = datos.Descripcion,
+                Id = datos.Id,
+                PacienteId = datos.PacienteId
+            };
+
+            return PartialView(objetivo);
         }
     }
 }

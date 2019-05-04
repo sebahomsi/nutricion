@@ -88,6 +88,8 @@
     <Compile Include="MicroNutrienteDetalle\MicroNutrienteDetalleDto.cs" />
     <Compile Include="MicroNutriente\IMicroNutrienteServicio.cs" />
     <Compile Include="MicroNutriente\MicroNutrienteDto.cs" />
+    <Compile Include="Objetivo\IObjetivoServicio.cs" />
+    <Compile Include="Objetivo\ObjetivoDto.cs" />
     <Compile Include="ObservacionAlergiaIntolerancia\IObservacionAlergiaIntoleranciaServicio.cs" />
     <Compile Include="ObservacionAlimento\IObservacionAlimentoServicio.cs" />
     <Compile Include="ObservacionPatologia\IObservacionPatologiaServicio.cs" />

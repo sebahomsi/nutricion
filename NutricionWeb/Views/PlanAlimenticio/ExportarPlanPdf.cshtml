@@ -1,8 +1,11 @@
 ﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioViewModel
 
 @{
+    Layout = null;
 }
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/sidebar.css" rel="stylesheet" />
 <div class="titulo-ABM">
     <h4 class="detail-plan-h4">Detalles del Plan</h4>
 </div>
@@ -43,38 +46,31 @@
 
 @foreach (var dia in Model.Dias)
 {
-
-
     <h3 class="detail-h3"><p>@dia.Descripcion</p></h3>
     <div class="row row-plan">
 
+
+
         @foreach (var comida in dia.Comidas)
         {
-            <div class="col-md-2 col-sm-2 col-xs-2" style="border-right: 1px solid #ccc;">
+            <div class="col-md-2" style="border-right: 1px solid #ccc;">
                 <h4><p>@comida.Descripcion</p></h4>
 
-                @foreach (var opcion in comida.Opciones)
+                @foreach (var comidaDetalle in comida.ComidasDetalles)
                 {
                     <hr />
-                    <strong>
-                        <p>
-                            @opcion.Descripcion
-                        
-
-                    </p>
-                </strong>
-                foreach (var opcionDetalle in opcion.OpcionDetalles)
-                {
-                    <p>@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
+                    <strong><p>@comidaDetalle.OpcionStr</p></strong>
+                    foreach (var opcionDetalle in comidaDetalle.Opcion.OpcionDetalles)
+                    {
+                        <p>@opcionDetalle.AlimentoStr: @opcionDetalle.CantidadMostrar</p>
+                    }
                 }
-            }
             </div>
 
         }
 
     </div>
     <br>
-
 }
 
 

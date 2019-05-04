@@ -1,0 +1,80 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<NutricionWeb.Models.Pago.PagoViewModel>
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PacienteStr)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Concepto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Monto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Fecha)
+            </th>
+
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PacienteStr)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Concepto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaStr)
+                </td>
+
+
+                <td align="right">
+                    @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @if (item.EstaEliminado)
+                    {
+                        @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    }
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div align="center">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Pago", new { page, cadenaBuscar = ViewBag.FilterValue }))
+</div>
+<div align="right">
+    <div class="col-lg-12 pull-right">
+        @Html.Label("Total: ")
+        <input class="form-control" id="total" name="total" readonly="readonly" />
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        var totalize = function () {
+            var tot = @Model.Sum(x => x.Monto);
+            $("#total").val(tot);
+        };
+        totalize();
+    </script>
+}

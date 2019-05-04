@@ -42,6 +42,7 @@ namespace Infraestructura.Contexto
         public IDbSet<Pago> Pagos { get; set; }
         public IDbSet<Estado> Estados { get; set; }
         public IDbSet<ComidaDetalle> ComidasDetalles { get; set; }
+        public IDbSet<Objetivo> Objetivos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
