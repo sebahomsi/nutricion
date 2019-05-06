@@ -63,10 +63,12 @@ using Servicio.Estado;
 using Servicio.Interface.Anamnesis;
 using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Estado;
+using Servicio.Interface.Estrategia;
 using Servicio.Interface.Objetivo;
 using Servicio.Objetivo;
 using Unity;
 using Unity.Mvc5;
+using Servicio.Estrategia;
 
 namespace Aplicacion.IoC
 {
@@ -107,6 +109,8 @@ namespace Aplicacion.IoC
 
             container.RegisterType<IObjetivoServicio, ObjetivoServicio>();
             container.RegisterType<IAnamnesisServicio, AnamnesisServicio>();
+
+            container.RegisterType<IEstrategiaServicio, EstrategiaServicio>();
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();

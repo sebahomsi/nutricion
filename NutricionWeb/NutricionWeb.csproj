@@ -253,6 +253,7 @@
     <Compile Include="Controllers\Establecimiento\EstablecimientoController.cs" />
     <Compile Include="Controllers\Estadisticas\EstadisticasController.cs" />
     <Compile Include="Controllers\Estado\EstadoController.cs" />
+    <Compile Include="Controllers\Estrategia\EstrategiaController.cs" />
     <Compile Include="Controllers\Grupo\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MacroNutriente\MacroNutrienteController.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Models\Empleado\EmpleadoViewModel.cs" />
     <Compile Include="Models\Establecimiento\EstablecimientoViewModel.cs" />
     <Compile Include="Models\Estado\EstadoViewModel.cs" />
+    <Compile Include="Models\Estrategia\EstrategiaViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoABMViewModel.cs" />
     <Compile Include="Models\Grupo\GrupoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -782,12 +784,14 @@
     <Content Include="Views\Opcion\RecetasFiltradas.cshtml" />
     <Content Include="Views\Paciente\ObjetivosParcial.cshtml" />
     <Content Include="Views\Paciente\AnamnesisParcial.cshtml" />
+    <Content Include="Views\Paciente\EstrategiaParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
     <Folder Include="Helpers\Enums\" />
     <Folder Include="Views\Anamnesis\" />
+    <Folder Include="Views\Estrategia\" />
     <Folder Include="Views\Objetivo\" />
   </ItemGroup>
   <ItemGroup>

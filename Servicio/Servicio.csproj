@@ -71,6 +71,7 @@
     <Compile Include="Empleado\EmpleadoServicio.cs" />
     <Compile Include="Establecimiento\EstablecimientoServicio.cs" />
     <Compile Include="Estado\EstadoServicio.cs" />
+    <Compile Include="Estrategia\EstrategiaServicio.cs" />
     <Compile Include="Grupo\GrupoServicio.cs" />
     <Compile Include="MacroNutriente\MacroNutrienteServicio.cs" />
     <Compile Include="Mensaje\MensajeServicio.cs" />

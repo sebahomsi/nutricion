@@ -26,6 +26,7 @@
     @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
     @AgregarTabs("anamnesis", "anamnesis-Vista", "Anamnesis", "")
     @AgregarTabs("objetivo", "objetivo-Vista", "Objetivo", "")
+    @AgregarTabs("estrategia", "estrategia-Vista", "Estrategia", "")
     @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
 </ul>
 
@@ -36,6 +37,7 @@
     @AgregarVista("turnos-Vista", "turnos-Parcial")
     @AgregarVista("anamnesis-Vista", "anamnesis-Parcial")
     @AgregarVista("objetivo-Vista", "objetivo-Parcial")
+    @AgregarVista("estrategia-Vista", "estrategia-Parcial")
     @AgregarVista("estadisticas-Vista", "estadisticas-Parcial")
 </div>
 
@@ -115,6 +117,17 @@
                 });
         }
 
+        var estrategia = function() {
+            var url = '@Url.Action("EstrategiaParcial")';
+            $.get(url,
+                { id: @Model.Id },
+                function (parcial) {
+                    console.log(parcial);
+                    $("#estrategia-Parcial").empty();
+                    $("#estrategia-Parcial").append(parcial);
+                });
+        }
+
         var estadisticas = function() {
 
             var url = '@Url.Action("Index", "Estadisticas")';
@@ -169,6 +182,10 @@
             document.getElementById("anamnesis").addEventListener("click",
                 function () {
                     anamnesis();
+                });
+            document.getElementById("anamnesis").addEventListener("click",
+                function () {
+                    estrategia();
                 });
         };
 

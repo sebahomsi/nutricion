@@ -16,10 +16,13 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 using AutoMapper;
 using NutricionWeb.Models.Anamnesis;
+using NutricionWeb.Models.Estrategia;
 using NutricionWeb.Models.Objetivo;
 using Servicio.Interface.Anamnesis;
+using Servicio.Interface.Estrategia;
 using Servicio.Interface.Objetivo;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
@@ -37,9 +40,10 @@ namespace NutricionWeb.Controllers.Paciente
         private readonly ITurnoServicio _turnoServicio;
         private readonly IObjetivoServicio _objetivoServicio;
         private readonly IAnamnesisServicio _anamnesisServicio;
+        private readonly IEstrategiaServicio _estrategiaServicio;
 
 
-        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio)
+        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio)
         {
             _pacienteServicio = pacienteServicio;
             _comboBoxSexo = comboBoxSexo;
@@ -49,7 +53,9 @@ namespace NutricionWeb.Controllers.Paciente
             _turnoServicio = turnoServicio;
             _objetivoServicio = objetivoServicio;
             _anamnesisServicio = anamnesisServicio;
+            _estrategiaServicio = estrategiaServicio;
         }
+        
 
         // GET: Paciente
         [Authorize(Roles = "Administrador, Empleado")]
@@ -395,6 +401,22 @@ namespace NutricionWeb.Controllers.Paciente
             };
 
             return PartialView(anamnesis);
+        }
+
+        public async Task<ActionResult> EstrategiaParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var datos = await _estrategiaServicio.GetByPacienteId(id.Value);
+
+            var estrategia = new EstrategiaViewModel()
+            {
+                Descripcion = datos.Descripcion,
+                Id = datos.Id,
+                PacienteId = datos.PacienteId
+            };
+
+            return PartialView(estrategia);
         }
     }
 }
