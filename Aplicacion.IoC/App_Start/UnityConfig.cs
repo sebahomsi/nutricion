@@ -57,8 +57,10 @@ using Servicio.Turno;
 using Servicio.UnidadMedida;
 using Servicio.Usuario;
 using System.Web.Mvc;
+using Servicio.Anamnesis;
 using Servicio.ComidaDetalle;
 using Servicio.Estado;
+using Servicio.Interface.Anamnesis;
 using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Estado;
 using Servicio.Interface.Objetivo;
@@ -104,6 +106,7 @@ namespace Aplicacion.IoC
             container.RegisterType<IComidaDetalleServicio, ComidaDetalleServicio>();
 
             container.RegisterType<IObjetivoServicio, ObjetivoServicio>();
+            container.RegisterType<IAnamnesisServicio, AnamnesisServicio>();
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();

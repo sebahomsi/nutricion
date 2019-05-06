@@ -24,17 +24,17 @@
     @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
     @AgregarTabs("datosAnaliticos", "datosAnaliticos-Vista", "Datos Analiticos", "")
     @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
+    @AgregarTabs("anamnesis", "anamnesis-Vista", "Anamnesis", "")
     @AgregarTabs("objetivo", "objetivo-Vista", "Objetivo", "")
     @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
 </ul>
 
 <div class="tab-content">
-
-
     @AgregarVista("datosAntropometricos-Vista", "datosAntropometricos-Parcial")
     @AgregarVista("planesAlimenticios-Vista", "planesAlimenticios-Parcial")
     @AgregarVista("datosAnaliticos-Vista", "datosAnaliticos-Parcial")
     @AgregarVista("turnos-Vista", "turnos-Parcial")
+    @AgregarVista("anamnesis-Vista", "anamnesis-Parcial")
     @AgregarVista("objetivo-Vista", "objetivo-Parcial")
     @AgregarVista("estadisticas-Vista", "estadisticas-Parcial")
 </div>
@@ -104,6 +104,17 @@
                 });
         }
 
+        var anamnesis = function() {
+            var url = '@Url.Action("AnamnesisParcial")';
+            $.get(url,
+                { id: @Model.Id },
+                function (parcial) {
+                    console.log(parcial);
+                    $("#anamnesis-Parcial").empty();
+                    $("#anamnesis-Parcial").append(parcial);
+                });
+        }
+
         var estadisticas = function() {
 
             var url = '@Url.Action("Index", "Estadisticas")';
@@ -154,6 +165,10 @@
             document.getElementById("objetivo").addEventListener("click",
                 function() {
                     objetivo();
+                });
+            document.getElementById("anamnesis").addEventListener("click",
+                function () {
+                    anamnesis();
                 });
         };
 

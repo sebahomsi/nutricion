@@ -58,6 +58,8 @@
     <Compile Include="AlergiaIntolerancia\IAlergiaIntoleranciaServicio.cs" />
     <Compile Include="Alimento\AlimentoDto.cs" />
     <Compile Include="Alimento\IAlimentoServicio.cs" />
+    <Compile Include="Anamnesis\AnamnesisDto.cs" />
+    <Compile Include="Anamnesis\IAnamnesisServicio.cs" />
     <Compile Include="AutoMapper\DatoAnaliticoProfile.cs" />
     <Compile Include="AutoMapper\DatoAntropometricoProfile.cs" />
     <Compile Include="AutoMapper\PlanAlimenticioProfile.cs" />

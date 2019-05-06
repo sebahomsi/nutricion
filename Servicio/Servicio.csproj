@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="AlergiaIntolerancia\AlergiaIntoleranciaServicio.cs" />
     <Compile Include="Alimento\AlimentoServicio.cs" />
+    <Compile Include="Anamnesis\AnamnesisServicio.cs" />
     <Compile Include="ComidaDetalle\ComidaDetalleServicio.cs" />
     <Compile Include="Comida\ComidaServicio.cs" />
     <Compile Include="DatoAnalitico\DatoAnaliticoServicio.cs" />

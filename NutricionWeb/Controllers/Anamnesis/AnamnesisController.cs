@@ -4,86 +4,86 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using NutricionWeb.Models.Objetivo;
-using Servicio.Interface.Objetivo;
+using NutricionWeb.Models.Anamnesis;
+using Servicio.Interface.Anamnesis;
 
-namespace NutricionWeb.Controllers.Objetivo
+namespace NutricionWeb.Controllers.Anamnesis
 {
-    public class ObjetivoController : Controller
+    public class AnamnesisController : Controller
     {
-        private readonly IObjetivoServicio _objetivoServicio;
+        private readonly IAnamnesisServicio _anamnesisServicio;
 
-        public ObjetivoController(IObjetivoServicio objetivoServicio)
+        public AnamnesisController(IAnamnesisServicio anamnesisServicio)
         {
-            _objetivoServicio = objetivoServicio;
+            _anamnesisServicio = anamnesisServicio;
         }
 
-        // GET: Objetivo
+        // GET: Anamnesis
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Objetivo/Details/5
+        // GET: Anamnesis/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Objetivo/Create
+        // GET: Anamnesis/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Objetivo/Create
+        // POST: Anamnesis/Create
         [HttpPost]
-        public async Task<ActionResult> Create(ObjetivoViewModel vm)
+        public async Task<ActionResult> Create(AnamnesisViewModel vm)
         {
             try
             {
-                var obj = await _objetivoServicio.GetByPacienteId(vm.PacienteId);
-                var idReal = obj.Id;
+                var anamnesis = await _anamnesisServicio.GetByPacienteId(vm.PacienteId);
+                var idReal = anamnesis.Id;
                 if (idReal == 0)
                 {
                     // nuevo
-                    var dto = new ObjetivoDto()
+                    var dto = new AnamnesisDto()
                     {
                         Descripcion = vm.Descripcion,
                         PacienteId = vm.PacienteId
                     };
 
-                    await _objetivoServicio.Add(dto);
+                    await _anamnesisServicio.Add(dto);
                 }
                 else
                 {
                     // modificar
-                    var dto = new ObjetivoDto()
+                    var dto = new AnamnesisDto()
                     {
                         Descripcion = vm.Descripcion,
                         PacienteId = vm.PacienteId,
                         Id = idReal
                     };
 
-                    await _objetivoServicio.Update(dto);
+                    await _anamnesisServicio.Update(dto);
                 }
 
                 //return RedirectToAction("Index");
-                return RedirectToAction("DatosAdicionales", "Paciente", new {Id = vm.PacienteId});
+                return RedirectToAction("DatosAdicionales", "Paciente", new { Id = vm.PacienteId });
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return null;
             }
         }
 
-        // GET: Objetivo/Edit/5
+        // GET: Anamnesis/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Objetivo/Edit/5
+        // POST: Anamnesis/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -99,13 +99,13 @@ namespace NutricionWeb.Controllers.Objetivo
             }
         }
 
-        // GET: Objetivo/Delete/5
+        // GET: Anamnesis/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Objetivo/Delete/5
+        // POST: Anamnesis/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

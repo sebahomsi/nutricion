@@ -17,7 +17,9 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
+using NutricionWeb.Models.Anamnesis;
 using NutricionWeb.Models.Objetivo;
+using Servicio.Interface.Anamnesis;
 using Servicio.Interface.Objetivo;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
@@ -34,9 +36,10 @@ namespace NutricionWeb.Controllers.Paciente
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
         private readonly ITurnoServicio _turnoServicio;
         private readonly IObjetivoServicio _objetivoServicio;
+        private readonly IAnamnesisServicio _anamnesisServicio;
 
 
-        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio)
+        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio)
         {
             _pacienteServicio = pacienteServicio;
             _comboBoxSexo = comboBoxSexo;
@@ -45,9 +48,8 @@ namespace NutricionWeb.Controllers.Paciente
             _datoAntropometricoServicio = datoAntropometricoServicio;
             _turnoServicio = turnoServicio;
             _objetivoServicio = objetivoServicio;
+            _anamnesisServicio = anamnesisServicio;
         }
-
-        
 
         // GET: Paciente
         [Authorize(Roles = "Administrador, Empleado")]
@@ -377,6 +379,22 @@ namespace NutricionWeb.Controllers.Paciente
             };
 
             return PartialView(objetivo);
+        }
+
+        public async Task<ActionResult> AnamnesisParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var datos = await _anamnesisServicio.GetByPacienteId(id.Value);
+
+            var anamnesis = new AnamnesisViewModel()
+            {
+                Descripcion = datos.Descripcion,
+                Id = datos.Id,
+                PacienteId = datos.PacienteId
+            };
+
+            return PartialView(anamnesis);
         }
     }
 }

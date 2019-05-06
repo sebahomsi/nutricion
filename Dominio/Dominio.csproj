@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Entidades\AlergiaIntolerancia.cs" />
     <Compile Include="Entidades\Alimento.cs" />
+    <Compile Include="Entidades\Anamnesis.cs" />
     <Compile Include="Entidades\Comida.cs" />
     <Compile Include="Entidades\ComidaDetalle.cs" />
     <Compile Include="Entidades\DatoAnalitico.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Entidades\Grupo.cs" />
     <Compile Include="Entidades\MacroNutriente.cs" />
     <Compile Include="Entidades\Mensaje.cs" />
+    <Compile Include="Entidades\MetaData\IAnamnesis.cs" />
     <Compile Include="Entidades\MetaData\IComida.cs" />
     <Compile Include="Entidades\MetaData\IComidaDetalle.cs" />
     <Compile Include="Entidades\MetaData\IDia.cs" />

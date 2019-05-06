@@ -243,6 +243,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlergiaIntolerancia\AlergiaIntoleranciaController.cs" />
     <Compile Include="Controllers\Alimento\AlimentoController.cs" />
+    <Compile Include="Controllers\Anamnesis\AnamnesisController.cs" />
     <Compile Include="Controllers\ComidaDetalle\ComidaDetalleController.cs" />
     <Compile Include="Controllers\Comida\ComidaController.cs" />
     <Compile Include="Controllers\DatoAnalitico\DatoAnaliticoController.cs" />
@@ -291,6 +292,7 @@
     <Compile Include="Models\AlergiaIntolerancia\AlergiaIntoleranciaViewModel.cs" />
     <Compile Include="Models\Alimento\AlimentoABMViewModel.cs" />
     <Compile Include="Models\Alimento\AlimentoViewModel.cs" />
+    <Compile Include="Models\Anamnesis\AnamnesisViewModel.cs" />
     <Compile Include="Models\ComidaDetalle\ComidaDetalleViewModel.cs" />
     <Compile Include="Models\Comida\ComidaViewModel.cs" />
     <Compile Include="Models\DatoAnalitico\DatoAnaliticoABMViewModel.cs" />
@@ -779,11 +781,13 @@
     <Content Include="Views\Pago\IndexComplete.cshtml" />
     <Content Include="Views\Opcion\RecetasFiltradas.cshtml" />
     <Content Include="Views\Paciente\ObjetivosParcial.cshtml" />
+    <Content Include="Views\Paciente\AnamnesisParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Imagenes\Personas\" />
     <Folder Include="Helpers\Enums\" />
+    <Folder Include="Views\Anamnesis\" />
     <Folder Include="Views\Objetivo\" />
   </ItemGroup>
   <ItemGroup>
