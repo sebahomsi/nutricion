@@ -64,17 +64,6 @@
 <div align="right">
     <div class="col-lg-12 pull-right">
         @Html.Label("Total: ")
-        <input class="form-control" id="total" name="total" readonly="readonly" />
+        <input class="form-control" id="total" name="total" readonly="readonly" value="@ViewBag.Total" />
     </div>
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
-
-        var totalize = function () {
-            var tot = @Model.Sum(x => x.Monto);
-            $("#total").val(tot);
-        };
-        totalize();
-    </script>
-}

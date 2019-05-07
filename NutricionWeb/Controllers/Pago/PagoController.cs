@@ -61,7 +61,7 @@ namespace NutricionWeb.Controllers.Pago
 
             var pagos = await _pagoServicio.GetByDate(fechaD, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (pagos == null) return HttpNotFound();
-
+            ViewBag.Total = pagos.Sum(x => x.Monto);
             return PartialView(pagos.Select(x => new PagoViewModel()
             {
                 Id = x.Id,
