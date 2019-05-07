@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Servicio.Interface.Usuario;
+using Servicio.Usuario.Dto;
+using System.Threading.Tasks;
 using static Aplicacion.Conexion.ConexionDb;
 
 
@@ -23,7 +20,7 @@ namespace Servicio.Usuario
 
         public async Task<bool> Actualizar(string nombreUsuario, string nombreUsuarioNuevo)
         {
-            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(IdentityDbContext));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(IdentityDbContext));
 
             var usuario = await userManager.FindByEmailAsync(nombreUsuario);
 
@@ -41,7 +38,7 @@ namespace Servicio.Usuario
 
         public async Task<bool> ActualizarPassword(string nombreUsuario, string password)
         {
-            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(IdentityDbContext));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(IdentityDbContext));
 
             var usuario = await userManager.FindByEmailAsync(nombreUsuario);
 
@@ -56,19 +53,20 @@ namespace Servicio.Usuario
             return resultado.Succeeded;
         }
 
-        public void Crear(string nombreUsuario, string nombreRol)
+        public void Crear(string nombreUsuario, string nombreRol, long establecimientoId)
         {
-            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(IdentityDbContext));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(IdentityDbContext));
 
             var user = userManager.FindByName(nombreUsuario);
 
             if (user == null)
             {
 
-                var usuarioNuevo = new IdentityUser
+                var usuarioNuevo = new ApplicationUser
                 {
                     Email = $"{nombreUsuario.Replace("ñ", "n")}",
-                    UserName = nombreUsuario.Replace("ñ", "n")
+                    UserName = nombreUsuario.Replace("ñ", "n"),
+                    EstablecimientoId = establecimientoId
                 };
 
                 userManager.Create(usuarioNuevo, "P$assword");
@@ -76,18 +74,19 @@ namespace Servicio.Usuario
             }
         }
 
-        public async Task Crear(string nombreUsuario, string passwword, string nombreRol)
+        public async Task Crear(string nombreUsuario, string passwword, string nombreRol, long establecimientoId)
         {
-            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(IdentityDbContext));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(IdentityDbContext));
 
             var user = userManager.FindByName(nombreUsuario);
 
             if (user == null)
             {
-                var usuarioNuevo = new IdentityUser
+                var usuarioNuevo = new ApplicationUser
                 {
                     Email = nombreUsuario,
-                    UserName = nombreUsuario
+                    UserName = nombreUsuario,
+                    EstablecimientoId = establecimientoId
                 };
 
                 await userManager.CreateAsync(usuarioNuevo, passwword);
@@ -102,7 +101,7 @@ namespace Servicio.Usuario
             var contador = 1;
             var nombreUsuario = $"{nombre.Trim().Substring(0, contador)}{apellido.Trim()}";
 
-            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(IdentityDbContext));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(IdentityDbContext));
 
             while (userManager.FindByName(nombreUsuario) != null)
             {

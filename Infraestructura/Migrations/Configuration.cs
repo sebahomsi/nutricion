@@ -18,6 +18,7 @@ namespace Infraestructura.Migrations
 
         protected override void Seed(NutricionDbContext context)
         {
+            AddEstablecimientos(context);
             AddGrupos(context);
             AddSubGrupos(context);
             AddUnidades(context);
@@ -25,6 +26,12 @@ namespace Infraestructura.Migrations
             AddPacientes(context);
             AddRecetas(context);
             AddOpcionesDetalles(context);
+        }
+
+        private void AddEstablecimientos(NutricionDbContext context)
+        {
+            context.Establecimientos.AddOrUpdate(x => x.Id, 
+                new Establecimiento() { Id = 1, Direccion = "",Email = "",Telefono = "",Horario = "",Facebook="",Nombre ="Solana Novillo",Instagram = "" });
         }
 
         private static void AddSubGrupos(NutricionDbContext context)
@@ -352,6 +359,7 @@ namespace Infraestructura.Migrations
                     Sexo = 1,
                     Telefono = "4390099",
                     TieneObservacion = false,
+                    EstablecimientoId = 1,
                     Eliminado = false
                 });
         }

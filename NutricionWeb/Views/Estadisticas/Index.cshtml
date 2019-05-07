@@ -3,7 +3,7 @@
 
         <div class="col-md-6">
             <div>
-                <h2>@ViewBag.Pesos</h2>
+                <h2>Curva de peso</h2>
             </div>
             <div>
                 <canvas id="myChart" width="500" height="250"></canvas>
@@ -23,22 +23,41 @@
 </div>
     <script type="text/javascript">
 
-        $(function () {
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var ctx2 = document.getElementById('myChart2').getContext('2d');
 
-            var datosAntropometricos = new Chart(ctx,
+        var graficoAntropometrico = datos => {
+
+            let fechas = $.map(datos, (val, i) => {
+                return val.Fecha;
+            });
+
+            let pesos = $.map(datos, (val, i) => {
+                return parseFloat(val.Peso);
+            });
+
+            let backColor = $.map(datos, (val, i) => {
+               return val.BackColor;
+            });
+
+            let borderColor = $.map(datos, (val, i) => {
+              return val.BorderColor;
+            });
+
+            console.log(pesos);
+
+              var ctx = document.getElementById('myChart').getContext('2d');
+            
+              var datosAntropometricos = new Chart(ctx,
                 {
                     type: 'line',
                     data: {
-                        labels: [@ViewBag.Fechas],
+                        labels: fechas,
                         datasets: [
                             {
                                 label: 'Curva de peso',
                                 fill: false,
-                                data: [@ViewBag.Pesos],
-                                backgroundColor: [@ViewBag.BackColor],
-                                borderColor: [@ViewBag.BorderColor],
+                                data: pesos,
+                                backgroundColor: backColor,
+                                borderColor: borderColor,
                                 borderWidth: 1
                             }]
                     },
@@ -53,6 +72,24 @@
                     }
                 });
 
+        }
+
+        var obtenerDatosAntropometricos = () => {
+            $.get('@Url.Action("ObtenerDatosAntropometricos","Estadisticas")', { pacienteId : @ViewBag.PacienteId }, datos => {
+
+                graficoAntropometrico(datos);
+            });
+        }
+
+        $(function () {
+
+            obtenerDatosAntropometricos();
+
+          
+            var ctx2 = document.getElementById('myChart2').getContext('2d');
+
+          
+
              var myChart = new Chart(ctx2, {
             type: 'line',
             data: {
@@ -60,7 +97,7 @@
                 datasets: [{
                     label: '# of Votes',
                     fill: false,
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [12.99, 19, 3, 5, 2, 3],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

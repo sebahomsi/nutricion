@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades.MetaData;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,5 +19,6 @@ namespace Dominio.Entidades
         public string Instagram { get; set; }
         public string Telefono { get; set; }
         public string Horario { get; set; }
-    }   
+        public virtual ICollection<Persona> Personas { get; set; }
+    }
 }

@@ -12,7 +12,6 @@ namespace Dominio.Entidades
     {
         public int Codigo { get; set; }
 
-
         public bool TieneObservacion { get; set; }
 
 
@@ -20,6 +19,6 @@ namespace Dominio.Entidades
         public virtual ICollection<DatoAntropometrico> DatosAntropometricos { get; set; }
         public virtual ICollection<DatoAnalitico> DatosAnaliticos { get; set; }
         public virtual ICollection<PlanAlimenticio> PlanesAlimenticios { get; set; }
-        public virtual ICollection<Turno> Turnos { get; set; } 
+        public virtual ICollection<Turno> Turnos { get; set; }
     }
 }

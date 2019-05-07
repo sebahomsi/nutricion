@@ -95,6 +95,7 @@
     <Compile Include="SubGrupo\SubGrupoServicio.cs" />
     <Compile Include="Turno\TurnoServicio.cs" />
     <Compile Include="UnidadMedida\UnidadMedidaServicio.cs" />
+    <Compile Include="Usuario\Dto\ApplicationUser.cs" />
     <Compile Include="Usuario\UsuarioServicio.cs" />
   </ItemGroup>
   <ItemGroup />

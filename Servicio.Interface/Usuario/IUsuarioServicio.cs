@@ -8,9 +8,9 @@ namespace Servicio.Interface.Usuario
 {
     public interface IUsuarioServicio
     {
-        void Crear(string nombreUsuario, string nombreRol);
+        void Crear(string nombreUsuario, string nombreRol,long establecimientoId);
 
-        Task Crear(string nombreUsuario, string passwword, string nombreRol);
+        Task Crear(string nombreUsuario, string passwword, string nombreRol, long establecimientoId);
 
         Task<bool> Actualizar(string nombreUsuario, string nombreUsuarioNuevo);
 

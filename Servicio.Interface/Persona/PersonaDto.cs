@@ -20,5 +20,6 @@ namespace Servicio.Interface.Persona
         public string Celular { get; set; }
         public string Foto { get; set; }
         public bool Eliminado { get; set; }
+        public long EstablecimientoId { get; set; }
     }
 }

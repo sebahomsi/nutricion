@@ -1,16 +1,23 @@
-﻿using System;
+﻿using Servicio.Interface.Empleado;
+using Servicio.Interface.Usuario;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using Servicio.Interface.Empleado;
 
 namespace Servicio.Empleado
 {
     public class EmpleadoServicio : ServicioBase, IEmpleadoServicio
     {
+        private readonly IUsuarioServicio _usuarioServicio;
+
+        public EmpleadoServicio(IUsuarioServicio usuarioServicio)
+        {
+            _usuarioServicio = usuarioServicio;
+        }
+
         public async Task<long> Add(EmpleadoDto dto)
         {
             var empleado = new Dominio.Entidades.Empleado()
@@ -26,11 +33,13 @@ namespace Servicio.Empleado
                 Foto = dto.Foto,
                 Mail = dto.Mail,
                 Telefono = dto.Telefono,
-                Sexo = dto.Sexo
+                Sexo = dto.Sexo,
+                EstablecimientoId = dto.EstablecimientoId
             };
 
-            Context.Personas.Add(empleado);
+            Context.Personas.Add(empleado);          
             await Context.SaveChangesAsync();
+            _usuarioServicio.Crear(empleado.Mail, "Empleado", empleado.EstablecimientoId);
             return empleado.Id;
         }
 
@@ -57,14 +66,14 @@ namespace Servicio.Empleado
         {
             var empleado = await Context.Personas.OfType<Dominio.Entidades.Empleado>().FirstOrDefaultAsync(x => x.Id == id);
 
-            if(empleado == null) throw new ArgumentNullException(); //buscar en google parametros validos
+            if (empleado == null) throw new ArgumentNullException(); //buscar en google parametros validos
 
             empleado.Eliminado = !empleado.Eliminado;
 
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<EmpleadoDto>> Get(bool eliminado,string cadenaBuscar = "")
+        public async Task<ICollection<EmpleadoDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
             Expression<Func<Dominio.Entidades.Empleado, bool>> expression = x => x.Eliminado == eliminado && (x.Apellido.Contains(cadenaBuscar)
                                                                                                               || x.Nombre.Contains(cadenaBuscar));
