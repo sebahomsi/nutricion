@@ -284,6 +284,8 @@
     <Compile Include="Helpers\AutoMapper\IniciarAutoMapper.cs" />
     <Compile Include="Helpers\AutoMapper\TurnosProfileView.cs" />
     <Compile Include="Helpers\Diccionario.cs" />
+    <Compile Include="Helpers\Establecimiento\ComboBoxEstablecimiento.cs" />
+    <Compile Include="Helpers\Establecimiento\IComboBoxEstablecimiento.cs" />
     <Compile Include="Helpers\FIle.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\Persona\ComboBoxSexo.cs" />
