@@ -287,6 +287,7 @@
     <Compile Include="Helpers\Establecimiento\ComboBoxEstablecimiento.cs" />
     <Compile Include="Helpers\Establecimiento\IComboBoxEstablecimiento.cs" />
     <Compile Include="Helpers\FIle.cs" />
+    <Compile Include="Helpers\Identity\IdentityHelper.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\Persona\ComboBoxSexo.cs" />
     <Compile Include="Helpers\Persona\IComboBoxSexo.cs" />
@@ -787,6 +788,7 @@
     <Content Include="Views\Paciente\ObjetivosParcial.cshtml" />
     <Content Include="Views\Paciente\AnamnesisParcial.cshtml" />
     <Content Include="Views\Paciente\EstrategiaParcial.cshtml" />
+    <Content Include="Views\Establecimiento\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
