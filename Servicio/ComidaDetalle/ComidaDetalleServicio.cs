@@ -17,7 +17,10 @@ namespace Servicio.ComidaDetalle
 
             if (verify.HasValue)
             {
-                throw new ArgumentException("Ya existe una opcion igual");
+                await Activar(dto.Id);
+                
+                return dto.Id;
+                //throw new ArgumentException("Ya existe una opcion igual");
             }
             var detalle = new Dominio.Entidades.ComidaDetalle()
             {
@@ -32,6 +35,12 @@ namespace Servicio.ComidaDetalle
             await Context.SaveChangesAsync();
 
             return detalle.Id;
+        }
+
+        private async Task Activar(long id)
+        {
+            Context.ComidasDetalles.FirstOrDefault(c => c.Id == id).Eliminado = false;
+            await Context.SaveChangesAsync();
         }
 
         public async Task Update(ComidaDetalleDto dto)
