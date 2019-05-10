@@ -1,12 +1,14 @@
-﻿using System;
+﻿using NutricionWeb.Models.Establecimiento;
+using Servicio.Interface.Establecimiento;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using NutricionWeb.Models.Establecimiento;
-using Servicio.Interface.Establecimiento;
+using AutoMapper;
+using PagedList;
+using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Establecimiento
 {
@@ -21,9 +23,15 @@ namespace NutricionWeb.Controllers.Establecimiento
         }
 
         // GET: Establecimiento
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int? page,string cadenaBuscar)
         {
-            return View();
+            var pageNumber = page ?? 1;
+
+            var establecimientos = await _establecimientoServicio.Get();
+
+            var vm = Mapper.Map<IEnumerable<EstablecimientoViewModel>>(establecimientos);
+
+            return View(vm.ToPagedList(pageNumber,CantidadFilasPorPaginas));
         }
 
         // GET: Establecimiento/Details/5
@@ -53,37 +61,11 @@ namespace NutricionWeb.Controllers.Establecimiento
             });
         }
 
-        // GET: Establecimiento/Create
-        public async Task<ActionResult> Create()
+        public  ActionResult Create()
         {
-            //if (User.IsInRole("Paciente"))
-            //{
-            //    var todo = await _establecimientoServicio.Get();
-            //    if (todo != null)
-            //    {
-            //        var establecimiento = await _establecimientoServicio.GetById(todo.First().Id);
-            //        return RedirectToAction("Details", new { id = establecimiento.Id });
-            //    }
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
-
-            //}
-            if (await _establecimientoServicio.EstablecimientoFlag())
-            {
-                var flagId = await _establecimientoServicio.Get();
-                var establecimiento = await _establecimientoServicio.GetById(flagId.First().Id);
-
-                if (establecimiento == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
-                }
-
-                return RedirectToAction("Details", new {id = establecimiento.Id});
-            }
-
             return View(new EstablecimientoViewModel());
         }
 
-        // POST: Establecimiento/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EstablecimientoViewModel vm)
@@ -92,19 +74,72 @@ namespace NutricionWeb.Controllers.Establecimiento
             {
                 if (ModelState.IsValid)
                 {
-                    var datosDto = CargarDatos(vm);
-
-                    await _establecimientoServicio.Add(datosDto);
+                    var establecimientoDto = CargarDatos(vm);
+                    await _establecimientoServicio.Add(establecimientoDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception e)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty,e.Message);
                 return View(vm);
             }
-            return RedirectToAction("Index","Home");
-
+            return RedirectToAction("Index");
         }
+
+
+
+        // GET: Establecimiento/Create
+        //public async Task<ActionResult> Create()
+        //{
+        //    //if (User.IsInRole("Paciente"))
+        //    //{
+        //    //    var todo = await _establecimientoServicio.Get();
+        //    //    if (todo != null)
+        //    //    {
+        //    //        var establecimiento = await _establecimientoServicio.GetById(todo.First().Id);
+        //    //        return RedirectToAction("Details", new { id = establecimiento.Id });
+        //    //    }
+        //    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
+
+        //    //}
+        //    if (await _establecimientoServicio.EstablecimientoFlag())
+        //    {
+        //        var flagId = await _establecimientoServicio.Get();
+        //        var establecimiento = await _establecimientoServicio.GetById(flagId.First().Id);
+
+        //        if (establecimiento == null)
+        //        {
+        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
+        //        }
+
+        //        return RedirectToAction("Details", new { id = establecimiento.Id });
+        //    }
+
+        //    return View(new EstablecimientoViewModel());
+        //}
+
+        //// POST: Establecimiento/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create(EstablecimientoViewModel vm)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var datosDto = CargarDatos(vm);
+
+        //            await _establecimientoServicio.Add(datosDto);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError(string.Empty, ex.Message);
+        //        return View(vm);
+        //    }
+        //    return RedirectToAction("Index", "Home");
+
+        //}
 
         // GET: Establecimiento/Edit/5
         [Authorize(Roles = "Administrador")]
@@ -143,7 +178,7 @@ namespace NutricionWeb.Controllers.Establecimiento
                     await _establecimientoServicio.Update(datosDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);

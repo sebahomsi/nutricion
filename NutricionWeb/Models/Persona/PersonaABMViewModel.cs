@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -55,6 +54,10 @@ namespace NutricionWeb.Models.Persona
 
         public bool Eliminado { get; set; }
 
+        public long EstablecimientoId { get; set; }
+
         public IEnumerable<SelectListItem> Sexos { get; set; }
+
+        public IEnumerable<SelectListItem> Establecimientos { get; set; }
     }
 }
