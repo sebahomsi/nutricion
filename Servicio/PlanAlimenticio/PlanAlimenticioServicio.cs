@@ -310,5 +310,43 @@ namespace Servicio.PlanAlimenticio
             }
         }
 
+        public async Task<PlanDiasDto> GetSortringComidas(long PlanId)
+        {
+            var diasDto = new PlanDiasDto();         
+
+
+            var plan = await GetById(PlanId);
+
+            foreach (var dia in plan.Dias)
+            {
+                foreach (var comida in dia.Comidas)
+                {
+                    switch (comida.Descripcion)
+                    {
+                        case "Almuerzo":
+                            diasDto.Almuerzo.Add(comida);
+                            break;
+                        case "Cena":
+                            diasDto.Cena.Add(comida);
+                            break;
+                        case "Desayuno":
+                            diasDto.Desayunos.Add(comida);
+                            break;
+                        case "Media Mañana":
+                            diasDto.MediaMañana.Add(comida);
+                            break;
+                        case "MediaTarde":
+                            diasDto.MediaTarde.Add(comida);
+                            break;                       
+                        default:
+                            break;
+                    }
+                }
+            }
+            return diasDto;
+
+
+
+        }
     }
 }

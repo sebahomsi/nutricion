@@ -1,0 +1,107 @@
+﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioVistaViewModel
+
+@{
+    ViewBag.Title = "ExportarPlanOrdenado";
+}
+
+<h2>ExportarPlanOrdenado</h2>
+<div class="container">
+    <div class="row" style="display: table; border:1px solid black; width: 100%;" >
+        <div class="col-md-2" style=" width:12.5%">
+
+        </div>
+        <div class="col-md-2 text-center" style="display: table-cell; border-right:1px solid black; border-left:1px solid black; width:12.5%">
+            <p>Lunes</p>
+        </div>
+        <div class="col-md-2 text-center" style="display: table-cell; border-right:1px solid black;  width:12.5%">
+            <p>Martes</p>
+        </div>
+        <div class="col-md-2 text-center" style="border-right:1px solid black; width:12.5%; display: table-cell;">
+            <p>Miercoles</p>
+        </div>
+        <div class="col-md-2 text-center" style="border-right:1px solid black;  width:12.5%; display: table-cell;">
+            <p>Jueves</p>
+        </div>
+        <div class="col-md-2 text-center" style="border-right:1px solid black;  width:12.5%; display: table-cell;">
+            <p>Viernes</p>
+        </div>
+        <div class="col-md-2 text-center" style="border-right:1px solid black;  width:12.5%; display: table-cell;">
+            <p>Sabado</p>
+        </div>
+        <div class="col-md-2 text-center" style="border-right:1px solid black; width:12.5%; display: table-cell;">
+            <p>Domingo</p>
+        </div>
+    </div>
+
+    <div class="row" style="display: table; border:1px solid black; width: 100%;">
+        <div class="col-md-2" style=" width:12.5%">
+            Desayuno
+        </div>
+        @foreach (var comida in Model.Desayunos)
+        {
+            <div class="col-md-2 text-center" style=" display: table-cell; border-right:1px solid black;  width:12.5%">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <p>@detalle.OpcionStr</p>
+                }
+            </div>
+        }
+    </div>
+    <div class="row" style="border:1px solid black;">
+        <div class="col-md-2" style=" width:12.5%">
+            Media Mañana
+        </div>
+        @foreach (var comida in Model.MediaMañana)
+        {
+            <div class="col-md-2 text-center" style="border-right:1px solid black;  width:12.5%">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <p>@detalle.OpcionStr</p>
+                }
+            </div>
+        }
+    </div>
+    <div class="row" style="border:1px solid black;">
+        <div class="col-md-2" style=" width:12.5%">
+            Almuerzo
+        </div>
+        @foreach (var comida in Model.Almuerzo)
+        {
+            <div class="col-md-2 text-center" style="border-right:1px solid black;  width:12.5%">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <p>@detalle.OpcionStr</p>
+                }
+            </div>
+        }
+    </div>
+    <div class="row" style="border:1px solid black;">
+        <div class="col-md-2" style=" width:12.5%">
+            Merienda
+        </div>
+        @foreach (var comida in Model.MediaTarde)
+        {
+            <div class="col-md-2 text-center" style="border-right:1px solid black; width:12.5%">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <p>@detalle.OpcionStr</p>
+                }
+            </div>
+        }
+    </div>
+    <div class="row" style="border:1px solid black;" >
+        <div class="col-md-2" style=" width:12.5%">
+            Cena
+        </div>
+        @foreach (var comida in Model.Cena)
+        {
+            <div class="col-md-2 text-center" style="border-right:1px solid black;  width:12.5%">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <p>@detalle.OpcionStr</p>
+                }
+            </div>
+        }
+    </div>
+
+</div>
