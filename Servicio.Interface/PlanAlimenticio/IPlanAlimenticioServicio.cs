@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Servicio.Interface.Comida;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Servicio.Interface.PlanAlimenticio
@@ -14,5 +15,6 @@ namespace Servicio.Interface.PlanAlimenticio
         Task<IEnumerable<PlanAlimenticioDto>> GetByIdPaciente(long id);
         Task DuplicatePlan(long planId, long pacienteId);
         Task CalculateTotalCalories(long plandId);
+        Task<PlanDiasDto> GetSortringComidas(long PlanId);
     }
 }

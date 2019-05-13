@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Routing.Constraints;
+﻿using NutricionWeb.Helpers.Persona;
 using NutricionWeb.Models.Empleado;
 using PagedList;
 using Servicio.Interface.Empleado;
-using static NutricionWeb.Helpers.PagedList;
-using static NutricionWeb.Helpers.File;
-using NutricionWeb.Helpers.Persona;
+using System;
+using System.Linq;
 using System.Net;
-using System.Web.Profile;
-using System.Xml.Schema;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using NutricionWeb.Helpers.Establecimiento;
+using static NutricionWeb.Helpers.File;
+using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Empleado
 {
@@ -23,11 +18,15 @@ namespace NutricionWeb.Controllers.Empleado
     {
         private readonly IEmpleadoServicio _empleadoServicio;
         private readonly IComboBoxSexo _comboBoxSexo;
+        private readonly IComboBoxEstablecimiento _comboBoxEstablecimiento;
 
-        public EmpleadoController(IEmpleadoServicio empleadoServicio, IComboBoxSexo comboBoxSexo)
+        public EmpleadoController(IEmpleadoServicio empleadoServicio, 
+            IComboBoxSexo comboBoxSexo,
+            IComboBoxEstablecimiento comboBoxEstablecimiento)
         {
             _empleadoServicio = empleadoServicio;
             _comboBoxSexo = comboBoxSexo;
+            _comboBoxEstablecimiento = comboBoxEstablecimiento;
         }
 
         // GET: Empleado
@@ -38,10 +37,10 @@ namespace NutricionWeb.Controllers.Empleado
             ViewBag.Eliminado = eliminado;
 
             var empleados =
-                await _empleadoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _empleadoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (empleados == null) return HttpNotFound();
- 
-            return View(empleados.Select(x=> new EmpleadoViewModel()
+
+            return View(empleados.Select(x => new EmpleadoViewModel()
             {
                 Id = x.Id,
                 Legajo = x.Legajo,
@@ -65,7 +64,8 @@ namespace NutricionWeb.Controllers.Empleado
         {
             return View(new EmpleadoABMViewModel()
             {
-                Sexos = await _comboBoxSexo.Poblar()
+                Sexos = await _comboBoxSexo.Poblar(),
+                Establecimientos = await _comboBoxEstablecimiento.Poblar()
             });
         }
 
@@ -93,6 +93,7 @@ namespace NutricionWeb.Controllers.Empleado
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 vm.Sexos = await _comboBoxSexo.Poblar();
+                vm.Establecimientos = await _comboBoxEstablecimiento.Poblar();
                 return View(vm);
             }
 
@@ -100,7 +101,7 @@ namespace NutricionWeb.Controllers.Empleado
         }
 
         // GET: Empleado/Edit/5
-        public async Task <ActionResult> Edit(long? id)
+        public async Task<ActionResult> Edit(long? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
@@ -137,12 +138,12 @@ namespace NutricionWeb.Controllers.Empleado
                     pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
 
                     var empleadoDto = CargarDatos(vm, pic);
-                    
+
                     await _empleadoServicio.Update(empleadoDto);
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 vm.Sexos = await _comboBoxSexo.Poblar();
@@ -172,7 +173,7 @@ namespace NutricionWeb.Controllers.Empleado
                 FechaNac = empleado.FechaNac,
                 Sexo = empleado.Sexo,
                 Mail = empleado.Mail,
-                FotoStr=empleado.Foto,
+                FotoStr = empleado.Foto,
                 Eliminado = empleado.Eliminado,
             });
         }
@@ -238,6 +239,7 @@ namespace NutricionWeb.Controllers.Empleado
                 Direccion = vm.Direccion,
                 Sexo = vm.Sexo,
                 FechaNac = vm.FechaNac,
+                EstablecimientoId = vm.EstablecimientoId,
                 Foto = pic
             };
         }

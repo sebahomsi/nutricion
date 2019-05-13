@@ -5,7 +5,7 @@
     ViewBag.Title = "ExportarPlan";
 }
 
-<div class="titulo-ABM">
+@*<div class="titulo-ABM">
     <h4 class="detail-plan-h4">Detalles del Plan</h4>
 </div>
 
@@ -39,43 +39,46 @@
 
 
     </dl>
-</div>
+</div>*@
+
+
+@*@foreach (var dia in Model.Dias)
+{
+    <h3 class="detail-h3"><p>@dia.Descripcion</p></h3>
+    <div class="row row-plan">
+
+
+
+        @foreach (var comida in dia.Comidas)
+        {
+
+            <div class="col-md-2" style="border-right: 1px solid #ccc;">
+                <h4><p> @Html.ActionLink(@comida.Descripcion, "Create", "ComidaDetalle", new { comidaId = comida.Id }, new { target = "_blank" })</p></h4>
+
+                @foreach (var comidaDetalle in comida.ComidasDetalles)
+                {
+                    if (!comidaDetalle.Eliminado) { 
+                        <hr />
+                        <strong><p>@comidaDetalle.OpcionStr</p></strong>
+                        foreach (var opcionDetalle in comidaDetalle.Opcion.OpcionDetalles)
+                        {
+                            <p>@opcionDetalle.AlimentoStr, @opcionDetalle.CantidadMostrar</p>
+                        }
+                    
+                        <p>@Html.ActionLink("&copy;", "Eliminar", "ComidaDetalle", new { id = comidaDetalle.Id }, new { @class="btn btn-danger" })</p>
+                    }
+                }
+            </div>
+
+        }
+
+    </div>
+    <br>
+}*@
 
 
 @foreach (var dia in Model.Dias)
 {
-    <h3 class="detail-h3"><p>@dia.Descripcion</p></h3>
-        <div class="row row-plan" >
-
-
-
-            @foreach (var comida in dia.Comidas)
-            {
-               
-                <div class="col-md-2" style="border-right: 1px solid #ccc;">
-                    <h4><p> @Html.ActionLink(@comida.Descripcion, "Create", "ComidaDetalle", new { comidaId = comida.Id }, new { target = "_blank" })</p></h4>
-
-                    @foreach (var comidaDetalle in comida.ComidasDetalles)
-                    {
-                        
-                        <hr/>
-                        <strong><p>@comidaDetalle.OpcionStr</p></strong>
-                         foreach (var opcionDetalle in comidaDetalle.Opcion.OpcionDetalles)
-                         {
-                             <p>@opcionDetalle.AlimentoStr, @opcionDetalle.CantidadMostrar</p>
-                         }
-                    }
-                </div>
-
-            }
-
-        </div>
-        <br>
-}
-
-
-@foreach (var dia in Model.Dias)
-{    
     <div class="col-md-2" style="border: 1px solid #ccc;width: 14.2%">
         <h4>@dia.Descripcion</h4>
     </div>
@@ -92,7 +95,7 @@
 
     foreach (var dia in Model.Dias)
     {
-      
+
         foreach (var comida in dia.Comidas)
         {
             if (comida.Descripcion == Diccionario.ObtenerComidaStr(comidaInt))
@@ -101,21 +104,26 @@
                 <div class="col-md-2" style="border: 1px solid #ccc; width: 14.2%; height:350px; overflow: auto">
                     @foreach (var opcion in comida.ComidasDetalles)
                     {
-                        <p style="font-size: 15px; color: black; margin: auto;">@opcion.OpcionStr</p>
-                        <p style="font-size: 13px; color: black; margin: auto;">Consejo: @opcion.Comentario</p>
-
-                        foreach (var opcionDetalle in opcion.Opcion.OpcionDetalles)
+                        if (!opcion.Eliminado)
                         {
-                            <p style="font-size: 12px; margin: 0; color: black;">@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
+                            <p style="font-size: 15px; color: black; margin: auto;">@opcion.OpcionStr</p>
+                            <p style="font-size: 13px; color: black; margin: auto;">Consejo: @opcion.Comentario</p>
+                            foreach (var opcionDetalle in opcion.Opcion.OpcionDetalles)
+                            {
+                                <p style="font-size: 12px; margin: 0; color: black;">@opcionDetalle.AlimentoStr @opcionDetalle.CantidadMostrar</p>
+                            }
+                            
+                            
                         }
+
                     }
                 </div>
-                 contador++;
+                contador++;
             }
 
         }
- 
-     }
+
+    }
 
     comidaInt++;
 }
@@ -124,9 +132,9 @@
 
 
 
- 
+
 
 
 <p>
-     @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new{ planId = Model.Id })
+    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = Model.Id })
 </p>

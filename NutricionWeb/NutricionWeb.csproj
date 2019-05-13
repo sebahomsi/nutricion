@@ -284,7 +284,10 @@
     <Compile Include="Helpers\AutoMapper\IniciarAutoMapper.cs" />
     <Compile Include="Helpers\AutoMapper\TurnosProfileView.cs" />
     <Compile Include="Helpers\Diccionario.cs" />
+    <Compile Include="Helpers\Establecimiento\ComboBoxEstablecimiento.cs" />
+    <Compile Include="Helpers\Establecimiento\IComboBoxEstablecimiento.cs" />
     <Compile Include="Helpers\FIle.cs" />
+    <Compile Include="Helpers\Identity\IdentityHelper.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\Persona\ComboBoxSexo.cs" />
     <Compile Include="Helpers\Persona\IComboBoxSexo.cs" />
@@ -337,6 +340,7 @@
     <Compile Include="Models\Persona\PersonaViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioABMViewModel.cs" />
     <Compile Include="Models\PlanAlimenticio\PlanAlimenticioViewModel.cs" />
+    <Compile Include="Models\PlanAlimenticio\PlanAlimenticioVistaViewModel.cs" />
     <Compile Include="Models\Seguridad\RolViewModel.cs" />
     <Compile Include="Models\Seguridad\UsuarioRolViewModel.cs" />
     <Compile Include="Models\Seguridad\UsuarioViewModel.cs" />
@@ -785,6 +789,8 @@
     <Content Include="Views\Paciente\ObjetivosParcial.cshtml" />
     <Content Include="Views\Paciente\AnamnesisParcial.cshtml" />
     <Content Include="Views\Paciente\EstrategiaParcial.cshtml" />
+    <Content Include="Views\Establecimiento\Index.cshtml" />
+    <Content Include="Views\PlanAlimenticio\ExportarPlanOrdenado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

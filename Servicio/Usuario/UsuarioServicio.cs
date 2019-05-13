@@ -10,11 +10,11 @@ namespace Servicio.Usuario
 {
     public class UsuarioServicio : ServicioBase, IUsuarioServicio
     {
-        private readonly IdentityDbContext IdentityDbContext;
+        private readonly IdentityDbContext<ApplicationUser> IdentityDbContext;
 
         public UsuarioServicio()
         {
-            IdentityDbContext = new IdentityDbContext(ObtenerCadenaConexion);
+            IdentityDbContext = new IdentityDbContext<ApplicationUser>(ObtenerCadenaConexion);
         }
 
 

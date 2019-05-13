@@ -8,6 +8,7 @@ namespace Servicio.Interface.ComidaDetalle
         Task<long> Add(ComidaDetalleDto dto);
         Task Update(ComidaDetalleDto dto);
         Task Delete(long id);
+        
         Task<ICollection<ComidaDetalleDto>> Get(bool eliminado, string cadenaBuscar);
         Task<ComidaDetalleDto> GetById(long id);
         Task<int> GetNextCode();

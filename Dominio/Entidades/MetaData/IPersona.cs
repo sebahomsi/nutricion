@@ -37,7 +37,7 @@ namespace Dominio.Entidades.MetaData
         string Telefono { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
-        [StringLength(11, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
+        [StringLength(15, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         string Celular { get; set; }
 
         string Foto { get; set; }

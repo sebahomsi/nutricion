@@ -1,17 +1,16 @@
-using NutricionWeb.Helpers.Persona;
-using System.Web.Mvc;
-using Unity;
-using Unity.Mvc5;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using NutricionWeb.Controllers;
+using NutricionWeb.Helpers.Establecimiento;
+using NutricionWeb.Helpers.Persona;
+using NutricionWeb.Models;
 using System.Web;
+using System.Web.Mvc;
+using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
-using NutricionWeb.Controllers;
-using NutricionWeb.Models;
-using Servicio.Interface.Paciente;
-using static Aplicacion.Conexion.ConexionDb;
+using Unity.Mvc5;
 
 
 namespace NutricionWeb
@@ -21,7 +20,7 @@ namespace NutricionWeb
 
         public static void RegisterComponents()
         {
-			var container = new UnityContainer();
+            var container = new UnityContainer();
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers
@@ -50,6 +49,7 @@ namespace NutricionWeb
                 new HierarchicalLifetimeManager()); //
 
             container.RegisterType<IComboBoxSexo, ComboBoxSexo>();
+            container.RegisterType<IComboBoxEstablecimiento, ComboBoxEstablecimiento>();
 
             Aplicacion.IoC.UnityConfig.RegisterComponents(container);
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

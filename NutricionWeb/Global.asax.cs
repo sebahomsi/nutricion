@@ -55,36 +55,6 @@ namespace NutricionWeb
             {
                 userManager.AddToRole(superUsuario.Id, "Administrador");
             }
-
-            //if (!userManager.IsInRole(superUsuario.Id, "Paciente"))
-            //{
-            //    userManager.AddToRole(superUsuario.Id, "Paciente");
-            //}
-
-            //if (!userManager.IsInRole(superUsuario.Id, "Empleado"))
-            //{
-            //    userManager.AddToRole(superUsuario.Id, "Empleado");
-            //}
-
-            //if (!userManager.IsInRole(superUsuario.Id, "Insert"))
-            //{
-            //    userManager.AddToRole(superUsuario.Id, "Insert");
-            //}
-
-            //if (!userManager.IsInRole(superUsuario.Id, "Update"))
-            //{
-            //    userManager.AddToRole(superUsuario.Id, "Update");
-            //}
-
-            //if (!userManager.IsInRole(superUsuario.Id, "Delete"))
-            //{
-            //    userManager.AddToRole(superUsuario.Id, "Delete");
-            //}
-
-            //if (!userManager.IsInRole(superUsuario.Id, "View"))
-            //{
-            //    userManager.AddToRole(superUsuario.Id, "View");
-            //}
         }
 
         private void CrearSuperUsusario(ApplicationDbContext db)
@@ -123,27 +93,10 @@ namespace NutricionWeb
                 var result = roleManager.Create(new IdentityRole("Empleado"));
             }
 
-            //if (!roleManager.RoleExists("Insert"))
-            //{
-            //    var result = roleManager.Create(new IdentityRole("Insert"));
-            //}
-
-            //if (!roleManager.RoleExists("Update"))
-            //{
-            //    var result = roleManager.Create(new IdentityRole("Update"));
-            //}
-
-            //if (!roleManager.RoleExists("Delete"))
-            //{
-            //    var result = roleManager.Create(new IdentityRole("Delete"));
-            //}
-
-            //if (!roleManager.RoleExists("View"))
-            //{
-            //    var result = roleManager.Create(new IdentityRole("View"));
-            //}
-
-
+            if (!roleManager.RoleExists("GestionPacientes"))
+            {
+                var result = roleManager.Create(new IdentityRole("GestionPacientes"));
+            }
         }
     }
 }

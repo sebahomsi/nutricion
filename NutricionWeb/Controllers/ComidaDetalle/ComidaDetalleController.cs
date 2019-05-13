@@ -151,7 +151,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
 
             var detalle = await _comidaDetalleServicio.GetById(id.Value);
 
-            return View(new ComidaDetalleViewModel()
+            var vm = new ComidaDetalleViewModel()
             {
                 Id = detalle.Id,
                 Codigo = detalle.Codigo,
@@ -161,7 +161,21 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 OpcionStr = detalle.OpcionStr,
                 ComidaStr = detalle.ComidaStr,
                 Eliminado = detalle.Eliminado
-            });
+            };
+
+            return RedirectToAction("Delete");
+
+            //return View(new ComidaDetalleViewModel()
+            //{
+            //    Id = detalle.Id,
+            //    Codigo = detalle.Codigo,
+            //    Comentario = detalle.Comentario,
+            //    OpcionId = detalle.OpcionId,
+            //    ComidaId = detalle.ComidaId,
+            //    OpcionStr = detalle.OpcionStr,
+            //    ComidaStr = detalle.ComidaStr,
+            //    Eliminado = detalle.Eliminado
+            //});
         }
 
         // POST: ComidaDetalle/Delete/5
@@ -181,6 +195,15 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 return View(vm);
             }
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> Eliminar(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            await _comidaDetalleServicio.Delete(id.Value);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: ComidaDetalle/Details/5
