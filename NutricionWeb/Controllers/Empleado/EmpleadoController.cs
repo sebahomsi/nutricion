@@ -67,7 +67,8 @@ namespace NutricionWeb.Controllers.Empleado
             return View(new EmpleadoABMViewModel()
             {
                 Sexos = await _comboBoxSexo.Poblar(),
-                Establecimientos = await _comboBoxEstablecimiento.Poblar()
+                Establecimientos = await _comboBoxEstablecimiento.Poblar(),
+                EstablecimientoId = ObtenerEstablecimientoIdUser() ?? -1
             });
         }
 
