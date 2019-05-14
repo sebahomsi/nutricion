@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using NutricionWeb.Helpers.Identity;
 using NutricionWeb.Models.DatoAnalitico;
 using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.DatoAnalitico;
 using Servicio.Interface.Paciente;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -34,13 +33,13 @@ namespace NutricionWeb.Controllers.DatoAnalitico
 
             ViewBag.Eliminado = eliminado;
 
-            var datos = await _datoAnaliticoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar)
+            var datos = await _datoAnaliticoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar)
                 ? cadenaBuscar
                 : string.Empty);
 
             if (datos == null) return HttpNotFound();
 
-            return View(datos.Select(x=> new DatoAnaliticoViewModel()
+            return View(datos.Select(x => new DatoAnaliticoViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
@@ -54,7 +53,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 Trigliceridos = x.Trigliceridos,
                 FechaMedicion = x.FechaMedicion,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber,CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
 
@@ -81,7 +80,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                     await _datoAnaliticoServicio.Add(datosDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
@@ -134,7 +133,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
-            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var datos = await _datoAnaliticoServicio.GetById(id.Value);
 
@@ -168,7 +167,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                     await _datoAnaliticoServicio.Update(datos);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
@@ -213,7 +212,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                     await _datoAnaliticoServicio.Delete(vm.Id);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
@@ -250,14 +249,16 @@ namespace NutricionWeb.Controllers.DatoAnalitico
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
+            var establecimientoId = User.Identity.GetEstablecimientoId();
+
             var pageNumber = page ?? 1;
             var eliminado = false;
             var pacientes =
-                await _pacienteServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty); 
+                await _pacienteServicio.Get(establecimientoId,eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (pacientes == null) return HttpNotFound(); 
+            if (pacientes == null) return HttpNotFound();
 
-            return PartialView(pacientes.Select(x => new PacienteViewModel() 
+            return PartialView(pacientes.Select(x => new PacienteViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,

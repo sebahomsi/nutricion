@@ -1,4 +1,5 @@
-﻿using NutricionWeb.Models.DatoAntropometrico;
+﻿using NutricionWeb.Helpers.Identity;
+using NutricionWeb.Models.DatoAntropometrico;
 using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.DatoAntropometrico;
@@ -274,10 +275,12 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
+            var establecimientoId = User.Identity.GetEstablecimientoId();
+
             var pageNumber = page ?? 1;
 
             var pacientes =
-                await _pacienteServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(establecimientoId,false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return HttpNotFound();
 

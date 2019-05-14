@@ -19,6 +19,7 @@ using Servicio.Interface.Alimento;
 using Servicio.Interface.Opcion;
 using static NutricionWeb.Helpers.PagedList;
 using AutoMapper;
+using NutricionWeb.Helpers.Identity;
 
 namespace NutricionWeb.Controllers.PlanAlimenticio
 {
@@ -458,10 +459,12 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
+            var establecimientoId = User.Identity.GetEstablecimientoId();
+
             var pageNumber = page ?? 1;
             var eliminado = false;
             var pacientes =
-                await _pacienteServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(establecimientoId,eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return HttpNotFound(); 
 

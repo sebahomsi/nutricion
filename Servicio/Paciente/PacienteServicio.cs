@@ -36,6 +36,7 @@ namespace Servicio.Paciente
                 Foto = dto.Foto,
                 Eliminado = false,
                 TieneObservacion = false,
+                EstablecimientoId = dto.EstablecimientoId
             };
 
             Context.Personas.Add(paciente);
@@ -77,10 +78,12 @@ namespace Servicio.Paciente
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PacienteDto>> Get(bool eliminado, string cadenaBuscar = "")
+        public async Task<ICollection<PacienteDto>> Get(long? establecimientoId, bool eliminado, string cadenaBuscar = "")
         {
-            Expression<Func<Dominio.Entidades.Paciente, bool>> expression = x => x.Eliminado == eliminado && (x.Apellido.Contains(cadenaBuscar)
-                                                                                                              || x.Nombre.Contains(cadenaBuscar));
+            Expression<Func<Dominio.Entidades.Paciente, bool>> expression = 
+                x => x.Eliminado == eliminado 
+            && (x.Apellido.Contains(cadenaBuscar)
+            || x.Nombre.Contains(cadenaBuscar)) && (!establecimientoId.HasValue || x.EstablecimientoId == establecimientoId) ;
             return await Context.Personas.OfType<Dominio.Entidades.Paciente>()
                 .AsNoTracking()
                 .Where(expression)
