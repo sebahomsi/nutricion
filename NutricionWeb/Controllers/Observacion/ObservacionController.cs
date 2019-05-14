@@ -96,6 +96,92 @@ namespace NutricionWeb.Controllers.Observacion
 
         }
 
+        public async Task<ActionResult> CreateParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var paciente = await _pacienteServicio.GetById(id.Value);
+
+            return PartialView(new ObservacionABMViewModel()
+            {
+                PacienteId = paciente.Id,
+                PacienteStr = $"{paciente.Apellido} {paciente.Nombre}"
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(ObservacionABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var datosDto = CargarDatos(vm);
+                    datosDto.Codigo = await _observacionServicio.GetNextCode();
+
+                    await _observacionServicio.Add(datosDto);
+                }
+                else
+                {
+                    return PartialView(vm);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("ObservacionesParcial", "Paciente", new { id = vm.PacienteId });
+
+        }
+
+        // GET
+        public async Task<ActionResult> EditParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var observacion = await _observacionServicio.GetById(id.Value);
+
+            return PartialView(new ObservacionABMViewModel()
+            {
+                Id = observacion.Id,
+                Codigo = observacion.Codigo,
+                PacienteId = observacion.PacienteId,
+                PacienteStr = observacion.PacienteStr,
+                Fumador = observacion.Fumador,
+                BebeAlcohol = observacion.BebeAlcohol,
+                EstadoCivil = observacion.EstadoCivil,
+                CantidadSuenio = observacion.CantidadSuenio,
+                TuvoHijo = observacion.TuvoHijo,
+                CantidadHijo = observacion.CantidadHijo,
+                Eliminado = observacion.Eliminado
+            });
+        }
+
+        // POST: Observacion/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditParcial(ObservacionABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var observacionDto = CargarDatos(vm);
+
+                    await _observacionServicio.Update(observacionDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("ObservacionesParcial", "Paciente", new { id = vm.PacienteId });
+
+        }
+
         // GET: Observacion/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {

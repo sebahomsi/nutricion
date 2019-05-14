@@ -21,11 +21,13 @@ using AutoMapper;
 using NutricionWeb.Models.Anamnesis;
 using NutricionWeb.Models.Estrategia;
 using NutricionWeb.Models.Objetivo;
+using NutricionWeb.Models.Observacion;
 using Servicio.Interface.Anamnesis;
 using Servicio.Interface.Estrategia;
 using Servicio.Interface.Objetivo;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
+using Servicio.Interface.Observacion;
 
 namespace NutricionWeb.Controllers.Paciente
 {
@@ -41,9 +43,10 @@ namespace NutricionWeb.Controllers.Paciente
         private readonly IObjetivoServicio _objetivoServicio;
         private readonly IAnamnesisServicio _anamnesisServicio;
         private readonly IEstrategiaServicio _estrategiaServicio;
+        private readonly IObservacionServicio _observacionServicio;
 
 
-        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio)
+        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio, IObservacionServicio observacionServicio)
         {
             _pacienteServicio = pacienteServicio;
             _comboBoxSexo = comboBoxSexo;
@@ -54,9 +57,9 @@ namespace NutricionWeb.Controllers.Paciente
             _objetivoServicio = objetivoServicio;
             _anamnesisServicio = anamnesisServicio;
             _estrategiaServicio = estrategiaServicio;
+            _observacionServicio = observacionServicio;
         }
         
-
         // GET: Paciente
         [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
@@ -315,6 +318,7 @@ namespace NutricionWeb.Controllers.Paciente
                 Id = paciente.Id,
                 Nombre = paciente.Nombre,
                 Apellido = paciente.Apellido,
+                TieneObservacion = paciente.TieneObservacion,
             });
         }
 
@@ -330,6 +334,20 @@ namespace NutricionWeb.Controllers.Paciente
 
             return PartialView(datosAntropometricos.ToList());
         
+        }
+
+        public async Task<ActionResult> ObservacionesParcial(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var dato = await _observacionServicio.GetByPacienteId(id.Value);
+
+            var observacion = Mapper.Map<ObservacionViewModel>(dato);
+
+            ViewBag.PacienteId = id;
+
+            return PartialView(observacion);
+
         }
 
         public async Task<ActionResult> PlanesAlimenticiosParcial(long? id)

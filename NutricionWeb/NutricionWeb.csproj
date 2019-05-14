@@ -791,6 +791,12 @@
     <Content Include="Views\Paciente\EstrategiaParcial.cshtml" />
     <Content Include="Views\Establecimiento\Index.cshtml" />
     <Content Include="Views\PlanAlimenticio\ExportarPlanOrdenado.cshtml" />
+    <Content Include="Views\Observacion\CreateParcial.cshtml" />
+    <Content Include="Views\Paciente\ObservacionesParcial.cshtml" />
+    <Content Include="Views\Observacion\EditParcial.cshtml" />
+    <Content Include="Views\ObservacionPatologia\CreateParcial.cshtml" />
+    <Content Include="Views\ObservacionAlergiaIntolerancia\CreateParcial.cshtml" />
+    <Content Include="Views\ObservacionAlimento\CreateParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
