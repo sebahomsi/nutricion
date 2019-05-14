@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NutricionWeb.Helpers.Establecimiento;
 using NutricionWeb.Helpers.Persona;
 using NutricionWeb.Models.Anamnesis;
 using NutricionWeb.Models.DatoAnalitico;
@@ -31,7 +32,7 @@ namespace NutricionWeb.Controllers.Paciente
 
     public class PacienteController : ControllerBase
     {
-        private readonly IPacienteServicio _pacienteServicio; //llaman e inicializan abajo para poder usar los servicios en el controlador
+        private readonly IPacienteServicio _pacienteServicio;
         private readonly IComboBoxSexo _comboBoxSexo;
         private readonly IDatoAnaliticoServicio _datoAnaliticoServicio;
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
@@ -40,9 +41,17 @@ namespace NutricionWeb.Controllers.Paciente
         private readonly IObjetivoServicio _objetivoServicio;
         private readonly IAnamnesisServicio _anamnesisServicio;
         private readonly IEstrategiaServicio _estrategiaServicio;
+        private readonly IComboBoxEstablecimiento _comboBoxEstablecimiento;
 
-
-        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio)
+        public PacienteController(IPacienteServicio pacienteServicio, 
+            IComboBoxSexo comboBoxSexo, 
+            IDatoAnaliticoServicio datoAnaliticoServicio, 
+            IPlanAlimenticioServicio planAlimenticioServicio, 
+            IDatoAntropometricoServicio datoAntropometricoServicio, 
+            ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, 
+            IAnamnesisServicio anamnesisServicio, 
+            IEstrategiaServicio estrategiaServicio,
+            IComboBoxEstablecimiento comboBoxEstablecimiento)
         {
             _pacienteServicio = pacienteServicio;
             _comboBoxSexo = comboBoxSexo;
@@ -53,6 +62,7 @@ namespace NutricionWeb.Controllers.Paciente
             _objetivoServicio = objetivoServicio;
             _anamnesisServicio = anamnesisServicio;
             _estrategiaServicio = estrategiaServicio;
+            _comboBoxEstablecimiento = comboBoxEstablecimiento;
         }
 
 
@@ -94,7 +104,8 @@ namespace NutricionWeb.Controllers.Paciente
         {
             return View(new PacienteABMViewModel()
             {
-                Sexos = await _comboBoxSexo.Poblar()
+                Sexos = await _comboBoxSexo.Poblar(),
+                Establecimientos = await _comboBoxEstablecimiento.Poblar()
             });
         }
 
