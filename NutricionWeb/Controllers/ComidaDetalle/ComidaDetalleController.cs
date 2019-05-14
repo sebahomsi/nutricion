@@ -101,6 +101,47 @@ namespace NutricionWeb.Controllers.ComidaDetalle
 
         }
 
+        public async Task<ActionResult> CreatePartial(long comidaId)
+        {
+            return View(new ComidaDetalleABMViewModel()
+            {
+                ComidaId = comidaId
+            });
+        }
+
+        // POST: ComidaDetalle/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreatePartial(ComidaDetalleABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var dto = CargarDatos(vm);
+
+                    var comida = await _comidaServicio.GetById(vm.ComidaId);
+
+                    var dia = await _diaServicio.GetById(comida.DiaId);
+
+                    dto.Codigo = await _comidaDetalleServicio.GetNextCode();
+
+                    await _comidaDetalleServicio.Add(dto);
+
+                    await _planAlimenticioServicio.CalculateTotalCalories(dia.PlanAlimenticioId);
+
+                    return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = dia.PlanAlimenticioId });
+                }
+                return View(vm);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
+            }
+
+        }
+
         // GET: ComidaDetalle/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
@@ -186,7 +227,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             {
                 if (ModelState.IsValid)
                 {
-                    await _comidaDetalleServicio.Delete(vm.Id);
+                    //await _comidaDetalleServicio.Delete(vm.Id);
                 }
             }
             catch (Exception ex)
@@ -197,13 +238,13 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Eliminar(long? id)
+        public async Task<ActionResult> Eliminar(long comidaId, long detalleId)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            await _comidaDetalleServicio.Delete(detalleId);
 
-            await _comidaDetalleServicio.Delete(id.Value);
+            return RedirectToAction("Details", "Comida", new {id = comidaId});
 
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
         }
 
         // GET: ComidaDetalle/Details/5

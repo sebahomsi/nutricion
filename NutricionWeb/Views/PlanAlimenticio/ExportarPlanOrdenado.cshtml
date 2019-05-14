@@ -64,13 +64,12 @@
                     {
                         <br />
                         <br />
-                        <button class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></button>
+                        <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                        <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
                     }
                     else
                     {
-
-
-                        <button class="btn btn-success btn-xs"><i class="fas fa-plus"></i></button>
+                        <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
                         <br />
                         <br />
                     }
@@ -88,10 +87,12 @@
                     {
                         <br />
                         <br />
-                        <a href="@Url.Action("")" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                        <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                        <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
                     }
-                    else {                               
-                        <a href="@Url.Action("")" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                    else
+                    {
+                        <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
                         <br />
                         <br />
                     }
@@ -109,21 +110,47 @@
         {
             if (Model.MediaMañana.Last() == comida)
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.
-                    }
-                </div>
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
             }
             else
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.<br />
-                    }
-                </div>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
+            }
+            else
+            {
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.<br />
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+            }
+            else
+            {
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
             }
         }
     </div>
@@ -135,21 +162,47 @@
         {
             if (Model.Almuerzo.Last() == comida)
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.
-                    }
-                </div>
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
             }
             else
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.<br />
-                    }
-                </div>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
+            }
+            else
+            {
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.<br />
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+            }
+            else
+            {
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
             }
         }
     </div>
@@ -161,21 +214,47 @@
         {
             if (Model.Merienda.Last() == comida)
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.
-                    }
-                </div>
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
             }
             else
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:. <br />
-                    }
-                </div>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
+            }
+            else
+            {
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:. <br />
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+            }
+            else
+            {
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
             }
         }
     </div>
@@ -187,21 +266,47 @@
         {
             if (Model.MediaTarde.Last() == comida)
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.
-                    }
-                </div>
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
             }
             else
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.<br />
-                    }
-                </div>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
+            }
+            else
+            {
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.<br />
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+            }
+            else
+            {
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
             }
         }
     </div>
@@ -213,21 +318,47 @@
         {
             if (Model.Cena.Last() == comida)
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  border-right:1px solid black; width:12.5%" r">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.
-                    }
-                </div>
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  border-right:1px solid black; width:12.5%" r">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
             }
             else
             {
-                <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.<br />
-                    }
-                </div>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
+            }
+            else
+            {
+        <div class="col-md-2 text-center" style=" border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  width:12.5%">
+            @foreach (var detalle in comida.ComidasDetalles)
+            {
+                @detalle.OpcionStr @:.<br />
+            }
+            @if (comida.ComidasDetalles.Count == 0)
+            {
+                <br />
+                <br />
+                <a href="@Url.Action("Create", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-primary btn-xs"><i class="fas fa-clone"></i></a>
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+            }
+            else
+            {
+                <a href="@Url.Action("CreatePartial", "ComidaDetalle", new { comidaId = comida.Id })" class="btn btn-success btn-xs"><i class="fas fa-plus"></i></a>
+                <br />
+                <br />
+            }
+        </div>
             }
         }
     </div>
