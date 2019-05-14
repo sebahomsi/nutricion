@@ -66,6 +66,37 @@ namespace NutricionWeb.Controllers.Observacion
             return RedirectToAction("Details", "Observacion", new { id = vm.ObservacionId });
         }
 
+        // GET: ObservacionAlimento/Create
+        public async Task<ActionResult> CreateParcial(long? observacionId, long? pacienteId)
+        {
+            ViewBag.Pacienteid = pacienteId.Value;
+            TempData["Paciente"] = pacienteId.Value;
+            return PartialView(new ObservacionAlimentoABMViewModel()
+            {
+                ObservacionId = observacionId.Value
+            });
+        }
+
+        // POST: ObservacionAlimento/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(ObservacionAlimentoABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _observacionAlimentoServicio.Add(vm.ObservacionId, vm.AlimentoId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("ObservacionesParcial", "Paciente", new { id = TempData["Paciente"] });
+        }
+
         // GET: ObservacionAlimento/Edit/5
         public ActionResult Edit(int id)
         {

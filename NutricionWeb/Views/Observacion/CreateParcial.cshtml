@@ -1,0 +1,115 @@
+﻿@model NutricionWeb.Models.Observacion.ObservacionABMViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="titulo-ABM">
+    <h4 class="create-h4">Observacion</h4>
+</div>
+
+
+@using (Ajax.BeginForm("CreateParcial", "Observacion", new { }, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "observaciones-Parcial"
+}, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Codigo)
+        @Html.HiddenFor(model => model.PacienteId)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstadoCivil, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EstadoCivil, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EstadoCivil, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CantidadSuenio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CantidadSuenio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CantidadSuenio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fumador, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Fumador)
+                    @Html.ValidationMessageFor(model => model.Fumador, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BebeAlcohol, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.BebeAlcohol)
+                    @Html.ValidationMessageFor(model => model.BebeAlcohol, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TuvoHijo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.TuvoHijo)
+                    @Html.ValidationMessageFor(model => model.TuvoHijo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div id="cantidad" class="form-group" hidden>
+            @Html.LabelFor(model => model.CantidadHijo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CantidadHijo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CantidadHijo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Aceptar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    
+    $(function () {
+        console.log("Hello");
+        $("#TuvoHijo").on("change",
+            function () {
+                if ($("#TuvoHijo").is(":checked")) {
+                    $("#cantidad").show();
+                }
+                if ($("#TuvoHijo").is(":unchecked")) {
+                    $("#cantidad").hide();
+                }
+            });
+    });
+
+</script>
+
