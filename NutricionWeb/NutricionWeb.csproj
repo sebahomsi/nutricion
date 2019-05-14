@@ -791,6 +791,7 @@
     <Content Include="Views\Paciente\EstrategiaParcial.cshtml" />
     <Content Include="Views\Establecimiento\Index.cshtml" />
     <Content Include="Views\PlanAlimenticio\ExportarPlanOrdenado.cshtml" />
+    <Content Include="Views\ComidaDetalle\CreatePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
