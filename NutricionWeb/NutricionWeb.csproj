@@ -246,6 +246,7 @@
     <Compile Include="Controllers\Anamnesis\AnamnesisController.cs" />
     <Compile Include="Controllers\ComidaDetalle\ComidaDetalleController.cs" />
     <Compile Include="Controllers\Comida\ComidaController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\DatoAnalitico\DatoAnaliticoController.cs" />
     <Compile Include="Controllers\DatoAntropometrico\DatoAntropometricoController.cs" />
     <Compile Include="Controllers\Dia\DiaController.cs" />

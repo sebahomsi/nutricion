@@ -1,12 +1,20 @@
-﻿using NutricionWeb.Helpers.Persona;
+﻿using AutoMapper;
+using NutricionWeb.Helpers.Establecimiento;
+using NutricionWeb.Helpers.Persona;
+using NutricionWeb.Models.Anamnesis;
 using NutricionWeb.Models.DatoAnalitico;
 using NutricionWeb.Models.DatoAntropometrico;
+using NutricionWeb.Models.Estrategia;
+using NutricionWeb.Models.Objetivo;
 using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using NutricionWeb.Models.Turno;
 using PagedList;
+using Servicio.Interface.Anamnesis;
 using Servicio.Interface.DatoAnalitico;
 using Servicio.Interface.DatoAntropometrico;
+using Servicio.Interface.Estrategia;
+using Servicio.Interface.Objetivo;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
 using Servicio.Interface.Turno;
@@ -16,23 +24,15 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Security;
-using AutoMapper;
-using NutricionWeb.Models.Anamnesis;
-using NutricionWeb.Models.Estrategia;
-using NutricionWeb.Models.Objetivo;
-using Servicio.Interface.Anamnesis;
-using Servicio.Interface.Estrategia;
-using Servicio.Interface.Objetivo;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Paciente
 {
 
-    public class PacienteController : Controller
+    public class PacienteController : ControllerBase
     {
-        private readonly IPacienteServicio _pacienteServicio; //llaman e inicializan abajo para poder usar los servicios en el controlador
+        private readonly IPacienteServicio _pacienteServicio;
         private readonly IComboBoxSexo _comboBoxSexo;
         private readonly IDatoAnaliticoServicio _datoAnaliticoServicio;
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
@@ -41,9 +41,17 @@ namespace NutricionWeb.Controllers.Paciente
         private readonly IObjetivoServicio _objetivoServicio;
         private readonly IAnamnesisServicio _anamnesisServicio;
         private readonly IEstrategiaServicio _estrategiaServicio;
+        private readonly IComboBoxEstablecimiento _comboBoxEstablecimiento;
 
-
-        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio)
+        public PacienteController(IPacienteServicio pacienteServicio, 
+            IComboBoxSexo comboBoxSexo, 
+            IDatoAnaliticoServicio datoAnaliticoServicio, 
+            IPlanAlimenticioServicio planAlimenticioServicio, 
+            IDatoAntropometricoServicio datoAntropometricoServicio, 
+            ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, 
+            IAnamnesisServicio anamnesisServicio, 
+            IEstrategiaServicio estrategiaServicio,
+            IComboBoxEstablecimiento comboBoxEstablecimiento)
         {
             _pacienteServicio = pacienteServicio;
             _comboBoxSexo = comboBoxSexo;
@@ -54,22 +62,25 @@ namespace NutricionWeb.Controllers.Paciente
             _objetivoServicio = objetivoServicio;
             _anamnesisServicio = anamnesisServicio;
             _estrategiaServicio = estrategiaServicio;
+            _comboBoxEstablecimiento = comboBoxEstablecimiento;
         }
-        
+
 
         // GET: Paciente
         [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
-            var pageNumber = page ?? 1; //declaramos que pageNumber sea igual al valor de page, si page no tiene valor le asigna 1
+            var establecimientoId = ObtenerEstablecimientoIdUser();
+
+            var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
             var pacientes =
-                await _pacienteServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty); //se traen todos los pacientes, si la cadena es diferente de null se le pasa al metodo el valor de cadenaBuscar, sino le pasa string.Empty
+                await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (pacientes == null) return HttpNotFound(); //si pacientes no tiene nada retorna una pagina de no se encontró una poronga
+            if (pacientes == null) return HttpNotFound();
 
-            return View(pacientes.Select(x => new PacienteViewModel() //acá se cargan los campos que se van a ver en el listado del index y los que se van a usar para hacer las acciones, formateen la grilla una vez creada la vista
+            return View(pacientes.Select(x => new PacienteViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
@@ -93,7 +104,8 @@ namespace NutricionWeb.Controllers.Paciente
         {
             return View(new PacienteABMViewModel()
             {
-                Sexos = await _comboBoxSexo.Poblar()
+                Sexos = await _comboBoxSexo.Poblar(),
+                Establecimientos = await _comboBoxEstablecimiento.Poblar()
             });
         }
 
@@ -124,7 +136,7 @@ namespace NutricionWeb.Controllers.Paciente
                             modelErrors.Add(modelError.ErrorMessage);
                         }
                     }
-                    
+
                 }
 
             }
@@ -180,7 +192,7 @@ namespace NutricionWeb.Controllers.Paciente
                     await _pacienteServicio.Update(pacienteDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 vm.Sexos = await _comboBoxSexo.Poblar();
@@ -239,14 +251,14 @@ namespace NutricionWeb.Controllers.Paciente
 
         // GET: Paciente/Details/5
         [Authorize(Roles = "Administrador, Empleado, Paciente")]
-        public async Task<ActionResult> Details(long? id, string email="")
+        public async Task<ActionResult> Details(long? id, string email = "")
         {
             PacienteDto paciente;
             if (!string.IsNullOrEmpty(email))
             {
-               paciente = await _pacienteServicio.GetByEmail(email);
+                paciente = await _pacienteServicio.GetByEmail(email);
 
-               if (paciente == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest,"No se encontró el perfil");
+                if (paciente == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontró el perfil");
             }
             else
             {
@@ -289,7 +301,8 @@ namespace NutricionWeb.Controllers.Paciente
                 Direccion = vm.Direccion,
                 Sexo = vm.Sexo,
                 FechaNac = vm.FechaNac,
-                Foto = pic 
+                Foto = pic,
+                EstablecimientoId = vm.EstablecimientoId
             };
         }
 
@@ -329,7 +342,7 @@ namespace NutricionWeb.Controllers.Paciente
             ViewBag.PacienteId = id;
 
             return PartialView(datosAntropometricos.ToList());
-        
+
         }
 
         public async Task<ActionResult> PlanesAlimenticiosParcial(long? id)

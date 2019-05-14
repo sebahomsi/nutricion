@@ -13,12 +13,12 @@ using System.Web.Mvc;
 using AutoMapper;
 using NutricionWeb.Models.Estado;
 using static NutricionWeb.Helpers.PagedList;
-
+using NutricionWeb.Helpers.Identity;
 
 namespace NutricionWeb.Controllers.Turno
 {
     [Authorize(Roles = "Administrador, Empleado")]
-    public class TurnoController : Controller
+    public class TurnoController : ControllerBase
     {
         private readonly ITurnoServicio _turnoServicio;
         private readonly IPacienteServicio _pacienteServicio;
@@ -315,10 +315,12 @@ namespace NutricionWeb.Controllers.Turno
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
+            var establecimientoId = ObtenerEstablecimientoIdUser();
+
             var pageNumber = page ?? 1;
 
             var pacientes =
-                await _pacienteServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(establecimientoId,false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return HttpNotFound();
 

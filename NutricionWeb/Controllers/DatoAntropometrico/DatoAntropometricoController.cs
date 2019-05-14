@@ -1,4 +1,5 @@
-﻿using NutricionWeb.Models.DatoAntropometrico;
+﻿using NutricionWeb.Helpers.Identity;
+using NutricionWeb.Models.DatoAntropometrico;
 using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.DatoAntropometrico;
@@ -14,7 +15,7 @@ using static NutricionWeb.Helpers.PagedList;
 namespace NutricionWeb.Controllers.DatoAntropometrico
 {
     [Authorize(Roles = "Administrador, Empleado")]
-    public class DatoAntropometricoController : Controller
+    public class DatoAntropometricoController : ControllerBase
     {
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
         private readonly IPacienteServicio _pacienteServicio;
@@ -274,10 +275,12 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
+            var establecimientoId = ObtenerEstablecimientoIdUser();
+
             var pageNumber = page ?? 1;
 
             var pacientes =
-                await _pacienteServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(establecimientoId,false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return HttpNotFound();
 
