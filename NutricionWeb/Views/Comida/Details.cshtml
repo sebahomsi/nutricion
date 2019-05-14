@@ -64,7 +64,8 @@
             </td>
 
             <td align="right">
-                @Html.ActionLink("Detalles", "Details", "Opcion", new { id = item.OpcionId }, new { @class = "btn btn-default", target="_blank" })
+                @Html.ActionLink("Detalles", "Details", "Opcion", new { id = item.OpcionId }, new { @class = "btn btn-default", target = "_blank" })
+                @Html.ActionLink("Eliminar", "Eliminar", "ComidaDetalle", new { comidaId = Model.Id, detalleId = item.Id}, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }

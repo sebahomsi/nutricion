@@ -1,4 +1,5 @@
-﻿using NutricionWeb.Helpers.Persona;
+﻿using NutricionWeb.Helpers.Establecimiento;
+using NutricionWeb.Helpers.Persona;
 using NutricionWeb.Models.Empleado;
 using PagedList;
 using Servicio.Interface.Empleado;
@@ -7,20 +8,19 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using NutricionWeb.Helpers.Establecimiento;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Empleado
 {
     [Authorize(Roles = "Administrador")]
-    public class EmpleadoController : Controller
+    public class EmpleadoController : ControllerBase
     {
         private readonly IEmpleadoServicio _empleadoServicio;
         private readonly IComboBoxSexo _comboBoxSexo;
         private readonly IComboBoxEstablecimiento _comboBoxEstablecimiento;
 
-        public EmpleadoController(IEmpleadoServicio empleadoServicio, 
+        public EmpleadoController(IEmpleadoServicio empleadoServicio,
             IComboBoxSexo comboBoxSexo,
             IComboBoxEstablecimiento comboBoxEstablecimiento)
         {
@@ -32,12 +32,14 @@ namespace NutricionWeb.Controllers.Empleado
         // GET: Empleado
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
+            var establecimientoId = ObtenerEstablecimientoIdUser();
+
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
 
             var empleados =
-                await _empleadoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _empleadoServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (empleados == null) return HttpNotFound();
 
             return View(empleados.Select(x => new EmpleadoViewModel()

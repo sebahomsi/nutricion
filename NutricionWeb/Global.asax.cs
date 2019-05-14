@@ -97,6 +97,10 @@ namespace NutricionWeb
             {
                 var result = roleManager.Create(new IdentityRole("GestionPacientes"));
             }
+            if (!roleManager.RoleExists("GestionTurnos"))
+            {
+                var result = roleManager.Create(new IdentityRole("GestionTurnos"));
+            }
         }
     }
 }

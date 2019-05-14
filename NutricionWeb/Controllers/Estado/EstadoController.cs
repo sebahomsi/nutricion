@@ -87,6 +87,7 @@ namespace NutricionWeb.Controllers.Estado
                 if (ModelState.IsValid)
                 {
                     var estadoDto = CargarDatos(vm);
+                    estadoDto.Color = "#" + vm.Color;
                     await _estadoServicio.Update(estadoDto);
                 }
             }
