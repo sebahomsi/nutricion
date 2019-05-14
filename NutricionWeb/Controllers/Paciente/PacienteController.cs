@@ -55,7 +55,7 @@ namespace NutricionWeb.Controllers.Paciente
         private readonly IComboBoxEstablecimiento _comboBoxEstablecimiento;
 
 
-        public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio, IObservacionServicio observacionServicio)
+        //public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio, IObservacionServicio observacionServicio)
         public PacienteController(IPacienteServicio pacienteServicio, 
             IComboBoxSexo comboBoxSexo, 
             IDatoAnaliticoServicio datoAnaliticoServicio, 
@@ -64,7 +64,7 @@ namespace NutricionWeb.Controllers.Paciente
             ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, 
             IAnamnesisServicio anamnesisServicio, 
             IEstrategiaServicio estrategiaServicio,
-            IComboBoxEstablecimiento comboBoxEstablecimiento)
+            IComboBoxEstablecimiento comboBoxEstablecimiento, IObservacionServicio observacionServicio)
         {
             _pacienteServicio = pacienteServicio;
             _comboBoxSexo = comboBoxSexo;
