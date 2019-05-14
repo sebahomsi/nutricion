@@ -11,7 +11,7 @@ namespace NutricionWeb.Helpers.Identity
 
             var idStr = claim != null ? claim.Value : string.Empty;
 
-            return long.TryParse(idStr, out var id) ? id :(long?)null;
+            return long.TryParse(idStr, out var id) ? id : (long?)null;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using NutricionWeb.Helpers.Identity;
-using NutricionWeb.Models.DatoAnalitico;
+﻿using NutricionWeb.Models.DatoAnalitico;
 using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.DatoAnalitico;
@@ -15,7 +14,7 @@ using static NutricionWeb.Helpers.PagedList;
 namespace NutricionWeb.Controllers.DatoAnalitico
 {
     [Authorize(Roles = "Administrador, Empleado")]
-    public class DatoAnaliticoController : Controller
+    public class DatoAnaliticoController : ControllerBase
     {
         private readonly IPacienteServicio _pacienteServicio;
         private readonly IDatoAnaliticoServicio _datoAnaliticoServicio;
@@ -249,12 +248,12 @@ namespace NutricionWeb.Controllers.DatoAnalitico
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
-            var establecimientoId = User.Identity.GetEstablecimientoId();
+            var establecimientoId = ObtenerEstablecimientoIdUser();
 
             var pageNumber = page ?? 1;
             var eliminado = false;
             var pacientes =
-                await _pacienteServicio.Get(establecimientoId,eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return HttpNotFound();
 

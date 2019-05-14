@@ -15,7 +15,7 @@ using static NutricionWeb.Helpers.PagedList;
 namespace NutricionWeb.Controllers.DatoAntropometrico
 {
     [Authorize(Roles = "Administrador, Empleado")]
-    public class DatoAntropometricoController : Controller
+    public class DatoAntropometricoController : ControllerBase
     {
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
         private readonly IPacienteServicio _pacienteServicio;
@@ -275,7 +275,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
-            var establecimientoId = User.Identity.GetEstablecimientoId();
+            var establecimientoId = ObtenerEstablecimientoIdUser();
 
             var pageNumber = page ?? 1;
 

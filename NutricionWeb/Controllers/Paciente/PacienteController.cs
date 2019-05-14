@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using NutricionWeb.Helpers.Identity;
 using NutricionWeb.Helpers.Persona;
 using NutricionWeb.Models.Anamnesis;
 using NutricionWeb.Models.DatoAnalitico;
@@ -30,7 +29,7 @@ using static NutricionWeb.Helpers.PagedList;
 namespace NutricionWeb.Controllers.Paciente
 {
 
-    public class PacienteController : Controller
+    public class PacienteController : ControllerBase
     {
         private readonly IPacienteServicio _pacienteServicio; //llaman e inicializan abajo para poder usar los servicios en el controlador
         private readonly IComboBoxSexo _comboBoxSexo;
@@ -61,17 +60,17 @@ namespace NutricionWeb.Controllers.Paciente
         [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
-            var establecimientoId = User.Identity.GetEstablecimientoId();
+            var establecimientoId = ObtenerEstablecimientoIdUser();
 
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
             var pacientes =
-                await _pacienteServicio.Get(establecimientoId,eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (pacientes == null) return HttpNotFound(); 
+            if (pacientes == null) return HttpNotFound();
 
-            return View(pacientes.Select(x => new PacienteViewModel() 
+            return View(pacientes.Select(x => new PacienteViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,

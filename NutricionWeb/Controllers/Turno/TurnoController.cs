@@ -18,7 +18,7 @@ using NutricionWeb.Helpers.Identity;
 namespace NutricionWeb.Controllers.Turno
 {
     [Authorize(Roles = "Administrador, Empleado")]
-    public class TurnoController : Controller
+    public class TurnoController : ControllerBase
     {
         private readonly ITurnoServicio _turnoServicio;
         private readonly IPacienteServicio _pacienteServicio;
@@ -315,7 +315,7 @@ namespace NutricionWeb.Controllers.Turno
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
-            var establecimientoId = User.Identity.GetEstablecimientoId();
+            var establecimientoId = ObtenerEstablecimientoIdUser();
 
             var pageNumber = page ?? 1;
 
