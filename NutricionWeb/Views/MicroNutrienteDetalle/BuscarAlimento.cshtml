@@ -1,33 +1,40 @@
-﻿@model IEnumerable<NutricionWeb.Models.Alimento.AlimentoViewModel>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<NutricionWeb.Models.Alimento.AlimentoViewModel>
 
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
         </th>
-        
+
         <th>
-            @Html.DisplayNameFor(model => model.SubGrupoStr)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SubGrupoStr)
         </th>
-        
+
         <th></th>
     </tr>
 
-@foreach (var item in Model.OrderBy(model => model.Descripcion)) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.SubGrupoStr)
-        </td>
-        
-        <td>
-            <input type="button" id="seleccionar-alimento" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.OrderBy(model => model.Descripcion))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SubGrupoStr)
+            </td>
+
+            <td>
+                <input type="button" id="seleccionar-alimento" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div align="center">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("BuscarAlimento", "MicroNutrienteDetalle", new { page, cadenaBuscar = ViewBag.FilterValue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindAlimento" }))
+</div>

@@ -30,5 +30,5 @@
 
 <div align="center">
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("BuscarPaciente", "Turno", new { page, cadenaBuscar = ViewBag.FilterValue, fecha = ViewBag.Fecha, horario = ViewBag.Horario }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindPaciente" }))
+    @Html.PagedListPager(Model, page => Url.Action("BuscarPaciente", "Turno", new { page, cadenaBuscar = ViewBag.FilterValue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindPaciente" }))
 </div>
