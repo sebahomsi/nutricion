@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.Comida;
+﻿using NutricionWeb.Models.Comida;
 using NutricionWeb.Models.ComidaDetalle;
-using NutricionWeb.Models.Opcion;
 using Servicio.Interface.Comida;
 using Servicio.Interface.Dia;
 using Servicio.Interface.PlanAlimenticio;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace NutricionWeb.Controllers.Comida
 {
@@ -47,7 +43,7 @@ namespace NutricionWeb.Controllers.Comida
                 Descripcion = comida.Descripcion,
                 DiaId = comida.DiaId,
                 DiaStr = comida.DiaStr,
-                ComidasDetalles = comida.ComidasDetalles.Select(x=> new ComidaDetalleViewModel()
+                ComidasDetalles = comida.ComidasDetalles.Select(x => new ComidaDetalleViewModel()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
@@ -57,7 +53,7 @@ namespace NutricionWeb.Controllers.Comida
                     OpcionId = x.OpcionId,
                     OpcionStr = x.OpcionStr,
                     Eliminado = x.Eliminado,
-                    
+
                 }).ToList()
 
             });
@@ -128,5 +124,11 @@ namespace NutricionWeb.Controllers.Comida
                 return View();
             }
         }
+
+        public async Task<ActionResult> DuplicarComida(long comidaId)
+        {
+            return PartialView();
+        }
+
     }
 }

@@ -799,6 +799,7 @@
     <Content Include="Views\ObservacionAlergiaIntolerancia\CreateParcial.cshtml" />
     <Content Include="Views\Observacion\CreateParcial.cshtml" />
     <Content Include="Views\Observacion\EditParcial.cshtml" />
+    <Content Include="Views\Comida\DuplicarComida.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
