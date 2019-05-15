@@ -1,1 +1,14 @@
-﻿<p>sada</p>
+﻿@model IEnumerable<NutricionWeb.Models.Dia.DiaViewModel>
+
+@using (Html.BeginForm())
+{
+    @Html.DropDownList("diaId", new SelectList(Model, "Id", "Descripcion"), "Seleccione un dia", new {  @class="form-control" })
+    <input type="submit" value="Aceptar" class="btn btn-success" />
+}
+
+
+
+@*@foreach (var item in Model)
+{
+    <p>@item.Descripcion</p>
+}*@
