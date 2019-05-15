@@ -1,31 +1,38 @@
-﻿@model IEnumerable<NutricionWeb.Models.Estado.EstadoViewModel>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<NutricionWeb.Models.Estado.EstadoViewModel>
 
 <p>
-    @Html.ActionLink("Nuevo", "Create", "Estado", new {}, new{@class="btn btn-primary-custom"})
+    @Html.ActionLink("Nuevo", "Create", "Estado", new { }, new { @class = "btn btn-primary-custom" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Color)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Color)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            <div style="background-color:@item.Color; height: 30px;width: 30px"></div>
-        </td>
-        <td>
-            <div data-seleccionar id="@item.Id" class="btn btn-primary-custom">Seleccionar</div>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                <div style="background-color:@item.Color; height: 30px;width: 30px"></div>
+            </td>
+            <td>
+                <div data-seleccionar id="@item.Id" class="btn btn-primary-custom">Seleccionar</div>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div align="center">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("BuscarEstado", "Turno", new { page, cadenaBuscar = ViewBag.FilterValue, fecha = ViewBag.Fecha, horario = ViewBag.Horario }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindEstado" }))
+</div>

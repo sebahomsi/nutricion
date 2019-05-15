@@ -197,7 +197,7 @@
             function listaPaciente() {
                 $("#partialFindPaciente").empty();
 
-                $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAntropometrico"))',
+                $.get('@Html.Raw(Url.Action("BuscarPaciente", "Turno"))',
                     {
                         cadenaBuscar: $("#txt-BuscarPaciente").val()
                     },

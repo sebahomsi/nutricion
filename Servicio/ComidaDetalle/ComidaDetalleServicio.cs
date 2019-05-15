@@ -60,9 +60,7 @@ namespace Servicio.ComidaDetalle
         {
             var detalle = await Context.ComidasDetalles.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (detalle == null) throw new ArgumentNullException();
-
-            detalle.Eliminado = !detalle.Eliminado;
+            Context.ComidasDetalles.Remove(detalle);
 
             await Context.SaveChangesAsync();
         }

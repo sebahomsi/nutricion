@@ -54,6 +54,7 @@ namespace NutricionWeb.Models.Persona
 
         public bool Eliminado { get; set; }
 
+        [Display(Name = "Establecimiento")]
         public long EstablecimientoId { get; set; }
 
         public IEnumerable<SelectListItem> Sexos { get; set; }
