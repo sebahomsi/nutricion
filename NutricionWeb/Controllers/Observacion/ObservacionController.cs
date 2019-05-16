@@ -277,7 +277,7 @@ namespace NutricionWeb.Controllers.Observacion
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var observacion = await _observacionServicio.GetByPacienteId(id.Value);
+            var observacion = await _observacionServicio.GetById(id.Value);
 
             return View(new ObservacionViewModel()
             {
