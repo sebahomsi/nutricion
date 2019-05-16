@@ -4,9 +4,6 @@
     ViewBag.Title = "Create";
 }
 
-<div class="titulo-ABM">
-    <h4 class="create-h4">Nueva Comida</h4>
-</div>
 
 
 @using (Html.BeginForm())
@@ -30,8 +27,8 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OpcionStr, new { @class = "control-label col-md-2" })
-            <div class="col-md-4" style="width: 310px">
+            @Html.LabelFor(model => model.OpcionStr, new { @class = "control-label col-md-2" , @style= "width: 10%;" })
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.OpcionStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.OpcionStr, "", new { @class = "text-danger" })
             </div>
@@ -41,9 +38,7 @@
                    HttpMethod = "GET",
                    InsertionMode = InsertionMode.Replace,
                    UpdateTargetId = "partialFindAgregarComida"
-                }, new { @class = "btn btn-default" })
-
-                
+                }, new { @class = "btn btn-default", @style= "margin-top: 0;"})
             </div>
         </div>
 
