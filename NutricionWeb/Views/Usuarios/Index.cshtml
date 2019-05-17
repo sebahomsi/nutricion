@@ -5,9 +5,8 @@
     ViewBag.Title = "Usuarios";
 }
 
-<br />
-<div class="jumbotron titulo">
-    <h2>Lista de Usuarios</h2>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Usuarios</h4>
 </div>
 
 <div class="row">
@@ -62,11 +61,4 @@
     @Html.PagedListPager(Model, page => Url.Action("Index", "Usuarios", new { page, cadenaBuscar = ViewBag.FilterValue }))
 </div>
 
-<div class="row">
-    <hr />
-    <div class="col-lg-12" align="left">
-        <div class="btn-group-margin">
-            @Html.ActionLink("Volver", "Index", "Home", new { }, new { @class = "btn btn-primary" })
-        </div>
-    </div>
-</div>
+
