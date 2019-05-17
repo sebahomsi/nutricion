@@ -67,7 +67,7 @@ namespace NutricionWeb.Controllers.Estado
 
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _estadoServicio.GetById(id.Value);
 
@@ -102,11 +102,11 @@ namespace NutricionWeb.Controllers.Estado
 
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _estadoServicio.GetById(id.Value);
 
-            if (dato == null) return HttpNotFound();
+            if (dato == null) return RedirectToAction("Error", "Home");
 
             var estado = Mapper.Map<EstadoViewModel>(dato);
 
@@ -136,7 +136,7 @@ namespace NutricionWeb.Controllers.Estado
 
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _estadoServicio.GetById(id.Value);
 

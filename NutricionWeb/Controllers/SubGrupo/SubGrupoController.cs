@@ -35,7 +35,7 @@ namespace NutricionWeb.Controllers.SubGrupo
             var subGrupos =
                 await _subGrupoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (subGrupos == null) return HttpNotFound();
+            if (subGrupos == null) return RedirectToAction("Error", "Home");
 
             return View(subGrupos.Select(x=> new SubGrupoViewModel()
             {
@@ -81,7 +81,7 @@ namespace NutricionWeb.Controllers.SubGrupo
         // GET: SubGrupo/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var subGrupo = await _subGrupoServicio.GetById(id.Value);
 
@@ -122,7 +122,7 @@ namespace NutricionWeb.Controllers.SubGrupo
         // GET: SubGrupo/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var subGrupo = await _subGrupoServicio.GetById(id.Value);
 
@@ -161,7 +161,7 @@ namespace NutricionWeb.Controllers.SubGrupo
         // GET: SubGrupo/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var subGrupo = await _subGrupoServicio.GetById(id.Value);
 

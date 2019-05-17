@@ -84,7 +84,7 @@ namespace NutricionWeb.Controllers.Paciente
             var pacientes =
                 await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (pacientes == null) return HttpNotFound();
+            if (pacientes == null) return RedirectToAction("Error", "Home");
 
             return View(pacientes.Select(x => new PacienteViewModel()
             {
@@ -161,7 +161,7 @@ namespace NutricionWeb.Controllers.Paciente
         [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
@@ -213,7 +213,7 @@ namespace NutricionWeb.Controllers.Paciente
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
@@ -265,11 +265,11 @@ namespace NutricionWeb.Controllers.Paciente
             {
                 paciente = await _pacienteServicio.GetByEmail(email);
 
-                if (paciente == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontró el perfil");
+                if (paciente == null) return RedirectToAction("Error", "Home");
             }
             else
             {
-                if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null) return RedirectToAction("Error", "Home");
 
                 paciente = await _pacienteServicio.GetById(id.Value);
             }
@@ -321,11 +321,11 @@ namespace NutricionWeb.Controllers.Paciente
             {
                 paciente = await _pacienteServicio.GetByEmail(email);
 
-                if (paciente == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontró el perfil");
+                if (paciente == null) return RedirectToAction("Error", "Home");
             }
             else
             {
-                if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null) return RedirectToAction("Error", "Home");
 
                 paciente = await _pacienteServicio.GetById(id.Value);
             }
@@ -341,7 +341,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         public async Task<ActionResult> DatosAntropometricosParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _datoAntropometricoServicio.GetByIdPaciente(id.Value);
 
@@ -355,7 +355,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         public async Task<ActionResult> ObservacionesParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _observacionServicio.GetByPacienteId(id.Value);
 
@@ -369,7 +369,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         public async Task<ActionResult> PlanesAlimenticiosParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _planAlimenticioServicio.GetByIdPaciente(id.Value);
 
@@ -382,7 +382,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         public async Task<ActionResult> DatosAnaliticosParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _datoAnaliticoServicio.GetByIdPaciente(id.Value);
 
@@ -395,7 +395,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         public async Task<ActionResult> TurnosParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _turnoServicio.GetByIdPaciente(id.Value);
 
@@ -408,7 +408,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         public async Task<ActionResult> ObjetivosParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _objetivoServicio.GetByPacienteId(id.Value);
 
@@ -424,7 +424,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         public async Task<ActionResult> AnamnesisParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _anamnesisServicio.GetByPacienteId(id.Value);
 
@@ -440,7 +440,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         public async Task<ActionResult> EstrategiaParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _estrategiaServicio.GetByPacienteId(id.Value);
 

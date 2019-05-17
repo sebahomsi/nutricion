@@ -37,7 +37,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 ? cadenaBuscar
                 : string.Empty);
 
-            if (datos == null) return HttpNotFound();
+            if (datos == null) return RedirectToAction("Error", "Home");
 
             return View(datos.Select(x=> new DatoAntropometricoViewModel(){
                 
@@ -96,7 +96,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> CreateParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
@@ -141,7 +141,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
 
@@ -194,7 +194,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
 
@@ -244,7 +244,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         // GET: DatoAntropometrico/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
 
@@ -282,7 +282,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             var pacientes =
                 await _pacienteServicio.Get(establecimientoId,false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (pacientes == null) return HttpNotFound();
+            if (pacientes == null) return RedirectToAction("Error", "Home");
 
             return PartialView(pacientes.Select(x => new PacienteViewModel() 
             {
@@ -304,7 +304,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
         public async Task<ActionResult> TraerPaciente(long? pacienteId)
         {
-            if (pacienteId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (pacienteId == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(pacienteId.Value);
 

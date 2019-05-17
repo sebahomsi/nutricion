@@ -188,7 +188,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         // GET: ComidaDetalle/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _comidaDetalleServicio.GetById(id.Value);
 
@@ -231,7 +231,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         // GET: ComidaDetalle/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _comidaDetalleServicio.GetById(id.Value);
 
@@ -293,7 +293,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         // GET: ComidaDetalle/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _comidaDetalleServicio.GetById(id.Value);
 

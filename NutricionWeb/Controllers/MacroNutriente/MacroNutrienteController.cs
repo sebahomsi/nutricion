@@ -63,7 +63,7 @@ namespace NutricionWeb.Controllers.MacroNutriente
         // GET: MacroNutriente/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var macro = await _macroNutrienteServicio.GetById(id.Value);
 
@@ -104,7 +104,7 @@ namespace NutricionWeb.Controllers.MacroNutriente
         // GET: MacroNutriente/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var macro = await _macroNutrienteServicio.GetById(id.Value);
 
@@ -143,7 +143,7 @@ namespace NutricionWeb.Controllers.MacroNutriente
         // GET: MacroNutriente/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var macro = await _macroNutrienteServicio.GetById(id.Value);
 
