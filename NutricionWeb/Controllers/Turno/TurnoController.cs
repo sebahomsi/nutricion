@@ -40,7 +40,7 @@ namespace NutricionWeb.Controllers.Turno
 
             var turnos = await _turnoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (turnos == null) return HttpNotFound();
+            if (turnos == null) return RedirectToAction("Error", "Home");
 
             return View(turnos.Select(x=> new TurnoViewModel()
             {
@@ -112,7 +112,7 @@ namespace NutricionWeb.Controllers.Turno
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> CreateParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
@@ -155,7 +155,7 @@ namespace NutricionWeb.Controllers.Turno
         {
             ViewBag.Volver = volver ?? 0;
 
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var turno = await _turnoServicio.GetById(id.Value);
 
@@ -236,7 +236,7 @@ namespace NutricionWeb.Controllers.Turno
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var turno = await _turnoServicio.GetById(id.Value);
 
@@ -276,7 +276,7 @@ namespace NutricionWeb.Controllers.Turno
         // GET: Turno/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var turno = await _turnoServicio.GetById(id.Value);
 
@@ -322,7 +322,7 @@ namespace NutricionWeb.Controllers.Turno
             var pacientes =
                 await _pacienteServicio.Get(establecimientoId,false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (pacientes == null) return HttpNotFound();
+            if (pacientes == null) return RedirectToAction("Error", "Home");
 
             return PartialView(pacientes.Select(x => new PacienteViewModel()
             {
@@ -344,7 +344,7 @@ namespace NutricionWeb.Controllers.Turno
 
         public async Task<ActionResult> TraerPaciente(long? pacienteId)
         {
-            if (pacienteId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (pacienteId == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(pacienteId.Value);
 
@@ -369,7 +369,7 @@ namespace NutricionWeb.Controllers.Turno
 
         public async Task<ActionResult> TraerEstado(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var estado = await _estadoServicio.GetById(id.Value);
 

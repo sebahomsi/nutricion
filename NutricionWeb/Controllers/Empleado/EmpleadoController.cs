@@ -40,7 +40,7 @@ namespace NutricionWeb.Controllers.Empleado
 
             var empleados =
                 await _empleadoServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
-            if (empleados == null) return HttpNotFound();
+            if (empleados == null) return RedirectToAction("Error", "Home");
 
             return View(empleados.Select(x => new EmpleadoViewModel()
             {
@@ -106,7 +106,7 @@ namespace NutricionWeb.Controllers.Empleado
         // GET: Empleado/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var empleado = await _empleadoServicio.GetById(id.Value);
 
@@ -159,7 +159,7 @@ namespace NutricionWeb.Controllers.Empleado
         // GET: Empleado/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var empleado = await _empleadoServicio.GetById(id.Value);
 
@@ -204,7 +204,7 @@ namespace NutricionWeb.Controllers.Empleado
         // GET: Empleado/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var empleado = await _empleadoServicio.GetById(id.Value);
 

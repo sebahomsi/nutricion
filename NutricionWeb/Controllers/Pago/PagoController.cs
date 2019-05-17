@@ -81,7 +81,7 @@ namespace NutricionWeb.Controllers.Pago
 
             var pago = await _pagoServicio.GetById(id);
 
-            if (pago == null) return HttpNotFound();
+            if (pago == null) return RedirectToAction("Error", "Home");
 
             return View(new PagoViewModel
             {
@@ -180,7 +180,7 @@ namespace NutricionWeb.Controllers.Pago
         {
             var pago = await _pagoServicio.GetById(id);
 
-            if (pago == null) return HttpNotFound();
+            if (pago == null) return RedirectToAction("Error", "Home");
 
             return View(new PagoViewModel
             {

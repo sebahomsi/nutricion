@@ -37,13 +37,13 @@ namespace NutricionWeb.Controllers.Establecimiento
         // GET: Establecimiento/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var establecimiento = await _establecimientoServicio.GetById(id.Value);
 
             if (establecimiento == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
+                return RedirectToAction("Error", "Home");
             }
 
             return View(new EstablecimientoViewModel()
@@ -88,64 +88,11 @@ namespace NutricionWeb.Controllers.Establecimiento
 
 
 
-        // GET: Establecimiento/Create
-        //public async Task<ActionResult> Create()
-        //{
-        //    //if (User.IsInRole("Paciente"))
-        //    //{
-        //    //    var todo = await _establecimientoServicio.Get();
-        //    //    if (todo != null)
-        //    //    {
-        //    //        var establecimiento = await _establecimientoServicio.GetById(todo.First().Id);
-        //    //        return RedirectToAction("Details", new { id = establecimiento.Id });
-        //    //    }
-        //    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
-
-        //    //}
-        //    if (await _establecimientoServicio.EstablecimientoFlag())
-        //    {
-        //        var flagId = await _establecimientoServicio.Get();
-        //        var establecimiento = await _establecimientoServicio.GetById(flagId.First().Id);
-
-        //        if (establecimiento == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se encontraron datos");
-        //        }
-
-        //        return RedirectToAction("Details", new { id = establecimiento.Id });
-        //    }
-
-        //    return View(new EstablecimientoViewModel());
-        //}
-
-        //// POST: Establecimiento/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create(EstablecimientoViewModel vm)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var datosDto = CargarDatos(vm);
-
-        //            await _establecimientoServicio.Add(datosDto);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError(string.Empty, ex.Message);
-        //        return View(vm);
-        //    }
-        //    return RedirectToAction("Index", "Home");
-
-        //}
-
         // GET: Establecimiento/Edit/5
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var establecimiento = await _establecimientoServicio.GetById(id.Value);
 

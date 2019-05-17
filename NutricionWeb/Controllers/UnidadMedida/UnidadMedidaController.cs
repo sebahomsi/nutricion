@@ -77,7 +77,7 @@ namespace NutricionWeb.Controllers.UnidadMedida
         // GET: UnidadMedida/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if(id == null) return RedirectToAction("Error", "Home");
 
             var unidad = await _unidadMedidaServicio.GetById(id.Value);
 
@@ -117,7 +117,7 @@ namespace NutricionWeb.Controllers.UnidadMedida
         // GET: UnidadMedida/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var unidad = await _unidadMedidaServicio.GetById(id.Value);
 
@@ -155,7 +155,7 @@ namespace NutricionWeb.Controllers.UnidadMedida
         // GET: UnidadMedida/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var unidad = await _unidadMedidaServicio.GetById(id.Value);
 

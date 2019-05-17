@@ -36,7 +36,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 ? cadenaBuscar
                 : string.Empty);
 
-            if (datos == null) return HttpNotFound();
+            if (datos == null) RedirectToAction("Error", "Home");
 
             return View(datos.Select(x => new DatoAnaliticoViewModel()
             {
@@ -90,7 +90,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> CreateParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
@@ -132,7 +132,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _datoAnaliticoServicio.GetById(id.Value);
 
@@ -178,7 +178,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _datoAnaliticoServicio.GetById(id.Value);
 
@@ -222,7 +222,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         // GET: DatoAnalitico/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var datos = await _datoAnaliticoServicio.GetById(id.Value);
 
@@ -255,7 +255,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
             var pacientes =
                 await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (pacientes == null) return HttpNotFound();
+            if (pacientes == null) return RedirectToAction("Error", "Home");
 
             return PartialView(pacientes.Select(x => new PacienteViewModel()
             {
@@ -276,7 +276,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
 
         public async Task<ActionResult> TraerPaciente(long? pacienteId)
         {
-            if (pacienteId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (pacienteId == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(pacienteId.Value);
 
