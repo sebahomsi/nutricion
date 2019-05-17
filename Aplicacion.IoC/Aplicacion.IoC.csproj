@@ -104,6 +104,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bridge\Bridge.csproj">
+      <Project>{D393DEA4-6655-440E-930E-12FED4A79F4F}</Project>
+      <Name>Bridge</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Servicio.Interface\Servicio.Interface.csproj">
       <Project>{c991e65b-ddb8-475e-922e-130dec80647b}</Project>
       <Name>Servicio.Interface</Name>
