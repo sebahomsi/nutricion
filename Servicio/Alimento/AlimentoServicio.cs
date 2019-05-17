@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Bridge;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.MacroNutriente;
 
@@ -13,6 +14,12 @@ namespace Servicio.Alimento
 {
     public class AlimentoServicio : ServicioBase, IAlimentoServicio
     {
+        private readonly ILacteosService _lacteosService;
+
+        public AlimentoServicio(ILacteosService lacteosService)
+        {
+            _lacteosService = lacteosService;
+        }
         public async Task<long> Add(AlimentoDto dto)
         {
             var alimento = new Dominio.Entidades.Alimento()
@@ -66,6 +73,7 @@ namespace Servicio.Alimento
 
         public async Task<ICollection<AlimentoDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
+            _lacteosService.ListarLacteos();
             Expression<Func<Dominio.Entidades.Alimento, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
 
             return await Context.Alimentos
