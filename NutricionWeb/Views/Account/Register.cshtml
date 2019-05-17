@@ -3,12 +3,13 @@
     ViewBag.Title = "Register";
 }
 
-<h2>Crear nuevo Usuario.</h2>
+    <div class="titulo-ABM">
+        <h4 class="detail-h4">Nuevo usuario</h4>
+    </div>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Complete los campos requeridos.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
@@ -18,20 +19,20 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <label class="col-md-2 control-label">Contraseña</label>
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <label class="col-md-2 control-label">Confirmar conntraseña</label>
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Registrar" />
+            <input type="submit" class="btn btn-primary-custom" value="Crear" />
         </div>
     </div>
 }
