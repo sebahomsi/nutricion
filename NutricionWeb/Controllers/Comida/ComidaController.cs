@@ -1,8 +1,12 @@
-﻿using NutricionWeb.Models.Comida;
+﻿using AutoMapper;
+using NutricionWeb.Models.Comida;
 using NutricionWeb.Models.ComidaDetalle;
+using NutricionWeb.Models.Dia;
 using Servicio.Interface.Comida;
+using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Dia;
 using Servicio.Interface.PlanAlimenticio;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,12 +20,17 @@ namespace NutricionWeb.Controllers.Comida
         private readonly IComidaServicio _comidaServicio;
         private readonly IDiaServicio _diaServicio;
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
+        private readonly IComidaDetalleServicio _comidaDetalleServicio;
 
-        public ComidaController(IComidaServicio comidaServicio, IDiaServicio diaServicio, IPlanAlimenticioServicio planAlimenticioServicio)
+        public ComidaController(IComidaServicio comidaServicio, 
+            IDiaServicio diaServicio, 
+            IPlanAlimenticioServicio planAlimenticioServicio,
+            IComidaDetalleServicio comidaDetalleServicio)
         {
             _comidaServicio = comidaServicio;
             _diaServicio = diaServicio;
             _planAlimenticioServicio = planAlimenticioServicio;
+            _comidaDetalleServicio = comidaDetalleServicio;
         }
         // GET: Comida
         public ActionResult Index()
@@ -125,10 +134,82 @@ namespace NutricionWeb.Controllers.Comida
             }
         }
 
-        public async Task<ActionResult> DuplicarComida(long comidaId)
+        /// <summary>
+        /// PONER EN UN SERVICIO (DIASERVICIO)
+        /// </summary>
+        /// <param name="planId"></param>
+        /// <param name="comidaId"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> DuplicarComida(long planId, long comidaId)
         {
-            return PartialView();
+            var comida = await _comidaServicio.GetById(comidaId);
+            var plan = await _planAlimenticioServicio.GetById(planId);
+
+            TempData["ComidaId"] = comidaId;
+
+            TempData["PlanId"] = planId;
+
+            TempData["DiaCopiarId"] = comida.DiaId;
+
+            List<DiaViewModel> dias = new List<DiaViewModel>();
+
+            foreach (var dia in plan.Dias)
+            {
+                foreach (var com in dia.Comidas)
+                {
+                    if (com.Descripcion == comida.Descripcion)
+                    {
+                        if (com.ComidasDetalles.Count > 0)
+                        {
+                            dias.Add(Mapper.Map<DiaViewModel>(dia));
+                        }
+                    }
+                }
+            }
+
+            return PartialView(dias);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> DuplicarComida(long diaId)
+        {
+            var diaVacioId = TempData["DiaCopiarId"];
+            var comidaCopiarId = (long) TempData["ComidaId"];
+            var planId = (long)TempData["PlanId"];
+            var comdidaDto = new ComidaDetalleDto();
+
+
+            var plan = await _planAlimenticioServicio.GetById(planId);
+            var comidaTarget = await _comidaServicio.GetById(comidaCopiarId);
+
+            foreach (var dia in plan.Dias)
+            {
+                if (dia.Id == diaId)
+                {
+                    foreach (var comida in dia.Comidas)
+                    {
+                        if (comida.Descripcion == comidaTarget.Descripcion)
+                        {
+                            foreach (var detalle in comida.ComidasDetalles)
+                            {
+                                comdidaDto = new ComidaDetalleDto() {
+                                    ComidaId = comidaCopiarId,
+                                    Comentario = detalle.Comentario,
+                                    OpcionId = detalle.OpcionId,
+                                    Eliminado = false,                                  
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+
+            comdidaDto.Codigo = await _comidaDetalleServicio.GetNextCode();
+
+            await _comidaDetalleServicio.Add(comdidaDto);
+
+
+            return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = TempData["PlanId"] });
+        }
     }
 }

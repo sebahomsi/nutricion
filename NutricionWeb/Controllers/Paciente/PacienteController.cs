@@ -6,6 +6,7 @@ using NutricionWeb.Models.DatoAnalitico;
 using NutricionWeb.Models.DatoAntropometrico;
 using NutricionWeb.Models.Estrategia;
 using NutricionWeb.Models.Objetivo;
+using NutricionWeb.Models.Observacion;
 using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using NutricionWeb.Models.Turno;
@@ -15,6 +16,7 @@ using Servicio.Interface.DatoAnalitico;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Estrategia;
 using Servicio.Interface.Objetivo;
+using Servicio.Interface.Observacion;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
 using Servicio.Interface.Turno;
@@ -24,18 +26,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Security;
-using AutoMapper;
-using NutricionWeb.Models.Anamnesis;
-using NutricionWeb.Models.Estrategia;
-using NutricionWeb.Models.Objetivo;
-using NutricionWeb.Models.Observacion;
-using Servicio.Interface.Anamnesis;
-using Servicio.Interface.Estrategia;
-using Servicio.Interface.Objetivo;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
-using Servicio.Interface.Observacion;
 
 namespace NutricionWeb.Controllers.Paciente
 {
@@ -56,13 +48,13 @@ namespace NutricionWeb.Controllers.Paciente
 
 
         //public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio, IObservacionServicio observacionServicio)
-        public PacienteController(IPacienteServicio pacienteServicio, 
-            IComboBoxSexo comboBoxSexo, 
-            IDatoAnaliticoServicio datoAnaliticoServicio, 
-            IPlanAlimenticioServicio planAlimenticioServicio, 
-            IDatoAntropometricoServicio datoAntropometricoServicio, 
-            ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, 
-            IAnamnesisServicio anamnesisServicio, 
+        public PacienteController(IPacienteServicio pacienteServicio,
+            IComboBoxSexo comboBoxSexo,
+            IDatoAnaliticoServicio datoAnaliticoServicio,
+            IPlanAlimenticioServicio planAlimenticioServicio,
+            IDatoAntropometricoServicio datoAntropometricoServicio,
+            ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio,
+            IAnamnesisServicio anamnesisServicio,
             IEstrategiaServicio estrategiaServicio,
             IComboBoxEstablecimiento comboBoxEstablecimiento, IObservacionServicio observacionServicio)
         {
@@ -78,7 +70,7 @@ namespace NutricionWeb.Controllers.Paciente
             _observacionServicio = observacionServicio;
             _comboBoxEstablecimiento = comboBoxEstablecimiento;
         }
-        
+
 
         // GET: Paciente
         [Authorize(Roles = "Administrador, Empleado")]

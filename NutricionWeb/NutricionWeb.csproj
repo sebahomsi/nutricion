@@ -800,6 +800,8 @@
     <Content Include="Views\Observacion\CreateParcial.cshtml" />
     <Content Include="Views\Observacion\EditParcial.cshtml" />
     <Content Include="Views\Comida\DuplicarComida.cshtml" />
+    <Content Include="Views\ComidaDetalle\CreatePartialPlanOrdenado.cshtml" />
+    <Content Include="Views\ComidaDetalle\BuscarOpcionModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

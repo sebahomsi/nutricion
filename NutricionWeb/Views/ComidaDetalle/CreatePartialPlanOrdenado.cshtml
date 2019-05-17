@@ -1,0 +1,66 @@
+﻿@model NutricionWeb.Models.ComidaDetalle.ComidaDetalleABMViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.OpcionId)
+        @Html.HiddenFor(model => model.ComidaId)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comentario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Comentario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Comentario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OpcionStr, new { @class = "control-label col-md-2" , @style= "width: 10%;" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.OpcionStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.OpcionStr, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2" align="left">
+                @Ajax.ActionLink("...", "BuscarOpcionModal", "ComidaDetalle", new AjaxOptions
+                {
+                   HttpMethod = "GET",
+                   InsertionMode = InsertionMode.Replace,
+                   UpdateTargetId = "partialFindAgregarComida"
+                }, new { @class = "btn btn-default", @style= "margin-top: 0;"})
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Aceptar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+
+    </script>
+}
