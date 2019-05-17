@@ -73,7 +73,7 @@ namespace Servicio.Alimento
 
         public async Task<ICollection<AlimentoDto>> Get(bool eliminado, string cadenaBuscar = "")
         {
-            _lacteosService.ListarLacteos();
+            //_lacteosService.ListarLacteos();
             Expression<Func<Dominio.Entidades.Alimento, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
 
             return await Context.Alimentos

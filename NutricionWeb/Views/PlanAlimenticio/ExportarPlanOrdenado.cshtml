@@ -290,7 +290,7 @@
         var recorreFila = (idFila) => {
             var elementoAnterior;
             var i = 0;
-            $("#" + idFila + " [comidaColumna]").each((index, elemento) => {
+            $('#' + idFila + " [comidaColumna]").each((index, elemento) => {
                 var elementoActual = $(elemento);
                 if (index !== 0) {
 
@@ -314,19 +314,14 @@
             });
         }
 
-
         $(() => {
-
             recorreFila("desayuno");
             recorreFila("mediaMañana");
             recorreFila("almuerzo");
             recorreFila("merienda");
             recorreFila("mediaTarde");
             recorreFila("cena");
-
         });
-
-
     </script>
 
 }

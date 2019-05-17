@@ -2,6 +2,6 @@
 {
     public static class PagedList
     {
-        public static int CantidadFilasPorPaginas = 2;
+        public static int CantidadFilasPorPaginas = 10;
     }
 }

@@ -6,30 +6,13 @@
 
 
 <div class="titulo-ABM">
-    <h4 class="detail-plan-h4">Detalles de: @Model.Descripcion</h4>
+    <h4 class="detail-h4">Detalles de: @Model.Descripcion</h4>
 </div>
 
-<div class="row">
-    <hr />
-    <div class="col-md-7" style="margin-left: 10px;">
 
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.Descripcion):
-            <span class="sub-info">
-
-                @Html.DisplayFor(model => model.Descripcion)
-            </span>
-
-        </p>
-
-
-
-    </div>
-
-</div>
 <p style="margin-left: 10px;">
-    @Html.ActionLink("Nuevo Detalle", "Create", "OpcionDetalle", new { opcionId = Model.Id }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Nuevo Detalle", "Create", "OpcionDetalle", new { opcionId = Model.Id }, new { @class = "btn btn-primary-custom" })
+    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-primary-custom" })
 
 </p>
 

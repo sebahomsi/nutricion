@@ -83,6 +83,13 @@
                     </li>
 
                     <li>
+                        <a href="@Url.Action("Index", "Opcion")">
+                            <i class="fas fa-clipboard"></i>
+                            Recetas
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="@Url.Action("Index", "Pago")">
                             <i class="fas fa-cash-register"></i>
                             Pagos
@@ -126,7 +133,7 @@
                             <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
                             <li>@Html.ActionLink("Crear Usuario", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                             <li>@Html.ActionLink("Establecimiento", "Create", "Establecimiento")</li>
-                            <li>@Html.ActionLink("Establecimientos", "Index", "Establecimiento")</li>                            
+                            <li>@Html.ActionLink("Establecimientos", "Index", "Establecimiento")</li>
                             <li>@Html.ActionLink("Patologias", "Index", "Patologia")</li>
                             <li>@Html.ActionLink("Alergias e Intolerancias", "Index", "AlergiaIntolerancia")</li>
                             <li>@Html.ActionLink("Grupos", "Index", "Grupo")</li>

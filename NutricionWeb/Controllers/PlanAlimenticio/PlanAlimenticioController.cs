@@ -303,11 +303,13 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
         //================================================================Metodos Especiales
 
-        public async Task<ActionResult> ExportarPlanOrdenado(long id)
+        public async Task<ActionResult> ExportarPlanOrdenado(long? id)
         {
-            var plan = await _planAlimenticioServicio.GetById(id);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var comidas = await _planAlimenticioServicio.GetSortringComidas(id);
+            var plan = await _planAlimenticioServicio.GetById(id.Value);
+
+            var comidas = await _planAlimenticioServicio.GetSortringComidas(id.Value);
 
             ViewBag.PlanId = id;
 
