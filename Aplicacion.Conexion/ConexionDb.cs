@@ -3,7 +3,7 @@
     public static class ConexionDb
     {
         private const string Servidor = @"DESKTOP-TTT7KKD";
-        private const string BaseDatos = "Nutriciontosiselacomeamordiscones";
+        private const string BaseDatos = "Nutricion2019";
         private const string Usuario = "sa";
         private const string Password = "pa$$word";
 
