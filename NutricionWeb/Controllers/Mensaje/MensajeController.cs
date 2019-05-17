@@ -98,7 +98,7 @@ namespace NutricionWeb.Controllers.Mensaje
             {
                 var contactos = await _establecimientoServicio.Get();
                 var contacto = contactos.First();
-                if(contacto == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No existen datos de contacto para mandar mensajes");
+                if(contacto == null) return RedirectToAction("Error", "Home");
 
                 return View(new MensajeABMViewModel()
                 {

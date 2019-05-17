@@ -169,7 +169,7 @@ namespace NutricionWeb.Controllers.OpcionDetalle
 
             var alimentos =
                 await _alimentoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
-            if (alimentos == null) return HttpNotFound();
+            if (alimentos == null) return RedirectToAction("Error", "Home");
 
             return PartialView(alimentos.Select(x => new AlimentoViewModel()
             {
@@ -189,7 +189,7 @@ namespace NutricionWeb.Controllers.OpcionDetalle
             var unidades =
                 await _unidadMedidaServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (unidades == null) return HttpNotFound();
+            if (unidades == null) return RedirectToAction("Error", "Home");
 
             return PartialView(unidades.Select(x => new UnidadMedidaViewModel()
             {

@@ -68,7 +68,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.FechaNac, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.FechaNac, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        <input type="text" class="form-control" id="FechaNac" name="FechaNac" readonly="readonly" value="@Model.FechaNac"/>
                         @Html.ValidationMessageFor(model => model.FechaNac, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -115,7 +115,7 @@
         <div class="form-group">
             <div class=" col-md-10">
                 <input type="submit" value="Aceptar" class="btn btn-success" />
-                @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Lista de pacientes", "Index", new { }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
@@ -131,8 +131,9 @@
             $("#FechaNac").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1930:2015",
-                dateFormat: "mm/dd/yy"
+                locale:"es",
+                yearRange: "1930:2099",
+                dateFormat: "dd/mm/yy"
             });
         });
     </script>

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.ComidaDetalle;
+﻿using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Opcion;
 using PagedList;
 using Servicio.Interface.Comida;
@@ -13,6 +6,11 @@ using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Dia;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.PlanAlimenticio;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.ComidaDetalle
@@ -42,7 +40,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             ViewBag.Eliminado = eliminado;
 
             var detalles =
-                await _comidaDetalleServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar)
+                await _comidaDetalleServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar)
                     ? cadenaBuscar
                     : string.Empty);
 
@@ -62,7 +60,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         // GET: ComidaDetalle/Create
-        public async Task<ActionResult> Create(long comidaId)
+        public ActionResult Create(long comidaId)
         {
             return View(new ComidaDetalleABMViewModel()
             {
@@ -92,19 +90,105 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                     await _planAlimenticioServicio.CalculateTotalCalories(dia.PlanAlimenticioId);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("Details", "Comida", new {id = vm.ComidaId});
+            return RedirectToAction("Details", "Comida", new { id = vm.ComidaId });
+
+        }
+
+        public async Task<ActionResult> CreatePartial(long comidaId)
+        {
+            return View(new ComidaDetalleABMViewModel()
+            {
+                ComidaId = comidaId
+            });
+        }
+
+        public async Task<ActionResult> CreatePartialPlanOrdenado(long comidaId, long? opcionId, string opcionStr = "")
+        {
+            TempData["ComidaId"] = comidaId;
+            return PartialView(new ComidaDetalleABMViewModel()
+            {
+                ComidaId = comidaId,
+                OpcionId = opcionId ?? 0,
+                OpcionStr = opcionStr
+            });
+        }
+
+        // POST: ComidaDetalle/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreatePartialPlanOrdenado(ComidaDetalleABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var dto = CargarDatos(vm);
+
+                    var comida = await _comidaServicio.GetById(vm.ComidaId);
+
+                    var dia = await _diaServicio.GetById(comida.DiaId);
+
+                    dto.Codigo = await _comidaDetalleServicio.GetNextCode();
+
+                    await _comidaDetalleServicio.Add(dto);
+
+                    await _planAlimenticioServicio.CalculateTotalCalories(dia.PlanAlimenticioId);
+
+                    return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = dia.PlanAlimenticioId });
+                }
+                return View(vm);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
+            }
+
+        }
+
+
+        // POST: ComidaDetalle/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreatePartial(ComidaDetalleABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var dto = CargarDatos(vm);
+
+                    var comida = await _comidaServicio.GetById(vm.ComidaId);
+
+                    var dia = await _diaServicio.GetById(comida.DiaId);
+
+                    dto.Codigo = await _comidaDetalleServicio.GetNextCode();
+
+                    await _comidaDetalleServicio.Add(dto);
+
+                    await _planAlimenticioServicio.CalculateTotalCalories(dia.PlanAlimenticioId);
+
+                    return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = dia.PlanAlimenticioId });
+                }
+                return View(vm);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
+            }
 
         }
 
         // GET: ComidaDetalle/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _comidaDetalleServicio.GetById(id.Value);
 
@@ -135,7 +219,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                     await _comidaDetalleServicio.Update(dto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
@@ -147,7 +231,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         // GET: ComidaDetalle/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _comidaDetalleServicio.GetById(id.Value);
 
@@ -186,7 +270,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             {
                 if (ModelState.IsValid)
                 {
-                    await _comidaDetalleServicio.Delete(vm.Id);
+                    //await _comidaDetalleServicio.Delete(vm.Id);
                 }
             }
             catch (Exception ex)
@@ -197,19 +281,19 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Eliminar(long? id)
+        public async Task<ActionResult> Eliminar(long comidaId, long detalleId)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            await _comidaDetalleServicio.Delete(detalleId);
 
-            await _comidaDetalleServicio.Delete(id.Value);
+            return RedirectToAction("Details", "Comida", new { id = comidaId });
 
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
         }
 
         // GET: ComidaDetalle/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _comidaDetalleServicio.GetById(id.Value);
 
@@ -233,6 +317,25 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             var opcion = await _opcionServicio.GetById(opcionId);
 
             return Json(opcion, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> BuscarOpcionModal(int? page, string cadenaBuscar)
+        {
+            var pageNumber = page ?? 1;
+            var eliminado = false;
+
+            ViewBag.ComidaId = TempData["ComidaId"];
+
+            var opciones =
+                await _opcionServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
+            return PartialView(opciones.Select(x => new OpcionViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Eliminado = x.Eliminado
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
         public async Task<ActionResult> BuscarOpcion(int? page, string cadenaBuscar)

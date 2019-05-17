@@ -31,7 +31,7 @@ namespace NutricionWeb.Controllers.Patologia
             var patologias =
                 await _patologiaServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (patologias == null) return HttpNotFound();
+            if (patologias == null) return RedirectToAction("Error", "Home");
 
             return View(patologias.Select(x=> new PatologiaViewModel()
             {
@@ -75,7 +75,7 @@ namespace NutricionWeb.Controllers.Patologia
         // GET: Patologia/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if(id == null) return RedirectToAction("Error", "Home");
 
             var patologia = await _patologiaServicio.GetById(id.Value);
 
@@ -114,7 +114,7 @@ namespace NutricionWeb.Controllers.Patologia
         // GET: Patologia/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var patologia = await _patologiaServicio.GetById(id.Value);
 
@@ -150,7 +150,7 @@ namespace NutricionWeb.Controllers.Patologia
         // GET: Patologia/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var patologia = await _patologiaServicio.GetById(id.Value);
 

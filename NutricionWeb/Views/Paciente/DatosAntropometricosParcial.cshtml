@@ -64,17 +64,42 @@
                     @Html.DisplayFor(modelItem => item.MasaCorporal) Kg/M²
                 </td>
                 <td align="right">
-                    @Html.ActionLink("Actualizar", "Edit", "DatoAntropometrico", new { id = item.Id }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Detalles", "Details", "DatoAntropometrico", new { id = item.Id }, new { @class = "btn btn-default" })
+
+                    @Ajax.ActionLink("Actualizar", "Edit", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "datosAntropometricos-Parcial",
+
+                    }, new {@class = "btn btn-warning btn-xs"})
+
+                    @Ajax.ActionLink("Detalles", "Details", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "datosAntropometricos-Parcial",
+
+                    }, new {@class = "btn btn-default btn-xs"})
+
                     @if (item.Eliminado)
                     {
-                        @Html.ActionLink("Activar", "Delete", "DatoAntropometrico", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @Ajax.ActionLink("Activar", "Delete", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "datosAntropometricos-Parcial",
 
+                        }, new {@class = "btn btn-info btn-xs"})
                     }
                     else
                     {
-                        @Html.ActionLink("Eliminar", "Delete", "DatoAntropometrico", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        @Ajax.ActionLink("Eliminar", "Delete", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "datosAntropometricos-Parcial",
 
+                        }, new {@class = "btn btn-danger btn-xs"})
                     }
                 </td>
             </tr>

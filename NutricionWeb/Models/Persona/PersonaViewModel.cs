@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace NutricionWeb.Models.Persona
 {
@@ -33,7 +30,7 @@ namespace NutricionWeb.Models.Persona
                 var edad = DateTime.Now.Year - FechaNac.Date.Year;
 
                 DateTime nacimientoAhora = FechaNac.Date.AddYears(edad);
-                
+
                 if (DateTime.Now.CompareTo(nacimientoAhora) < 0)
                 {
                     edad--;

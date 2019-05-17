@@ -32,7 +32,7 @@ namespace NutricionWeb.Controllers.MicroNutriente
             var micros =
                 await _microNutrienteServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (micros == null) return HttpNotFound();
+            if (micros == null) return RedirectToAction("Error", "Home");
 
             return View(micros.Select(x=> new MicroNutrienteViewModel()
             {
@@ -77,7 +77,7 @@ namespace NutricionWeb.Controllers.MicroNutriente
         // GET: MicroNutriente/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if(id == null) return RedirectToAction("Error", "Home");
 
             var micro = await _microNutrienteServicio.GetById(id.Value);
 
@@ -115,7 +115,7 @@ namespace NutricionWeb.Controllers.MicroNutriente
         // GET: MicroNutriente/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if(id == null) return RedirectToAction("Error", "Home");
 
             var micro = await _microNutrienteServicio.GetById(id.Value);
 
@@ -152,7 +152,7 @@ namespace NutricionWeb.Controllers.MicroNutriente
         // GET: MicroNutriente/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var micro = await _microNutrienteServicio.GetById(id.Value);
 

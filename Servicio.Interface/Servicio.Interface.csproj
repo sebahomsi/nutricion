@@ -114,6 +114,7 @@
     <Compile Include="Persona\SexoDto.cs" />
     <Compile Include="PlanAlimenticio\IPlanAlimenticioServicio.cs" />
     <Compile Include="PlanAlimenticio\PlanAlimenticioDto.cs" />
+    <Compile Include="PlanAlimenticio\PlanDiasDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rol\IRolServicio.cs" />
     <Compile Include="SubGrupo\ISubGrupoServicio.cs" />

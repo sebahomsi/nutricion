@@ -43,19 +43,19 @@
                 
 
                 <td align="right">
-                    @Html.ActionLink("Actualizar", "Edit", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Actualizar", "Edit", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })
+                    @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
                     @if (item.Eliminado)
                     {
-                        @Html.ActionLink("Activar", "Delete", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Activar", "Delete", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
 
                     }
                     else
                     {
-                        @Html.ActionLink("Eliminar", "Delete", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Eliminar", "Delete", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
 
                     }
-                    @Html.ActionLink("Ver Plan", "ExportarPlan", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Ver Plan", "ExportarPlanOrdenado", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
 
                 </td>
             </tr>

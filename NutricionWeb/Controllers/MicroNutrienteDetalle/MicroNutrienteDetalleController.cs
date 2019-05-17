@@ -45,7 +45,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
                     ? cadenaBuscar
                     : string.Empty);
 
-            if (detalles == null) return HttpNotFound();
+            if (detalles == null) return RedirectToAction("Error", "Home");
 
             return View(detalles.Select(x=> new MicroNutrienteDetalleViewModel()
             {
@@ -99,7 +99,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
-            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if(id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _microNutrienteDetalleServicio.GetById(id.Value);
 
@@ -144,7 +144,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _microNutrienteDetalleServicio.GetById(id.Value);
 
@@ -185,7 +185,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         // GET: MicroNutrienteDetalle/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var detalle = await _microNutrienteDetalleServicio.GetById(id.Value);
 
@@ -211,7 +211,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
 
             var alimentos =
                 await _alimentoServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
-            if (alimentos == null) return HttpNotFound();
+            if (alimentos == null) return RedirectToAction("Error", "Home");
 
             return PartialView(alimentos.Select(x => new AlimentoViewModel()
             {
@@ -231,7 +231,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
             var micros =
                 await _microNutrienteServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (micros == null) return HttpNotFound();
+            if (micros == null) return RedirectToAction("Error", "Home");
 
             return PartialView(micros.Select(x => new MicroNutrienteViewModel()
             {
@@ -249,7 +249,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
             var unidades =
                 await _unidadMedidaServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (unidades == null) return HttpNotFound();
+            if (unidades == null) return RedirectToAction("Error", "Home");
 
             return PartialView(unidades.Select(x => new UnidadMedidaViewModel()
             {

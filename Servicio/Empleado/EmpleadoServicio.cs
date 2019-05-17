@@ -39,7 +39,7 @@ namespace Servicio.Empleado
 
             Context.Personas.Add(empleado);          
             await Context.SaveChangesAsync();
-            await _usuarioServicio.Crear(empleado.Mail, "empleado123","Empleado" , empleado.EstablecimientoId);
+            await _usuarioServicio.Crear(empleado.Mail, empleado.Dni,"Empleado" , empleado.EstablecimientoId);
             return empleado.Id;
         }
 
@@ -73,10 +73,12 @@ namespace Servicio.Empleado
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<EmpleadoDto>> Get(bool eliminado, string cadenaBuscar = "")
+        public async Task<ICollection<EmpleadoDto>> Get(long? establecimientoId,bool eliminado, string cadenaBuscar = "")
         {
-            Expression<Func<Dominio.Entidades.Empleado, bool>> expression = x => x.Eliminado == eliminado && (x.Apellido.Contains(cadenaBuscar)
-                                                                                                              || x.Nombre.Contains(cadenaBuscar));
+            Expression<Func<Dominio.Entidades.Empleado, bool>> expression = 
+                x => x.Eliminado == eliminado && (x.Apellido.Contains(cadenaBuscar)
+                || x.Nombre.Contains(cadenaBuscar))
+                &&(!establecimientoId.HasValue || x.EstablecimientoId == establecimientoId);
             return await Context.Personas.OfType<Dominio.Entidades.Empleado>()
                 .AsNoTracking()
                 .Where(expression)

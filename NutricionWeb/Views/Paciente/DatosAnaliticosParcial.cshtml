@@ -54,16 +54,16 @@
                 </td>
 
                 <td align="right">
-                    @Html.ActionLink("Actualizar", "Edit", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Detalles", "Details", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Actualizar", "Edit", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })
+                    @Html.ActionLink("Detalles", "Details", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
                     @if (item.Eliminado)
                     {
-                        @Html.ActionLink("Activar", "Delete", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Activar", "Delete", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
 
                     }
                     else
                     {
-                        @Html.ActionLink("Eliminar", "Delete", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Eliminar", "Delete", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
 
                     }
                 </td>
