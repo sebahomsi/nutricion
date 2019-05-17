@@ -1,11 +1,11 @@
 ﻿using Servicio.Interface.Comida;
+using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Opcion;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Servicio.Interface.ComidaDetalle;
 
 namespace Servicio.Comida
 {
@@ -71,26 +71,6 @@ namespace Servicio.Comida
 
 
             await Context.SaveChangesAsync();
-        }
-
-        public async Task<long> Add(ComidaDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task Update(ComidaDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task Delete(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ICollection<ComidaDto>> Get(string cadenaBuscar)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<ComidaDto> GetById(long id)
