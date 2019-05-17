@@ -177,22 +177,30 @@
                 }
             );
 
-            $("#btn-Estado").click(function () {
+            $("#btn-Estado").click(function() {
                 listaEstado();
             });
 
-            function listaEstado() {
-            $("#partialFindEstado").empty();
+            $("#btn-BuscarPaciente").click(() => {
+                listaPaciente();
+            });
             
-                $.get('@Url.Action("BuscarEstado", "Turno")',
-                {
-                    cadenaBuscar: $("#txt-BuscarEstado").val()
-                },
-                function(listaEstado) {
-                    $("#partialFindEstado").append(listaEstado);
-                });
-            }
+            $("#btn-BuscarEstado").click(() => {
+                listaEstado();
+            });
 
+
+            function listaEstado() {
+                $("#partialFindEstado").empty();
+
+                $.get('@Url.Action("BuscarEstado", "Turno")',
+                    {
+                        cadenaBuscar: $("#txt-BuscarEstado").val()
+                    },
+                    function(listaEstado) {
+                        $("#partialFindEstado").append(listaEstado);
+                    });
+            }
 
             function listaPaciente() {
                 $("#partialFindPaciente").empty();
@@ -238,7 +246,6 @@
                             $('#cancelar-estado').trigger("click");
                         });
                 });
-
 
 
             $(function() {
