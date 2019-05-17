@@ -126,6 +126,7 @@
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x=>x.Id)
+            @Html.HiddenFor(x=>x.PacienteId)
             <div class="form-actions no-color" style="margin-left: 20px;">
                 @if (Model.Eliminado)
                 {

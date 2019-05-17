@@ -161,6 +161,8 @@
                 @foreach (var detalle in comida.ComidasDetalles)
                 {
                     <a onclick="detalle(@comida.Id)">@detalle.OpcionStr .</a>
+                    <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                    <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
 
                 }
                 @if (comida.ComidasDetalles.Count == 0)
@@ -179,7 +181,9 @@
             <td comidaColumna id="@comida.DiaStr@comida.Descripcion">
                 @foreach (var detalle in comida.ComidasDetalles)
                 {
-                    @detalle.OpcionStr @:.<br />
+                    <a onclick="detalle(@comida.Id)">@detalle.OpcionStr .</a>
+                    <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                    <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
                 }
 
                 @if (comida.ComidasDetalles.Count == 0)

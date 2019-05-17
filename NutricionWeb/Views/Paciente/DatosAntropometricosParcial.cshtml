@@ -65,7 +65,7 @@
                 </td>
                 <td align="right">
 
-                    @Ajax.ActionLink("Actualizar", "Edit", "DatoAntropometrico", new {id = (long) ViewBag.PacienteId}, new AjaxOptions()
+                    @Ajax.ActionLink("Actualizar", "Edit", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
                     {
                         HttpMethod = "GET",
                         InsertionMode = InsertionMode.Replace,
@@ -73,7 +73,7 @@
 
                     }, new {@class = "btn btn-warning btn-xs"})
 
-                    @Ajax.ActionLink("Detalles", "Details", "DatoAntropometrico", new {id = (long) ViewBag.PacienteId}, new AjaxOptions()
+                    @Ajax.ActionLink("Detalles", "Details", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
                     {
                         HttpMethod = "GET",
                         InsertionMode = InsertionMode.Replace,
@@ -83,7 +83,7 @@
 
                     @if (item.Eliminado)
                     {
-                        @Ajax.ActionLink("Activar", "Delete", "DatoAntropometrico", new {id = (long) ViewBag.PacienteId}, new AjaxOptions()
+                        @Ajax.ActionLink("Activar", "Delete", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
                         {
                             HttpMethod = "GET",
                             InsertionMode = InsertionMode.Replace,
@@ -93,7 +93,7 @@
                     }
                     else
                     {
-                        @Ajax.ActionLink("Eliminar", "Delete", "DatoAntropometrico", new {id = (long) ViewBag.PacienteId}, new AjaxOptions()
+                        @Ajax.ActionLink("Eliminar", "Delete", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
                         {
                             HttpMethod = "GET",
                             InsertionMode = InsertionMode.Replace,

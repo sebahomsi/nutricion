@@ -120,7 +120,6 @@
 <div class="row">
     <div class="col">
         <p style="margin-top: 15px; margin-left: 10px">
-            @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
             @Ajax.ActionLink("Volver","DatosAntropometricosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
             {
                 HttpMethod = "GET",
@@ -128,7 +127,6 @@
                 UpdateTargetId = "datosAntropometricos-Parcial",
                
             },new {@class="btn btn-default"})
-            @*@Html.ActionLink("Ir al Paciente", "Details", "Paciente", new { id = Model.PacienteId }, new { @class = "btn btn-info" })*@
         </p>
     </div>
 </div>

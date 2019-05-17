@@ -139,8 +139,9 @@
             $("#FechaNac").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1930:2015",
-                dateFormat: "mm/dd/yy"
+                locale:"es",
+                yearRange: "1930:2099",
+                dateFormat: "dd/mm/yy"
             });
             $(document).ready(function(){
                 $("#FechaNac").attr("value", "01/01/1980");
