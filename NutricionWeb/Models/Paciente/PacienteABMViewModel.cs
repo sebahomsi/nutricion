@@ -6,7 +6,6 @@ namespace NutricionWeb.Models.Paciente
     {
         public int Codigo { get; set; }
 
-
         public bool TieneObservacion { get; set; }
 
     }

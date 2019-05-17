@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Servicio.Interface.Alimento;
-using Servicio.Interface.DatoAnalitico;
+﻿using Servicio.Interface.DatoAnalitico;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
 using Servicio.Interface.Turno;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Servicio.Paciente
 {
@@ -73,17 +71,17 @@ namespace Servicio.Paciente
             var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>().FirstOrDefaultAsync(x => x.Id == id);
             if (paciente == null) throw new ArgumentNullException();
 
-            paciente.Eliminado =! paciente.Eliminado;
+            paciente.Eliminado = !paciente.Eliminado;
 
             await Context.SaveChangesAsync();
         }
 
         public async Task<ICollection<PacienteDto>> Get(long? establecimientoId, bool eliminado, string cadenaBuscar = "")
         {
-            Expression<Func<Dominio.Entidades.Paciente, bool>> expression = 
-                x => x.Eliminado == eliminado 
+            Expression<Func<Dominio.Entidades.Paciente, bool>> expression =
+                x => x.Eliminado == eliminado
             && (x.Apellido.Contains(cadenaBuscar)
-            || x.Nombre.Contains(cadenaBuscar)) && (!establecimientoId.HasValue || x.EstablecimientoId == establecimientoId) ;
+            || x.Nombre.Contains(cadenaBuscar)) && (!establecimientoId.HasValue || x.EstablecimientoId == establecimientoId);
             return await Context.Personas.OfType<Dominio.Entidades.Paciente>()
                 .AsNoTracking()
                 .Where(expression)
@@ -132,7 +130,7 @@ namespace Servicio.Paciente
                 Foto = paciente.Foto,
                 Eliminado = paciente.Eliminado,
                 TieneObservacion = paciente.TieneObservacion,
-                DatosAntropometricos = paciente.DatosAntropometricos.Select(p=> new DatoAntropometricoDto()
+                DatosAntropometricos = paciente.DatosAntropometricos.Select(p => new DatoAntropometricoDto()
                 {
                     Id = p.Id,
                     Codigo = p.Codigo,
@@ -152,7 +150,7 @@ namespace Servicio.Paciente
                     PerimetroCuello = p.PerimetroCuello
 
                 }).ToList(),
-                PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q=> q.Fecha).Select(q=> new PlanAlimenticioDto()
+                PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q => q.Fecha).Select(q => new PlanAlimenticioDto()
                 {
                     Id = q.Id,
                     Codigo = q.Codigo,
@@ -163,7 +161,7 @@ namespace Servicio.Paciente
                     Eliminado = q.Eliminado,
                     TotalCalorias = q.TotalCalorias
                 }).ToList(),
-                Turnos = paciente.Turnos.OrderBy(t=> t.HorarioEntrada).Where(t=> t.HorarioEntrada >= DateTime.Today).Select(t=> new TurnoDto()
+                Turnos = paciente.Turnos.OrderBy(t => t.HorarioEntrada).Where(t => t.HorarioEntrada >= DateTime.Today).Select(t => new TurnoDto()
                 {
                     Id = t.Id,
                     Numero = t.Numero,
@@ -174,7 +172,7 @@ namespace Servicio.Paciente
                     HorarioSalida = t.HorarioSalida,
                     Eliminado = t.Eliminado
                 }).ToList(),
-                DatosAnaliticos = paciente.DatosAnaliticos.OrderBy(x=> x.Codigo).Select(x=> new DatoAnaliticoDto()
+                DatosAnaliticos = paciente.DatosAnaliticos.OrderBy(x => x.Codigo).Select(x => new DatoAnaliticoDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
@@ -237,7 +235,7 @@ namespace Servicio.Paciente
                     PesoIdeal = p.PesoIdeal,
                     PesoDeseado = p.PesoDeseado,
                     PerimetroCuello = p.PerimetroCuello,
-                    
+
                 }).ToList(),
                 PlanesAlimenticios = paciente.PlanesAlimenticios.OrderBy(q => q.Fecha).Select(q => new PlanAlimenticioDto()
                 {

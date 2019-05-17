@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Servicio.Interface.Comida;
+using Servicio.Interface.Dia;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Servicio.Interface.Comida;
-using Servicio.Interface.Dia;
 
 namespace Servicio.Dia
 {
-    public class DiaServicio: ServicioBase, IDiaServicio
+    public class DiaServicio : ServicioBase, IDiaServicio
     {
         private readonly IComidaServicio _comidaServicio;
 
@@ -108,26 +107,6 @@ namespace Servicio.Dia
 
         }
 
-        public async Task<long> Add(DiaDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task Update(DiaDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task Delete(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ICollection<DiaDto>> Get(string cadenaBuscar)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<DiaDto> GetById(long id)
         {
             var dia = await Context.Dias
@@ -145,7 +124,7 @@ namespace Servicio.Dia
                 Descripcion = dia.Descripcion,
                 PlanAlimenticioId = dia.PlanAlimenticioId,
                 PlanAlimenticioStr = dia.PlanAlimenticio.Motivo,
-                Comidas = dia.Comidas.Select(x=> new ComidaDto()
+                Comidas = dia.Comidas.Select(x => new ComidaDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,

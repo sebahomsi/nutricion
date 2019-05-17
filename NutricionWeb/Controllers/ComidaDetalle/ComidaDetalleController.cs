@@ -60,7 +60,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         // GET: ComidaDetalle/Create
-        public async Task<ActionResult> Create(long comidaId)
+        public ActionResult Create(long comidaId)
         {
             return View(new ComidaDetalleABMViewModel()
             {
