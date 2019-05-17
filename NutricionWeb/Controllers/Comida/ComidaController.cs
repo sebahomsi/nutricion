@@ -22,8 +22,8 @@ namespace NutricionWeb.Controllers.Comida
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
         private readonly IComidaDetalleServicio _comidaDetalleServicio;
 
-        public ComidaController(IComidaServicio comidaServicio, 
-            IDiaServicio diaServicio, 
+        public ComidaController(IComidaServicio comidaServicio,
+            IDiaServicio diaServicio,
             IPlanAlimenticioServicio planAlimenticioServicio,
             IComidaDetalleServicio comidaDetalleServicio)
         {
@@ -174,7 +174,7 @@ namespace NutricionWeb.Controllers.Comida
         public async Task<ActionResult> DuplicarComida(long diaId)
         {
             var diaVacioId = TempData["DiaCopiarId"];
-            var comidaCopiarId = (long) TempData["ComidaId"];
+            var comidaCopiarId = (long)TempData["ComidaId"];
             var planId = (long)TempData["PlanId"];
             var comdidaDto = new ComidaDetalleDto();
 
@@ -192,11 +192,12 @@ namespace NutricionWeb.Controllers.Comida
                         {
                             foreach (var detalle in comida.ComidasDetalles)
                             {
-                                comdidaDto = new ComidaDetalleDto() {
+                                comdidaDto = new ComidaDetalleDto()
+                                {
                                     ComidaId = comidaCopiarId,
                                     Comentario = detalle.Comentario,
                                     OpcionId = detalle.OpcionId,
-                                    Eliminado = false,                                  
+                                    Eliminado = false,
                                 };
                             }
                         }
@@ -210,6 +211,17 @@ namespace NutricionWeb.Controllers.Comida
 
 
             return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = TempData["PlanId"] });
+        }
+
+        public async Task<ActionResult> DetalleComida(long comidaId)
+        {
+            var comida = await _comidaServicio.GetById(comidaId);
+
+            var model = new ComidaViewModel()
+            {
+            };
+
+            return PartialView(model);
         }
     }
 }

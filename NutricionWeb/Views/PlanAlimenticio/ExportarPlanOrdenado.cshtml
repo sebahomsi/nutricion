@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="cancelar-paciente" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             </div>
         </div>
     </div>
@@ -53,12 +53,39 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="cancelar-paciente" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             </div>
         </div>
     </div>
 </div>
 
+
+@*================Modal Detalle =========================*@
+<div class="modal fade" id="modal-detalle" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Detalle</h2>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="">
+                        <div id="partialFindDetalleComida"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     .row {
         display: table;
@@ -84,14 +111,14 @@
     }
 
     .comidasDomingos {
-        border-left:1px solid black; 
-        border-top:1px solid black;
-        border-right:1px solid black !important; 
-        width:12.5%
+        border-left: 1px solid black;
+        border-top: 1px solid black;
+        border-right: 1px solid black !important;
+        width: 12.5%
     }
 
     .comidasCena {
-        border-bottom:1px solid black;
+        border-bottom: 1px solid black;
     }
 
     .cabeceraDomingo {
@@ -103,37 +130,37 @@
     }
 
     .btn {
-        margin-top : 5px;
-        margin-bottom : 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 
+    table {
+        border-collapse: collapse
+    }
+
+    td {
+        border: 1px solid #000;
+        width: 12.5%;
+    }
+
+    th {
+        border: 1px solid #000;
+        width: 12.5%;
+    }
 </style>
 
-@helper DibujarCabeceraDia(string dia, string clases = "")
-{
-    <div class="col-md-2 text-center cabeceraDia @clases">
-        @dia
-    </div>
-}
-
-@helper DibujarCabeceraComida(string comida, string clases = "")
-{
-    <div class="col-md-2 cabeceraComida @clases">
-        @comida
-    </div>
-}
 
 
-@helper DibujarComidas(List<NutricionWeb.Models.Comida.ComidaViewModel> comidas,string clases ="")
+@helper DibujarComidas(List<NutricionWeb.Models.Comida.ComidaViewModel> comidas, string clases = "")
 {
     foreach (var comida in comidas)
     {
         if (Model.Desayunos.Last().DiaStr == comida.DiaStr)
         {
-            <div class="col-md-2 text-center comidasDomingos @clases"  id="@comida.DiaStr@comida.Descripcion">
+            <td comidaColumna id="@comida.DiaStr@comida.Descripcion">
                 @foreach (var detalle in comida.ComidasDetalles)
                 {
-                    @detalle.OpcionStr @:.
+                    <a onclick="detalle(@comida.Id)">@detalle.OpcionStr .</a>
 
                 }
                 @if (comida.ComidasDetalles.Count == 0)
@@ -145,11 +172,11 @@
                 {
                     <div id="@comida.Id" class="btn btn-success btn-xs" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
                 }
-            </div>
+            </td>
         }
         else
         {
-            <div class="col-md-2 text-center @clases" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%" id="@comida.DiaStr@comida.Descripcion">
+            <td comidaColumna id="@comida.DiaStr@comida.Descripcion">
                 @foreach (var detalle in comida.ComidasDetalles)
                 {
                     @detalle.OpcionStr @:.<br />
@@ -165,7 +192,7 @@
                     <div id="@comida.Id" class="btn btn-success btn-xs" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
                 }
 
-            </div>
+            </td>
         }
 
     }
@@ -173,46 +200,45 @@
 
 
 <h2>ExportarPlanOrdenado</h2>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2" style=" width:12.5%">
+<table>
+    <tr>
+        <th style="border: none;"></th>
+        <th>Lunes</th>
+        <th>Martes</th>
+        <th>Miercoles</th>
+        <th>Jueves</th>
+        <th>Viernes</th>
+        <th>Sabado</th>
+        <th>Domingo</th>
 
-        </div>
-        @DibujarCabeceraDia("Lunes")
-        @DibujarCabeceraDia("Martes")
-        @DibujarCabeceraDia("Miercoles")
-        @DibujarCabeceraDia("Jueves")
-        @DibujarCabeceraDia("Virenes")
-        @DibujarCabeceraDia("Sabado")
-        @DibujarCabeceraDia("Domingo", "cabeceraDomingo")
-    </div>
+    </tr>
 
-    <div class="row" id="desayuno">
-        @DibujarCabeceraComida("Desayuno")
+    <tr id="desayuno">
+        <td>Desayuno</td>
         @DibujarComidas(Model.Desayunos)
-    </div>
-    <div class="row" id="mediaMañana">
-        @DibujarCabeceraComida("Media Mañana")
+    </tr>
+    <tr id="mediaMañana">
+        <td>Media Mañana</td>
         @DibujarComidas(Model.MediaMañana)
-    </div>
-    <div class="row" id="almuerzo">
-        @DibujarCabeceraComida("Almuerzo")
+    </tr>
+    <tr id="almuerzo">
+        <td>Almuerzo</td>
         @DibujarComidas(Model.Almuerzo)
-    </div>
-    <div class="row" id="merienda">
-        @DibujarCabeceraComida("Merienda")
+    </tr>
+    <tr id="merienda">
+        <td>Merienda</td>
         @DibujarComidas(Model.Merienda)
-    </div>
-    <div class="row" id="mediaTarde">
-        @DibujarCabeceraComida("Media Tarde")
+    </tr>
+    <tr id="mediaTarde">
+        <td>Media tarde</td>
         @DibujarComidas(Model.MediaTarde)
-    </div>
-    <div class="row" id="cena">
-        @DibujarCabeceraComida("Cena", "cabeceraCena")
-        @DibujarComidas(Model.Cena,"comidasCena")
-    </div>
+    </tr>
+    <tr id="cena">
+        <td>Cena</td>
+        @DibujarComidas(Model.Cena)
+    </tr>
+</table>
 
-</div>
 
 <p>
     @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId })
@@ -222,29 +248,83 @@
 @section Scripts {
     <script>
 
+        var detalle = id => {
+            $("#modal-detalle").modal("show");
+
+            $.get('@Url.Action("DetalleComida", "Comida")',
+                { comidaId: id },
+                (parcial) => {
+                    $("#partialFindDetalleComida").empty().append(parcial);
+                });
+        }
+
         var duplicar = id => {
             $("#modal-duplicar").modal("show");
 
-            $.get('@Url.Action("DuplicarComida","Comida")', { planId: @ViewBag.PlanId, comidaId : id }, parcial => {
-                $("#partialFindDuplicarComida").empty().append(parcial);
-            });
+            $.get('@Url.Action("DuplicarComida", "Comida")',
+                { planId: @ViewBag.PlanId, comidaId: id },
+                parcial => {
+                    console.log(parcial);
+                    $("#partialFindDuplicarComida").empty().append(parcial);
+                });
         }
 
         var agregar = id => {
             $("#modal-AgregarComida").modal("show");
-            $.get('@Url.Action("CreatePartialPlanOrdenado","ComidaDetalle")', { comidaId : id }, parcial => {
+            $.get('@Url.Action("CreatePartialPlanOrdenado", "ComidaDetalle")',
+                { comidaId: id },
+                parcial => {
                     $("#partialFindAgregarComida").empty().append(parcial);
                 });
-            }
+        }
 
-         var seleccionarOpcion = (opcionId, opcionStr, comidaId) => {
-            console.log("opcionId " + opcionId);
-            console.log("OpcionStr " + opcionStr);
-            console.log("ComidaId " + comidaId);
-            $.get('@Url.Action("CreatePartialPlanOrdenado","ComidaDetalle")', { comidaId: comidaId, opcionId: opcionId, opcionStr : opcionStr }, parcial => {
-                $("#partialFindAgregarComida").empty().append(parcial);
+        var seleccionarOpcion = (opcionId, opcionStr, comidaId) => {
+            $.get('@Url.Action("CreatePartialPlanOrdenado", "ComidaDetalle")',
+                { comidaId: comidaId, opcionId: opcionId, opcionStr: opcionStr },
+                parcial => {
+                    $("#partialFindAgregarComida").empty().append(parcial);
+                });
+        }
+
+
+        var recorreFila = (idFila) => {
+            var elementoAnterior;
+            var i = 0;
+            $("#" + idFila + " [comidaColumna]").each((index, elemento) => {
+                var elementoActual = $(elemento);
+                if (index !== 0) {
+
+                    if (elementoAnterior.text().trim() === elementoActual.text().trim() &&
+                        elementoAnterior.text().trim() !== "") {
+
+                        elementoActual.remove();
+                        i++;
+                        if (index == 6) {
+                            elementoAnterior.attr("colspan", i + 1);
+                        }
+                    } else {
+                        elementoAnterior.attr("colspan", i + 1);
+                        i = 0;
+                        elementoAnterior = $(elemento);
+                    }
+                } else {
+                    elementoAnterior = $(elemento);
+                }
+
             });
-         }
+        }
+
+
+        $(() => {
+
+            recorreFila("desayuno");
+            recorreFila("mediaMañana");
+            recorreFila("almuerzo");
+            recorreFila("merienda");
+            recorreFila("mediaTarde");
+            recorreFila("cena");
+
+        });
 
 
     </script>

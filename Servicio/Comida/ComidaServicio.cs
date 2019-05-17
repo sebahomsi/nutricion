@@ -99,6 +99,9 @@ namespace Servicio.Comida
                 .AsNoTracking()
                 .Include("Dia")
                 .Include("ComidasDetalles.Opcion")
+                .Include("ComidasDetalles.Opcion.OpcionDetalles")
+                .Include("ComidasDetalles.Opcion.OpcionDetalles.UnidadMedida")
+                .Include("ComidasDetalles.Opcion.OpcionDetalles.Alimento")
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (comida == null) throw new ArgumentNullException();
@@ -110,16 +113,32 @@ namespace Servicio.Comida
                 Descripcion = comida.Descripcion,
                 DiaId = comida.DiaId,
                 DiaStr = comida.Dia.Descripcion,
-                ComidasDetalles = comida.ComidasDetalles.Select(x => new ComidaDetalleDto()
+                ComidasDetalles = comida.ComidasDetalles.Select(t => new ComidaDetalleDto()
                 {
-                    Id = x.Id,
-                    Codigo = x.Codigo,
-                    Comentario = x.Comentario,
-                    ComidaId = x.ComidaId,
-                    OpcionId = x.OpcionId,
-                    OpcionStr = x.Opcion.Descripcion,
-                    ComidaStr = x.Comida.Descripcion,
-                    Eliminado = x.Eliminado
+                    Id = t.Id,
+                    Codigo = t.Codigo,
+                    Comentario = t.Comentario,
+                    ComidaId = t.ComidaId,
+                    ComidaStr = t.Comida.Descripcion,
+                    OpcionId = t.OpcionId,
+                    OpcionStr = t.Opcion.Descripcion,
+                    Eliminado = t.Eliminado,
+                    Opcion = new OpcionDto()
+                    {
+                        OpcionDetalles = t.Opcion.OpcionDetalles.Select(o => new Interface.OpcionDetalle.OpcionDetalleDto()
+                        {
+                            Id = o.Id,
+                            AlimentoId = o.AlimentoId,
+                            AlimentoStr = o.Alimento.Descripcion,
+                            Cantidad = o.Cantidad,
+                            Codigo = o.Codigo,
+                            Eliminado = o.Eliminado,
+                            OpcionId = o.OpcionId,
+                            OpcionStr = o.Opcion.Descripcion,
+                            UnidadMedidaId = o.UnidadMedidaId,
+                            UnidadMedidaStr = o.UnidadMedida.Abreviatura
+                        }).ToList()
+                    }
                 }).ToList()
             };
         }
