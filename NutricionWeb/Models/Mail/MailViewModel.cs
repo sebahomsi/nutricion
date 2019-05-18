@@ -11,15 +11,18 @@ namespace NutricionWeb.Models.Mail
             Imagenes = new List<HttpPostedFileBase>();
         }
 
+        [Display(Name = "Destino")]
         [DataType(DataType.EmailAddress)]
         public string MailDestino { get; set; }
 
+        [Display(Name = "Emisor")]
         [DataType(DataType.EmailAddress)]
         public string MailEmisor { get; set; }
 
         [DataType(DataType.Password)]
         public string Contraseña { get; set; }
 
+        [Display(Name = "Cuerpo")]
         [DataType(DataType.MultilineText)]
         public string CuerpoMensaje { get; set; }
 

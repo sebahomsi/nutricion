@@ -213,6 +213,18 @@
             }
             );
 
+            $("#btn-BuscarAlimento").click(() => {
+                listaAlimento();
+            });
+
+            $("#btn-BuscarMicronutriente").click(() => {
+                listaMicronutriente();
+            });
+
+            $("#btn-BuscarUnidad").click(() => {
+                listaUnidad();
+            });
+
             $('#Cantidad').on('input', function () {
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
