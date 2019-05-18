@@ -199,15 +199,15 @@ namespace NutricionWeb.Controllers.Comida
                                     OpcionId = detalle.OpcionId,
                                     Eliminado = false,
                                 };
+                                comdidaDto.Codigo = await _comidaDetalleServicio.GetNextCode();
+                                await _comidaDetalleServicio.Add(comdidaDto);
                             }
                         }
                     }
                 }
             }
 
-            comdidaDto.Codigo = await _comidaDetalleServicio.GetNextCode();
-
-            await _comidaDetalleServicio.Add(comdidaDto);
+           
 
 
             return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = TempData["PlanId"] });
