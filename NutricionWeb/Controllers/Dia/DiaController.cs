@@ -32,7 +32,7 @@ namespace NutricionWeb.Controllers.Dia
         // GET: Dia/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dia = await _diaServicio.GetById(id.Value);
 

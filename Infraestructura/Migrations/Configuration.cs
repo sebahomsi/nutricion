@@ -1,8 +1,7 @@
-using System;
 using Dominio.Entidades;
 using Infraestructura.Contexto;
+using System;
 using System.Data.Entity.Migrations;
-using System.Linq;
 
 namespace Infraestructura.Migrations
 {
@@ -26,6 +25,9 @@ namespace Infraestructura.Migrations
             AddPacientes(context);
             AddRecetas(context);
             AddOpcionesDetalles(context);
+            AddPatologias(context);
+            AddAlergiasIntolerancias(context);
+            AddMicroNutrientes(context);
         }
 
         private void AddEstablecimientos(NutricionDbContext context)
@@ -67,6 +69,36 @@ namespace Infraestructura.Migrations
                 new Grupo() { Id = 5, Codigo = 5, Descripcion = "Frutas", Eliminado = false },
                 new Grupo() { Id = 6, Codigo = 6, Descripcion = "Verduras", Eliminado = false },
                 new Grupo() { Id = 7, Codigo = 7, Descripcion = "Salsas, Condimentos y Especias", Eliminado = false });
+        }
+
+        private static void AddMicroNutrientes(NutricionDbContext context)
+        {
+            context.MicroNutrientes.AddOrUpdate(x => x.Id,
+                new MicroNutriente() { Id = 1, Codigo = 1, Descripcion = "Calcio", Eliminado = false },
+                new MicroNutriente() { Id = 2, Codigo = 2, Descripcion = "Hierro", Eliminado = false },
+                new MicroNutriente() { Id = 3, Codigo = 3, Descripcion = "Vitamina C", Eliminado = false },
+                new MicroNutriente() { Id = 4, Codigo = 4, Descripcion = "Magnesio", Eliminado = false },
+                new MicroNutriente() { Id = 5, Codigo = 5, Descripcion = "Potasio", Eliminado = false });
+        }
+
+        private static void AddPatologias(NutricionDbContext context)
+        {
+            context.Patologias.AddOrUpdate(x => x.Id,
+                new Patologia() { Id = 1, Codigo = 1, Descripcion = "Dolor de garganta", Eliminado = false },
+                new Patologia() { Id = 2, Codigo = 2, Descripcion = "Dolor de oido", Eliminado = false },
+                new Patologia() { Id = 3, Codigo = 3, Descripcion = "IVU", Eliminado = false },
+                new Patologia() { Id = 4, Codigo = 4, Descripcion = "Bronquitis", Eliminado = false },
+                new Patologia() { Id = 5, Codigo = 5, Descripcion = "Bronquiolitis", Eliminado = false });
+        }
+
+        private static void AddAlergiasIntolerancias(NutricionDbContext context)
+        {
+            context.AlergiasIntolerancias.AddOrUpdate(x => x.Id,
+                new AlergiaIntolerancia() { Id = 1, Codigo = 1, Descripcion = "Alergia al polen", Eliminado = false },
+                new AlergiaIntolerancia() { Id = 2, Codigo = 2, Descripcion = "Alergia al pelo de gato", Eliminado = false },
+                new AlergiaIntolerancia() { Id = 3, Codigo = 3, Descripcion = "Alergia al látex", Eliminado = false },
+                new AlergiaIntolerancia() { Id = 4, Codigo = 4, Descripcion = "Intolerante a la lactosa", Eliminado = false },
+                new AlergiaIntolerancia() { Id = 5, Codigo = 5, Descripcion = "Intolerante al gluten", Eliminado = false });
         }
 
         private static void AddAlimentos(NutricionDbContext context)
@@ -358,6 +390,46 @@ namespace Infraestructura.Migrations
                     Mail = "juanitojones@gmail.com",
                     Sexo = 1,
                     Telefono = "4390099",
+                    TieneObservacion = false,
+                    EstablecimientoId = 1,
+                    Eliminado = false
+                });
+
+            context.Personas.AddOrUpdate(x => x.Id,
+                new Paciente()
+                {
+                    Id = 2,
+                    Codigo = 2,
+                    Nombre = "Pepe",
+                    Apellido = "Argento",
+                    Celular = "+5479154402",
+                    Dni = "30251898",
+                    Direccion = "Italia 2350",
+                    FechaNac = new DateTime(1980, 10, 20),
+                    Foto = "~/Content/Imagenes/user-icon.jpg",
+                    Mail = "pepeargento@gmail.com",
+                    Sexo = 1,
+                    Telefono = "4784899",
+                    TieneObservacion = false,
+                    EstablecimientoId = 1,
+                    Eliminado = false
+                });
+
+            context.Personas.AddOrUpdate(x => x.Id,
+                new Paciente()
+                {
+                    Id = 3,
+                    Codigo = 3,
+                    Nombre = "Oliver",
+                    Apellido = "Atom",
+                    Celular = "+5479090124",
+                    Dni = "41257898",
+                    Direccion = "Balon 262",
+                    FechaNac = new DateTime(1989, 08, 17),
+                    Foto = "~/Content/Imagenes/user-icon.jpg",
+                    Mail = "oliveratom@gmail.com",
+                    Sexo = 1,
+                    Telefono = "4123099",
                     TieneObservacion = false,
                     EstablecimientoId = 1,
                     Eliminado = false

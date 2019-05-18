@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
 using System.Web.Mvc;
+using Org.BouncyCastle.Crypto.Digests;
 
 namespace NutricionWeb.Models.Persona
 {
@@ -24,7 +25,6 @@ namespace NutricionWeb.Models.Persona
         [Index(IsUnique = true)]
         public string Dni { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
         [StringLength(150, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         public string Direccion { get; set; }
 
@@ -33,16 +33,13 @@ namespace NutricionWeb.Models.Persona
         public string Mail { get; set; }
 
         [Display(Name = "Fecha de Nacimiento")]
-        [Required(ErrorMessage = "Campo Obligatorio")]
         public DateTime FechaNac { get; set; }
 
         public int Sexo { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
         [StringLength(12, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         public string Telefono { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
         [StringLength(12, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         public string Celular { get; set; }
 
@@ -54,6 +51,9 @@ namespace NutricionWeb.Models.Persona
 
         public bool Eliminado { get; set; }
 
+        //[Range(1, long.MaxValue,ErrorMessage = "Campo Obligatorio")]
+        [Required(ErrorMessage = "Campo Obligatorio")]
+        [Display(Name = "Establecimiento")]
         public long EstablecimientoId { get; set; }
 
         public IEnumerable<SelectListItem> Sexos { get; set; }

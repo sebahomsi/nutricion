@@ -117,10 +117,16 @@
 
 <div class="row">
     <div class="col">
-        @using (Html.BeginForm())
+        @using (Ajax.BeginForm("Delete", "DatoAntropometrico", new { }, new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "datosAntropometricos-Parcial"
+        }))
         {
             @Html.AntiForgeryToken()
-
+            @Html.HiddenFor(x=>x.Id)
+            @Html.HiddenFor(x=>x.PacienteId)
             <div class="form-actions no-color" style="margin-left: 20px;">
                 @if (Model.Eliminado)
                 {
@@ -132,7 +138,13 @@
                     <input type="submit" value="Eliminar" class="btn btn-danger" />
 
                 }
-                @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+                @Ajax.ActionLink("Volver","DatosAntropometricosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "datosAntropometricos-Parcial",
+               
+                },new {@class="btn btn-default"})
 
             </div>
         }

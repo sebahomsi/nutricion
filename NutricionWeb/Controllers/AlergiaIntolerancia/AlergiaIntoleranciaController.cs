@@ -76,7 +76,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
         // GET: AlergiaIntolerancia/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var alergia = await _alergiaIntoleranciaServicio.GetById(id.Value);
 
@@ -115,7 +115,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var alergia = await _alergiaIntoleranciaServicio.GetById(id.Value);
 
@@ -151,7 +151,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
         // GET: AlergiaIntolerancia/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var alergia = await _alergiaIntoleranciaServicio.GetById(id.Value);
 

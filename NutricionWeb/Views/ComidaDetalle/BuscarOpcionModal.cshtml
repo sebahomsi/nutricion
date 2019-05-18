@@ -1,0 +1,44 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<NutricionWeb.Models.Opcion.OpcionViewModel>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+
+            <td>
+                <input type="button" id="@item.Id" desc="@item.Descripcion" name="seleccionar-opcion" class="btn btn-primary-custom btn-xs" value="Seleccionar" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div align="center">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("BuscarOpcionModal", "ComidaDetalle", new { page, cadenaBuscar = ViewBag.FilterValue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindAgregarComida" }))
+</div>
+
+<script type="text/javascript">
+    $(() => {
+
+        $("input[name=seleccionar-opcion]").click(e => {
+            if (window.parent.seleccionarOpcion) {
+                window.parent.seleccionarOpcion(e.target.id, $(e.target).attr("desc"), @ViewBag.ComidaId);
+            }
+        });
+
+    });
+</script>

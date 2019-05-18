@@ -69,6 +69,7 @@ using Servicio.Objetivo;
 using Unity;
 using Unity.Mvc5;
 using Servicio.Estrategia;
+using Bridge;
 
 namespace Aplicacion.IoC
 {
@@ -114,6 +115,8 @@ namespace Aplicacion.IoC
 
             container.RegisterType<IUsuarioServicio, UsuarioServicio>();
             container.RegisterType<IRolServicio, RolServicio>();
+
+            container.RegisterType<ILacteosService, LacteoServicio>();
 
 
             //esto ya venia

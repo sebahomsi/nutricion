@@ -1,35 +1,42 @@
-﻿@model IEnumerable<NutricionWeb.Models.SubGrupo.SubGrupoViewModel>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<NutricionWeb.Models.SubGrupo.SubGrupoViewModel>
 
 <p>
 
-<table class="table">
-    <tr>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.GrupoStr)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-       
-        <th></th>
-    </tr>
+    <table class="table">
+        <tr>
 
-@foreach (var item in Model) {
-    <tr>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.GrupoStr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        
-        <td>
-            <input type="button" id="seleccionar-subgrupo" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().GrupoStr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
+            </th>
 
-        </td>
-    </tr>
-}
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.GrupoStr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+
+                <td>
+                    <input type="button" id="seleccionar-subgrupo" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div align="center">
+        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("BuscarSubGrupo", "Alimento", new { page, cadenaBuscar = ViewBag.FilterValue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindSubgrupo" }))
+    </div>

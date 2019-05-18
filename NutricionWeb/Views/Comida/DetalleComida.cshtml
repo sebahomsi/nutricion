@@ -1,0 +1,16 @@
+﻿@model NutricionWeb.Models.Comida.ComidaViewModel
+
+
+@foreach (var opcion in Model.ComidasDetalles)
+{
+    foreach (var receta in opcion.Opcion.OpcionDetalles)
+    {
+        <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+    }
+    <p>Opcion: @opcion.OpcionStr</p>
+    <p>Comentario: @opcion.Comentario</p>
+}
+
+<p>
+    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new{ @class="btn btn-danger"})
+</p>

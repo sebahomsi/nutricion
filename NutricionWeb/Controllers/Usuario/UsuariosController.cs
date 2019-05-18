@@ -49,14 +49,14 @@ namespace NutricionWeb.Controllers.Usuario
 
         public async Task<ActionResult> ObtenerRolesPorUsuario(string usuarioId)
         {
-            if (string.IsNullOrEmpty(usuarioId)) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (string.IsNullOrEmpty(usuarioId)) return RedirectToAction("Error", "Home");
 
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_db));
 
             var usuarioSeleccionado = await userManager.FindByIdAsync(usuarioId);
 
-            if (usuarioSeleccionado == null) return HttpNotFound();
+            if (usuarioSeleccionado == null) return RedirectToAction("Error", "Home");
 
             var roles = roleManager.Roles.ToList();
 
@@ -81,18 +81,18 @@ namespace NutricionWeb.Controllers.Usuario
 
         public async Task<ActionResult> EliminarRolDelUsuario(string usuarioId, string rolId)
         {
-            if (string.IsNullOrEmpty(usuarioId) || string.IsNullOrEmpty(rolId)) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (string.IsNullOrEmpty(usuarioId) || string.IsNullOrEmpty(rolId)) return RedirectToAction("Error", "Home");
 
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_db));
 
             var usuario = await userManager.FindByIdAsync(usuarioId);
 
-            if (usuario == null) return HttpNotFound();
+            if (usuario == null) return RedirectToAction("Error", "Home");
 
             var rol = await roleManager.FindByIdAsync(rolId);
 
-            if (rol == null) return HttpNotFound();
+            if (rol == null) return RedirectToAction("Error", "Home");
 
             if (userManager.IsInRole(usuario.Id, rol.Name))
             {

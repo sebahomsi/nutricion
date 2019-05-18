@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Servicio.Interface.AlergiaIntolerancia;
+using Servicio.Interface.Alimento;
+using Servicio.Interface.Observacion;
+using Servicio.Interface.Patologia;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using Servicio.Interface.AlergiaIntolerancia;
-using Servicio.Interface.Alimento;
-using Servicio.Interface.Observacion;
-using Servicio.Interface.Patologia;
 
 namespace Servicio.Observacion
 {
@@ -31,6 +30,8 @@ namespace Servicio.Observacion
 
             var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
                 .FirstOrDefaultAsync(x => x.Id == dto.PacienteId);
+
+            if (paciente == null) throw new ArgumentNullException();
             paciente.TieneObservacion = true;
 
             Context.Observaciones.Add(observacion);

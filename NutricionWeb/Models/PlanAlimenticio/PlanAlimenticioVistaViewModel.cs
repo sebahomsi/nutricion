@@ -14,7 +14,6 @@ namespace NutricionWeb.Models.PlanAlimenticio
         public List<ComidaViewModel> Almuerzo { get; set; }
         public List<ComidaViewModel> MediaTarde { get; set; }
         public List<ComidaViewModel> Cena { get; set; }
-
         public List<ComidaViewModel> Merienda { get; set; }
     }
 }

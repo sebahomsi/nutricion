@@ -14,7 +14,7 @@ using static NutricionWeb.Helpers.PagedList;
 namespace NutricionWeb.Controllers.DatoAntropometrico
 {
     [Authorize(Roles = "Administrador, Empleado")]
-    public class DatoAntropometricoController : Controller
+    public class DatoAntropometricoController : ControllerBase
     {
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
         private readonly IPacienteServicio _pacienteServicio;
@@ -32,14 +32,15 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
             ViewBag.Eliminado = eliminado;
 
-            var datos = await _datoAntropometricoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar)
+            var datos = await _datoAntropometricoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar)
                 ? cadenaBuscar
                 : string.Empty);
 
-            if (datos == null) return HttpNotFound();
+            if (datos == null) return RedirectToAction("Error", "Home");
 
-            return View(datos.Select(x=> new DatoAntropometricoViewModel(){
-                
+            return View(datos.Select(x => new DatoAntropometricoViewModel()
+            {
+
                 Id = x.Id,
                 Codigo = x.Codigo,
                 PacienteId = x.PacienteId,
@@ -77,13 +78,13 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 {
                     var pic = string.Empty;
                     pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
-                    var datosDto = CargarDatos(vm,pic);
+                    var datosDto = CargarDatos(vm, pic);
                     datosDto.Codigo = await _datoAntropometricoServicio.GetNextCode();
 
                     await _datoAntropometricoServicio.Add(datosDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
@@ -95,7 +96,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> CreateParcial(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(id.Value);
 
@@ -132,7 +133,6 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 return PartialView(vm);
             }
             return RedirectToAction("DatosAntropometricosParcial", "Paciente", new { id = vm.PacienteId });
-
         }
 
 
@@ -140,11 +140,11 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
 
-            return View(new DatoAntropometricoABMViewModel()
+            return PartialView(new DatoAntropometricoABMViewModel()
             {
                 Id = dato.Id,
                 Codigo = dato.Codigo,
@@ -176,28 +176,27 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 {
                     var pic = string.Empty;
                     pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
-                    var datosDto = CargarDatos(vm,pic);
+                    var datosDto = CargarDatos(vm, pic);
                     await _datoAntropometricoServicio.Update(datosDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(vm);
+                return PartialView(vm);
             }
-            return RedirectToAction("Index");
-
+            return RedirectToAction("DatosAntropometricosParcial", "Paciente", new { id = vm.PacienteId });
         }
 
         // GET: DatoAntropometrico/Delete/5
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
 
-            return View(new DatoAntropometricoViewModel()
+            return PartialView(new DatoAntropometricoViewModel()
             {
                 Id = dato.Id,
                 Codigo = dato.Codigo,
@@ -234,20 +233,20 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(vm);
+                return PartialView(vm);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("DatosAntropometricosParcial", "Paciente", new { id = vm.PacienteId });
         }
 
 
         // GET: DatoAntropometrico/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
 
-            return View(new DatoAntropometricoViewModel()
+            return PartialView(new DatoAntropometricoViewModel()
             {
                 Id = dato.Id,
                 Codigo = dato.Codigo,
@@ -266,7 +265,6 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoDeseado = dato.PesoDeseado,
                 PerimetroCuello = dato.PerimetroCuello,
                 FotoStr = dato.Foto,
-
             });
         }
 
@@ -274,14 +272,16 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
+            var establecimientoId = ObtenerEstablecimientoIdUser();
+
             var pageNumber = page ?? 1;
 
             var pacientes =
-                await _pacienteServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(establecimientoId, false, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (pacientes == null) return HttpNotFound();
+            if (pacientes == null) return RedirectToAction("Error", "Home");
 
-            return PartialView(pacientes.Select(x => new PacienteViewModel() 
+            return PartialView(pacientes.Select(x => new PacienteViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
@@ -301,14 +301,14 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
         public async Task<ActionResult> TraerPaciente(long? pacienteId)
         {
-            if (pacienteId == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (pacienteId == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(pacienteId.Value);
 
             return Json(paciente, JsonRequestBehavior.AllowGet);
         }
 
-        private DatoAntropometricoDto CargarDatos(DatoAntropometricoABMViewModel vm,string pic)
+        private DatoAntropometricoDto CargarDatos(DatoAntropometricoABMViewModel vm, string pic)
         {
             return new DatoAntropometricoDto()
             {
@@ -329,7 +329,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoIdeal = vm.PesoIdeal,
                 PesoDeseado = vm.PesoDeseado,
                 PerimetroCuello = vm.PerimetroCuello,
-                
+
             };
         }
     }

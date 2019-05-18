@@ -32,8 +32,8 @@ namespace NutricionWeb.Controllers.Grupo
 
             var grupos = await _grupoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            if (grupos == null) return HttpNotFound();
-           
+            if (grupos == null) return RedirectToAction("Error", "Home");
+
             return View(grupos.Select(x=>new GrupoViewModel()
             {
                 Id = x.Id,
@@ -75,7 +75,7 @@ namespace NutricionWeb.Controllers.Grupo
         // GET: Grupo/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var grupo = await _grupoServicio.GetById(id.Value);
 
@@ -113,7 +113,7 @@ namespace NutricionWeb.Controllers.Grupo
         // GET: Grupo/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var grupo = await _grupoServicio.GetById(id.Value);
 
@@ -149,7 +149,7 @@ namespace NutricionWeb.Controllers.Grupo
         // GET: Grupo/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return RedirectToAction("Error", "Home");
 
             var grupo = await _grupoServicio.GetById(id.Value);
 

@@ -1,23 +1,21 @@
-﻿@model IEnumerable<NutricionWeb.Models.Grupo.GrupoViewModel>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<NutricionWeb.Models.Grupo.GrupoViewModel>
 
 
 <table class="table">
     <tr>
+
         <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
         </th>
 
         <th></th>
     </tr>
 
-    @foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
@@ -29,4 +27,10 @@
     }
 
 </table>
+
+<div align="center">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("BuscarGrupo", "SubGrupo", new { page, cadenaBuscar = ViewBag.FilterValue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindGrupo" }))
+</div>
+
 <div align="right">Total de Registros : @ViewBag.Registros</div>

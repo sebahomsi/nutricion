@@ -15,180 +15,189 @@
 </head>
 <body>
 
-<div class="sidebar-wrapper">
-    
-    <nav id="sidebar" class="sidebar-active">
-        <div class="sidebar-header">
-            <div class="sidebar-logo">
-                <img src="~/Content/Imagenes/logo-novillo.png" alt="logo" class="img-responsive"/>
+    <div class="sidebar-wrapper">
+
+        <nav id="sidebar" class="sidebar-active">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="~/Content/Imagenes/logo-novillo.png" alt="logo" class="img-responsive" />
+                </div>
+                <div class="sidebar-title">
+                </div>
+                <div class="sidebar-user-form">
+
+                </div>
             </div>
-            <div class="sidebar-title">
-            </div>
-            <div class="sidebar-user-form">
+            <ul class="list-unstyled component">
 
-            </div>
-        </div>
-        <ul class="list-unstyled component">
-
-            <li class="">
-                <a href="@Url.Action("Index", "Home")">
-                    <i class="fas fa-home"></i>
-                    Inicio
-                </a>
-            </li>
-
-            @if (User.IsInRole("Empleado") || User.IsInRole("Administrador"))
-            {
-                <li>
-                    <a href="@Url.Action("Create", "Paciente")">
-                        <i class="fas fa-user-plus"></i>
-                        Nuevo Paciente
+                <li class="">
+                    <a href="@Url.Action("Index", "Home")">
+                        <i class="fas fa-home"></i>
+                        Inicio
                     </a>
                 </li>
 
-                <li>
-                    <a href="@Url.Action("Index", "Paciente")">
-                        <i class="fas fa-user"></i>
-                        Pacientes
-                    </a>
-                </li>
+                @if (User.IsInRole("GestionPacientes") || User.IsInRole("Administrador"))
+                {
+                    <li>
+                        <a href="@Url.Action("Create", "Paciente")">
+                            <i class="fas fa-user-plus"></i>
+                            Nuevo Paciente
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="@Url.Action("About", "Home")">
-                        <i class="fas fa-calendar"></i>
-                        Calendario
-                    </a>
-                </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Paciente")">
+                            <i class="fas fa-user"></i>
+                            Pacientes
+                        </a>
+                    </li>
+                }
 
-                <li>
-                    <a href="@Url.Action("Create", "Turno")">
-                        <i class="fas fa-calendar-plus"></i>
-                        Nuevo Turno
-                    </a>
-                </li>
+                @if (User.IsInRole("GestionTurnos") || User.IsInRole("Administrador"))
+                {
+                    <li>
+                        <a href="@Url.Action("Create", "Turno")">
+                            <i class="fas fa-calendar-plus"></i>
+                            Nuevo Turno
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="@Url.Action("Index", "Turno")">
-                        <i class="fas fa-calendar-alt"></i>
-                        Turnos
-                    </a>
-                </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Turno")">
+                            <i class="fas fa-calendar-alt"></i>
+                            Turnos
+                        </a>
+                    </li>
+                }
 
-                <li>
-                    <a href="@Url.Action("Index", "Pago")">
-                        <i class="fas fa-cash-register"></i>
-                        Pagos
-                    </a>
-                </li>
-            }
-            @if (User.IsInRole("Administrador") || User.IsInRole("Paciente"))
-            {
 
-                <li>
-                    <a href="#msgSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-inbox"></i>
-                        Mensajes
-                    </a>
-                    <ul class="collapse list-unstyled" id="msgSubmenu">
-                        <li>
-                            @Html.ActionLink("Nuevo", "Create", "Mensaje")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Recibidos", "IndexRecibidos", "Mensaje")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Enviados", "IndexEnviados", "Mensaje")
-                        </li>
-                    </ul>
-                </li>
-            }
 
-            @if (User.IsInRole("Empleado") || User.IsInRole("Administrador"))
-            {
-                <li>
-                    <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-cogs"></i>
-                        Administracion
-                    </a>
-                    <ul class="collapse list-unstyled" id="adminSubmenu">
-                        <li>@Html.ActionLink("Planes Alimenticios", "Index", "PlanAlimenticio")</li>
-                        <li>@Html.ActionLink("Datos Antropometricos", "Index", "DatoAntropometrico")</li>
-                        <li>@Html.ActionLink("Datos Analiticos", "Index", "DatoAnalitico")</li>
-                        @if (User.IsInRole("Administrador"))
-                        {
+                @if (User.IsInRole("Administrador"))
+                {
+                    <li>
+                        <a href="@Url.Action("About", "Home")">
+                            <i class="fas fa-calendar"></i>
+                            Calendario
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "Opcion")">
+                            <i class="fas fa-clipboard"></i>
+                            Recetas
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "Pago")">
+                            <i class="fas fa-cash-register"></i>
+                            Pagos
+                        </a>
+                    </li>
+                }
+                @if (User.IsInRole("Administrador") || User.IsInRole("Paciente"))
+                {
+
+                    <li>
+                        <a href="#msgSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-inbox"></i>
+                            Mensajes
+                        </a>
+                        <ul class="collapse list-unstyled" id="msgSubmenu">
+                            <li>
+                                @Html.ActionLink("Nuevo", "Create", "Mensaje")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Recibidos", "IndexRecibidos", "Mensaje")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Enviados", "IndexEnviados", "Mensaje")
+                            </li>
+                        </ul>
+                    </li>
+                }
+
+                @if (User.IsInRole("Administrador"))
+                {
+                    <li>
+                        <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-cogs"></i>
+                            Administracion
+                        </a>
+                        <ul class="collapse list-unstyled" id="adminSubmenu">
+                            <li>@Html.ActionLink("Planes Alimenticios", "Index", "PlanAlimenticio")</li>
+                            <li>@Html.ActionLink("Datos Antropometricos", "Index", "DatoAntropometrico")</li>
+                            <li>@Html.ActionLink("Datos Analiticos", "Index", "DatoAnalitico")</li>
                             <li>@Html.ActionLink("Empleados", "Index", "Empleado")</li>
                             <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
                             <li>@Html.ActionLink("Crear Usuario", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                            <li>@Html.ActionLink("Establecimiento", "Create", "Establecimiento")</li>
+                            <li>@Html.ActionLink("Crear Establecimiento", "Create", "Establecimiento")</li>
                             <li>@Html.ActionLink("Establecimientos", "Index", "Establecimiento")</li>
-                        }
-                        @*<li>@Html.ActionLink("Establecimientos", "Index", "Establecimiento")</li>*@
-                        <li>@Html.ActionLink("Patologias", "Index", "Patologia")</li>
-                        <li>@Html.ActionLink("Alergias e Intolerancias", "Index", "AlergiaIntolerancia")</li>
-                        <li>@Html.ActionLink("Grupos", "Index", "Grupo")</li>
-                        <li>@Html.ActionLink("SubGrupos", "Index", "SubGrupo")</li>
-                        <li>@Html.ActionLink("Recetas", "Index", "Opcion")</li>
-                        <li>@Html.ActionLink("Micro Nutrientes", "Index", "MicroNutriente")</li>
-                        <li>@Html.ActionLink("Unidades de Medidas", "Index", "UnidadMedida")</li>
-                        <li>@Html.ActionLink("Micro Nutrientes Detalles", "Index", "MicroNutrienteDetalle")</li>
-                        <li>@Html.ActionLink("Alimentos", "Index", "Alimento")</li>
-                        <li>@Html.ActionLink("Estados", "Index", "Estado")</li>
-                        <li>@Html.ActionLink("Estadisticas", "Index", "Estadisticas")</li>
-                    </ul>
-                </li>
-            }
+                            <li>@Html.ActionLink("Patologias", "Index", "Patologia")</li>
+                            <li>@Html.ActionLink("Alergias e Intolerancias", "Index", "AlergiaIntolerancia")</li>
+                            <li>@Html.ActionLink("Grupos", "Index", "Grupo")</li>
+                            <li>@Html.ActionLink("SubGrupos", "Index", "SubGrupo")</li>
+                            <li>@Html.ActionLink("Micro Nutrientes", "Index", "MicroNutriente")</li>
+                            <li>@Html.ActionLink("Unidades de Medidas", "Index", "UnidadMedida")</li>
+                            <li>@Html.ActionLink("Micro Nutrientes Detalles", "Index", "MicroNutrienteDetalle")</li>
+                            <li>@Html.ActionLink("Alimentos", "Index", "Alimento")</li>
+                            <li>@Html.ActionLink("Estados", "Index", "Estado")</li>
+                        </ul>
+                    </li>
+                }
 
 
-        </ul>
-    </nav>
-
-
-    <!------------------------------------------------------------------------------------------------------------------------->
-
-    <div class="container body-content">
-        <nav class="navbar">
-            <div class="container-fluid">
-                <button class="button-sidebar sidebar-active btn btn-default" type="button" id="sidebarCollapse">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                @Html.Partial("_LoginPartial")
-            </div>
+            </ul>
         </nav>
-    
-        
-    
-        @RenderBody()
-        <hr/>
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Power Nutrition Application</p>
-        </footer>
+
+
+        <!------------------------------------------------------------------------------------------------------------------------->
+
+        <div class="container body-content">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <button class="button-sidebar sidebar-active btn btn-default" type="button" id="sidebarCollapse">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </nav>
+
+
+
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Power Nutrition Application</p>
+            </footer>
+        </div>
+
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", false)
 
-</div>
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", false)
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+        $(document).ready(function () {
 
-<script>
-    $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
 
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('sidebar-active');
+                $(this).toggleClass('sidebar-active');
+
+                $('.body-content').toggleClass('sid-act');
+            });
         });
-
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('sidebar-active');
-            $(this).toggleClass('sidebar-active');
-
-            $('.body-content').toggleClass('sid-act');
-        });
-    });
-</script>
+    </script>
 
 </body>
 </html>
