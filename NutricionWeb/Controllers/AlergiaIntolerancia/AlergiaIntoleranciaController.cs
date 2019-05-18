@@ -21,6 +21,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
             _alergiaIntoleranciaServicio = alergiaIntoleranciaServicio;
         }
 
+        [Authorize(Roles = "Administrador, Empleado")]
         // GET: AlergiaIntolerancia
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
@@ -43,13 +44,14 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
+        [Authorize(Roles = "Administrador, Empleado")]
 
         // GET: AlergiaIntolerancia/Create
         public async Task<ActionResult> Create()
         {
             return View(new AlergiaIntoleranciaABMViewModel());
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         // POST: AlergiaIntolerancia/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -72,7 +74,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
             }
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         // GET: AlergiaIntolerancia/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
@@ -88,7 +90,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
                 Eliminado = alergia.Eliminado
             });
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         // POST: AlergiaIntolerancia/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -110,7 +112,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
             }
             return RedirectToAction("Index");
         }
-
+        
         // GET: AlergiaIntolerancia/Delete/5
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
@@ -149,6 +151,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
         }
 
         // GET: AlergiaIntolerancia/Details/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null) return RedirectToAction("Error", "Home");
@@ -165,6 +168,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
         }
 
         //==============================================//
+        [Authorize(Roles = "Administrador, Empleado")]
         private AlergiaIntoleranciaDto CargarDatos(AlergiaIntoleranciaABMViewModel vm)
         {
             return new AlergiaIntoleranciaDto()
