@@ -5,12 +5,12 @@
     <div class="col-lg-6" align="left">
         <div class="btn-group">
             @Ajax.ActionLink("Nuevo", "CreateParcial", "Turno", new { id = (long)ViewBag.PacienteId }, new AjaxOptions()
-    {
-        HttpMethod = "GET",
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "turnos-Parcial",
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "turnos-Parcial",
 
-    }, new { @class = "btn btn-primary-custom" })
+            }, new { @class = "btn btn-primary-custom" })
         </div>
     </div>
 </div>

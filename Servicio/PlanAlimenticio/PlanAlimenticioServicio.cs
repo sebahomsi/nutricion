@@ -247,7 +247,7 @@ namespace Servicio.PlanAlimenticio
 
                             var caloria = alimento.MacroNutriente.Calorias;
 
-                            switch (detalle.UnidadMedidaStr)
+                            switch (detalle.UnidadMedidaStr.ToLower())
                             {
                                 case "g":
                                     caloria = (int) (detalle.Cantidad * caloria / 100);
@@ -274,7 +274,8 @@ namespace Servicio.PlanAlimenticio
                                     caloria = (int) ((detalle.Cantidad * 100) * caloria / 100);
                                     break;
                                 default :
-                                    return;
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
+                                    
                             }
                             caloriasPlan += caloria;
                         }
