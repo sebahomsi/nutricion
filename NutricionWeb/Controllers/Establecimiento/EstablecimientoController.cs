@@ -130,7 +130,7 @@ namespace NutricionWeb.Controllers.Establecimiento
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
 
         }
 
