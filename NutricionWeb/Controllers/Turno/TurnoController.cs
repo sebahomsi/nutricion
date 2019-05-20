@@ -1,4 +1,6 @@
-﻿using NutricionWeb.Models.Paciente;
+﻿using AutoMapper;
+using NutricionWeb.Models.Estado;
+using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.Turno;
 using PagedList;
 using Servicio.Interface.Estado;
@@ -6,14 +8,11 @@ using Servicio.Interface.Paciente;
 using Servicio.Interface.Turno;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using AutoMapper;
-using NutricionWeb.Models.Estado;
 using static NutricionWeb.Helpers.PagedList;
-using NutricionWeb.Helpers.Identity;
 
 namespace NutricionWeb.Controllers.Turno
 {
@@ -34,15 +33,17 @@ namespace NutricionWeb.Controllers.Turno
         // GET: Turno
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
+            var establecimientoId = ObtenerEstablecimientoIdUser();
+
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
 
-            var turnos = await _turnoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            var turnos = await _turnoServicio.Get(establecimientoId,eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (turnos == null) return RedirectToAction("Error", "Home");
 
-            return View(turnos.Select(x=> new TurnoViewModel()
+            return View(turnos.Select(x => new TurnoViewModel()
             {
                 Id = x.Id,
                 PacienteId = x.PacienteId,
@@ -55,12 +56,12 @@ namespace NutricionWeb.Controllers.Turno
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
-        
+
 
         // GET: Turno/Create
         public async Task<ActionResult> Create()
         {
-           return await  Task.Run(()=>View(new TurnoABMViewModel()));
+            return await Task.Run(() => View(new TurnoABMViewModel()));
         }
 
         // POST: Turno/Create
@@ -68,8 +69,10 @@ namespace NutricionWeb.Controllers.Turno
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TurnoABMViewModel vm)
         {
+            var establecimientoId = ObtenerEstablecimientoIdUser();
             try
             {
+                vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
                     if (vm.HorarioEntrada.Date > vm.HorarioSalida.Date)
@@ -77,9 +80,9 @@ namespace NutricionWeb.Controllers.Turno
                         ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
 
                         return View(vm);
-                    }                   
+                    }
 
-                    var turnos = await _turnoServicio.Get(false, string.Empty);
+                    var turnos = await _turnoServicio.Get(establecimientoId,false, string.Empty);
 
                     foreach (var turno in turnos)
                     {
@@ -100,12 +103,12 @@ namespace NutricionWeb.Controllers.Turno
                     await _turnoServicio.Add(turnoDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("About","Home");
+            return RedirectToAction("About", "Home");
 
         }
 
@@ -129,6 +132,7 @@ namespace NutricionWeb.Controllers.Turno
         {
             try
             {
+                vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
                     var datosDto = CargarDatos(vm);
@@ -151,7 +155,7 @@ namespace NutricionWeb.Controllers.Turno
         }
 
         // GET: Turno/Edit/5
-        public async Task<ActionResult> Edit(long? id,int? volver)
+        public async Task<ActionResult> Edit(long? id, int? volver)
         {
             ViewBag.Volver = volver ?? 0;
 
@@ -177,11 +181,13 @@ namespace NutricionWeb.Controllers.Turno
         // POST: Turno/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(TurnoABMViewModel vm,int? volver)
+        public async Task<ActionResult> Edit(TurnoABMViewModel vm, int? volver)
         {
+            var establecimientoId = ObtenerEstablecimientoIdUser();
             ViewBag.Volver = volver;
             try
             {
+                vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
                     if (vm.HorarioEntrada > vm.HorarioSalida)
@@ -190,20 +196,8 @@ namespace NutricionWeb.Controllers.Turno
 
                         return View(vm);
                     }
-                    //if (vm.HorarioEntrada.Hour > vm.HorarioSalida.Hour)
-                    //{
-                    //    ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
 
-                    //    return View(vm);
-                    //}
-                    //if (vm.HorarioEntrada.Minute > vm.HorarioSalida.Minute)
-                    //{
-                    //    ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
-
-                    //    return View(vm);
-                    //}
-
-                    var turnos = await _turnoServicio.Get(false, string.Empty);
+                    var turnos = await _turnoServicio.Get(establecimientoId,false, string.Empty);
 
                     foreach (var turno in turnos)
                     {
@@ -294,10 +288,26 @@ namespace NutricionWeb.Controllers.Turno
         }
 
         //====================================Metodos Hugangelion
+
+        private static TurnoABMViewModel ModificarFechas(TurnoABMViewModel vm)
+        {
+            var horaEntrada = vm.HorarioEntrada.ToString().Split('/');
+
+            var horaSalida = vm.HorarioSalida.ToString().Split('/');
+
+            vm.HorarioEntrada = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}", CultureInfo.InvariantCulture);
+
+            vm.HorarioSalida = DateTime.Parse($"{horaSalida[1]}/{horaSalida[0]}/{horaSalida[2]}", CultureInfo.InvariantCulture);
+
+            return vm;
+        }
+
         public async Task<JsonResult> GetTurnos()
         {
-            var events = await _turnoServicio.Get(false, string.Empty);
-            
+            var establecimientoId = ObtenerEstablecimientoIdUser();
+
+            var events = await _turnoServicio.Get(establecimientoId,false, string.Empty);
+
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
@@ -305,7 +315,7 @@ namespace NutricionWeb.Controllers.Turno
         {
             var pageNumber = page ?? 1;
 
-            var datos = await _estadoServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            var datos = await _estadoServicio.Get(false, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             var estados = Mapper.Map<IEnumerable<EstadoViewModel>>(datos);
 
@@ -320,7 +330,7 @@ namespace NutricionWeb.Controllers.Turno
             var pageNumber = page ?? 1;
 
             var pacientes =
-                await _pacienteServicio.Get(establecimientoId,false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _pacienteServicio.Get(establecimientoId, false, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return RedirectToAction("Error", "Home");
 

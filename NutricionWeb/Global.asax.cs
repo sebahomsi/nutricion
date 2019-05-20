@@ -1,30 +1,16 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using NutricionWeb.Helpers.AutoMapper;
 using NutricionWeb.Models;
-using Servicio.Interface.Rol;
-using Servicio.Interface.Usuario;
-using Servicio.Rol;
-using Servicio.Usuario;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using NutricionWeb.Helpers.AutoMapper;
 
 namespace NutricionWeb
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private readonly IRolServicio _rolServicio;
-        private readonly IUsuarioServicio _usuarioServicio;
-
-        public MvcApplication(IRolServicio rolServicio, IUsuarioServicio usuarioServicio)
-        {
-            _rolServicio = rolServicio;
-            _usuarioServicio = usuarioServicio;
-        }
-
         public MvcApplication()
-            : this(new RolServicio(), new UsuarioServicio())
         {
 
         }
@@ -51,6 +37,10 @@ namespace NutricionWeb
 
             var superUsuario = userManager.FindByName("powernutri@asp.com.ar");
 
+            if (!userManager.IsInRole(superUsuario.Id, "SuperAdmin"))
+            {
+                userManager.AddToRole(superUsuario.Id, "SuperAdmin");
+            }
             if (!userManager.IsInRole(superUsuario.Id, "Administrador"))
             {
                 userManager.AddToRole(superUsuario.Id, "Administrador");
@@ -70,7 +60,7 @@ namespace NutricionWeb
                     UserName = "powernutri@asp.com.ar",
                     Email = "powernutri@asp.com.ar"
                 };
-                var result = userManager.Create(user, "123456");
+                _ = userManager.Create(user, "123456");
             }
         }
 
@@ -78,28 +68,33 @@ namespace NutricionWeb
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
 
+            if (!roleManager.RoleExists("SuperAdmin"))
+            {
+                _ = roleManager.Create(new IdentityRole("SuperAdmin"));
+            }
+
             if (!roleManager.RoleExists("Administrador"))
             {
-                var result = roleManager.Create(new IdentityRole("Administrador"));
+                _ = roleManager.Create(new IdentityRole("Administrador"));
             }
 
             if (!roleManager.RoleExists("Paciente"))
             {
-                var result = roleManager.Create(new IdentityRole("Paciente"));
+                _ = roleManager.Create(new IdentityRole("Paciente"));
             }
 
             if (!roleManager.RoleExists("Empleado"))
             {
-                var result = roleManager.Create(new IdentityRole("Empleado"));
+                _ = roleManager.Create(new IdentityRole("Empleado"));
             }
 
             if (!roleManager.RoleExists("GestionPacientes"))
             {
-                var result = roleManager.Create(new IdentityRole("GestionPacientes"));
+                _ = roleManager.Create(new IdentityRole("GestionPacientes"));
             }
             if (!roleManager.RoleExists("GestionTurnos"))
             {
-                var result = roleManager.Create(new IdentityRole("GestionTurnos"));
+                _ = roleManager.Create(new IdentityRole("GestionTurnos"));
             }
         }
     }

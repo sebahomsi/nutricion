@@ -17,17 +17,17 @@ namespace Infraestructura.Migrations
 
         protected override void Seed(NutricionDbContext context)
         {
-            AddEstablecimientos(context);
-            AddGrupos(context);
-            AddSubGrupos(context);
-            AddUnidades(context);
-            AddAlimentos(context);
-            AddPacientes(context);
-            AddRecetas(context);
-            AddOpcionesDetalles(context);
-            AddPatologias(context);
-            AddAlergiasIntolerancias(context);
-            AddMicroNutrientes(context);
+            //AddEstablecimientos(context);
+            //AddGrupos(context);
+            //AddSubGrupos(context);
+            //AddUnidades(context);
+            //AddAlimentos(context);
+            //AddPacientes(context);
+            //AddRecetas(context);
+            //AddOpcionesDetalles(context);
+            //AddPatologias(context);
+            //AddAlergiasIntolerancias(context);
+            //AddMicroNutrientes(context);
         }
 
         private void AddEstablecimientos(NutricionDbContext context)

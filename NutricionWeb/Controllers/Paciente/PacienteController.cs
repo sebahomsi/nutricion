@@ -23,7 +23,6 @@ using Servicio.Interface.Turno;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using static NutricionWeb.Helpers.File;
@@ -47,7 +46,6 @@ namespace NutricionWeb.Controllers.Paciente
         private readonly IComboBoxEstablecimiento _comboBoxEstablecimiento;
 
 
-        //public PacienteController(IPacienteServicio pacienteServicio, IComboBoxSexo comboBoxSexo, IDatoAnaliticoServicio datoAnaliticoServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IObjetivoServicio objetivoServicio, IAnamnesisServicio anamnesisServicio, IEstrategiaServicio estrategiaServicio, IObservacionServicio observacionServicio)
         public PacienteController(IPacienteServicio pacienteServicio,
             IComboBoxSexo comboBoxSexo,
             IDatoAnaliticoServicio datoAnaliticoServicio,
@@ -123,6 +121,7 @@ namespace NutricionWeb.Controllers.Paciente
         {
             try
             {
+                var modelErrors = new List<string>();
                 if (ModelState.IsValid)
                 {
                     var pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
@@ -135,7 +134,6 @@ namespace NutricionWeb.Controllers.Paciente
                 }
                 else
                 {
-                    var modelErrors = new List<string>();
                     foreach (var modelState in ModelState.Values)
                     {
                         foreach (var modelError in modelState.Errors)
@@ -145,11 +143,11 @@ namespace NutricionWeb.Controllers.Paciente
                     }
 
                 }
-
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
+                vm.Establecimientos = await _comboBoxEstablecimiento.Poblar();
                 vm.Sexos = await _comboBoxSexo.Poblar();
                 return View(vm);
             }
@@ -202,6 +200,7 @@ namespace NutricionWeb.Controllers.Paciente
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
+                vm.Establecimientos = await _comboBoxEstablecimiento.Poblar();
                 vm.Sexos = await _comboBoxSexo.Poblar();
                 return View(vm);
             }

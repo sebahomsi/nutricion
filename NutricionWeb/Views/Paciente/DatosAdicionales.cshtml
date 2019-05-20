@@ -3,7 +3,6 @@
 @helper AgregarVista(string idVista, string idParcial)
 {
     <div id="@idVista" class="tab-pane fade in active">
-        @*imagen cargando*@
         <div id="@idParcial"></div>
     </div>
 }
@@ -20,9 +19,13 @@
 
 
 <ul class="nav nav-tabs">
-    @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista", "Datos Atropometricos", "active")
-    @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
-    @AgregarTabs("datosAnaliticos", "datosAnaliticos-Vista", "Datos Analiticos", "")
+    @if (User.IsInRole("Administrador"))
+    {
+        @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista", "Datos Atropometricos", "active")
+        @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
+        @AgregarTabs("datosAnaliticos", "datosAnaliticos-Vista", "Datos Analiticos", "")
+    }
+  
     @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
     @AgregarTabs("anamnesis", "anamnesis-Vista", "Anamnesis", "")
     @AgregarTabs("objetivo", "objetivo-Vista", "Objetivo", "")
@@ -32,9 +35,13 @@
 </ul>
 
 <div class="tab-content" style="max-width: 100vw;">
-    @AgregarVista("datosAntropometricos-Vista", "datosAntropometricos-Parcial")
-    @AgregarVista("planesAlimenticios-Vista", "planesAlimenticios-Parcial")
-    @AgregarVista("datosAnaliticos-Vista", "datosAnaliticos-Parcial")
+    @if (User.IsInRole("Administrador"))
+    {
+        @AgregarVista("datosAntropometricos-Vista", "datosAntropometricos-Parcial")
+        @AgregarVista("planesAlimenticios-Vista", "planesAlimenticios-Parcial")
+        @AgregarVista("datosAnaliticos-Vista", "datosAnaliticos-Parcial")
+    }
+
     @AgregarVista("turnos-Vista", "turnos-Parcial")
     @AgregarVista("anamnesis-Vista", "anamnesis-Parcial")
     @AgregarVista("objetivo-Vista", "objetivo-Parcial")
@@ -45,7 +52,7 @@
 
 @section scripts
 {
-<script type="text/javascript">
+    <script type="text/javascript">
         //=======================JavaScriptPuro==========================
 
         var datosAntropometricos = function() {
@@ -159,27 +166,38 @@
                 $("#estadisticas-Parcial").empty();
                 $("#estadisticas-Parcial").append(parcial);
             });
-            
+
         }
 
         var inicio = function() {
 
-            datosAntropometricos();
+            @if (User.IsInRole("Administrador"))
+            {
+                @:datosAntropometricos();
 
-            document.getElementById("datosAntropometricos").addEventListener("click",
-                function() {
-                    datosAntropometricos();
-                });
+                <text>
+                    document.getElementById("datosAntropometricos").addEventListener("click",
+                        function() {
+                            datosAntropometricos();
+                        });
 
-            document.getElementById("planesAlimenticios").addEventListener("click",
-                function () {
-                    planesAlimenticios();
-                });
+                    document.getElementById("planesAlimenticios").addEventListener("click",
+                        function () {
+                            planesAlimenticios();
+                        });
 
-            document.getElementById("datosAnaliticos").addEventListener("click",
-                function() {
-                    datosAnaliticos();
-                });
+                    document.getElementById("datosAnaliticos").addEventListener("click",
+                        function() {
+                            datosAnaliticos();
+                        });
+                </text>
+             }else {
+                 @:turnos();
+                 @: $("#turnos").addClass("active");
+             }
+
+
+
 
             document.getElementById("turnos").addEventListener("click",
                 function() {
@@ -209,5 +227,5 @@
 
         window.addEventListener("load", inicio);
 
-</script>
+    </script>
 }

@@ -15,46 +15,47 @@
 <script src="~/Scripts/jquery-1.12.4.js"></script>
 <link href="~/Content/fullcalendar.css" rel="stylesheet" />
 
-
-<script>
-    $(document).ready(function () {
-        var events = [];
-        fetchEventAndRenderCalendar();
-        // page is now ready, initialize the calendar...
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            fetchEventAndRenderCalendar();
+            // page is now ready, initialize the calendar...
 
         
-        function fetchEventAndRenderCalendar() {
-            events = [];
-        $.ajax({
-            type: "GET",
-            url: "/turno/GetTurnos",
-            success: function(data) {
-                $.each(data,
-                    function(i, v) {
-                        events.push({
-                            eventID: v.Id,
-                            title: "hs" +": "+ v.PacienteStr,
-                            description: v.Motivo,
-                            start: moment(v.HorarioEntrada),
-                            pacienteID: v.PacienteId,
-                            color: v.EstadoColor,
-                            url : '@Url.Action("Edit","Turno")/?id='+v.Id+'&volver=1'
-                        });
-                    });
-                generateCalender(events);
+            function fetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("GetTurnos","Turno")",
+                    success: function(data) {
+                        $.each(data,
+                            function(i, v) {
+                                events.push({
+                                    eventID: v.Id,
+                                    title: "hs" +": "+ v.PacienteStr,
+                                    description: v.Motivo,
+                                    start: moment(v.HorarioEntrada),
+                                    pacienteID: v.PacienteId,
+                                    color: v.EstadoColor,
+                                    url : '@Url.Action("Edit","Turno")/?id='+v.Id+'&volver=1'
+                                });
+                            });
+                        generateCalender(events);
+                    }
+                });
             }
-            });
-           }
-        function generateCalender(events) {
-            $('#calendar').fullCalendar({
-                contentHeight: 500,
-                defaultDate: new Date(),
-                timeFormat: 'H(:mm)',
-                eventLimit: true,
-                events: events
-            });
-        }
+            function generateCalender(events) {
+                $('#calendar').fullCalendar({
+                    contentHeight: 500,
+                    defaultDate: new Date(),
+                    timeFormat: 'H(:mm)',
+                    eventLimit: true,
+                    events: events
+                });
+            }
 
 
-    });
-</script>
+        });
+    </script>
+}

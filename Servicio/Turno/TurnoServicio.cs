@@ -53,9 +53,12 @@ namespace Servicio.Turno
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<TurnoDto>> Get(bool eliminado,string cadenaBuscar = "")
+        public async Task<ICollection<TurnoDto>> Get(long? establecimientoId,bool eliminado,string cadenaBuscar = "")
         {
-            Expression<Func<Dominio.Entidades.Turno, bool>> expression = x => x.Eliminado == eliminado && (x.Paciente.Nombre.Contains(cadenaBuscar) || x.Paciente.Apellido.Contains(cadenaBuscar));
+            Expression<Func<Dominio.Entidades.Turno, bool>> expression = 
+                x => x.Eliminado == eliminado 
+                     && (x.Paciente.Nombre.Contains(cadenaBuscar) || x.Paciente.Apellido.Contains(cadenaBuscar))
+                     && (!establecimientoId.HasValue || x.Paciente.EstablecimientoId == establecimientoId);
 
 
             return await Context.Turnos.AsNoTracking()

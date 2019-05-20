@@ -16,9 +16,10 @@ namespace Servicio.Paciente
     {
         public async Task<long> Add(PacienteDto dto)
         {
-            var verify = await VerifyDuplicity(dto);
+            var (id, mensaje) = await VerifyDuplicity(dto);
 
-            if (verify.HasValue) throw new ArgumentException("Ya existe un Paciente con ese Mail");
+            if (id.HasValue) throw new ArgumentException(mensaje);
+
             var paciente = new Dominio.Entidades.Paciente()
             {
                 Codigo = dto.Codigo,
@@ -49,8 +50,9 @@ namespace Servicio.Paciente
 
             if (paciente.Mail != dto.Mail)
             {
-                var verify = await VerifyDuplicity(dto);
-                if (verify.HasValue) throw new ArgumentException("Ya existe un Paciente con ese Mail");
+                var (id, mensaje) = await VerifyDuplicity(dto);
+
+                if (id.HasValue) throw new ArgumentException(mensaje);
             }
             paciente.Apellido = dto.Apellido;
             paciente.Nombre = dto.Nombre;
@@ -283,14 +285,20 @@ namespace Servicio.Paciente
                 : 1;
         }
 
-        public async Task<long?> VerifyDuplicity(PacienteDto dto)
+        public async Task<(long? Id, string Mensaje)> VerifyDuplicity(PacienteDto dto)
         {
-            var id = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+            var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
                 .FirstOrDefaultAsync(x => x.Mail == dto.Mail);
 
-            return id?.Id;
-        }
+            if (paciente != null) { return (paciente.Id, Mensaje: "Ya existe un paciente con ese Mail"); }
 
+            paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+                .FirstOrDefaultAsync(x => x.Dni == dto.Dni);
+
+            if (paciente != null) { return  (paciente.Id, Mensaje: "Ya existe un paciente con ese Dni"); }
+
+            return (null, Mensaje: "");
+        }
 
     }
 }

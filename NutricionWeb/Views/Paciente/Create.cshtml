@@ -19,7 +19,7 @@
         <br/>
         <div class="row">
             <div class="col-md-6">
-                @if (User.IsInRole("Administrador"))
+                @if (User.IsInRole("SuperAdmin"))
                 {
                     <div class="form-group">
                         @Html.LabelFor(model => model.EstablecimientoId, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -144,6 +144,11 @@
             });
             $(document).ready(function(){
                 $("#FechaNac").attr("value", "01/01/1980");
+
+                $('#Dni').on('input', function () {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+
             });
         });
     </script>

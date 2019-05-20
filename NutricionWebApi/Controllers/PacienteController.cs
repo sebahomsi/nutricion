@@ -4,8 +4,6 @@ using NutricionWebApi.Models.Paciente;
 using NutricionWebApi.Models.PlanAlimenticio;
 using NutricionWebApi.Models.Turno;
 using Servicio.Interface.Paciente;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -22,26 +20,28 @@ namespace NutricionWebApi.Controllers
         }
 
         // GET api/values
-        public async Task<List<PacienteViewModel>> Get()
-        {
-            var paceintes = await _pacienteServicio.Get(false,String.Empty);
+        //public async Task<List<PacienteViewModel>> Get()
+        //{
+        //    var establecimientoId = ObtenerEstablecimientoIdUser();
 
-            return paceintes.Select(x => new PacienteViewModel()
-            {
-                Id = x.Id,
-                Codigo = x.Codigo,
-                Apellido = x.Apellido,
-                Nombre = x.Nombre,
-                Celular = x.Celular,
-                Telefono = x.Telefono,
-                Direccion = x.Direccion,
-                Dni = x.Dni,
-                FechaNac = x.FechaNac,
-                Sexo = x.Sexo,
-                Mail = x.Mail,
-                Eliminado = x.Eliminado,
-            }).ToList();
-        }
+        //    var paceintes = await _pacienteServicio.Get(es,false,String.Empty);
+
+        //    return paceintes.Select(x => new PacienteViewModel()
+        //    {
+        //        Id = x.Id,
+        //        Codigo = x.Codigo,
+        //        Apellido = x.Apellido,
+        //        Nombre = x.Nombre,
+        //        Celular = x.Celular,
+        //        Telefono = x.Telefono,
+        //        Direccion = x.Direccion,
+        //        Dni = x.Dni,
+        //        FechaNac = x.FechaNac,
+        //        Sexo = x.Sexo,
+        //        Mail = x.Mail,
+        //        Eliminado = x.Eliminado,
+        //    }).ToList();
+        //}
 
         // GET api/values/5
 
@@ -51,7 +51,7 @@ namespace NutricionWebApi.Controllers
 
             if (dato == null) return NotFound();
 
-            var paciente = new  PacienteViewModel()
+            var paciente = new PacienteViewModel()
             {
                 Id = dato.Id,
                 Codigo = dato.Codigo,

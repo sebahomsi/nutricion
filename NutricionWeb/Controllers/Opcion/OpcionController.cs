@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Antlr.Runtime.Misc;
-using NutricionWeb.Models.ComidaDetalle;
+﻿using Antlr.Runtime.Misc;
 using NutricionWeb.Models.Opcion;
 using NutricionWeb.Models.OpcionDetalle;
 using PagedList;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.Opcion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -29,7 +27,7 @@ namespace NutricionWeb.Controllers.Opcion
         }
 
         // GET: Opcion
-        public async Task<ActionResult> Index(List<long> recetas,int? page, string cadenaBuscar, bool eliminado = false)
+        public async Task<ActionResult> Index(List<long> recetas, int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
@@ -39,7 +37,7 @@ namespace NutricionWeb.Controllers.Opcion
                 await _opcionServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
 
-            return View(opciones.Select(x=> new OpcionViewModel()
+            return View(opciones.Select(x => new OpcionViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
@@ -52,7 +50,7 @@ namespace NutricionWeb.Controllers.Opcion
         {
             return View(new BuscarRecetaViewModel()
             {
-                Alimentos = await _alimentoServicio.Get(false,string.Empty)
+                Alimentos = await _alimentoServicio.Get(false, string.Empty)
             });
         }
         [HttpPost]
@@ -66,7 +64,7 @@ namespace NutricionWeb.Controllers.Opcion
                     lista.Add(long.Parse(alimento));
                 }
             }
-            
+
             var recetasDto = await _opcionServicio.FindRecipeByFoods(lista);
 
             var recetas = recetasDto.Select(x => new OpcionViewModel()
@@ -83,7 +81,7 @@ namespace NutricionWeb.Controllers.Opcion
 
         public ActionResult RecetasFiltradas()
         {
-            var dtos = (List<OpcionViewModel>) TempData["recetas"] ?? new ListStack<OpcionViewModel>();
+            var dtos = (List<OpcionViewModel>)TempData["recetas"] ?? new ListStack<OpcionViewModel>();
             return View(dtos.Select(x => new OpcionViewModel()
             {
                 Id = x.Id,
@@ -141,7 +139,7 @@ namespace NutricionWeb.Controllers.Opcion
                     await _opcionServicio.Add(opcionDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);

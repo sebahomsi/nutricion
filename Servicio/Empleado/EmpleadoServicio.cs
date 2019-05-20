@@ -20,6 +20,10 @@ namespace Servicio.Empleado
 
         public async Task<long> Add(EmpleadoDto dto)
         {
+            var (id, mensaje) = await VerifyDuplicity(dto);
+
+            if (id.HasValue) throw new ArgumentException(mensaje);
+
             var empleado = new Dominio.Entidades.Empleado()
             {
                 Legajo = dto.Legajo,
@@ -47,6 +51,13 @@ namespace Servicio.Empleado
         {
             var empleado = await Context.Personas.OfType<Dominio.Entidades.Empleado>().FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (empleado == null) throw new ArgumentNullException();
+
+            if (empleado.Mail != dto.Mail)
+            {
+                var (id, mensaje) = await VerifyDuplicity(dto);
+
+                if (id.HasValue) throw new ArgumentException(mensaje);
+            }
 
             empleado.Apellido = dto.Apellido;
             empleado.Nombre = dto.Nombre;
@@ -131,6 +142,21 @@ namespace Servicio.Empleado
             return await Context.Personas.OfType<Dominio.Entidades.Empleado>().AnyAsync()
                 ? await Context.Personas.OfType<Dominio.Entidades.Empleado>().MaxAsync(x => x.Legajo) + 1
                 : 1;
+        }
+
+        public async Task<(long? Id, string Mensaje)> VerifyDuplicity(EmpleadoDto dto)
+        {
+            var paciente = await Context.Personas
+                .FirstOrDefaultAsync(x => x.Mail == dto.Mail);
+
+            if (paciente != null) { return (paciente.Id, Mensaje: "Ya existe un empleado con ese Mail"); }
+
+            paciente = await Context.Personas
+                .FirstOrDefaultAsync(x => x.Dni == dto.Dni);
+
+            if (paciente != null) { return (paciente.Id, Mensaje: "Ya existe un empleado con ese Dni"); }
+
+            return (null, Mensaje: "");
         }
     }
 }

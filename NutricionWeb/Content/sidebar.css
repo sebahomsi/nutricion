@@ -105,16 +105,6 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-
-        #sidebar.sidebar-active {
-            margin-left: 0px;
-        }
-}
-
 #sidebarCollapse {
     width: 40px;
     height: 40px;

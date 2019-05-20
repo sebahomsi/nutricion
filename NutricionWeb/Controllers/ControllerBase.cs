@@ -7,7 +7,7 @@ namespace NutricionWeb.Controllers
     {
         public long? ObtenerEstablecimientoIdUser()
         {
-            return !User.IsInRole("Administrador") ? User.Identity.GetEstablecimientoId() : null;
+            return !User.IsInRole("SuperAdmin") ? User.Identity.GetEstablecimientoId() : null;
         }
     }
 }

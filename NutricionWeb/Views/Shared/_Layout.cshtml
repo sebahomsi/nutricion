@@ -68,19 +68,18 @@
                             Turnos
                         </a>
                     </li>
-                }
-
-
-
-                @if (User.IsInRole("Administrador"))
-                {
                     <li>
                         <a href="@Url.Action("About", "Home")">
                             <i class="fas fa-calendar"></i>
                             Calendario
                         </a>
                     </li>
+                }
 
+
+
+                @if (User.IsInRole("Administrador"))
+                {
                     <li>
                         <a href="@Url.Action("Index", "Opcion")">
                             <i class="fas fa-clipboard"></i>
