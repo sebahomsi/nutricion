@@ -30,6 +30,7 @@ namespace NutricionWeb.Controllers.Alimento
             _macroNutrienteServicio = macroNutrienteServicio;
         }
         // GET: Alimento
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Index(int? page, string cadenaBuscar,bool eliminado = false)
         {
             var pageNumber = page ?? 1;
@@ -52,12 +53,14 @@ namespace NutricionWeb.Controllers.Alimento
         }
 
         // GET: Alimento/Create
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Create()
         {
             return View(new AlimentoABMViewModel());
         }
 
         // POST: Alimento/Create
+        [Authorize(Roles = "Administrador, Empleado")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(AlimentoABMViewModel vm)
@@ -81,6 +84,7 @@ namespace NutricionWeb.Controllers.Alimento
         }
 
         // GET: Alimento/Edit/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null) return RedirectToAction("Error", "Home");
@@ -108,6 +112,7 @@ namespace NutricionWeb.Controllers.Alimento
         }
 
         // POST: Alimento/Edit/5
+        [Authorize(Roles = "Administrador, Empleado")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(AlimentoABMViewModel vm)
@@ -130,6 +135,7 @@ namespace NutricionWeb.Controllers.Alimento
         }
 
         // GET: Alimento/Delete/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return RedirectToAction("Error", "Home");
@@ -157,6 +163,7 @@ namespace NutricionWeb.Controllers.Alimento
         }
 
         // POST: Alimento/Delete/5
+        [Authorize(Roles = "Administrador, Empleado")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(AlimentoViewModel vm)
@@ -177,6 +184,7 @@ namespace NutricionWeb.Controllers.Alimento
         }
 
         // GET: Alimento/Details/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null) return RedirectToAction("Error", "Home");
@@ -203,17 +211,17 @@ namespace NutricionWeb.Controllers.Alimento
             });
         }
 
-        
+
 
         //=====================================================
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> TraerSubGrupo(long subGrupoId)
         {
             var subGrupo = await _subGrupoServicio.GetById(subGrupoId);
 
             return Json(subGrupo, JsonRequestBehavior.AllowGet);
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> BuscarSubGrupo(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
@@ -232,7 +240,7 @@ namespace NutricionWeb.Controllers.Alimento
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult CalcularCalorias(int prote, int hc, int grasa)
         {
             //if (prote == null || hc == null || grasa == null)
@@ -243,7 +251,7 @@ namespace NutricionWeb.Controllers.Alimento
             return Json(total, JsonRequestBehavior.AllowGet);
 
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         private AlimentoDto CargarDatos(AlimentoABMViewModel vm)
         {
             return new AlimentoDto()

@@ -39,6 +39,7 @@ namespace NutricionWeb.Controllers.Comida
         }
 
         // GET: Comida/Details/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null) return RedirectToAction("Error", "Home");
@@ -69,6 +70,7 @@ namespace NutricionWeb.Controllers.Comida
         }
 
         // GET: Comida/Create
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Create()
         {
             return View();
@@ -91,6 +93,7 @@ namespace NutricionWeb.Controllers.Comida
         }
 
         // GET: Comida/Edit/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -98,6 +101,7 @@ namespace NutricionWeb.Controllers.Comida
 
         // POST: Comida/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -113,6 +117,7 @@ namespace NutricionWeb.Controllers.Comida
         }
 
         // GET: Comida/Delete/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -120,6 +125,7 @@ namespace NutricionWeb.Controllers.Comida
 
         // POST: Comida/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
@@ -140,6 +146,7 @@ namespace NutricionWeb.Controllers.Comida
         /// <param name="planId"></param>
         /// <param name="comidaId"></param>
         /// <returns></returns>
+         [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> DuplicarComida(long planId, long comidaId)
         {
             var comida = await _comidaServicio.GetById(comidaId);
@@ -169,7 +176,7 @@ namespace NutricionWeb.Controllers.Comida
 
             return PartialView(dias);
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         [HttpPost]
         public async Task<ActionResult> DuplicarComida(long diaId)
         {
@@ -212,7 +219,7 @@ namespace NutricionWeb.Controllers.Comida
 
             return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = TempData["PlanId"] });
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> DetalleComida(long comidaId)
         {
             var comida = await _comidaServicio.GetById(comidaId);

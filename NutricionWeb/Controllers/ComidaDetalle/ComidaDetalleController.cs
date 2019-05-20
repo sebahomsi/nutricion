@@ -33,6 +33,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         // GET: ComidaDetalle
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
@@ -60,6 +61,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         // GET: ComidaDetalle/Create
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Create(long comidaId)
         {
             return View(new ComidaDetalleABMViewModel()
@@ -71,6 +73,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         // POST: ComidaDetalle/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Create(ComidaDetalleABMViewModel vm)
         {
             try
@@ -98,7 +101,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             return RedirectToAction("Details", "Comida", new { id = vm.ComidaId });
 
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> CreatePartial(long comidaId)
         {
             return View(new ComidaDetalleABMViewModel()
@@ -106,7 +109,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 ComidaId = comidaId
             });
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> CreatePartialPlanOrdenado(long comidaId, long? opcionId, string opcionStr = "")
         {
             TempData["ComidaId"] = comidaId;
@@ -117,7 +120,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 OpcionStr = opcionStr
             });
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         // POST: ComidaDetalle/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -151,7 +154,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
 
         }
 
-
+        [Authorize(Roles = "Administrador, Empleado")]
         // POST: ComidaDetalle/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -184,7 +187,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             }
 
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         // GET: ComidaDetalle/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
@@ -204,7 +207,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 Eliminado = detalle.Eliminado
             });
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         // POST: ComidaDetalle/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -229,6 +232,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         // GET: ComidaDetalle/Delete/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null) return RedirectToAction("Error", "Home");
@@ -263,7 +267,9 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         // POST: ComidaDetalle/Delete/5
+        [Authorize(Roles = "Administrador, Empleado")]
         [HttpPost]
+
         public async Task<ActionResult> Delete(ComidaDetalleViewModel vm)
         {
             try
@@ -280,7 +286,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             }
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Eliminar(long comidaId, long detalleId)
         {
             await _comidaDetalleServicio.Delete(detalleId);
@@ -291,6 +297,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         // GET: ComidaDetalle/Details/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null) return RedirectToAction("Error", "Home");
@@ -311,14 +318,14 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         }
 
         //======================Hugo pelotudo
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> TraerOpcion(long opcionId)
         {
             var opcion = await _opcionServicio.GetById(opcionId);
 
             return Json(opcion, JsonRequestBehavior.AllowGet);
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> BuscarOpcionModal(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
@@ -337,7 +344,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> BuscarOpcion(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
@@ -354,6 +361,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
+        [Authorize(Roles = "Administrador, Empleado")]
         private ComidaDetalleDto CargarDatos(ComidaDetalleABMViewModel vm)
         {
             return new ComidaDetalleDto()

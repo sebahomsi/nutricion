@@ -24,7 +24,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
             _pacienteServicio = pacienteServicio;
             _datoAnaliticoServicio = datoAnaliticoServicio;
         }
-
+        [Authorize(Roles = "Administrador, Empleado")]
         // GET: DatoAnalitico
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
@@ -156,6 +156,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
         // POST: DatoAnalitico/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Edit(DatoAnaliticoABMViewModel vm)
         {
             try

@@ -38,6 +38,7 @@ namespace NutricionWeb.Controllers.Anamnesis
 
         // POST: Anamnesis/Create
         [HttpPost]
+        [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Create(AnamnesisViewModel vm)
         {
             try
