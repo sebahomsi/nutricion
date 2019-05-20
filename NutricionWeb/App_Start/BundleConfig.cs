@@ -26,12 +26,12 @@ namespace NutricionWeb
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js",
-                      "~/Scripts/bootstrap-datetimepicker.js",
+                      "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/respond.min.js",
+                      "~/Scripts/bootstrap-datetimepicker.min.js",
                       "~/Scripts/fullcalendar/fullcalendar.js",
                       "~/Scripts/fullcalendar/lang/es.js",
-                      "~/Scripts/jquery.unobtrusive-ajax.js",
+                      "~/Scripts/jquery.unobtrusive-ajax.min.js",
                       "~/Scripts/jscolor.js",
                       "~/Scripts/Chart.js"));
 
@@ -40,10 +40,11 @@ namespace NutricionWeb
                 "~/Content/jquery-ui.css",
                 "~/Content/site.css",
                 "~/Content/MiHojita.css",
-                "~/Content/bootstrap-datetimepicker.css",
-                "~/Content/fullcalendar.css",
+                "~/Content/bootstrap-datetimepicker.min.css",
+                "~/Content/fullcalendar.min.css",
                 "~/Content/Chosen/chosen.min.css",
-                "~/Content/Chart.min.css"
+                "~/Content/Chart.min.css",
+                "~/Content/sidebar.css"
             ).Include("~/Content/fontawesome.css", new CssRewriteUrlTransform()));
         }
     }
