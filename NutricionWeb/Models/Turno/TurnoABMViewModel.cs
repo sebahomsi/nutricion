@@ -19,11 +19,16 @@ namespace NutricionWeb.Models.Turno
 
         [Display(Name = "Entrada")]
         [Required(ErrorMessage = "Campo Requerido")]
-        public DateTime HorarioEntrada { get; set; }
+        public string HorarioEntrada { get; set; }
 
         [Display(Name = "Salida")]
         [Required(ErrorMessage = "Campo Requerido")]
-        public DateTime HorarioSalida { get; set; }
+        public string HorarioSalida { get; set; }
+
+        public DateTime HorarioEntradaDateTime { get; set; }
+
+        public DateTime HorarioSalidaDateTime { get; set; }
+
 
         public long EstadoId { get; set; }
 

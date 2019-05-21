@@ -8,7 +8,6 @@ using Servicio.Interface.Paciente;
 using Servicio.Interface.Turno;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -39,7 +38,7 @@ namespace NutricionWeb.Controllers.Turno
 
             ViewBag.Eliminado = eliminado;
 
-            var turnos = await _turnoServicio.Get(establecimientoId,eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            var turnos = await _turnoServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (turnos == null) return RedirectToAction("Error", "Home");
 
@@ -75,21 +74,21 @@ namespace NutricionWeb.Controllers.Turno
                 vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
-                    if (vm.HorarioEntrada.Date > vm.HorarioSalida.Date)
+                    if (vm.HorarioEntradaDateTime.Date > vm.HorarioSalidaDateTime.Date)
                     {
                         ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
 
                         return View(vm);
                     }
 
-                    var turnos = await _turnoServicio.Get(establecimientoId,false, string.Empty);
+                    var turnos = await _turnoServicio.Get(establecimientoId, false, string.Empty);
 
                     foreach (var turno in turnos)
                     {
-                        if (turno.HorarioEntrada.Date == vm.HorarioEntrada.Date)
+                        if (turno.HorarioEntrada.Date == vm.HorarioEntradaDateTime.Date)
                         {
-                            if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntrada.TimeOfDay &&
-                                vm.HorarioEntrada.TimeOfDay < turno.HorarioSalida.TimeOfDay)
+                            if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntradaDateTime.TimeOfDay &&
+                                vm.HorarioEntradaDateTime.TimeOfDay < turno.HorarioSalida.TimeOfDay)
                             {
                                 ModelState.AddModelError(string.Empty, "Ya existe un turno para ese rango de horarios");
 
@@ -168,8 +167,8 @@ namespace NutricionWeb.Controllers.Turno
                 Id = turno.Id,
                 PacienteId = turno.PacienteId,
                 PacienteStr = turno.PacienteStr,
-                HorarioEntrada = turno.HorarioEntrada,
-                HorarioSalida = turno.HorarioSalida,
+                HorarioEntradaDateTime = turno.HorarioEntrada,
+                HorarioSalidaDateTime = turno.HorarioSalida,
                 Motivo = turno.Motivo,
                 Numero = turno.Numero,
                 Eliminado = turno.Eliminado,
@@ -190,21 +189,21 @@ namespace NutricionWeb.Controllers.Turno
                 vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
-                    if (vm.HorarioEntrada > vm.HorarioSalida)
+                    if (vm.HorarioEntradaDateTime > vm.HorarioSalidaDateTime)
                     {
                         ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
 
                         return View(vm);
                     }
 
-                    var turnos = await _turnoServicio.Get(establecimientoId,false, string.Empty);
+                    var turnos = await _turnoServicio.Get(establecimientoId, false, string.Empty);
 
                     foreach (var turno in turnos)
                     {
-                        if (turno.HorarioEntrada.Date == vm.HorarioEntrada.Date)
+                        if (turno.HorarioEntrada.Date == vm.HorarioEntradaDateTime.Date)
                         {
-                            if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntrada.TimeOfDay &&
-                                vm.HorarioEntrada.TimeOfDay < turno.HorarioSalida.TimeOfDay)
+                            if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntradaDateTime.TimeOfDay &&
+                                vm.HorarioEntradaDateTime.TimeOfDay < turno.HorarioSalida.TimeOfDay)
                             {
                                 ModelState.AddModelError(string.Empty, "Ya existe un turno para ese rango de horarios");
 
@@ -295,9 +294,9 @@ namespace NutricionWeb.Controllers.Turno
 
             var horaSalida = vm.HorarioSalida.ToString().Split('/');
 
-            vm.HorarioEntrada = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}", CultureInfo.InvariantCulture);
+            vm.HorarioEntradaDateTime = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}");
 
-            vm.HorarioSalida = DateTime.Parse($"{horaSalida[1]}/{horaSalida[0]}/{horaSalida[2]}", CultureInfo.InvariantCulture);
+            vm.HorarioSalidaDateTime = DateTime.Parse($"{horaSalida[1]}/{horaSalida[0]}/{horaSalida[2]}");
 
             return vm;
         }
@@ -306,7 +305,7 @@ namespace NutricionWeb.Controllers.Turno
         {
             var establecimientoId = ObtenerEstablecimientoIdUser();
 
-            var events = await _turnoServicio.Get(establecimientoId,false, string.Empty);
+            var events = await _turnoServicio.Get(establecimientoId, false, string.Empty);
 
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
@@ -370,8 +369,8 @@ namespace NutricionWeb.Controllers.Turno
                 PacienteStr = vm.PacienteStr,
                 Numero = vm.Numero,
                 EstadoId = vm.EstadoId,
-                HorarioEntrada = vm.HorarioEntrada,
-                HorarioSalida = vm.HorarioSalida,
+                HorarioEntrada = vm.HorarioEntradaDateTime,
+                HorarioSalida = vm.HorarioSalidaDateTime,
                 Motivo = vm.Motivo,
                 Eliminado = vm.Eliminado
             };
