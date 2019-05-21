@@ -437,7 +437,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 Sexo = x.Sexo,
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> TraerPlan(long? planId)

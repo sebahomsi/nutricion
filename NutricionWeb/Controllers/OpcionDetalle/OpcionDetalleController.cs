@@ -179,7 +179,7 @@ namespace NutricionWeb.Controllers.OpcionDetalle
                 SubGrupoId = x.SubGrupoId,
                 SubGrupoStr = x.SubGrupoStr,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> BuscarUnidad(int? page, string cadenaBuscar)
@@ -198,7 +198,7 @@ namespace NutricionWeb.Controllers.OpcionDetalle
                 Descripcion = x.Descripcion,
                 Abreviatura = x.Abreviatura,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> TraerAlimento(long alimentoId)

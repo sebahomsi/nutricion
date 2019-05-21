@@ -319,7 +319,7 @@ namespace NutricionWeb.Controllers.Turno
 
             var estados = Mapper.Map<IEnumerable<EstadoViewModel>>(datos);
 
-            return PartialView(estados.ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            return PartialView(estados.ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
 
@@ -348,7 +348,7 @@ namespace NutricionWeb.Controllers.Turno
                 Sexo = x.Sexo,
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
 
         }
 

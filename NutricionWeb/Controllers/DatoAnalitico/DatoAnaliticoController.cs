@@ -5,7 +5,6 @@ using Servicio.Interface.DatoAnalitico;
 using Servicio.Interface.Paciente;
 using System;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
@@ -272,7 +271,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 Sexo = x.Sexo,
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> TraerPaciente(long? pacienteId)

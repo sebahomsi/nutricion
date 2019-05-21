@@ -238,7 +238,7 @@ namespace NutricionWeb.Controllers.Alimento
                 GrupoId = x.GrupoId,
                 GrupoStr = x.GrupoStr,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
         [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult CalcularCalorias(int prote, int hc, int grasa)

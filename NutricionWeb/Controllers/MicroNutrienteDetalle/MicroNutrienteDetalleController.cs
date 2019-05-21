@@ -221,7 +221,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
                 SubGrupoId = x.SubGrupoId,
                 SubGrupoStr = x.SubGrupoStr,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> BuscarMicroNutriente(int? page,string cadenaBuscar)
@@ -239,7 +239,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
                 Codigo = x.Codigo,
                 Descripcion = x.Descripcion,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> BuscarUnidad(int? page, string cadenaBuscar)
@@ -258,7 +258,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
                 Descripcion = x.Descripcion,
                 Abreviatura = x.Abreviatura,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> TraerAlimento(long alimentoId)

@@ -342,7 +342,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 Codigo = x.Codigo,
                 Descripcion = x.Descripcion,
                 Eliminado = x.Eliminado
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
         [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> BuscarOpcion(int? page, string cadenaBuscar)

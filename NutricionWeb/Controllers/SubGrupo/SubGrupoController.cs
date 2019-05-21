@@ -177,20 +177,21 @@ namespace NutricionWeb.Controllers.SubGrupo
         }
 
         //===========================================================//
-        public async Task<ActionResult> BuscarGrupo(string cadenaBuscar)
+        public async Task<ActionResult> BuscarGrupo(int? page,string cadenaBuscar)
         {
             var eliminado = false;
+            var pageNumber = page ?? 1;
             var grupos = await _grupoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             
             ViewBag.Registros = grupos.Count;
 
-            return PartialView(grupos.Take(5).Select(x => new GrupoViewModel()
+            return PartialView(grupos.Select(x => new GrupoViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
                 Descripcion = x.Descripcion,
                 Eliminado = x.Eliminado
-            }).ToList());
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> TraerGrupo(long grupoId)
