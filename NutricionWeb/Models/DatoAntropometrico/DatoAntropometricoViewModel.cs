@@ -59,6 +59,27 @@ namespace NutricionWeb.Models.DatoAntropometrico
 
         public string FotoStr { get; set; }
 
+        [Display(Name = "Pliegue Triceps")]
+        public decimal PliegueTriceps { get; set; }
+
+        [Display(Name = "Pliegue Subescapular")]
+        public decimal PliegueSubescapular { get; set; }
+
+        [Display(Name = "Pliegue Suprailiaco")]
+        public decimal PliegueSuprailiaco { get; set; }
+
+        [Display(Name = "Pliegue Abdominal")]
+        public decimal PliegueAbdominal { get; set; }
+
+        [Display(Name = "Pliegue Muslo")]
+        public decimal PliegueMuslo { get; set; }
+
+        [Display(Name = "Pliegue Pierna")]
+        public decimal PlieguePierna { get; set; }
+
+        [Display(Name = "Sumatoria Pliegues")]
+        public decimal TotalPliegues { get; set; }
+
         [Display(Name = "Eliminado")]
         [ScaffoldColumn(false)]
         public string EliminadoStr => Eliminado ? "SI" : "NO";

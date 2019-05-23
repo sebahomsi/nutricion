@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio.Entidades.MetaData
 {
@@ -16,27 +12,20 @@ namespace Dominio.Entidades.MetaData
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PesoActual { get; set; }
-        
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PesoHabitual { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PesoDeseado { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PesoIdeal { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PerimetroCuello { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string Altura { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PerimetroCadera { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PerimetroCintura { get; set; }
 
         DateTime FechaMedicion { get; set; }
@@ -48,6 +37,18 @@ namespace Dominio.Entidades.MetaData
         string MasaCorporal { get; set; }
 
         string Foto { get; set; }
+
+        decimal PliegueSubescapular { get; set; }
+
+        decimal PliegueSuprailiaco { get; set; }
+
+        decimal PliegueAbdominal { get; set; }
+
+        decimal PliegueMuslo { get; set; }
+
+        decimal PlieguePierna { get; set; }
+
+        decimal TotalPliegues { get; set; }
 
         bool Eliminado { get; set; }
     }

@@ -5,7 +5,6 @@ using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
 using System;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using static NutricionWeb.Helpers.File;
@@ -56,6 +55,13 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoHabitual = x.PesoHabitual,
                 PesoIdeal = x.PesoIdeal,
                 PesoDeseado = x.PesoDeseado,
+                PliegueSuprailiaco = x.PliegueSuprailiaco,
+                PliegueMuslo = x.PliegueMuslo,
+                PlieguePierna = x.PlieguePierna,
+                PliegueSubescapular = x.PliegueSubescapular,
+                PliegueTriceps = x.PliegueTriceps,
+                PliegueAbdominal = x.PliegueAbdominal,
+                TotalPliegues = x.TotalPliegues
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
@@ -161,7 +167,13 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoHabitual = dato.PesoHabitual,
                 PesoIdeal = dato.PesoIdeal,
                 PesoDeseado = dato.PesoDeseado,
-                PerimetroCuello = dato.PerimetroCuello
+                PerimetroCuello = dato.PerimetroCuello,
+                PliegueSuprailiaco = dato.PliegueSuprailiaco,
+                PliegueMuslo = dato.PliegueMuslo,
+                PlieguePierna = dato.PlieguePierna,
+                PliegueSubescapular = dato.PliegueSubescapular,
+                PliegueTriceps = dato.PliegueTriceps,
+                PliegueAbdominal = dato.PliegueAbdominal,
             });
         }
 
@@ -215,6 +227,13 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoDeseado = dato.PesoDeseado,
                 PerimetroCuello = dato.PerimetroCuello,
                 FotoStr = dato.Foto,
+                PliegueSuprailiaco = dato.PliegueSuprailiaco,
+                PliegueMuslo = dato.PliegueMuslo,
+                PlieguePierna = dato.PlieguePierna,
+                PliegueSubescapular = dato.PliegueSubescapular,
+                PliegueTriceps = dato.PliegueTriceps,
+                PliegueAbdominal = dato.PliegueAbdominal,
+                TotalPliegues = dato.TotalPliegues
             });
         }
 
@@ -265,6 +284,13 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoDeseado = dato.PesoDeseado,
                 PerimetroCuello = dato.PerimetroCuello,
                 FotoStr = dato.Foto,
+                PliegueSuprailiaco = dato.PliegueSuprailiaco,
+                PliegueMuslo = dato.PliegueMuslo,
+                PlieguePierna = dato.PlieguePierna,
+                PliegueSubescapular = dato.PliegueSubescapular,
+                PliegueTriceps = dato.PliegueTriceps,
+                PliegueAbdominal = dato.PliegueAbdominal,
+                TotalPliegues = dato.TotalPliegues
             });
         }
 
@@ -329,6 +355,12 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoIdeal = vm.PesoIdeal,
                 PesoDeseado = vm.PesoDeseado,
                 PerimetroCuello = vm.PerimetroCuello,
+                PliegueSuprailiaco = vm.PliegueSuprailiaco,
+                PliegueMuslo = vm.PliegueMuslo,
+                PlieguePierna = vm.PlieguePierna,
+                PliegueSubescapular = vm.PliegueSubescapular,
+                PliegueTriceps = vm.PliegueTriceps,
+                PliegueAbdominal = vm.PliegueAbdominal,
 
             };
         }

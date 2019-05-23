@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Servicio.Interface.DatoAntropometrico
 {
@@ -37,6 +33,20 @@ namespace Servicio.Interface.DatoAntropometrico
         public string MasaGrasa { get; set; }
 
         public string MasaCorporal { get; set; }
+
+        public decimal PliegueTriceps { get; set; }
+
+        public decimal PliegueSubescapular { get; set; }
+
+        public decimal PliegueSuprailiaco { get; set; }
+
+        public decimal PliegueAbdominal { get; set; }
+
+        public decimal PliegueMuslo { get; set; }
+
+        public decimal PlieguePierna { get; set; }
+
+        public decimal TotalPliegues { get; set; }
 
         public bool Eliminado { get; set; }
     }
