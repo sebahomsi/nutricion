@@ -25,6 +25,17 @@ namespace Servicio.DatoAnalitico
                 PresionSistolica = dto.PresionSistolica,
                 Trigliceridos = dto.Trigliceridos,
                 FechaMedicion = DateTime.Now,
+                GlobulosRojos = dto.GlobulosRojos,
+                B12 = dto.B12,
+                CPK = dto.CPK,
+                Creatinina = dto.Creatinina,
+                Fosforo = dto.Fosforo,
+                Glusemia = dto.Glusemia,
+                Hematocritos = dto.Hematocritos,
+                Hemoglobina = dto.Hemoglobina,
+                Insulina = dto.Insulina,
+                VitaminaD = dto.VitaminaD,
+                Zinc = dto.Zinc,
                 Eliminado = false
             };
 
@@ -46,6 +57,17 @@ namespace Servicio.DatoAnalitico
             dato.PresionDiastolica = dto.PresionDiastolica;
             dato.PresionSistolica = dto.PresionSistolica;
             dato.Trigliceridos = dto.Trigliceridos;
+            dato.GlobulosRojos = dto.GlobulosRojos;
+            dato.B12 = dto.B12;
+            dato.CPK = dto.CPK;
+            dato.Creatinina = dto.Creatinina;
+            dato.Fosforo = dto.Fosforo;
+            dato.Glusemia = dto.Glusemia;
+            dato.Hematocritos = dto.Hematocritos;
+            dato.Hemoglobina = dto.Hemoglobina;
+            dato.Insulina = dto.Insulina;
+            dato.VitaminaD = dto.VitaminaD;
+            dato.Zinc = dto.Zinc;
 
             await Context.SaveChangesAsync();
         }
@@ -82,6 +104,17 @@ namespace Servicio.DatoAnalitico
                     PresionSistolica = x.PresionSistolica,
                     Trigliceridos = x.Trigliceridos,
                     FechaMedicion = x.FechaMedicion,
+                    GlobulosRojos = x.GlobulosRojos,
+                    B12 = x.B12,
+                    CPK = x.CPK,
+                    Creatinina = x.Creatinina,
+                    Fosforo = x.Fosforo,
+                    Glusemia = x.Glusemia,
+                    Hematocritos = x.Hematocritos,
+                    Hemoglobina = x.Hemoglobina,
+                    Insulina = x.Insulina,
+                    VitaminaD = x.VitaminaD,
+                    Zinc = x.Zinc,
                     Eliminado = x.Eliminado
                 }).ToListAsync();
         }
@@ -108,6 +141,17 @@ namespace Servicio.DatoAnalitico
                 Trigliceridos = dato.Trigliceridos,
                 PacienteStr = dato.Paciente.Apellido +" "+ dato.Paciente.Nombre,
                 FechaMedicion = dato.FechaMedicion,
+                GlobulosRojos = dato.GlobulosRojos,
+                B12 = dato.B12,
+                CPK = dato.CPK,
+                Creatinina = dato.Creatinina,
+                Fosforo = dato.Fosforo,
+                Glusemia = dato.Glusemia,
+                Hematocritos = dato.Hematocritos,
+                Hemoglobina = dato.Hemoglobina,
+                Insulina = dato.Insulina,
+                VitaminaD = dato.VitaminaD,
+                Zinc = dato.Zinc,
                 Eliminado = dato.Eliminado
             };
         }

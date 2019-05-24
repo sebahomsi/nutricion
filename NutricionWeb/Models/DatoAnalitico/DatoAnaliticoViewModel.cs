@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 
 namespace NutricionWeb.Models.DatoAnalitico
 {
@@ -44,5 +40,19 @@ namespace NutricionWeb.Models.DatoAnalitico
         public bool Eliminado { get; set; }
 
         public string EliminadoStr => Eliminado ? "SI" : "NO";
+
+        public string Glusemia { get; set; }
+        public string Insulina { get; set; }
+        [Display(Name = "Vitamina D")]
+        public string VitaminaD { get; set; }
+        public string CPK { get; set; }
+        public string Creatinina { get; set; }
+        public string B12 { get; set; }
+        public string Zinc { get; set; }
+        public string Fosforo { get; set; }
+        [Display(Name = "Globulos Rojos")]
+        public string GlobulosRojos { get; set; }
+        public string Hematocritos { get; set; }
+        public string Hemoglobina { get; set; }
     }
 }
