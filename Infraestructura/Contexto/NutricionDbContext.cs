@@ -45,6 +45,8 @@ namespace Infraestructura.Contexto
         public IDbSet<Objetivo> Objetivos { get; set; }
         public IDbSet<Anamnesis> Anamnesis { get; set; }
         public IDbSet<Estrategia> Estrategias { get; set; }
+        public IDbSet<GrupoReceta> GruposRecetas { get; set; }
+        public IDbSet<SubGrupoReceta> SubGruposRecetas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

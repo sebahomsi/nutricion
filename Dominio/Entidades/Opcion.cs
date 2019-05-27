@@ -13,9 +13,11 @@ namespace Dominio.Entidades
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public bool Eliminado { get; set; }
+         
 
         //Propiedades de Navegacion
         public virtual ICollection<ComidaDetalle> ComidasDetalles { get; set; }
         public virtual ICollection<OpcionDetalle> OpcionDetalles { get; set; }
+        public virtual ICollection<SubGrupoReceta> SubGruposRecetas { get; set; }
     }
 }

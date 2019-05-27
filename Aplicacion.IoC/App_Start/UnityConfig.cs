@@ -67,15 +67,19 @@ using Servicio.Interface.Estrategia;
 using Servicio.Interface.Objetivo;
 using Servicio.Objetivo;
 using Unity;
-using Unity.Mvc5;
 using Servicio.Estrategia;
 using Bridge;
+using Unity.Mvc5;
+using Servicio.Interface.GrupoReceta;
+using Servicio.GrupoReceta;
+using Servicio.Interface.SubGrupoReceta;
+using Servicio.SubGrupoReceta;
 
 namespace Aplicacion.IoC
 {
     public static class UnityConfig
     {
-        public static void RegisterComponents(IUnityContainer container)
+        public static void RegisterComponents(UnityContainer container)
         {
 
             container.RegisterType<IAlergiaIntoleranciaServicio, AlergiaIntoleranciaServicio>();
@@ -117,6 +121,9 @@ namespace Aplicacion.IoC
             container.RegisterType<IRolServicio, RolServicio>();
 
             container.RegisterType<ILacteosService, LacteoServicio>();
+
+            container.RegisterType<IGrupoRecetaServicio, GrupoRecetaServicio>();
+            container.RegisterType<ISubGrupoRecetaServicio, SubGrupoRecetaServicio>();
 
 
             //esto ya venia

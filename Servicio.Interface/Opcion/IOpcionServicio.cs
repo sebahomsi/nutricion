@@ -5,7 +5,7 @@ namespace Servicio.Interface.Opcion
 {
     public interface IOpcionServicio
     {
-        Task<long> Add(OpcionDto dto);
+        Task<long> Add(OpcionDto dto,long? subGrupoId);
         Task Update(OpcionDto dto);
         Task Delete(long id);
         Task<ICollection<OpcionDto>> Get(bool eliminado, string cadenaBuscar);
