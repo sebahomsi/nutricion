@@ -136,7 +136,7 @@ namespace NutricionWeb.Controllers.Opcion
                     var opcionDto = CargarDatos(vm);
                     opcionDto.Codigo = await _opcionServicio.GetNextCode();
 
-                    await _opcionServicio.Add(opcionDto);
+                    await _opcionServicio.Add(opcionDto,1);
                 }
             }
             catch (Exception ex)

@@ -14,5 +14,6 @@ namespace Servicio.Interface.DatoAntropometrico
         Task<IEnumerable<DatoAntropometricoDto>> GetByIdPaciente(long id);
         Task<string> CalculateImc(string peso,string altura);
         Task<string> CalculatePgc(string imc, long pacienteId);
+        Task<decimal> CalculatePliegues(DatoAntropometricoDto dto);
     }
 }

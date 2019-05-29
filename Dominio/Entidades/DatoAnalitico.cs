@@ -28,7 +28,21 @@ namespace Dominio.Entidades
 
         public DateTime FechaMedicion { get; set; }
 
+        public string Glusemia { get; set; }
+        public string Insulina { get; set; }
+        public string VitaminaD { get; set; }
+        public string CPK { get; set; }
+        public string Creatinina { get; set; }
+        public string B12 { get; set; }
+        public string Zinc { get; set; }
+        public string Fosforo { get; set; }
+        public string GlobulosRojos { get; set; }
+        public string Hematocritos { get; set; }
+        public string Hemoglobina { get; set; }
+
         public bool Eliminado { get; set; }
+
+
 
         //Navigation Properties
         public virtual Paciente Paciente { get; set; }

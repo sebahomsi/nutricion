@@ -14,25 +14,31 @@ namespace Dominio.Entidades.MetaData
         [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         long PacienteId { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string ColesterolHdl { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string ColesterolLdl { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string ColesterolTotal { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PresionDiastolica { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string PresionSistolica { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         string Trigliceridos { get; set; }
 
         DateTime FechaMedicion { get; set; }
+
+        string Glusemia { get; set; }
+        string Insulina { get; set; }
+        string VitaminaD { get; set; }
+        string CPK { get; set; }
+        string Creatinina { get; set; }
+        string B12 { get; set; }
+        string Zinc { get; set; }
+        string Fosforo { get; set; }
+        string GlobulosRojos { get; set; }
+        string Hematocritos { get; set; }
+        string Hemoglobina { get; set; }
 
         bool Eliminado { get; set; }
     }

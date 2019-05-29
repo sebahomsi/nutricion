@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
 
 namespace NutricionWeb.Models.DatoAntropometrico
@@ -22,27 +20,21 @@ namespace NutricionWeb.Models.DatoAntropometrico
         [Required(ErrorMessage = "Campo Requerido")]
         public string PesoActual { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string PesoHabitual { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string PesoDeseado { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string PesoIdeal { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
         public string PerimetroCuello { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido")]
         public string Altura { get; set; }
 
         [Display(Name = "Perimetro de Cadera")]
-        [Required(ErrorMessage = "Campo Requerido")]
         public string PerimetroCadera { get; set; }
 
         [Display(Name = "Perimetro de Cintura")]
-        [Required(ErrorMessage = "Campo Requerido")]
         public string PerimetroCintura { get; set; }
 
         [Display(Name = "Fecha de Medicion")]
@@ -62,6 +54,27 @@ namespace NutricionWeb.Models.DatoAntropometrico
         [Display(Name = "Foto")]
         public string FotoStr { get; set; }
 
+        [Display(Name = "Pliegue Triceps")]
+        public decimal PliegueTriceps { get; set; }
+
+        [Display(Name = "Pliegue Subescapular")]
+        public decimal PliegueSubescapular { get; set; }
+
+        [Display(Name = "Pliegue Suprailiaco")]
+        public decimal PliegueSuprailiaco { get; set; }
+
+        [Display(Name = "Pliegue Abdominal")]
+        public decimal PliegueAbdominal { get; set; }
+
+        [Display(Name = "Pliegue Muslo")]
+        public decimal PliegueMuslo { get; set; }
+
+        [Display(Name = "Pliegue Pierna")]
+        public decimal PlieguePierna { get; set; }
+
+        public decimal TotalPliegues { get; set; }
+
         public bool Eliminado { get; set; }
+
     }
 }

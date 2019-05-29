@@ -82,6 +82,8 @@
     <Compile Include="Estado\IEstadoServicio.cs" />
     <Compile Include="Estrategia\EstrategiaDto.cs" />
     <Compile Include="Estrategia\IEstrategiaServicio.cs" />
+    <Compile Include="GrupoReceta\GrupoRecetaDto.cs" />
+    <Compile Include="GrupoReceta\IGrupoRecetaServicio.cs" />
     <Compile Include="Grupo\GrupoDto.cs" />
     <Compile Include="Grupo\IGrupoServicio.cs" />
     <Compile Include="MacroNutriente\IMacroNutrienteServicio.cs" />
@@ -117,6 +119,8 @@
     <Compile Include="PlanAlimenticio\PlanDiasDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rol\IRolServicio.cs" />
+    <Compile Include="SubGrupoReceta\ISubGrupoRecetaServicio.cs" />
+    <Compile Include="SubGrupoReceta\SubGrupoRecetaDto.cs" />
     <Compile Include="SubGrupo\ISubGrupoServicio.cs" />
     <Compile Include="SubGrupo\SubGrupoDto.cs" />
     <Compile Include="Turno\ITurnoServicio.cs" />

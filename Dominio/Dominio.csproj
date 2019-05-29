@@ -62,6 +62,7 @@
     <Compile Include="Entidades\Estado.cs" />
     <Compile Include="Entidades\Estrategia.cs" />
     <Compile Include="Entidades\Grupo.cs" />
+    <Compile Include="Entidades\GrupoReceta.cs" />
     <Compile Include="Entidades\MacroNutriente.cs" />
     <Compile Include="Entidades\Mensaje.cs" />
     <Compile Include="Entidades\MetaData\IAnamnesis.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Entidades\MetaData\IEstado.cs" />
     <Compile Include="Entidades\MetaData\IEstrategia.cs" />
     <Compile Include="Entidades\MetaData\IGrupo.cs" />
+    <Compile Include="Entidades\MetaData\IGrupoReceta.cs" />
     <Compile Include="Entidades\MetaData\IMensaje.cs" />
     <Compile Include="Entidades\MetaData\IMicroNutriente.cs" />
     <Compile Include="Entidades\MetaData\IMicroNutrienteDetalle.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Entidades\MetaData\IPlanAlimenticio.cs" />
     <Compile Include="Entidades\MetaData\ISubGrupo.cs" />
     <Compile Include="Entidades\MetaData\IMacroNutriente.cs" />
+    <Compile Include="Entidades\MetaData\ISubGrupoReceta.cs" />
     <Compile Include="Entidades\MetaData\ITurno.cs" />
     <Compile Include="Entidades\MetaData\IUnidadMedida.cs" />
     <Compile Include="Entidades\MicroNutriente.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Entidades\Persona.cs" />
     <Compile Include="Entidades\PlanAlimenticio.cs" />
     <Compile Include="Entidades\SubGrupo.cs" />
+    <Compile Include="Entidades\SubGrupoReceta.cs" />
     <Compile Include="Entidades\Turno.cs" />
     <Compile Include="Entidades\UnidadMedida.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

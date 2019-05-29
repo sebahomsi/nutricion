@@ -50,6 +50,17 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PresionSistolica = x.PresionSistolica,
                 Trigliceridos = x.Trigliceridos,
                 FechaMedicion = x.FechaMedicion,
+                GlobulosRojos = x.GlobulosRojos,
+                B12 = x.B12,
+                CPK = x.CPK,
+                Creatinina = x.Creatinina,
+                Fosforo = x.Fosforo,
+                Glusemia = x.Glusemia,
+                Hematocritos = x.Hematocritos,
+                Hemoglobina = x.Hemoglobina,
+                Insulina = x.Insulina,
+                VitaminaD = x.VitaminaD,
+                Zinc = x.Zinc,
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
@@ -148,6 +159,17 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PresionSistolica = datos.PresionSistolica,
                 Trigliceridos = datos.Trigliceridos,
                 FechaMedicion = datos.FechaMedicion,
+                GlobulosRojos = datos.GlobulosRojos,
+                B12 = datos.B12,
+                CPK = datos.CPK,
+                Creatinina = datos.Creatinina,
+                Fosforo = datos.Fosforo,
+                Glusemia = datos.Glusemia,
+                Hematocritos = datos.Hematocritos,
+                Hemoglobina = datos.Hemoglobina,
+                Insulina = datos.Insulina,
+                VitaminaD = datos.VitaminaD,
+                Zinc = datos.Zinc,
                 Eliminado = datos.Eliminado
             });
         }
@@ -195,6 +217,17 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PresionSistolica = datos.PresionSistolica,
                 Trigliceridos = datos.Trigliceridos,
                 FechaMedicion = datos.FechaMedicion,
+                GlobulosRojos = datos.GlobulosRojos,
+                B12 = datos.B12,
+                CPK = datos.CPK,
+                Creatinina = datos.Creatinina,
+                Fosforo = datos.Fosforo,
+                Glusemia = datos.Glusemia,
+                Hematocritos = datos.Hematocritos,
+                Hemoglobina = datos.Hemoglobina,
+                Insulina = datos.Insulina,
+                VitaminaD = datos.VitaminaD,
+                Zinc = datos.Zinc,
                 Eliminado = datos.Eliminado
             });
         }
@@ -239,6 +272,17 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 PresionSistolica = datos.PresionSistolica,
                 Trigliceridos = datos.Trigliceridos,
                 FechaMedicion = datos.FechaMedicion,
+                GlobulosRojos = datos.GlobulosRojos,
+                B12 = datos.B12,
+                CPK = datos.CPK,
+                Creatinina = datos.Creatinina,
+                Fosforo = datos.Fosforo,
+                Glusemia = datos.Glusemia,
+                Hematocritos = datos.Hematocritos,
+                Hemoglobina = datos.Hemoglobina,
+                Insulina = datos.Insulina,
+                VitaminaD = datos.VitaminaD,
+                Zinc = datos.Zinc,
                 Eliminado = datos.Eliminado
             });
         }
@@ -314,6 +358,17 @@ namespace NutricionWeb.Controllers.DatoAnalitico
                 Trigliceridos = vm.Trigliceridos,
                 ColesterolTotal = vm.ColesterolTotal,
                 FechaMedicion = vm.FechaMedicion,
+                GlobulosRojos = vm.GlobulosRojos,
+                B12 = vm.B12,
+                CPK = vm.CPK,
+                Creatinina = vm.Creatinina,
+                Fosforo = vm.Fosforo,
+                Glusemia = vm.Glusemia,
+                Hematocritos = vm.Hematocritos,
+                Hemoglobina = vm.Hemoglobina,
+                Insulina = vm.Insulina,
+                VitaminaD = vm.VitaminaD,
+                Zinc = vm.Zinc,
                 Eliminado = vm.Eliminado
             };
         }

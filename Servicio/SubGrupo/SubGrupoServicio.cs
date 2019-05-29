@@ -1,15 +1,11 @@
-﻿using System;
+﻿using Servicio.Interface.Alimento;
+using Servicio.Interface.SubGrupo;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using Servicio.Interface.Alimento;
-using Servicio.Interface.MicroNutriente;
-using Servicio.Interface.MicroNutrienteDetalle;
-using Servicio.Interface.Opcion;
-using Servicio.Interface.SubGrupo;
 
 namespace Servicio.SubGrupo
 {

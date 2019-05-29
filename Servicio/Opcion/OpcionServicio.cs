@@ -13,7 +13,7 @@ namespace Servicio.Opcion
 {
     public class OpcionServicio : ServicioBase, IOpcionServicio
     {
-        public async Task<long> Add(OpcionDto dto)
+        public async Task<long> Add(OpcionDto dto, long? subGrupoId)
         {
             var verify = await VerifyDuplicity(dto);
             if (verify.HasValue) throw new ArgumentException("Ya existe una opcion con esa Descripcion");
@@ -21,11 +21,19 @@ namespace Servicio.Opcion
             {
                 Codigo = dto.Codigo,
                 Descripcion = dto.Descripcion,
-                Eliminado = false,               
+                Eliminado = false,             
 
             };
+            if (subGrupoId.HasValue)
+            {
+                var subGrupo = await Context.SubGruposRecetas.Include(x=>x.Opciones).FirstOrDefaultAsync(x => x.Id == subGrupoId);
+                subGrupo.Opciones.Add(opcion);
 
-            Context.Opciones.Add(opcion);
+            }
+            else
+            {
+                Context.Opciones.Add(opcion);
+            }
             await Context.SaveChangesAsync();
             return opcion.Id;
         }

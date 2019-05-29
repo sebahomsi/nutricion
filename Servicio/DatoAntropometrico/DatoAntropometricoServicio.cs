@@ -15,6 +15,7 @@ namespace Servicio.DatoAntropometrico
         {
             var imc = await CalculateImc(dto.PesoActual, dto.Altura);
             var pgc = await CalculatePgc(imc, dto.PacienteId);
+            var totalPliegues = await CalculatePliegues(dto);
 
             var dato = new Dominio.Entidades.DatoAntropometrico()
             {
@@ -33,6 +34,13 @@ namespace Servicio.DatoAntropometrico
                 PesoHabitual = dto.PesoHabitual,
                 PesoIdeal = dto.PesoIdeal,
                 Foto = dto.Foto,
+                PliegueSuprailiaco = dto.PliegueSuprailiaco,
+                PliegueMuslo = dto.PliegueMuslo,
+                PlieguePierna = dto.PlieguePierna,
+                PliegueSubescapular = dto.PliegueSubescapular,
+                PliegueTriceps = dto.PliegueTriceps,
+                PliegueAbdominal = dto.PliegueAbdominal,
+                TotalPliegues = totalPliegues
             };
 
             Context.DatosAntropometricos.Add(dato);
@@ -46,6 +54,7 @@ namespace Servicio.DatoAntropometrico
             if (dato == null) throw new ArgumentNullException();
             var imc = await CalculateImc(dto.PesoActual, dto.Altura);
             var pgc = await CalculatePgc(imc, dto.PacienteId);
+            var totalPliegues = await CalculatePliegues(dto);
 
             dato.PacienteId = dto.PacienteId;
             dato.Altura = dto.Altura;
@@ -60,6 +69,13 @@ namespace Servicio.DatoAntropometrico
             dato.PesoHabitual = dto.PesoHabitual;
             dato.PesoIdeal = dto.PesoIdeal;
             dato.Foto = dto.Foto;
+            dato.PliegueSuprailiaco = dto.PliegueSuprailiaco;
+            dato.PliegueMuslo = dto.PliegueMuslo;
+            dato.PlieguePierna = dto.PlieguePierna;
+            dato.PliegueSubescapular = dto.PliegueSubescapular;
+            dato.PliegueTriceps = dto.PliegueTriceps;
+            dato.PliegueAbdominal = dto.PliegueAbdominal;
+            dato.TotalPliegues = totalPliegues;
 
             await Context.SaveChangesAsync();
         }
@@ -101,6 +117,13 @@ namespace Servicio.DatoAntropometrico
                     PesoHabitual = x.PesoHabitual,
                     PesoIdeal = x.PesoIdeal,
                     Foto = x.Foto,
+                    PliegueSuprailiaco = x.PliegueSuprailiaco,
+                    PliegueMuslo = x.PliegueMuslo,
+                    PlieguePierna = x.PlieguePierna,
+                    PliegueSubescapular = x.PliegueSubescapular,
+                    PliegueTriceps = x.PliegueTriceps,
+                    PliegueAbdominal = x.PliegueAbdominal,
+                    TotalPliegues = x.TotalPliegues
                 }).ToListAsync();
         }
 
@@ -132,6 +155,13 @@ namespace Servicio.DatoAntropometrico
                     PesoHabitual = dato.PesoHabitual,
                     PesoIdeal = dato.PesoIdeal,
                     Foto = dato.Foto,
+                    PliegueSuprailiaco = dato.PliegueSuprailiaco,
+                    PliegueMuslo = dato.PliegueMuslo,
+                    PlieguePierna = dato.PlieguePierna,
+                    PliegueSubescapular = dato.PliegueSubescapular,
+                    PliegueTriceps = dato.PliegueTriceps,
+                    PliegueAbdominal = dato.PliegueAbdominal,
+                    TotalPliegues = dato.TotalPliegues
                 };
         }
 
@@ -188,6 +218,17 @@ namespace Servicio.DatoAntropometrico
                 var resultado = (imcDecimal * 1.2) + (0.23 * edadD) - (10.8 * paciente.Sexo) - 5.4;
                
                 return resultado.ToString("##.000");
+            });
+        }
+
+        public async Task<decimal> CalculatePliegues(DatoAntropometricoDto dto)
+        {
+            return await Task.Run(() =>
+            {
+                var totalPliegues = dto.PliegueAbdominal + dto.PliegueMuslo + dto.PlieguePierna + dto.PliegueSubescapular +
+                                    dto.PliegueSuprailiaco + dto.PliegueTriceps;
+
+                return totalPliegues;
             });
         }
     }

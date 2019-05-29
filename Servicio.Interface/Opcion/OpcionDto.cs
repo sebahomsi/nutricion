@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.OpcionDetalle;
+using Servicio.Interface.SubGrupoReceta;
 
 namespace Servicio.Interface.Opcion
 {
@@ -18,7 +19,12 @@ namespace Servicio.Interface.Opcion
         public string ComidaStr { get; set; }
         public bool Eliminado { get; set; }
         
+        
         public List<OpcionDetalleDto> OpcionDetalles { get; set; }
         public List<ComidaDetalleDto> ComidasDetalles { get; set; }
+        public List<SubGrupoRecetaDto> SubGruposRecetas { get; set; }
+        
+
+
     }
 }

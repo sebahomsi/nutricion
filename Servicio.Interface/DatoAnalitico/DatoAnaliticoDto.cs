@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Servicio.Interface.DatoAnalitico
 {
@@ -29,6 +25,18 @@ namespace Servicio.Interface.DatoAnalitico
         public string Trigliceridos { get; set; }
 
         public DateTime FechaMedicion { get; set; }
+
+        public string Glusemia { get; set; }
+        public string Insulina { get; set; }
+        public string VitaminaD { get; set; }
+        public string CPK { get; set; }
+        public string Creatinina { get; set; }
+        public string B12 { get; set; }
+        public string Zinc { get; set; }
+        public string Fosforo { get; set; }
+        public string GlobulosRojos { get; set; }
+        public string Hematocritos { get; set; }
+        public string Hemoglobina { get; set; }
 
         public bool Eliminado { get; set; }
     }
