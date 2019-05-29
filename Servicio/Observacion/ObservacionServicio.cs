@@ -19,12 +19,13 @@ namespace Servicio.Observacion
             {
                 Codigo = dto.Codigo,
                 PacienteId = dto.PacienteId,
-                Fumador = dto.Fumador,
-                BebeAlcohol = dto.BebeAlcohol,
-                EstadoCivil = dto.EstadoCivil,
-                CantidadSuenio = dto.CantidadSuenio,
-                TuvoHijo = dto.TuvoHijo,
-                CantidadHijo = dto.CantidadHijo,
+                Tabaco = dto.Tabaco,
+                Alcohol = dto.Alcohol,
+                AntecedentesFamiliares = dto.AntecedentesFamiliares,
+                HorasSuenio = dto.HorasSuenio,
+                RitmoEvacuatorio = dto.RitmoEvacuatorio,
+                Medicacion = dto.Medicacion,
+                ActividadFisica = dto.ActividadFisica,
                 Eliminado = false
             };
 
@@ -46,12 +47,13 @@ namespace Servicio.Observacion
             if (observacion == null) throw new ArgumentNullException();
 
             observacion.PacienteId = dto.PacienteId;
-            observacion.Fumador = dto.Fumador;
-            observacion.BebeAlcohol = dto.BebeAlcohol;
-            observacion.EstadoCivil = dto.EstadoCivil;
-            observacion.CantidadSuenio = dto.CantidadSuenio;
-            observacion.TuvoHijo = dto.TuvoHijo;
-            observacion.CantidadHijo = dto.CantidadHijo;
+            observacion.Tabaco = dto.Tabaco;
+            observacion.Alcohol = dto.Alcohol;
+            observacion.ActividadFisica = dto.ActividadFisica;
+            observacion.AntecedentesFamiliares = dto.AntecedentesFamiliares;
+            observacion.HorasSuenio = dto.HorasSuenio;
+            observacion.Medicacion = dto.Medicacion;
+            observacion.RitmoEvacuatorio = dto.RitmoEvacuatorio;
 
             await Context.SaveChangesAsync();
         }
@@ -79,12 +81,13 @@ namespace Servicio.Observacion
                     Codigo = x.Codigo,
                     PacienteId = x.PacienteId,
                     PacienteStr = x.Paciente.Apellido +" "+ x.Paciente.Nombre,
-                    Fumador = x.Fumador,
-                    BebeAlcohol = x.BebeAlcohol,
-                    EstadoCivil = x.EstadoCivil,
-                    CantidadSuenio = x.CantidadSuenio,
-                    TuvoHijo = x.TuvoHijo,
-                    CantidadHijo = x.CantidadHijo,
+                    Tabaco = x.Tabaco,
+                    Alcohol = x.Alcohol,
+                    AntecedentesFamiliares = x.AntecedentesFamiliares,
+                    ActividadFisica = x.ActividadFisica,
+                    RitmoEvacuatorio = x.RitmoEvacuatorio,
+                    Medicacion = x.Medicacion,
+                    HorasSuenio = x.HorasSuenio,
                     Eliminado = x.Eliminado
                 }).ToListAsync();
         }
@@ -106,12 +109,13 @@ namespace Servicio.Observacion
                 Codigo = observacion.Codigo,
                 PacienteId = observacion.PacienteId,
                 PacienteStr = observacion.Paciente.Apellido + " " + observacion.Paciente.Nombre,
-                Fumador = observacion.Fumador,
-                BebeAlcohol = observacion.BebeAlcohol,
-                EstadoCivil = observacion.EstadoCivil,
-                CantidadSuenio = observacion.CantidadSuenio,
-                TuvoHijo = observacion.TuvoHijo,
-                CantidadHijo = observacion.CantidadHijo,
+                Tabaco = observacion.Tabaco,
+                Alcohol = observacion.Alcohol,
+                AntecedentesFamiliares = observacion.AntecedentesFamiliares,
+                ActividadFisica = observacion.ActividadFisica,
+                RitmoEvacuatorio = observacion.RitmoEvacuatorio,
+                Medicacion = observacion.Medicacion,
+                HorasSuenio = observacion.HorasSuenio,
                 Eliminado = observacion.Eliminado,
                 Patologias = observacion.Patologias.Select(x=> new PatologiaDto()
                 {
@@ -154,12 +158,13 @@ namespace Servicio.Observacion
                 Codigo = observacion.Codigo,
                 PacienteId = observacion.PacienteId,
                 PacienteStr = observacion.Paciente.Apellido + " " + observacion.Paciente.Nombre,
-                Fumador = observacion.Fumador,
-                BebeAlcohol = observacion.BebeAlcohol,
-                EstadoCivil = observacion.EstadoCivil,
-                CantidadSuenio = observacion.CantidadSuenio,
-                TuvoHijo = observacion.TuvoHijo,
-                CantidadHijo = observacion.CantidadHijo,
+                Tabaco = observacion.Tabaco,
+                Alcohol = observacion.Alcohol,
+                AntecedentesFamiliares = observacion.AntecedentesFamiliares,
+                ActividadFisica = observacion.ActividadFisica,
+                RitmoEvacuatorio = observacion.RitmoEvacuatorio,
+                Medicacion = observacion.Medicacion,
+                HorasSuenio = observacion.HorasSuenio,
                 Eliminado = observacion.Eliminado,
                 Patologias = observacion.Patologias.Select(x => new PatologiaDto()
                 {

@@ -1,0 +1,144 @@
+﻿@model NutricionWeb.Models.Observacion.ObservacionViewModel
+
+<p>
+    @Ajax.ActionLink("Agregar Patologia", "CreateParcial", "ObservacionPatologia", new { observacionId = Model.Id, pacienteId = (long)ViewBag.PacienteId }, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "observaciones-Parcial",
+
+    }, new { @class = "btn btn-primary-custom" })
+
+</p>
+
+<table class="table">
+    <tr class="cabecera-tabla">
+        <th>
+            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Descripcion)
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Patologias)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td align="right">
+                @Ajax.ActionLink("Eliminar", "Delete", "ObservacionPatologia", new { observacionId = Model.Id, patologiaId = item.Id }, new AjaxOptions()
+               {
+                   HttpMethod = "GET",
+                   InsertionMode = InsertionMode.Replace,
+                   UpdateTargetId = "observaciones-Parcial",
+
+               }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Eliminar", "Delete", "ObservacionPatologia", new { observacionId = Model.Id, patologiaId = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+
+<hr />
+
+<p>
+    @Ajax.ActionLink("Agregar Alergia/Intolerancia", "CreateParcial", "ObservacionAlergiaIntolerancia", new { observacionId = Model.Id, pacienteId = (long)ViewBag.PacienteId }, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "observaciones-Parcial",
+
+    }, new { @class = "btn btn-primary-custom" })
+</p>
+
+
+<table class="table">
+    <tr class="cabecera-tabla">
+        <th>
+            @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Descripcion)
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.AlergiasIntolerancias)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td align="right">
+
+                @Html.ActionLink("Eliminar", "Delete", "ObservacionAlergiaIntolerancia", new { observacionId = Model.Id, alergiaId = item.Id }, new { @class = "btn btn-danger" })
+
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<hr />
+
+<p>
+    @Ajax.ActionLink("Agregar Alimento Rechazado", "CreateParcial", "ObservacionAlimento", new { observacionId = Model.Id, pacienteId = (long)ViewBag.PacienteId }, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "observaciones-Parcial",
+
+    }, new { @class = "btn btn-primary-custom" })
+</p>
+
+
+<table class="table">
+    <tr class="cabecera-tabla">
+        <th>
+            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Descripcion)
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Alimentos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td align="right">
+                @Html.ActionLink("Eliminar", "Delete", "ObservacionAlimento", new { observacionId = Model.Id, alimentoId = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+
+        </tr>
+    }
+
+</table>

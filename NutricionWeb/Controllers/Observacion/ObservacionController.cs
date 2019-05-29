@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.AlergiaIntolerancia;
+﻿using NutricionWeb.Models.AlergiaIntolerancia;
 using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.Observacion;
 using NutricionWeb.Models.Patologia;
 using PagedList;
-using Servicio.Interface.AlergiaIntolerancia;
-using Servicio.Interface.Alimento;
 using Servicio.Interface.Observacion;
 using Servicio.Interface.Paciente;
-using Servicio.Interface.Patologia;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -39,25 +34,26 @@ namespace NutricionWeb.Controllers.Observacion
             ViewBag.Eliminado = eliminado;
 
             var observaciones =
-                await _observacionServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _observacionServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
-            return View(observaciones.Select(x=> new ObservacionViewModel()
+            return View(observaciones.Select(x => new ObservacionViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
                 PacienteId = x.PacienteId,
                 PacienteStr = x.PacienteStr,
-                Fumador = x.Fumador,
-                BebeAlcohol = x.BebeAlcohol,
-                EstadoCivil = x.EstadoCivil,
-                CantidadSuenio = x.CantidadSuenio,
-                TuvoHijo = x.TuvoHijo,
-                CantidadHijo = x.CantidadHijo,
+                Tabaco = x.Tabaco,
+                Alcohol = x.Alcohol,
+                ActividadFisica = x.ActividadFisica,
+                AntecedentesFamiliares = x.AntecedentesFamiliares,
+                RitmoEvacuatorio = x.RitmoEvacuatorio,
+                HorasSuenio = x.HorasSuenio,
+                Medicacion = x.Medicacion,
                 Eliminado = x.Eliminado
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
-        
+
 
         // GET: Observacion/Create
         public async Task<ActionResult> Create(long pacienteId)
@@ -78,16 +74,13 @@ namespace NutricionWeb.Controllers.Observacion
                 if (ModelState.IsValid)
                 {
                     var observacionDto = CargarDatos(vm);
+
                     observacionDto.Codigo = await _observacionServicio.GetNextCode();
-                    if (observacionDto.TuvoHijo == false)
-                    {
-                        observacionDto.CantidadHijo = "0";
-                    }
 
                     await _observacionServicio.Add(observacionDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
@@ -110,9 +103,10 @@ namespace NutricionWeb.Controllers.Observacion
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateParcial(ObservacionABMViewModel vm)
         {
+            bool reload = false;
             try
             {
                 if (ModelState.IsValid)
@@ -120,7 +114,8 @@ namespace NutricionWeb.Controllers.Observacion
                     var datosDto = CargarDatos(vm);
                     datosDto.Codigo = await _observacionServicio.GetNextCode();
 
-                    await _observacionServicio.Add(datosDto);
+                    //await _observacionServicio.Add(datosDto);
+                    reload = true;
                 }
                 else
                 {
@@ -132,7 +127,7 @@ namespace NutricionWeb.Controllers.Observacion
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return PartialView(vm);
             }
-            return RedirectToAction("ObservacionesParcial", "Paciente", new { id = vm.PacienteId });
+            return RedirectToAction("ObservacionesParcial", "Paciente", new { id = vm.PacienteId, reload = reload });
 
         }
 
@@ -149,12 +144,13 @@ namespace NutricionWeb.Controllers.Observacion
                 Codigo = observacion.Codigo,
                 PacienteId = observacion.PacienteId,
                 PacienteStr = observacion.PacienteStr,
-                Fumador = observacion.Fumador,
-                BebeAlcohol = observacion.BebeAlcohol,
-                EstadoCivil = observacion.EstadoCivil,
-                CantidadSuenio = observacion.CantidadSuenio,
-                TuvoHijo = observacion.TuvoHijo,
-                CantidadHijo = observacion.CantidadHijo,
+                Tabaco = observacion.Tabaco,
+                Alcohol = observacion.Alcohol,
+                ActividadFisica = observacion.ActividadFisica,
+                AntecedentesFamiliares = observacion.AntecedentesFamiliares,
+                Medicacion = observacion.Medicacion,
+                RitmoEvacuatorio = observacion.RitmoEvacuatorio,
+                HorasSuenio = observacion.HorasSuenio,
                 Eliminado = observacion.Eliminado
             });
         }
@@ -195,12 +191,13 @@ namespace NutricionWeb.Controllers.Observacion
                 Codigo = observacion.Codigo,
                 PacienteId = observacion.PacienteId,
                 PacienteStr = observacion.PacienteStr,
-                Fumador = observacion.Fumador,
-                BebeAlcohol = observacion.BebeAlcohol,
-                EstadoCivil = observacion.EstadoCivil,
-                CantidadSuenio = observacion.CantidadSuenio,
-                TuvoHijo = observacion.TuvoHijo,
-                CantidadHijo = observacion.CantidadHijo,
+                Tabaco = observacion.Tabaco,
+                Alcohol = observacion.Alcohol,
+                ActividadFisica = observacion.ActividadFisica,
+                AntecedentesFamiliares = observacion.AntecedentesFamiliares,
+                Medicacion = observacion.Medicacion,
+                RitmoEvacuatorio = observacion.RitmoEvacuatorio,
+                HorasSuenio = observacion.HorasSuenio,
                 Eliminado = observacion.Eliminado
             });
         }
@@ -219,7 +216,7 @@ namespace NutricionWeb.Controllers.Observacion
                     await _observacionServicio.Update(observacionDto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
@@ -241,12 +238,13 @@ namespace NutricionWeb.Controllers.Observacion
                 Codigo = observacion.Codigo,
                 PacienteId = observacion.PacienteId,
                 PacienteStr = observacion.PacienteStr,
-                Fumador = observacion.Fumador,
-                BebeAlcohol = observacion.BebeAlcohol,
-                EstadoCivil = observacion.EstadoCivil,
-                CantidadSuenio = observacion.CantidadSuenio,
-                TuvoHijo = observacion.TuvoHijo,
-                CantidadHijo = observacion.CantidadHijo,
+                Tabaco = observacion.Tabaco,
+                Alcohol = observacion.Alcohol,
+                ActividadFisica = observacion.ActividadFisica,
+                AntecedentesFamiliares = observacion.AntecedentesFamiliares,
+                Medicacion = observacion.Medicacion,
+                RitmoEvacuatorio = observacion.RitmoEvacuatorio,
+                HorasSuenio = observacion.HorasSuenio,
                 Eliminado = observacion.Eliminado
             });
         }
@@ -285,12 +283,13 @@ namespace NutricionWeb.Controllers.Observacion
                 Codigo = observacion.Codigo,
                 PacienteId = observacion.PacienteId,
                 PacienteStr = observacion.PacienteStr,
-                Fumador = observacion.Fumador,
-                BebeAlcohol = observacion.BebeAlcohol,
-                EstadoCivil = observacion.EstadoCivil,
-                CantidadSuenio = observacion.CantidadSuenio,
-                TuvoHijo = observacion.TuvoHijo,
-                CantidadHijo = observacion.CantidadHijo,
+                Tabaco = observacion.Tabaco,
+                Alcohol = observacion.Alcohol,
+                ActividadFisica = observacion.ActividadFisica,
+                AntecedentesFamiliares = observacion.AntecedentesFamiliares,
+                Medicacion = observacion.Medicacion,
+                RitmoEvacuatorio = observacion.RitmoEvacuatorio,
+                HorasSuenio = observacion.HorasSuenio,
                 Eliminado = observacion.Eliminado,
                 Patologias = observacion.Patologias.Select(x => new PatologiaViewModel()
                 {
@@ -326,12 +325,13 @@ namespace NutricionWeb.Controllers.Observacion
                 Codigo = vm.Codigo,
                 PacienteId = vm.PacienteId,
                 PacienteStr = vm.PacienteStr,
-                Fumador = vm.Fumador,
-                BebeAlcohol = vm.BebeAlcohol,
-                EstadoCivil = vm.EstadoCivil,
-                CantidadSuenio = vm.CantidadSuenio,
-                TuvoHijo = vm.TuvoHijo,
-                CantidadHijo = vm.CantidadHijo,
+                Tabaco = vm.Tabaco,
+                ActividadFisica = vm.ActividadFisica,
+                AntecedentesFamiliares = vm.AntecedentesFamiliares,
+                Alcohol = vm.Alcohol,
+                Medicacion = vm.Medicacion,
+                RitmoEvacuatorio = vm.RitmoEvacuatorio,
+                HorasSuenio = vm.HorasSuenio,
                 Eliminado = vm.Eliminado
             };
         }

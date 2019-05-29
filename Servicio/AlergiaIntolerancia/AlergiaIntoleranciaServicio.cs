@@ -79,18 +79,20 @@ namespace Servicio.AlergiaIntolerancia
                 Descripcion = alergia.Descripcion,
                 Codigo = alergia.Codigo,
                 Eliminado = alergia.Eliminado,
-                Observaciones = alergia.Observaciones.Select(p=> new ObservacionDto
+                Observaciones = alergia.Observaciones.Select(x=> new ObservacionDto
                 {
-                    Id = p.Id,
-                    BebeAlcohol = p.BebeAlcohol,
-                    CantidadSuenio = p.CantidadSuenio,
-                    EstadoCivil = p.EstadoCivil,
-                    Fumador = p.Fumador,
-                    CantidadHijo = p.CantidadHijo,
-                    TuvoHijo = p.TuvoHijo,
-                    Eliminado = p.Eliminado,
-                    PacienteId = p.PacienteId,
-                    PacienteStr = p.Paciente.Apellido +" "+ p.Paciente.Nombre
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    PacienteId = x.PacienteId,
+                    PacienteStr = x.Paciente.Apellido + " " + x.Paciente.Nombre,
+                    Tabaco = x.Tabaco,
+                    Alcohol = x.Alcohol,
+                    AntecedentesFamiliares = x.AntecedentesFamiliares,
+                    ActividadFisica = x.ActividadFisica,
+                    RitmoEvacuatorio = x.RitmoEvacuatorio,
+                    Medicacion = x.Medicacion,
+                    HorasSuenio = x.HorasSuenio,
+                    Eliminado = x.Eliminado
                 }).ToList()
             };
         }

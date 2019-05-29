@@ -18,28 +18,30 @@ namespace Servicio.Interface.Observacion
             Alimentos = new List<AlimentoDto>();
         }
 
-        public int Codigo { get; set; }
-
         public long Id { get; set; }
+
+        public int Codigo { get; set; }
 
         public long PacienteId { get; set; }
 
         public string PacienteStr { get; set; }
 
-        public bool Fumador { get; set; }
+        public string ActividadFisica { get; set; }
 
-        public bool BebeAlcohol { get; set; }
+        public string AntecedentesFamiliares { get; set; }
 
-        public string EstadoCivil { get; set; }
+        public string Tabaco { get; set; }
 
-        public bool TuvoHijo { get; set; }
+        public string Alcohol { get; set; }
 
-        public string CantidadHijo { get; set; }
+        public string Medicacion { get; set; }
 
-        public string CantidadSuenio { get; set; }
+        public string HorasSuenio { get; set; }
+
+        public string RitmoEvacuatorio { get; set; }
 
         public bool Eliminado { get; set; }
-        
+
         public List<PatologiaDto> Patologias { get; set; }
         public List<AlergiaIntoleranciaDto> AlergiasIntolerancias { get; set; }
         public List<AlimentoDto> Alimentos { get; set; }

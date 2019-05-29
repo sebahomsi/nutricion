@@ -22,9 +22,11 @@ using Servicio.Interface.PlanAlimenticio;
 using Servicio.Interface.Turno;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -352,7 +354,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         }
 
-        public async Task<ActionResult> ObservacionesParcial(long? id)
+        public async Task<ActionResult> ObservacionesParcial(long? id, bool? reload)
         {
             if (id == null) return RedirectToAction("Error", "Home");
 
@@ -362,7 +364,9 @@ namespace NutricionWeb.Controllers.Paciente
 
             ViewBag.PacienteId = id;
 
-            return PartialView(observacion);
+            var json = new {vista = RenderRazorViewToString("~/Views/Paciente/ObservacionesParcial.cshtml", observacion), reload = reload };
+
+            return Json(json,JsonRequestBehavior.AllowGet);
 
         }
 
@@ -452,5 +456,36 @@ namespace NutricionWeb.Controllers.Paciente
 
             return PartialView(estrategia);
         }
+
+        public async Task<ActionResult> ObservacionesPatologiasParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var dato = await _observacionServicio.GetByPacienteId(id.Value);
+
+            var observacion = Mapper.Map<ObservacionViewModel>(dato);
+
+            ViewBag.PacienteId = id;
+
+            return PartialView(observacion);
+        }
+
+
+        //=======================Metodos privados ======================
+        protected string RenderRazorViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext,
+                    viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View,
+                    ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
     }
 }

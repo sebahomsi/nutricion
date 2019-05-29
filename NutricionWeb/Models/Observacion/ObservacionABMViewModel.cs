@@ -19,22 +19,23 @@ namespace NutricionWeb.Models.Observacion
         [Display(Name = "Paciente")]
         public string PacienteStr { get; set; }
 
-        public bool Fumador { get; set; }
+        [Display(Name = "Actividad Fisica ")]
+        public string ActividadFisica { get; set; }
 
-        [Display(Name = "Bebe Alcohol")]
-        public bool BebeAlcohol { get; set; }
+        [Display(Name = "Antecedentes Familiares")]
+        public string AntecedentesFamiliares { get; set; }
 
-        [Display(Name = "Estado Civil")]
-        public string EstadoCivil { get; set; }
+        public string Tabaco { get; set; }
 
-        [Display(Name = "Tuvo Hijos")]
-        public bool TuvoHijo { get; set; }
+        public string Alcohol { get; set; }
 
-        [Display(Name = "Cantidad de Hijos")]
-        public string CantidadHijo { get; set; }
+        public string Medicacion { get; set; }
 
-        [Display(Name = "Horas que Duerme")]
-        public string CantidadSuenio { get; set; }
+        [Display(Name = "Horas de Sueño")]
+        public string HorasSuenio { get; set; }
+
+        [Display(Name = "Ritmo Evacuatorio")]
+        public string RitmoEvacuatorio { get; set; }
 
         public bool Eliminado { get; set; }
     }

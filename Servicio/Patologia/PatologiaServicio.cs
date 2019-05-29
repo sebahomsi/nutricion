@@ -82,12 +82,13 @@ namespace Servicio.Patologia
                     Codigo = x.Codigo,
                     PacienteId = x.PacienteId,
                     PacienteStr = x.Paciente.Apellido + " " + x.Paciente.Nombre,
-                    Fumador = x.Fumador,
-                    BebeAlcohol = x.BebeAlcohol,
-                    EstadoCivil = x.EstadoCivil,
-                    CantidadSuenio = x.CantidadSuenio,
-                    TuvoHijo = x.TuvoHijo,
-                    CantidadHijo = x.CantidadHijo,
+                    Tabaco = x.Tabaco,
+                    Alcohol = x.Alcohol,
+                    AntecedentesFamiliares = x.AntecedentesFamiliares,
+                    ActividadFisica = x.ActividadFisica,
+                    RitmoEvacuatorio = x.RitmoEvacuatorio,
+                    Medicacion = x.Medicacion,
+                    HorasSuenio = x.HorasSuenio,
                     Eliminado = x.Eliminado
                 }).ToList()
             };

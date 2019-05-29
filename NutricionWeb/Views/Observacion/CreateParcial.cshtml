@@ -9,14 +9,17 @@
 </div>
 
 
-@using (Ajax.BeginForm("CreateParcial", "Observacion", new { }, new AjaxOptions()
+@*@using (Ajax.BeginForm("CreateParcial", "Observacion", new { }, new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "observaciones-Parcial"
+    }, new { enctype = "multipart/form-data" }))*@
+
+@using (Html.BeginForm("CreateParcial","Observacion",FormMethod.Post,new {@id="FormCreate"}))
+
 {
-    HttpMethod = "POST",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "observaciones-Parcial"
-}, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
 
     <div class="form-horizontal">
 
@@ -27,89 +30,106 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EstadoCivil, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AntecedentesFamiliares, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EstadoCivil, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EstadoCivil, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.AntecedentesFamiliares, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AntecedentesFamiliares, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CantidadSuenio, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Tabaco, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CantidadSuenio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CantidadSuenio, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Tabaco, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Tabaco, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Fumador, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Alcohol, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Fumador)
-                    @Html.ValidationMessageFor(model => model.Fumador, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Alcohol, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Alcohol, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BebeAlcohol, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ActividadFisica, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.BebeAlcohol)
-                    @Html.ValidationMessageFor(model => model.BebeAlcohol, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ActividadFisica, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ActividadFisica, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Medicacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Medicacion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Medicacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HorasSuenio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HorasSuenio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HorasSuenio, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TuvoHijo, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RitmoEvacuatorio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.TuvoHijo)
-                    @Html.ValidationMessageFor(model => model.TuvoHijo, "", new { @class = "text-danger" })
-                </div>
+                @Html.EditorFor(model => model.RitmoEvacuatorio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RitmoEvacuatorio, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div id="cantidad" class="form-group" hidden>
-            @Html.LabelFor(model => model.CantidadHijo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CantidadHijo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CantidadHijo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Aceptar" class="btn btn-success" />
+                <input type="submit" id="aceptar" value="Aceptar" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
+
 @Scripts.Render("~/bundles/jqueryval")
 
-<script type="text/javascript">
-    
-    $(function () {
-        console.log("Hello");
-        $("#TuvoHijo").on("change",
-            function () {
-                if ($("#TuvoHijo").is(":checked")) {
-                    $("#cantidad").show();
-                }
-                if ($("#TuvoHijo").is(":unchecked")) {
-                    $("#cantidad").hide();
-                }
-            });
-    });
+<script>
+    $(() => {
+        $("#aceptar").click(e => {
+            e.preventDefault();
 
+            var vm = $("#FormCreate").serialize();
+
+            console.log(vm);
+
+            $.post('@Url.Action("CreateParcial")', $("#FormCreate").serialize() , (json) => {
+
+                console.log(json.reload);
+                console.log(json.vista);
+
+                //if (json.reload) {
+                //    //location.reload();
+                //    console.log("True");
+                //} else {
+                //    //console.log(json.vista);
+                //    //$("#observaciones-Parcial").empty().append(json.vista);
+                //    console.log("False");
+                //}
+
+            });
+
+        });
+    })
 </script>
+
 

@@ -14,17 +14,19 @@ namespace Dominio.Entidades.MetaData
         [Required(ErrorMessage = "Campo Obligatorio")]
         long PacienteId { get; set; }
 
-        bool Fumador { get; set; }
+        string ActividadFisica { get; set; }
 
-        bool BebeAlcohol { get; set; }
+        string AntecedentesFamiliares { get; set; }
 
-        string EstadoCivil { get; set; }
+        string Tabaco { get; set; }
 
-        bool TuvoHijo { get; set; }
+        string Alcohol { get; set; }
 
-        int CantidadHijo { get; set; }
+        string Medicacion { get; set; }
 
-        int CantidadSuenio { get; set; }
+        string HorasSuenio { get; set; }
+
+        string RitmoEvacuatorio { get; set; }
 
         bool Eliminado { get; set; }
     }

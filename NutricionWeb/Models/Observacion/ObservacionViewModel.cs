@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using NutricionWeb.Models.AlergiaIntolerancia;
+﻿using NutricionWeb.Models.AlergiaIntolerancia;
 using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.Patologia;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NutricionWeb.Models.Observacion
 {
@@ -20,31 +17,23 @@ namespace NutricionWeb.Models.Observacion
         [Display(Name = "Paciente")]
         public string PacienteStr { get; set; }
 
-        public bool Fumador { get; set; }
+        [Display(Name = "Actividad Fisica ")]
+        public string ActividadFisica { get; set; }
 
-        [Display(Name = "Fumador")]
-        public string FumadorStr => Fumador ? "SI" : "NO";
+        [Display(Name = "Antecedentes Familiares")]
+        public string AntecedentesFamiliares { get; set; }
 
-        [Display(Name = "Bebe Alcohol")]
-        public bool BebeAlcohol { get; set; }
+        public string Tabaco { get; set; }
 
-        [Display(Name = "Bebe Alcohol")]
-        public string BebeAlcoholStr => BebeAlcohol ? "SI" : "NO";
+        public string Alcohol { get; set; }
 
-        [Display(Name = "Estado Civil")]
-        public string EstadoCivil { get; set; }
+        public string Medicacion { get; set; }
 
-        [Display(Name = "Tuvo Hijos")]
-        public bool TuvoHijo { get; set; }
+        [Display(Name = "Horas de Sueño")]
+        public string HorasSuenio { get; set; }
 
-        [Display(Name = "Tuvo Hijos")]
-        public string TuvoHijoStr => TuvoHijo ? "SI" : "NO";
-
-        [Display(Name = "Cantidad de Hijos")]
-        public string CantidadHijo { get; set; }
-
-        [Display(Name = "Horas que Duerme")]
-        public string CantidadSuenio { get; set; }
+        [Display(Name = "Ritmo Evacuatorio")]
+        public string RitmoEvacuatorio { get; set; }
 
         public bool Eliminado { get; set; }
 
@@ -57,7 +46,5 @@ namespace NutricionWeb.Models.Observacion
         public List<AlergiaIntoleranciaViewModel> AlergiasIntolerancias { get; set; }
 
         public List<AlimentoViewModel> Alimentos { get; set; }
-
-
     }
 }

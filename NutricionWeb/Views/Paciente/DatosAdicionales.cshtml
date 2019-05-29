@@ -21,17 +21,23 @@
 <ul class="nav nav-tabs">
     @if (User.IsInRole("Administrador"))
     {
-        @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista", "Datos Atropometricos", "active")
-        @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
+
+        @AgregarTabs("observaciones", "observaciones-Vista", "Hist. Cilinica", "active")
+        if (Model.TieneObservacion)
+        {
+            @AgregarTabs("patologias", "patologias-Vista", "Patologias", "")
+        }
+        @AgregarTabs("datosAntropometricos", "datosAntropometricos-Vista", "Datos Atropometricos", "")
         @AgregarTabs("datosAnaliticos", "datosAnaliticos-Vista", "Datos Analiticos", "")
+        @AgregarTabs("anamnesis", "anamnesis-Vista", "Anamnesis", "")
+        @AgregarTabs("objetivo", "objetivo-Vista", "Objetivo", "")
+        @AgregarTabs("estrategia", "estrategia-Vista", "Estrategia", "")
+        @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
+        @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
+        @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
     }
-  
-    @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
-    @AgregarTabs("anamnesis", "anamnesis-Vista", "Anamnesis", "")
-    @AgregarTabs("objetivo", "objetivo-Vista", "Objetivo", "")
-    @AgregarTabs("estrategia", "estrategia-Vista", "Estrategia", "")
-    @AgregarTabs("observaciones", "observaciones-Vista", "Observaciones", "")
-    @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
+
+
 </ul>
 
 <div class="tab-content" style="max-width: 100vw;">
@@ -40,14 +46,16 @@
         @AgregarVista("datosAntropometricos-Vista", "datosAntropometricos-Parcial")
         @AgregarVista("planesAlimenticios-Vista", "planesAlimenticios-Parcial")
         @AgregarVista("datosAnaliticos-Vista", "datosAnaliticos-Parcial")
+        @AgregarVista("turnos-Vista", "turnos-Parcial")
+        @AgregarVista("anamnesis-Vista", "anamnesis-Parcial")
+        @AgregarVista("objetivo-Vista", "objetivo-Parcial")
+        @AgregarVista("estrategia-Vista", "estrategia-Parcial")
+        @AgregarVista("observaciones-Vista", "observaciones-Parcial")
+        @AgregarVista("estadisticas-Vista", "estadisticas-Parcial")
+        @AgregarVista("patologias-Vista", "patologias-Parcial")
     }
 
-    @AgregarVista("turnos-Vista", "turnos-Parcial")
-    @AgregarVista("anamnesis-Vista", "anamnesis-Parcial")
-    @AgregarVista("objetivo-Vista", "objetivo-Parcial")
-    @AgregarVista("estrategia-Vista", "estrategia-Parcial")
-    @AgregarVista("observaciones-Vista", "observaciones-Parcial")
-    @AgregarVista("estadisticas-Vista", "estadisticas-Parcial")
+    
 </div>
 
 @section scripts
@@ -158,6 +166,18 @@
             }
         }
 
+        @*var patologias = function () {
+            @if (Model.TieneObservacion) {
+                <text>var url = '@Url.Action("ObservacionesPatologiasParcial")';
+                    $.get(url,
+                        { id: @Model.Id },
+                        function (parcial) {
+                            $("#patologias-Parcial").empty();
+                            $("#patologias-Parcial").append(parcial);
+                        });</text>
+            }
+        }*@
+
         var estadisticas = function() {
 
             var url = '@Url.Action("Index", "Estadisticas")';
@@ -173,7 +193,7 @@
 
             @if (User.IsInRole("Administrador"))
             {
-                @:datosAntropometricos();
+                @:observaciones();
 
                 <text>
                     document.getElementById("datosAntropometricos").addEventListener("click",
@@ -219,6 +239,10 @@
                 function () {
                     observaciones();
                 });
+            //document.getElementById("patologias").addEventListener("click",
+            //    function () {
+            //        patologias();
+            //    });
             document.getElementById("estrategia").addEventListener("click",
                 function () {
                     estrategia();
