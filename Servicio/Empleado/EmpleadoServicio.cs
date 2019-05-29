@@ -31,7 +31,7 @@ namespace Servicio.Empleado
                 Nombre = dto.Nombre,
                 Dni = dto.Dni,
                 Celular = dto.Celular,
-                Direccion = dto.Direccion,
+                Cuit = dto.Cuit,
                 Eliminado = false,
                 FechaNac = dto.FechaNac,
                 Foto = dto.Foto,
@@ -63,7 +63,7 @@ namespace Servicio.Empleado
             empleado.Nombre = dto.Nombre;
             empleado.Dni = dto.Dni;
             empleado.Celular = dto.Celular;
-            empleado.Direccion = dto.Direccion;
+            empleado.Cuit = dto.Cuit;
             empleado.FechaNac = dto.FechaNac;
             empleado.Foto = dto.Foto;
             empleado.Mail = dto.Mail;
@@ -101,7 +101,7 @@ namespace Servicio.Empleado
                     Nombre = x.Nombre,
                     Dni = x.Dni,
                     Celular = x.Celular,
-                    Direccion = x.Direccion,
+                    Cuit = x.Cuit,
                     Eliminado = x.Eliminado,
                     FechaNac = x.FechaNac,
                     Foto = x.Foto,
@@ -127,7 +127,7 @@ namespace Servicio.Empleado
                 Nombre = empleado.Nombre,
                 Dni = empleado.Dni,
                 Celular = empleado.Celular,
-                Direccion = empleado.Direccion,
+                Cuit = empleado.Cuit,
                 Eliminado = empleado.Eliminado,
                 FechaNac = empleado.FechaNac,
                 Foto = empleado.Foto,

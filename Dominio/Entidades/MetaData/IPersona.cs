@@ -19,8 +19,8 @@ namespace Dominio.Entidades.MetaData
         [Index(IsUnique = true)]
         string Dni { get; set; }
 
-        [StringLength(150, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
-        string Direccion { get; set; }
+        [StringLength(15, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
+        string Cuit { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
         [EmailAddress(ErrorMessage = "El campo debe tener formato de mail.")]
@@ -28,6 +28,7 @@ namespace Dominio.Entidades.MetaData
 
         DateTime FechaNac { get; set; }
 
+        [Required(ErrorMessage = "Campo Obligatorio")]
         int Sexo { get; set; }
 
         [StringLength(11, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]

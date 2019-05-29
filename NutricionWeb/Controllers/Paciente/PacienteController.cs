@@ -26,7 +26,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -81,8 +80,7 @@ namespace NutricionWeb.Controllers.Paciente
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
-            var pacientes =
-                await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            var pacientes = await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (pacientes == null) return RedirectToAction("Error", "Home");
 
@@ -94,13 +92,14 @@ namespace NutricionWeb.Controllers.Paciente
                 Nombre = x.Nombre,
                 Celular = x.Celular,
                 Telefono = x.Telefono,
-                Direccion = x.Direccion,
+                Cuit = x.Cuit,
                 Dni = x.Dni,
                 FechaNac = x.FechaNac,
+                FechaAlta = x.FechaAlta,
                 Sexo = x.Sexo,
                 Mail = x.Mail,
                 Eliminado = x.Eliminado,
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).OrderByDescending(fa => fa.FechaAlta).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
 
@@ -127,6 +126,8 @@ namespace NutricionWeb.Controllers.Paciente
                 if (ModelState.IsValid)
                 {
                     var pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+
+                    vm.FechaAlta = DateTime.Now;
 
                     var pacienteDto = CargarDatos(vm, pic);
 
@@ -174,9 +175,10 @@ namespace NutricionWeb.Controllers.Paciente
                 Nombre = paciente.Nombre,
                 Celular = paciente.Celular,
                 Telefono = paciente.Telefono,
-                Direccion = paciente.Direccion,
+                Cuit = paciente.Cuit,
                 Dni = paciente.Dni,
                 FechaNac = paciente.FechaNac,
+                FechaAlta = paciente.FechaAlta,
                 Sexo = paciente.Sexo,
                 Mail = paciente.Mail,
                 Eliminado = paciente.Eliminado,
@@ -226,7 +228,7 @@ namespace NutricionWeb.Controllers.Paciente
                 Nombre = paciente.Nombre,
                 Celular = paciente.Celular,
                 Telefono = paciente.Telefono,
-                Direccion = paciente.Direccion,
+                Cuit = paciente.Cuit,
                 Dni = paciente.Dni,
                 FechaNac = paciente.FechaNac.Date,
                 Sexo = paciente.Sexo,
@@ -283,9 +285,10 @@ namespace NutricionWeb.Controllers.Paciente
                 Nombre = paciente.Nombre,
                 Celular = paciente.Celular,
                 Telefono = paciente.Telefono,
-                Direccion = paciente.Direccion,
+                Cuit = paciente.Cuit,
                 Dni = paciente.Dni,
                 FechaNac = paciente.FechaNac.Date,
+                FechaAlta = paciente.FechaAlta,
                 Sexo = paciente.Sexo,
                 Mail = paciente.Mail,
                 FotoStr = paciente.Foto,
@@ -306,9 +309,10 @@ namespace NutricionWeb.Controllers.Paciente
                 Dni = vm.Dni,
                 Celular = vm.Celular,
                 Telefono = vm.Telefono,
-                Direccion = vm.Direccion,
+                Cuit = vm.Cuit,
                 Sexo = vm.Sexo,
                 FechaNac = vm.FechaNac,
+                FechaAlta = vm.FechaAlta,
                 Foto = pic,
                 EstablecimientoId = vm.EstablecimientoId
             };
@@ -364,9 +368,9 @@ namespace NutricionWeb.Controllers.Paciente
 
             ViewBag.PacienteId = id;
 
-            var json = new {vista = RenderRazorViewToString("~/Views/Paciente/ObservacionesParcial.cshtml", observacion), reload = reload };
+            var json = new { vista = RenderRazorViewToString("~/Views/Paciente/ObservacionesParcial.cshtml", observacion), reload = reload };
 
-            return Json(json,JsonRequestBehavior.AllowGet);
+            return Json(json, JsonRequestBehavior.AllowGet);
 
         }
 

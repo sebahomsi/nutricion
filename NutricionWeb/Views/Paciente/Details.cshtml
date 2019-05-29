@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="titulo-ABM">
-        <h4 class="detail-h4">Paciente</h4>
+        <h4 class="detail-h4">@Html.DisplayFor(model => model.ApyNom)</h4>
     </div>
 
     <hr />
@@ -14,9 +14,9 @@
         <div class="col-md-7">
             <br/>
             <p class="info-style">
-                @Html.DisplayNameFor(model => model.ApyNom):
+                @Html.DisplayNameFor(model => model.FechaAlta):
                 <span class="sub-info">
-                    @Html.DisplayFor(model => model.ApyNom)
+                    @Html.DisplayFor(model => model.FechaAlta)
                 </span>
             </p>
 
@@ -28,9 +28,9 @@
             </p>
 
             <p class="info-style">
-                @Html.DisplayNameFor(model => model.Direccion):
+                @Html.DisplayNameFor(model => model.Cuit):
                 <span class="sub-info">
-                    @Html.DisplayFor(model => model.Direccion)
+                    @Html.DisplayFor(model => model.Cuit)
                 </span>
             </p>
 

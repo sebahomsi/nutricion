@@ -1,4 +1,5 @@
-﻿using Dominio.Entidades.MetaData;
+﻿using System;
+using Dominio.Entidades.MetaData;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +12,8 @@ namespace Dominio.Entidades
     public class Paciente : Persona
     {
         public int Codigo { get; set; }
+
+        public DateTime FechaAlta { get; set; }
 
         public bool TieneObservacion { get; set; }
 

@@ -13,7 +13,7 @@ namespace Dominio.Entidades
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Dni { get; set; }
-        public string Direccion { get; set; }
+        public string Cuit { get; set; }
         public string Mail { get; set; }
         public DateTime FechaNac { get; set; }
         public int Sexo { get; set; }

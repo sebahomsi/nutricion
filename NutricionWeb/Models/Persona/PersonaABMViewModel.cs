@@ -25,8 +25,8 @@ namespace NutricionWeb.Models.Persona
         [Index(IsUnique = true)]
         public string Dni { get; set; }
 
-        [StringLength(150, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
-        public string Direccion { get; set; }
+        [StringLength(15, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
+        public string Cuit { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
         [EmailAddress(ErrorMessage = "El campo {0} debe tener formato de Email.")]
@@ -35,6 +35,7 @@ namespace NutricionWeb.Models.Persona
         [Display(Name = "Fecha de Nacimiento")]
         public DateTime FechaNac { get; set; }
 
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public int Sexo { get; set; }
 
         [StringLength(12, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]

@@ -6,7 +6,9 @@ namespace NutricionWeb.Models.Persona
     public class PersonaViewModel
     {
         public long Id { get; set; }
+
         public string Nombre { get; set; }
+
         public string Apellido { get; set; }
 
         [Display(Name = "Apellido y Nombre")]
@@ -14,7 +16,9 @@ namespace NutricionWeb.Models.Persona
         public string ApyNom => $"{Apellido} {Nombre}";
 
         public string Dni { get; set; }
-        public string Direccion { get; set; }
+
+        public string Cuit { get; set; }
+
         public string Mail { get; set; }
 
         [Display(Name = "Nacimiento")]
@@ -46,8 +50,11 @@ namespace NutricionWeb.Models.Persona
         public string SexoStr => Sexo == 1 ? "Masculino" : "Femenino";
 
         public string Telefono { get; set; }
+
         public string Celular { get; set; }
+
         public string FotoStr { get; set; }
+
         public bool Eliminado { get; set; }
 
         [Display(Name = "Eliminado")]

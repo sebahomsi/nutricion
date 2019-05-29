@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Servicio.Interface.Alimento;
-using Servicio.Interface.DatoAnalitico;
+﻿using Servicio.Interface.DatoAnalitico;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Persona;
 using Servicio.Interface.PlanAlimenticio;
 using Servicio.Interface.Turno;
+using System;
+using System.Collections.Generic;
 
 namespace Servicio.Interface.Paciente
 {
@@ -23,6 +19,7 @@ namespace Servicio.Interface.Paciente
         }
         public int Codigo { get; set; }
 
+        public DateTime FechaAlta { get; set; }
 
         public bool TieneObservacion { get; set; }
 

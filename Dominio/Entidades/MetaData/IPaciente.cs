@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio.Entidades.MetaData
@@ -8,6 +9,9 @@ namespace Dominio.Entidades.MetaData
         [Required]
         [Index("Index_Paciente_Codigo", IsUnique = true)]
         int Codigo { get; set; }
+
+        [Required]
+        DateTime FechaAlta { get; set; }
 
 
         bool TieneObservacion { get; set; }

@@ -41,7 +41,7 @@
     <table class="table">
         <tr class="cabecera-tabla">
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Codigo)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FechaAlta)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().ApyNom)
@@ -56,9 +56,6 @@
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Celular)
             </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().EliminadoStr)
-            </th>
             <th></th>
         </tr>
 
@@ -66,7 +63,7 @@
         {
             <tr onclick="datosAdicionales(@item.Id)" id="@item.Id" onmouseover="oscurecerFila(@item.Id,1)" onmouseout="oscurecerFila(@item.Id,2)">
                 <td>
-                    @Html.DisplayFor(modelItem => item.Codigo)
+                    @Html.DisplayFor(modelItem => item.FechaAltaStr)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ApyNom)
@@ -81,10 +78,6 @@
                     @Html.DisplayFor(modelItem => item.Celular)
                 </td>
 
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.EliminadoStr)
-                </td>
                 <td align="right">
 
                     @if (!item.Eliminado)

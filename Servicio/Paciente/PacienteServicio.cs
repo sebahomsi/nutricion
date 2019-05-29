@@ -27,11 +27,12 @@ namespace Servicio.Paciente
                 Nombre = dto.Nombre,
                 Celular = dto.Celular,
                 Dni = dto.Dni,
-                Direccion = dto.Direccion,
+                Cuit = dto.Cuit,
                 Mail = dto.Mail,
                 Telefono = dto.Telefono,
                 Sexo = dto.Sexo,
                 FechaNac = dto.FechaNac,
+                FechaAlta = dto.FechaAlta,
                 Foto = dto.Foto,
                 Eliminado = false,
                 TieneObservacion = false,
@@ -58,7 +59,7 @@ namespace Servicio.Paciente
             paciente.Nombre = dto.Nombre;
             paciente.Celular = dto.Celular;
             paciente.Dni = dto.Dni;
-            paciente.Direccion = dto.Direccion;
+            paciente.Cuit = dto.Cuit;
             paciente.Mail = dto.Mail;
             paciente.Telefono = dto.Telefono;
             paciente.Sexo = dto.Sexo;
@@ -95,11 +96,12 @@ namespace Servicio.Paciente
                     Nombre = x.Nombre,
                     Celular = x.Celular,
                     Dni = x.Dni,
-                    Direccion = x.Direccion,
+                    Cuit = x.Cuit,
                     Mail = x.Mail,
                     Telefono = x.Telefono,
                     Sexo = x.Sexo,
                     FechaNac = x.FechaNac,
+                    FechaAlta = x.FechaAlta,
                     Foto = x.Foto,
                     Eliminado = x.Eliminado,
                 }).ToListAsync();
@@ -124,11 +126,12 @@ namespace Servicio.Paciente
                 Nombre = paciente.Nombre,
                 Celular = paciente.Celular,
                 Dni = paciente.Dni,
-                Direccion = paciente.Direccion,
+                Cuit = paciente.Cuit,
                 Mail = paciente.Mail,
                 Telefono = paciente.Telefono,
                 Sexo = paciente.Sexo,
                 FechaNac = paciente.FechaNac,
+                FechaAlta = paciente.FechaAlta,
                 Foto = paciente.Foto,
                 Eliminado = paciente.Eliminado,
                 TieneObservacion = paciente.TieneObservacion,
@@ -211,11 +214,12 @@ namespace Servicio.Paciente
                 Nombre = paciente.Nombre,
                 Celular = paciente.Celular,
                 Dni = paciente.Dni,
-                Direccion = paciente.Direccion,
+                Cuit = paciente.Cuit,
                 Mail = paciente.Mail,
                 Telefono = paciente.Telefono,
                 Sexo = paciente.Sexo,
                 FechaNac = paciente.FechaNac,
+                FechaAlta = paciente.FechaAlta,
                 Foto = paciente.Foto,
                 Eliminado = paciente.Eliminado,
                 TieneObservacion = paciente.TieneObservacion,
