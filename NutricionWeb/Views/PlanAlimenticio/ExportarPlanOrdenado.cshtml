@@ -135,7 +135,8 @@
     }
 
     table {
-        border-collapse: collapse
+        border-collapse: collapse;
+        background-color: #F8F8FF;
     }
 
     td {
@@ -237,6 +238,10 @@
         <td>Almuerzo</td>
         @DibujarComidas(Model.Almuerzo)
     </tr>
+    <tr id="opcionalMediodia">
+        <td>Opcional Mediodia</td>
+        @DibujarComidas(Model.OpcionalMediodia)
+    </tr>
     <tr id="merienda">
         <td>Merienda</td>
         @DibujarComidas(Model.Merienda)
@@ -248,6 +253,10 @@
     <tr id="cena">
         <td>Cena</td>
         @DibujarComidas(Model.Cena)
+    </tr>
+    <tr id="opcionalNoche">
+        <td>Opcional Noche</td>
+        @DibujarComidas(Model.OpcionalNoche)
     </tr>
 </table>
 

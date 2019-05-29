@@ -396,7 +396,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
             return new ActionAsPdf("ExportarPlanPdf", new { id = planId })
             {
-                FileName = "PlanAlimenticio" + plan.PacienteStr + ".pdf",
+                FileName = "PlanAlimenticio_" + plan.PacienteStr + ".pdf",
                 PageSize = Rotativa.Options.Size.A4,
                 PageOrientation = Rotativa.Options.Orientation.Landscape,
             };

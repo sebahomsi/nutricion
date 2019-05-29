@@ -18,13 +18,18 @@ namespace Servicio.Interface.PlanAlimenticio
             MediaTarde = new List<ComidaDto>();
             Cena = new List<ComidaDto>();
             Merienda = new List<ComidaDto>();
+            OpcionalMediodia = new List<ComidaDto>();
+            OpcionalNoche = new List<ComidaDto>();
 
         }
         public List<ComidaDto> Desayunos { get; set; }
         public List<ComidaDto> MediaMañana { get; set; }
         public List<ComidaDto> Almuerzo { get; set; }
+        public List<ComidaDto> OpcionalMediodia { get; set; }
         public List<ComidaDto> MediaTarde { get; set; }
         public List<ComidaDto> Cena { get; set; }
+
+        public List<ComidaDto> OpcionalNoche { get; set; }
         public List<ComidaDto> Merienda { get; set; }
 
 

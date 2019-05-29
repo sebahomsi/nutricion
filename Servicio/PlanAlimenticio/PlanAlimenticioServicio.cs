@@ -342,6 +342,12 @@ namespace Servicio.PlanAlimenticio
                         case "Merienda":
                             diasDto.Merienda.Add(comida);
                             break;
+                        case "Opcional Mediodia":
+                            diasDto.OpcionalMediodia.Add(comida);
+                            break;
+                        case "Opcional Noche":
+                            diasDto.OpcionalNoche.Add(comida);
+                            break;
                         default:
                             break;
                     }

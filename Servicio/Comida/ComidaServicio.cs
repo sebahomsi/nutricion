@@ -42,9 +42,18 @@ namespace Servicio.Comida
             };
             Context.Comidas.Add(almuerzo);
 
-            var merienda = new Dominio.Entidades.Comida()
+            var opcional1 = new Dominio.Entidades.Comida()
             {
                 Codigo = codigo + 3,
+                Descripcion = @"Opcional Mediodia",
+                ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
+                DiaId = diaId
+            };
+            Context.Comidas.Add(opcional1);
+
+            var merienda = new Dominio.Entidades.Comida()
+            {
+                Codigo = codigo + 4,
                 Descripcion = @"Merienda",
                 ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
@@ -53,7 +62,7 @@ namespace Servicio.Comida
 
             var mediaTa = new Dominio.Entidades.Comida()
             {
-                Codigo = codigo + 4,
+                Codigo = codigo + 5,
                 Descripcion = @"Media Tarde",
                 ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
@@ -62,12 +71,21 @@ namespace Servicio.Comida
 
             var cena = new Dominio.Entidades.Comida()
             {
-                Codigo = codigo + 5,
+                Codigo = codigo + 6,
                 Descripcion = @"Cena",
                 ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
                 DiaId = diaId
             };
             Context.Comidas.Add(cena);
+
+            var opcional2 = new Dominio.Entidades.Comida()
+            {
+                Codigo = codigo + 7,
+                Descripcion = @"Opcional Noche",
+                ComidasDetalles = new List<Dominio.Entidades.ComidaDetalle>(),
+                DiaId = diaId
+            };
+            Context.Comidas.Add(opcional2);
 
 
             await Context.SaveChangesAsync();
