@@ -143,6 +143,9 @@
 
         $(function() {
 
+            $("#HorarioEntrada").on("input", (e) => {
+                consolo.log(e);
+            });
 
             $("#btn-Estado").click(function () {
                 listaEstado();
@@ -160,7 +163,7 @@
                 });
             }
 
-
+            
 
 
             $(document).on("click",
