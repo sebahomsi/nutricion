@@ -143,8 +143,11 @@
 
         $(function() {
 
-            $("#HorarioEntrada").on("input", (e) => {
-                consolo.log(e);
+            $("#entrada").on("dp.change", (e) => {
+                console.log(e.date._d.getMinutes());
+                var minutos = e.date;
+                minutos._d.setMinutes(e.date._d.getMinutes() + 15);
+                $("#salida").data("DateTimePicker").date(minutos);
             });
 
             $("#btn-Estado").click(function () {
@@ -193,7 +196,7 @@
                 var today = now.getFullYear() + "-" + (month) + "-" + (day);
 
 
-                $("#HorarioEntrada, #HorarioSalida").datetimepicker({
+                $("#entrada, #salida").datetimepicker({
                     //locale: "es",
                     useCurrent: true,
                     minDate: today,

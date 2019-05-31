@@ -368,9 +368,18 @@ namespace NutricionWeb.Controllers.Paciente
 
             ViewBag.PacienteId = id;
 
-            var json = new { vista = RenderRazorViewToString("~/Views/Paciente/ObservacionesParcial.cshtml", observacion), reload = reload };
+            if(reload == null)
+            {
+                return PartialView();
+            }
+            else
+            {
+                var json = new { vista = RenderRazorViewToString("~/Views/Paciente/ObservacionesParcial.cshtml", observacion), reload = reload };
 
-            return Json(json, JsonRequestBehavior.AllowGet);
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+
+            
 
         }
 

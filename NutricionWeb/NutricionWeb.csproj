@@ -830,6 +830,7 @@
     <Content Include="Views\SubGrupoReceta\Edit.cshtml" />
     <Content Include="Views\SubGrupoReceta\Delete.cshtml" />
     <Content Include="Views\SubGrupoReceta\Details.cshtml" />
+    <Content Include="Views\Paciente\ObservacionesPatologiasParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

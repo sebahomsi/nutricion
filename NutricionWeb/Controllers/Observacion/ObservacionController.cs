@@ -114,7 +114,7 @@ namespace NutricionWeb.Controllers.Observacion
                     var datosDto = CargarDatos(vm);
                     datosDto.Codigo = await _observacionServicio.GetNextCode();
 
-                    //await _observacionServicio.Add(datosDto);
+                    await _observacionServicio.Add(datosDto);
                     reload = true;
                 }
                 else

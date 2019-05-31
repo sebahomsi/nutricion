@@ -4,9 +4,6 @@
     ViewBag.Title = "Observación";
 }
 
-<div class="titulo-ABM">
-    <h4 class="create-h4">Observacion</h4>
-</div>
 
 
 @*@using (Ajax.BeginForm("CreateParcial", "Observacion", new { }, new AjaxOptions()
@@ -23,7 +20,6 @@
 
     <div class="form-horizontal">
 
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Codigo)
         @Html.HiddenFor(model => model.PacienteId)
@@ -117,14 +113,14 @@
                 console.log(json.reload);
                 console.log(json.vista);
 
-                //if (json.reload) {
-                //    //location.reload();
-                //    console.log("True");
-                //} else {
-                //    //console.log(json.vista);
-                //    //$("#observaciones-Parcial").empty().append(json.vista);
-                //    console.log("False");
-                //}
+                if (json.reload) {
+                    location.reload();
+                    console.log("True");
+                } else {
+                    console.log(json.vista);
+                    $("#observaciones-Parcial").empty().append(json.vista);
+                    console.log("False");
+                }
 
             });
 
