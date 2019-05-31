@@ -166,7 +166,8 @@
             }
         }
 
-        @*var patologias = function () {
+       
+        var patologias = function () {
             @if (Model.TieneObservacion) {
                 <text>var url = '@Url.Action("ObservacionesPatologiasParcial")';
                     $.get(url,
@@ -176,7 +177,9 @@
                             $("#patologias-Parcial").append(parcial);
                         });</text>
             }
-        }*@
+        }
+        
+
 
         var estadisticas = function() {
 
@@ -239,10 +242,10 @@
                 function () {
                     observaciones();
                 });
-            //document.getElementById("patologias").addEventListener("click",
-            //    function () {
-            //        patologias();
-            //    });
+            document.getElementById("patologias").addEventListener("click",
+                function () {
+                    patologias();
+                });
             document.getElementById("estrategia").addEventListener("click",
                 function () {
                     estrategia();
