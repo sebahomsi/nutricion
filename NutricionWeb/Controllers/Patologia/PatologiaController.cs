@@ -72,6 +72,36 @@ namespace NutricionWeb.Controllers.Patologia
             return RedirectToAction("Index");
         }
 
+
+        public async Task<ActionResult> CreateParcial()
+        {
+            return PartialView(new PatologiaABMViewModel());
+        }
+
+        // POST: Patologia/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(PatologiaABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var patologiaDto = CargarDatos(vm);
+                    patologiaDto.Codigo = await _patologiaServicio.GetNextCode();
+
+                    await _patologiaServicio.Add(patologiaDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("Index");
+        }
+
+
         // GET: Patologia/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {

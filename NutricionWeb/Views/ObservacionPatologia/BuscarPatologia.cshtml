@@ -1,6 +1,17 @@
 ﻿@using PagedList.Mvc
 @model PagedList.IPagedList<NutricionWeb.Models.Patologia.PatologiaViewModel>
 
+    <div id="mensaje" style="color: red;"></div>
+
+@Ajax.ActionLink("Nuevo","CreateParcial","Patologia",new {},new AjaxOptions()
+{
+
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "partialFindPatologia"
+
+},new{@class="btn btn-primary-custom"})
+
 
 <table class="table">
     <tr>
@@ -21,7 +32,7 @@
             </td>
 
             <td>
-                <input type="button" id="seleccionar-patologia" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
+                <input type="button" seleccionar name="@item.Id" class="btn btn-primary" value="Seleccionar" />
             </td>
         </tr>
     }
@@ -32,3 +43,23 @@
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("BuscarPatologia", "ObservacionPatologia", new { page, cadenaBuscar = ViewBag.FilterValue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindPatologia" }))
 </div>
+
+<script>
+    $("input[seleccionar]").click((e) => {
+        let boton = $(e.target);
+        let id = boton.attr("name");
+
+        $.post('@Url.Action("CreateParcial", "ObservacionPatologia")', {observacionId:@ViewBag.ObservacionId ,patologiaId:id}, (json) => {
+            if (json.estado) {
+                boton.removeClass("btn-primary").addClass("btn-primary-custom");
+                boton.val("Seleccionado");
+            } else {
+                $("#mensaje").empty().append(json.mensaje);
+            }
+        });
+
+        
+    });
+
+    
+</script>

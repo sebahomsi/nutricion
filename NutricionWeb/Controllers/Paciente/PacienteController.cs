@@ -370,7 +370,7 @@ namespace NutricionWeb.Controllers.Paciente
 
             if(reload == null)
             {
-                return PartialView();
+                return PartialView(observacion);
             }
             else
             {

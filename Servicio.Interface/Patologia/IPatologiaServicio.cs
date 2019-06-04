@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Servicio.Interface.OpcionDetalle;
 
 namespace Servicio.Interface.Patologia
 {
@@ -13,6 +9,7 @@ namespace Servicio.Interface.Patologia
         Task Update(PatologiaDto dto);
         Task Delete(long id);
         Task<ICollection<PatologiaDto>> Get(bool eliminado, string cadenaBuscar);
+        Task<ICollection<PatologiaDto>> GetbyObservacionId(bool eliminado, string cadenaBuscar, long observacionId);
         Task<PatologiaDto> GetById(long id);
         Task<int> GetNextCode();
     }

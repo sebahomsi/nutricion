@@ -1,3 +1,206 @@
 ﻿@model NutricionWeb.Models.Observacion.ObservacionViewModel
 
-    <h1>agregar vista</h1>
+
+<div id="mensaje" style="color: red;"></div>
+
+<div class="modal fade" id="modal-patologias" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Patologias</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarPatologia" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarPatologia" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindPatologia"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-patologia" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="titulo-ABM">
+    <h4 class="create-h4" style="font-size: 2em;">Patologias</h4>
+</div>
+
+<div class="row">
+    <div class="col-lg-6" align="left">
+        <div class="btn-group">
+            <div class="btn btn-primary-custom" id="levantarModalPatologias">Agregar</div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.Patologias.FirstOrDefault().Descripcion)
+            </th>
+            <th>
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Patologias)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    <button id ="@item.Id" class="btn btn-danger btn-xs pull-right" quitar-patologia >Quitar</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div class="titulo-ABM">
+    <h4 class="create-h4" style="font-size: 2em;">Alergias e Intolerancias</h4>
+</div>
+
+<div class="row">
+    <div class="col-lg-6" align="left">
+        <div class="btn-group">
+            Agregar boton
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Descripcion)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model.AlergiasIntolerancias)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+<div class="titulo-ABM">
+    <h4 class="create-h4" style="font-size: 2em;">Alimentos Rechazados</h4>
+</div>
+
+<div class="row">
+    <div class="col-lg-6" align="left">
+        <div class="btn-group">
+            Agregar boton
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Descripcion)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model.Alimentos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+
+
+<script>
+
+    var obtenerPatologias = (cadenaBuscar) => {
+        var url = '@Url.Action("BuscarPatologia", "ObservacionPatologia")';
+
+        $.get(url, { cadenaBuscar: cadenaBuscar, observacionId:@Model.Id }, (parcial) => {
+            $("#partialFindPatologia").empty().append(parcial);
+        });
+    }
+
+    $(() => {
+
+        $("#levantarModalPatologias").click((e) => {
+            e.preventDefault();
+
+            $("#modal-patologias").modal("show");
+
+            obtenerPatologias("");
+        });
+
+        $("#cancelar-patologia").click((e) => {
+            $("#modal-patologias").modal("hide");
+        });
+       
+        $("#btn-BuscarPatologia").click(() => {
+            obtenerPatologias($("#txt-BuscarPatologia").val());
+        });
+
+        $("button[quitar-patologia]").click((e) => {
+            e.preventDefault();
+            let boton = $(e.target);
+            let id = boton.attr("id");
+            var url = '@Url.Action("QuitarPatologia", "ObservacionPatologia")';
+
+            $.get(url, {observacionId:@Model.Id , patologiaId : id }, (json) => {
+                if (json.estado) {
+                    if (window.parent.patologias) {
+                        window.parent.patologias();
+                    }
+                } else {
+                    $("#mensaje").empty().append(json.mensaje);
+                }
+            });
+
+        });
+
+        $('#modal-patologias').on('hidden.bs.modal',
+            () => {
+                if (window.parent.patologias) {
+                    window.parent.patologias();
+                }
+            });
+
+
+    });
+</script>

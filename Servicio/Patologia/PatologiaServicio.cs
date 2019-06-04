@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dominio.Entidades;
 using Servicio.Interface.Observacion;
 using Servicio.Interface.Patologia;
@@ -99,6 +100,17 @@ namespace Servicio.Patologia
             return await Context.Patologias.AnyAsync()
                 ? await Context.Patologias.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<ICollection<PatologiaDto>> GetbyObservacionId(bool eliminado, string cadenaBuscar, long observacionId)
+        {
+            var observacion = await Context.Observaciones.Include(x=>x.Patologias).FirstOrDefaultAsync(x => x.Id == observacionId);
+
+            var patologiasId = observacion.Patologias.Select(x => new { Id = x.Id}.Id );
+
+            var patologias =  Context.Patologias.Where(x => !patologiasId.Contains(x.Id) && !x.Eliminado && x.Descripcion.Contains(cadenaBuscar));
+
+            return Mapper.Map<ICollection<PatologiaDto>>(patologias);
         }
     }
 }

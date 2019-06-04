@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.ObservacionPatologia;
+﻿using NutricionWeb.Models.ObservacionPatologia;
 using NutricionWeb.Models.Patologia;
 using PagedList;
 using Servicio.Interface.ObservacionPatologia;
 using Servicio.Interface.Patologia;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -26,17 +24,6 @@ namespace NutricionWeb.Controllers.Observacion
             _patologiaServicio = patologiaServicio;
         }
 
-        // GET: ObservacionPatologia
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: ObservacionPatologia/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: ObservacionPatologia/Create
         public async Task<ActionResult> Create(long? observacionId)
@@ -59,12 +46,12 @@ namespace NutricionWeb.Controllers.Observacion
                     await _observacionPatologiaServicio.Add(vm.ObservacionId, vm.PatologiaId);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("Details", "Observacion", new {id = vm.ObservacionId});
+            return RedirectToAction("Details", "Observacion", new { id = vm.ObservacionId });
         }
 
         public async Task<ActionResult> CreateParcial(long? observacionId, long? pacienteId)
@@ -79,45 +66,24 @@ namespace NutricionWeb.Controllers.Observacion
 
         // POST: ObservacionPatologia/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateParcial(ObservacionPatologiaABMViewModel vm)
+        public async Task<ActionResult> CreateParcial(long observacionId, long patologiaId)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _observacionPatologiaServicio.Add(vm.ObservacionId, vm.PatologiaId);
+                    await _observacionPatologiaServicio.Add(observacionId, patologiaId);
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return PartialView(vm);
+                return Json(new { estado = false, mensaje = ex.Message });
             }
-            return RedirectToAction("ObservacionesParcial", "Paciente", new { id = TempData["Paciente"] });
+            return Json(new { estado = true });
+
         }
 
-        // GET: ObservacionPatologia/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ObservacionPatologia/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: ObservacionPatologia/Delete/5
         public async Task<ActionResult> Delete(long observacionId, long patologiaId)
@@ -126,29 +92,15 @@ namespace NutricionWeb.Controllers.Observacion
             return RedirectToAction("Details", "Observacion", new { id = observacionId });
         }
 
-        // POST: ObservacionPatologia/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         //===========================Metodos especiales
-        public async Task<ActionResult> BuscarPatologia(int? page, string cadenaBuscar)
+        public async Task<ActionResult> BuscarPatologia(int? page, string cadenaBuscar, long observacionId)
         {
+            ViewBag.ObservacionId = observacionId;
             var pageNumber = page ?? 1;
             var eliminado = false;
             var patologias =
-                await _patologiaServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _patologiaServicio.GetbyObservacionId(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty, observacionId);
 
             return PartialView(patologias.Select(x => new PatologiaViewModel()
             {
@@ -164,6 +116,19 @@ namespace NutricionWeb.Controllers.Observacion
             var patologia = await _patologiaServicio.GetById(patologiaId);
 
             return Json(patologia, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> QuitarPatologia(long observacionId, long patologiaId)
+        {
+            try
+            {
+                await _observacionPatologiaServicio.Delete(observacionId, patologiaId);
+            }
+            catch (Exception e)
+            {
+                return Json(new { estado = false, mensaje = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { estado = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }
