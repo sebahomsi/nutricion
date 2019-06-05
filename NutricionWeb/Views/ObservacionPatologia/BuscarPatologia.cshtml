@@ -3,14 +3,15 @@
 
     <div id="mensaje" style="color: red;"></div>
 
-@Ajax.ActionLink("Nuevo","CreateParcial","Patologia",new {},new AjaxOptions()
+@Ajax.ActionLink("Nuevo","CreateParcial","Patologia",new {observacionId = @ViewBag.ObservacionId},new AjaxOptions()
 {
 
     HttpMethod = "GET",
     InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "partialFindPatologia"
+    UpdateTargetId = "partialFindPatologia",
+    OnBegin = "hideBuscar"
 
-},new{@class="btn btn-primary-custom"})
+},new{@class="btn btn-primary-custom" ,@style="margin-bottom:5px"})
 
 
 <table class="table">
@@ -45,21 +46,29 @@
 </div>
 
 <script>
+
+    var hideBuscar = () => {
+        console.log("asd");
+        $("#formBuscar").hide();
+    }
+
     $("input[seleccionar]").click((e) => {
         let boton = $(e.target);
         let id = boton.attr("name");
 
-        $.post('@Url.Action("CreateParcial", "ObservacionPatologia")', {observacionId:@ViewBag.ObservacionId ,patologiaId:id}, (json) => {
-            if (json.estado) {
-                boton.removeClass("btn-primary").addClass("btn-primary-custom");
-                boton.val("Seleccionado");
-            } else {
-                $("#mensaje").empty().append(json.mensaje);
-            }
-        });
+        $.post('@Url.Action("CreateParcial", "ObservacionPatologia")',
+            { observacionId: @ViewBag.ObservacionId, patologiaId: id },
+            (json) => {
+                if (json.estado) {
+                    boton.removeClass("btn-primary").addClass("btn-primary-custom");
+                    boton.val("Seleccionado");
+                } else {
+                    $("#mensaje").empty().append(json.mensaje);
+                }
+            });
 
-        
+
     });
 
-    
+
 </script>

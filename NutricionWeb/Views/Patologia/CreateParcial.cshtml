@@ -9,7 +9,7 @@
 </div>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateParcial","Patologia",FormMethod.Post,new {@id="formCreatePatologia"}))
 {
     @Html.AntiForgeryToken()
 
@@ -30,16 +30,48 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Aceptar" class="btn btn-success" />
-                @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+                <input type="submit" value="Aceptar" id="aceptar" class="btn btn-success" />
+                @Ajax.ActionLink("Volver","BuscarPatologia","ObservacionPatologia",new{ observacionId = @ViewBag.ObservacionId },new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "partialFindPatologia",
+                    OnComplete = "showBuscar"
+
+                },new{ @class="btn btn-default"})
             </div>
         </div>
     </div>
 }
 
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+
+    var showBuscar = () => {
+            $("#formBuscar").show();
+        }
+
+    $(() => {
+        $("#aceptar").click((e) => {
+
+            e.preventDefault();
+
+            $.post('@Url.Action("CreateParcial")', $("#formCreatePatologia").serialize(), (json) => {
+                if (json.estado) {
+                    showBuscar();
+                    $.get('@Url.Action("BuscarPatologia","ObservacionPatologia")', {observacionId : @ViewBag.ObservacionId }, (partial) => {
+                        $("#partialFindPatologia").empty().append(partial);
+                    });
+                } else {
+                    $("#partialFindPatologia").empty().append(json.vista);
+                }
+                
+            });
+        });
+    });
+
+</script>
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
 

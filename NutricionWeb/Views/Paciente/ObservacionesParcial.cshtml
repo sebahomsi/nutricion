@@ -69,7 +69,7 @@
 
 </div>
 <p style="margin-top: 15px;">
-    @Ajax.ActionLink("Actualizar","EditParcial","Observacion",new{ id = (long) ViewBag.PacienteId },new AjaxOptions()
+    @Ajax.ActionLink("Actualizar","EditParcial","Observacion",new{ id = @Model.Id},new AjaxOptions()
     {
         HttpMethod = "GET",
         InsertionMode = InsertionMode.Replace,

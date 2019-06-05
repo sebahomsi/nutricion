@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -73,8 +74,9 @@ namespace NutricionWeb.Controllers.Patologia
         }
 
 
-        public async Task<ActionResult> CreateParcial()
+        public async Task<ActionResult> CreateParcial(long? observacionId)
         {
+            ViewBag.ObservacionId = observacionId ?? -1;
             return PartialView(new PatologiaABMViewModel());
         }
 
@@ -96,9 +98,10 @@ namespace NutricionWeb.Controllers.Patologia
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return PartialView(vm);
+
+                return Json(new { estado = false , vista = RenderRazorViewToString("~/View/Patologia/CreateParcial.cshtml", vm)});
             }
-            return RedirectToAction("Index");
+            return Json(new {estado = true});
         }
 
 
@@ -194,6 +197,20 @@ namespace NutricionWeb.Controllers.Patologia
         }
 
         //===========================================================//
+        protected string RenderRazorViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext,
+                    viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View,
+                    ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
+        }
         private PatologiaDto CargarDatos(PatologiaABMViewModel vm)
         {
             return new PatologiaDto()

@@ -17,7 +17,7 @@ namespace Infraestructura.Migrations
 
         protected override void Seed(NutricionDbContext context)
         {
-            //AddEstablecimientos(context);
+            AddEstablecimientos(context);
             //AddGrupos(context);
             //AddSubGrupos(context);
             //AddUnidades(context);
