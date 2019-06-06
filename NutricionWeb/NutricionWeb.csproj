@@ -832,6 +832,7 @@
     <Content Include="Views\SubGrupoReceta\Details.cshtml" />
     <Content Include="Views\Paciente\ObservacionesPatologiasParcial.cshtml" />
     <Content Include="Views\Patologia\CreateParcial.cshtml" />
+    <Content Include="Views\AlergiaIntolerancia\CreateParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

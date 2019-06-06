@@ -2,6 +2,18 @@
 @model PagedList.IPagedList<NutricionWeb.Models.AlergiaIntolerancia.AlergiaIntoleranciaViewModel>
 
 
+<div id="mensaje" style="color: red;"></div>
+
+@Ajax.ActionLink("Nueva","CreateParcial","AlergiaIntolerancia",new {observacionId = @ViewBag.ObservacionId},new AjaxOptions()
+{
+
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "partialFindAlergia",
+    OnBegin = "hideBuscar"
+
+},new{@class="btn btn-primary-custom" ,@style="margin-bottom:5px"})
+
 <table class="table">
     <tr>
 
@@ -21,8 +33,7 @@
             </td>
 
             <td>
-                <input type="button" id="seleccionar-alergia" name="@item.Id" class="btn btn-primary" value="Seleccionar" />
-
+                <input type="button" seleccionar name="@item.Id" class="btn btn-primary" value="Seleccionar" />
             </td>
         </tr>
     }
@@ -33,3 +44,30 @@
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("BuscarAlergia", "ObservacionAlergiaIntolerancia", new { page, cadenaBuscar = ViewBag.FilterValue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindAlergia" }))
 </div>
+
+<script>
+
+    var hideBuscar = () => {
+        $("#formBuscar").hide();
+    }
+
+    $("input[seleccionar]").click((e) => {
+        let boton = $(e.target);
+        let id = boton.attr("name");
+
+        $.post('@Url.Action("CreateParcial", "ObservacionAlergiaIntolerancia")',
+            { observacionId: @ViewBag.ObservacionId, alergiaId: id },
+            (json) => {
+                if (json.estado) {
+                    boton.removeClass("btn-primary").addClass("btn-primary-custom");
+                    boton.val("Seleccionado");
+                } else {
+                    $("#mensaje").empty().append(json.mensaje);
+                }
+            });
+
+
+    });
+
+
+</script>

@@ -78,24 +78,23 @@ namespace NutricionWeb.Controllers.Observacion
             });
         }
 
-        // POST: ObservacionPatologia/Create
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateParcial(ObservacionAlergiaIntoleranciaABMViewModel vm)
+        public async Task<ActionResult> CreateParcial(long observacionId, long alergiaId)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _observacionAlergiaIntoleranciaServicio.Add(vm.ObservacionId, vm.AlergiaId);
+                    await _observacionAlergiaIntoleranciaServicio.Add(observacionId, alergiaId);
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return PartialView(vm);
+                return Json(new { estado = false, mensaje = ex.Message });
             }
-            return RedirectToAction("ObservacionesParcial", "Paciente", new { id = TempData["Paciente"] });
+            return Json(new { estado = true });
         }
 
         // GET: ObservacionAlergiaIntolerancia/Edit/5
@@ -144,12 +143,14 @@ namespace NutricionWeb.Controllers.Observacion
         }
 
         //===========================Metodos especiales
-        public async Task<ActionResult> BuscarAlergia(int? page, string cadenaBuscar)
+        public async Task<ActionResult> BuscarAlergia(int? page, string cadenaBuscar, long observacionId)
         {
-            var pageNumber = page ?? 1;
 
+            ViewBag.ObservacionId = observacionId;
+            var pageNumber = page ?? 1;
+            var eliminado = false;
             var alergias =
-                await _alergiaIntoleranciaServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _alergiaIntoleranciaServicio.GetbyObservacionId(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty, observacionId);
 
             return PartialView(alergias.Select(x => new AlergiaIntoleranciaViewModel()
             {
@@ -165,6 +166,19 @@ namespace NutricionWeb.Controllers.Observacion
             var alergia = await _alergiaIntoleranciaServicio.GetById(alergiaId);
 
             return Json(alergia, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> QuitarAlergia(long observacionId, long alergiaId)
+        {
+            try
+            {
+                await _observacionAlergiaIntoleranciaServicio.Delete(observacionId, alergiaId);
+            }
+            catch (Exception e)
+            {
+                return Json(new { estado = false, mensaje = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { estado = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

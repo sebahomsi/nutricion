@@ -33,13 +33,49 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="cancelar-patologia" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button type="button" id="cancelar-patologia" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="modal-alergias" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Alergias e Intolerancias</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right" id="formBuscar">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarAlergia" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarAlergia" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindAlergia"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-alergia" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!---------------------------------------------------------------------------------------------------->
 
 <div class="titulo-ABM">
     <h4 class="create-h4" style="font-size: 2em;">Patologias</h4>
@@ -70,13 +106,15 @@
                     @Html.DisplayFor(modelItem => item.Descripcion)
                 </td>
                 <td>
-                    <button id ="@item.Id" class="btn btn-danger btn-xs pull-right" quitar-patologia >Quitar</button>
+                    <button id="@item.Id" class="btn btn-danger btn-xs pull-right" quitar-patologia>Quitar</button>
                 </td>
             </tr>
         }
 
     </table>
 </div>
+
+<!---------------------------------------------------------------------------------------------------->
 
 <div class="titulo-ABM">
     <h4 class="create-h4" style="font-size: 2em;">Alergias e Intolerancias</h4>
@@ -85,32 +123,37 @@
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            Agregar boton
+            <div class="btn btn-primary-custom" id="levantarModalAlergias">Agregar</div>
         </div>
     </div>
 </div>
-
+<br />
 <div class="table-responsive">
     <table class="table">
         <tr class="cabecera-tabla">
             <th>
                 @Html.DisplayNameFor(model => model.AlergiasIntolerancias.FirstOrDefault().Descripcion)
             </th>
-
+            <th>
+            </th>
         </tr>
 
         @foreach (var item in Model.AlergiasIntolerancias)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            <button id="@item.Id" class="btn btn-danger btn-xs pull-right" quitar-alergia>Quitar</button>
+        </td>
+    </tr>
         }
 
     </table>
 </div>
 
+<!---------------------------------------------------------------------------------------------------->
 
 <div class="titulo-ABM">
     <h4 class="create-h4" style="font-size: 2em;">Alimentos Rechazados</h4>
@@ -146,7 +189,7 @@
 </div>
 
 
-
+<!---------------------------------------------------------------------------------------------------->
 
 <script>
 
@@ -158,7 +201,17 @@
         });
     }
 
+    var obtenerAlergias = (cadenaBuscar) => {
+        var url = '@Url.Action("BuscarAlergia", "ObservacionAlergiaIntolerancia")';
+
+        $.get(url, { cadenaBuscar: cadenaBuscar, observacionId:@Model.Id }, (parcial) => {
+            $("#partialFindAlergia").empty().append(parcial);
+        });
+    }
+
     $(() => {
+
+        //---------PATOLOGIA
 
         $("#levantarModalPatologias").click((e) => {
             e.preventDefault();
@@ -171,7 +224,7 @@
         $("#cancelar-patologia").click((e) => {
             $("#modal-patologias").modal("hide");
         });
-       
+
         $("#btn-BuscarPatologia").click(() => {
             obtenerPatologias($("#txt-BuscarPatologia").val());
         });
@@ -201,6 +254,50 @@
                 }
             });
 
+        //---------AlergiaIntolerancia
 
+        $("#levantarModalAlergias").click((e) => {
+            e.preventDefault();
+
+            $("#modal-alergias").modal("show");
+
+            obtenerAlergias("");
+        });
+
+        $("#cancelar-alergia").click((e) => {
+            $("#modal-alergias").modal("hide");
+        });
+
+        $("#btn-BuscarAlergia").click(() => {
+            obtenerPatologias($("#txt-BuscarAlergia").val());
+        });
+
+        $("button[quitar-alergia]").click((e) => {
+            e.preventDefault();
+            let boton = $(e.target);
+            let id = boton.attr("id");
+            var url = '@Url.Action("QuitarAlergia", "ObservacionAlergiaIntolerancia")';
+
+            $.get(url, {observacionId:@Model.Id , alergiaId : id }, (json) => {
+                if (json.estado) {
+                    if (window.parent.patologias) {
+                        window.parent.patologias();
+                    }
+                } else {
+                    $("#mensaje").empty().append(json.mensaje);
+                }
+            });
+
+        });
+
+        $('#modal-alergias').on('hidden.bs.modal',
+            () => {
+                if (window.parent.patologias) {
+                    window.parent.patologias();
+                }
+            });
+
+
+        //---------AlimentoRechazado
     });
 </script>

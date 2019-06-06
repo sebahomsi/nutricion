@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Xml;
+using AutoMapper;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.Observacion;
 
@@ -102,6 +103,17 @@ namespace Servicio.AlergiaIntolerancia
             return await Context.AlergiasIntolerancias.AnyAsync()
                 ? await Context.AlergiasIntolerancias.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<ICollection<AlergiaIntoleranciaDto>> GetbyObservacionId(bool eliminado, string cadenaBuscar, long observacionId)
+        {
+            var observacion = await Context.Observaciones.Include(x => x.AlergiasIntolerancias).FirstOrDefaultAsync(x => x.Id == observacionId);
+
+            var AlergiasIntoleranciasId = observacion.AlergiasIntolerancias.Select(x => new { Id = x.Id }.Id);
+
+            var alergias = Context.AlergiasIntolerancias.Where(x => !AlergiasIntoleranciasId.Contains(x.Id) && !x.Eliminado && x.Descripcion.Contains(cadenaBuscar));
+
+            return Mapper.Map<ICollection<AlergiaIntoleranciaDto>>(alergias);
         }
     }
 }

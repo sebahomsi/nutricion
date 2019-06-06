@@ -13,6 +13,8 @@ namespace Servicio.Interface.AlergiaIntolerancia
         Task Update(AlergiaIntoleranciaDto dto);
         Task Delete(long id);
         Task<ICollection<AlergiaIntoleranciaDto>> Get(bool eliminado, string cadenaBuscar);
+
+        Task<ICollection<AlergiaIntoleranciaDto>> GetbyObservacionId(bool eliminado, string cadenaBuscar, long observacionId);
         Task<AlergiaIntoleranciaDto> GetById(long id);
         Task<int> GetNextCode();
     }

@@ -2,6 +2,7 @@
 using PagedList;
 using Servicio.Interface.AlergiaIntolerancia;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -74,6 +75,35 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
             }
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> CreateParcial(long? observacionId)
+        {
+
+            ViewBag.ObservacionId = observacionId ?? -1;
+            return PartialView(new AlergiaIntoleranciaABMViewModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(AlergiaIntoleranciaABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var alergiaIntoleranciaDto = CargarDatos(vm);
+                    alergiaIntoleranciaDto.Codigo = await _alergiaIntoleranciaServicio.GetNextCode();
+
+                    await _alergiaIntoleranciaServicio.Add(alergiaIntoleranciaDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return Json(new { estado = false, vista = RenderRazorViewToString("~/View/AlergiaIntolerancia/CreateParcial.cshtml", vm) });
+            }
+            return Json(new { estado = true });
+        }
+
         [Authorize(Roles = "Administrador, Empleado")]
         // GET: AlergiaIntolerancia/Edit/5
         public async Task<ActionResult> Edit(long? id)
@@ -168,6 +198,22 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
         }
 
         //==============================================//
+
+        protected string RenderRazorViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext,
+                    viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View,
+                    ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
         [Authorize(Roles = "Administrador, Empleado")]
         private AlergiaIntoleranciaDto CargarDatos(AlergiaIntoleranciaABMViewModel vm)
         {
