@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using NutricionWeb.Models.SubGrupoReceta;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -143,7 +144,7 @@ namespace NutricionWeb.Controllers.Opcion
                     var opcionDto = CargarDatos(vm);
                     opcionDto.Codigo = await _opcionServicio.GetNextCode();
 
-                    await _opcionServicio.Add(opcionDto,vm.SubGrupoId);
+                    await _opcionServicio.Add(opcionDto,vm.SubGruposId);
                 }
             }
             catch (Exception ex)
@@ -168,7 +169,16 @@ namespace NutricionWeb.Controllers.Opcion
                 Id = opcion.Id,
                 Codigo = opcion.Codigo,
                 Descripcion = opcion.Descripcion,
-                Eliminado = opcion.Eliminado
+                Eliminado = opcion.Eliminado,
+                SubGruposVm = opcion.SubGruposRecetas.Select(x => new SubGrupoRecetaViewModel()
+                {
+                    Id = x.Id,
+                    Eliminado = x.Eliminado,
+                    Descripcion = x.Descripcion,
+                    Codigo = x.Codigo,
+                    GrupoRecetaStr = x.GrupoRecetaStr,
+                    GrupoRecetaId = x.GrupoRecetaId
+                })
             });
         }
 
@@ -183,7 +193,7 @@ namespace NutricionWeb.Controllers.Opcion
                 {
                     var opcionDto = CargarDatos(vm);
 
-                    await _opcionServicio.Update(opcionDto);
+                    await _opcionServicio.Update(opcionDto, vm.SubGruposId);
                 }
 
             }

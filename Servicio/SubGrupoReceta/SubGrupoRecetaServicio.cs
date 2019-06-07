@@ -100,5 +100,31 @@ namespace Servicio.SubGrupoReceta
         {
             return await Context.SubGruposRecetas.AnyAsync() ? await Context.SubGruposRecetas.MaxAsync(x => x.Codigo) + 1 : 1;
         }
+
+        public async Task QuitarRelacion(long? opcionId, long? subGrupoId)
+        {
+            var subgrupo = await Context.SubGruposRecetas.Include(x=>x.Opciones).FirstOrDefaultAsync(x => x.Id == subGrupoId);
+            var opcion = await Context.Opciones.FirstOrDefaultAsync(x => x.Id == opcionId);
+
+            subgrupo.Opciones.Remove(opcion);
+
+            await Context.SaveChangesAsync();
+
+        }
+
+        public async Task<ICollection<SubGrupoRecetaDto>> GetNotInOpcion(long? opcionId)
+        {
+            var subgrupos = Context.SubGruposRecetas.Include(x => x.Opciones).Include(x=>x.GrupoReceta).Where(x => x.Opciones.All(o => o.Id != opcionId)).ToList();
+
+            return subgrupos.Select(x => new SubGrupoRecetaDto()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Eliminado = x.Eliminado,
+                GrupoRecetaId = x.GrupoRecetaId,
+                GrupoRecetaStr = x.GrupoReceta.Descripcion
+            }).ToList();
+        }
     }
 }

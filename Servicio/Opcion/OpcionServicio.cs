@@ -14,7 +14,7 @@ namespace Servicio.Opcion
 {
     public class OpcionServicio : ServicioBase, IOpcionServicio
     {
-        public async Task<long> Add(OpcionDto dto, long? subGrupoId)
+        public async Task<long> Add(OpcionDto dto, IEnumerable<long?> subGruposId)
         {
             var verify = await VerifyDuplicity(dto);
             if (verify.HasValue) throw new ArgumentException("Ya existe una opcion con esa Descripcion");
@@ -25,11 +25,13 @@ namespace Servicio.Opcion
                 Eliminado = false,             
 
             };
-            if (subGrupoId.HasValue)
+            if (subGruposId.Any())
             {
-                var subGrupo = await Context.SubGruposRecetas.Include(x=>x.Opciones).FirstOrDefaultAsync(x => x.Id == subGrupoId);
-                subGrupo.Opciones.Add(opcion);
-
+                foreach (var id in subGruposId)
+                {
+                    var subGrupo = await Context.SubGruposRecetas.Include(x=>x.Opciones).FirstOrDefaultAsync(x => x.Id == id);
+                    subGrupo?.Opciones.Add(opcion);
+                }
             }
             else
             {
@@ -39,13 +41,22 @@ namespace Servicio.Opcion
             return opcion.Id;
         }
 
-        public async Task Update(OpcionDto dto)
+        public async Task Update(OpcionDto dto, IEnumerable<long?> subGruposId)
         {
             var opcion = await Context.Opciones.FirstOrDefaultAsync(x => x.Id == dto.Id);
 
             if (opcion == null) throw new ArgumentNullException();
 
             opcion.Descripcion = dto.Descripcion;
+
+            if (subGruposId.Any())
+            {
+                foreach (var id in subGruposId)
+                {
+                    var subGrupo = await Context.SubGruposRecetas.Include(x => x.Opciones).FirstOrDefaultAsync(x => x.Id == id);
+                    subGrupo?.Opciones.Add(opcion);
+                }
+            }
 
             await Context.SaveChangesAsync();
         }
@@ -83,7 +94,7 @@ namespace Servicio.Opcion
                     }).ToList()
                 }).ToListAsync();
 
-            return idSub.HasValue ? lista.Where(x => x.SubGruposRecetas.Any(s => x.Id == idSub.Value)).ToList() : lista;
+            return idSub.HasValue ? lista.Where(x => x.SubGruposRecetas.Any(s => s.Id == idSub.Value)).ToList() : lista;
         }
 
         public async Task<OpcionDto> GetById(long id)
@@ -93,6 +104,7 @@ namespace Servicio.Opcion
                 .Include("ComidasDetalles.Comida")
                 .Include("OpcionDetalles.Alimento")
                 .Include("OpcionDetalles.UnidadMedida")
+                .Include(x=>x.SubGruposRecetas)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (opcion == null) throw new ArgumentNullException();
@@ -126,6 +138,13 @@ namespace Servicio.Opcion
                     OpcionStr = t.Opcion.Descripcion,
                     ComidaStr = t.Comida.Descripcion,
                     Eliminado = t.Eliminado
+                }).ToList(),
+                SubGruposRecetas = opcion.SubGruposRecetas.Select(s => new SubGrupoRecetaDto()
+                {
+                    Id = s.Id,
+                    Codigo = s.Codigo,
+                    Descripcion = s.Descripcion,
+                    Eliminado = s.Eliminado
                 }).ToList()
             };
         }

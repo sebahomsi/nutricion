@@ -213,5 +213,33 @@ namespace NutricionWeb.Controllers.SubGrupoReceta
                 Eliminado = vm.Eliminado
             };
         }
+
+        public async Task<ActionResult> BuscarSubGrupos(int? page, string cadenaBuscar, long? opcionId)
+        {
+            var pageNumber = page ?? 1;
+            var eliminado = false;
+            var subgrupos =
+                await _subGrupoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+
+            if (opcionId.HasValue)
+            {
+                subgrupos = await _subGrupoServicio.GetNotInOpcion(opcionId);
+            }
+
+            return PartialView(subgrupos.Select(x => new SubGrupoRecetaViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                GrupoRecetaId = x.GrupoRecetaId,
+                GrupoRecetaStr = x.GrupoRecetaStr,
+                Eliminado = x.Eliminado
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+        }
+
+        public async Task QuitarRelacion(long? opcionId, long? subGrupoId)
+        {
+            await _subGrupoServicio.QuitarRelacion(opcionId, subGrupoId);
+        }
     }
 }

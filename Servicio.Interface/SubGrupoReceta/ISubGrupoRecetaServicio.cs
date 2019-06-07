@@ -11,5 +11,7 @@ namespace Servicio.Interface.SubGrupoReceta
         Task<ICollection<SubGrupoRecetaDto>> Get(bool eliminado, string cadenaBuscar);
         Task<SubGrupoRecetaDto> GetById(long id);
         Task<int> GetNextCode();
+        Task QuitarRelacion(long? opcionId, long? subGrupoId);
+        Task<ICollection<SubGrupoRecetaDto>> GetNotInOpcion(long? opcionId);
     }
 }
