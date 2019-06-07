@@ -68,7 +68,7 @@ namespace NutricionWeb.Controllers.SubGrupoReceta
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty, "Se produjo un error al cargar los datos, revise los campos.");
                 return View(vm);
             }
             return RedirectToAction("Index");

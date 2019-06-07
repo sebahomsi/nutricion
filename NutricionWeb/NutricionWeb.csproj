@@ -836,6 +836,7 @@
     <Content Include="Views\Patologia\CreateParcial.cshtml" />
     <Content Include="Views\AlergiaIntolerancia\CreateParcial.cshtml" />
     <Content Include="Views\Alimento\CreateParcial.cshtml" />
+    <Content Include="Views\SubGrupoReceta\BuscarGrupo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

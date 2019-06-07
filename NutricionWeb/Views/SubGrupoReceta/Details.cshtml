@@ -1,58 +1,39 @@
 ﻿@model NutricionWeb.Models.SubGrupoReceta.SubGrupoRecetaViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>SubGrupoRecetaViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GrupoRecetaId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GrupoRecetaId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GrupoRecetaStr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GrupoRecetaStr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Eliminado)
-        </dd>
-
-    </dl>
+<div class="titulo-ABM">
+    <h4 class="detail-h4">SubGrupos de Recetas</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+
+<div class="row">
+    <hr />
+    <div class="col-md-7">
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.GrupoRecetaStr):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.GrupoRecetaStr)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Descripcion):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Descripcion)
+            </span>
+
+        </p>
+    </div>
+
+</div>
+<p style="margin-top: 15px; margin-left: 10px">
+    @Html.ActionLink("Actualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
 </p>
+

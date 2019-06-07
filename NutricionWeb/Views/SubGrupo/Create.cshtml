@@ -5,7 +5,7 @@
 }
 
 <div class="titulo-ABM">
-    <h4 class="create-h4">Nuevo Registro</h4>
+    <h4 class="create-h4">Nuevo SubGrupo</h4>
 </div>
 
 <!--Modal -->
@@ -50,7 +50,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4 style="margin-left: 17%;">Complete los campos con los datos solicitados.</h4>
 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -104,7 +103,7 @@
 
                 $.get('@Html.Raw(Url.Action("BuscarGrupo", "SubGrupo"))',
                     {
-                        cadenaBuscar: $("#txt-BuscarAlumno").val()
+                        cadenaBuscar: $("#txt-BuscarGrupo").val()
                     },
                     function(listaAlumno) {
                         $("#partialFind").append(listaAlumno);

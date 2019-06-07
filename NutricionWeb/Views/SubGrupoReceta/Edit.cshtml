@@ -4,39 +4,69 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+
+
+
+<div class="modal fade" id="modal-gruposReceta" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Grupo de Receta</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    @*<div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarGrupoReceta" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarGrupoReceta" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>*@
+                    <div class="col-md-12">
+                        <div id="partialFindGrupoReceta"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="titulo-ABM">
+    <h4 class="create-h4">SubGrupo de Receta</h4>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(model => model.GrupoRecetaId)
+    @Html.HiddenFor(model => model.Codigo)
+
     <div class="form-horizontal">
-        <h4>SubGrupoRecetaViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Codigo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GrupoRecetaId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GrupoRecetaId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GrupoRecetaId, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.GrupoRecetaStr, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.GrupoRecetaStr, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.GrupoRecetaStr, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2" align="left">
+                <div id="btn-GrupoReceta" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-gruposReceta" value="Modal BuscarGruposReceta" title="Seleccionar grupo de receta">...</div>
             </div>
         </div>
 
@@ -49,23 +79,57 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Eliminado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Eliminado)
-                    @Html.ValidationMessageFor(model => model.Eliminado, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Aceptar" class="btn btn-success" />
+                @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#btn-GrupoReceta").click(function() {
+                    listaGrupoReceta();
+                }
+            );
+
+            function listaGrupoReceta() {
+                $("#partialFindGrupoReceta").empty();
+
+                $.get('@Html.Raw(Url.Action("BuscarGrupo", "SubGrupoReceta"))',
+                    {
+                        cadenaBuscar: $("#txt-BuscarGrupoReceta").val()
+                    },
+                    function(listaGruposReceta) {
+                        $("#partialFindGrupoReceta").append(listaGruposReceta);
+                    });
+            }
+
+            $(document).on("click",
+                "#seleccionar",
+                function() { //cuando clickeas en la modal boton id "seleccionar" se realiza esta llamada para llenar los campos
+
+                    var url = '@Html.Raw(Url.Action("TraerGrupo", "SubGrupoReceta"))'; //de esta función busca los datos
+
+                    $.get(url,
+                        { grupoId: $(this).attr("name") }, //del objeto seleccionado saca el valor del atributo name (un cochino id)
+                        function(grupo) {
+
+                            $('#GrupoRecetaStr').val(grupo.Descripcion); //aca llena cada caja
+                            $('#GrupoRecetaId').val(grupo.Id);
+                            $('#cancelar').trigger("click");
+                        });
+                });
+        });
+
+
+    </script>
+}
+
+
