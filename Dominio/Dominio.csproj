@@ -51,6 +51,7 @@
     <Compile Include="Entidades\AlergiaIntolerancia.cs" />
     <Compile Include="Entidades\Alimento.cs" />
     <Compile Include="Entidades\Anamnesis.cs" />
+    <Compile Include="Entidades\Comentario.cs" />
     <Compile Include="Entidades\Comida.cs" />
     <Compile Include="Entidades\ComidaDetalle.cs" />
     <Compile Include="Entidades\DatoAnalitico.cs" />

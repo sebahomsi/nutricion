@@ -17,6 +17,7 @@ namespace Servicio.Interface.Opcion
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public long ComidaId { get; set; }
+        public long? ComentarioId { get; set; }
         public string ComidaStr { get; set; }
         public bool Eliminado { get; set; }
         

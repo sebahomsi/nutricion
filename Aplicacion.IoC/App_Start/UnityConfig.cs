@@ -74,6 +74,8 @@ using Servicio.Interface.GrupoReceta;
 using Servicio.GrupoReceta;
 using Servicio.Interface.SubGrupoReceta;
 using Servicio.SubGrupoReceta;
+using Servicio.Interface.Comentario;
+using Servicio.ComentarioServicio;
 
 namespace Aplicacion.IoC
 {
@@ -124,6 +126,8 @@ namespace Aplicacion.IoC
 
             container.RegisterType<IGrupoRecetaServicio, GrupoRecetaServicio>();
             container.RegisterType<ISubGrupoRecetaServicio, SubGrupoRecetaServicio>();
+
+            container.RegisterType<IComentarioServicio, ComentarioServicio>();
 
 
             //esto ya venia
