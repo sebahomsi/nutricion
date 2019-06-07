@@ -12,7 +12,7 @@ using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
 using Unity.Mvc5;
-
+using NutricionWeb.Helpers.SubGrupoReceta;
 
 namespace NutricionWeb
 {
@@ -52,6 +52,7 @@ namespace NutricionWeb
             container.RegisterType<IComboBoxSexo, ComboBoxSexo>();
             container.RegisterType<IComboBoxEstablecimiento, ComboBoxEstablecimiento>();
             container.RegisterType<IComboBoxSubGrupo, ComboBoxSubGrupo>();
+            container.RegisterType<ICmbSubGrupoReceta, CmbSubGrupoReceta>();
 
             Aplicacion.IoC.UnityConfig.RegisterComponents(container);
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

@@ -334,7 +334,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             ViewBag.ComidaId = TempData["ComidaId"];
 
             var opciones =
-                await _opcionServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _opcionServicio.Get(eliminado, null,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return PartialView(opciones.Select(x => new OpcionViewModel()
             {
@@ -351,7 +351,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             var eliminado = false;
 
             var opciones =
-                await _opcionServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _opcionServicio.Get(eliminado, null, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return PartialView(opciones.Select(x => new OpcionViewModel()
             {

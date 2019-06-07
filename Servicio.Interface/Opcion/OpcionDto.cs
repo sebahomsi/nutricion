@@ -11,6 +11,7 @@ namespace Servicio.Interface.Opcion
         {
             OpcionDetalles = new List<OpcionDetalleDto>();
             ComidasDetalles = new List<ComidaDetalleDto>();
+            SubGruposRecetas = new List<SubGrupoRecetaDto>();
         }
         public long Id { get; set; }
         public int Codigo { get; set; }

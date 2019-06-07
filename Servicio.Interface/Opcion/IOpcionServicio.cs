@@ -8,7 +8,7 @@ namespace Servicio.Interface.Opcion
         Task<long> Add(OpcionDto dto,long? subGrupoId);
         Task Update(OpcionDto dto);
         Task Delete(long id);
-        Task<ICollection<OpcionDto>> Get(bool eliminado, string cadenaBuscar);
+        Task<ICollection<OpcionDto>> Get(bool eliminado, long? idSub, string cadenaBuscar);
         Task<OpcionDto> GetById(long id);
         Task<int> GetNextCode();
         Task<List<OpcionDto>> FindRecipeByFoods(List<long> alimentosIds);

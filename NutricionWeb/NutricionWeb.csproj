@@ -309,6 +309,8 @@
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\Persona\ComboBoxSexo.cs" />
     <Compile Include="Helpers\Persona\IComboBoxSexo.cs" />
+    <Compile Include="Helpers\SubGrupoReceta\CmbSubGrupoReceta.cs" />
+    <Compile Include="Helpers\SubGrupoReceta\ICmbSubGrupoReceta.cs" />
     <Compile Include="Helpers\SubGrupo\ComboBoxSubGrupo.cs" />
     <Compile Include="Helpers\SubGrupo\IComboBoxSubGrupo.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

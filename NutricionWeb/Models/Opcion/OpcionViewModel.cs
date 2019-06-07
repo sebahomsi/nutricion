@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.OpcionDetalle;
@@ -24,10 +25,12 @@ namespace NutricionWeb.Models.Opcion
         [Display(Name = "Eliminado")]
         [ScaffoldColumn(false)]
         public string EliminadoStr => Eliminado ? "SI" : "NO";
-        
+
+        public long? SubGrupoRecetaId { get; set; }
 
         public List<OpcionDetalleViewModel> OpcionDetalles { get; set; }
         public List<ComidaDetalleViewModel> ComidasDetalles { get; set; }
+
     }
 
     public class BuscarRecetaViewModel

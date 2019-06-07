@@ -1,4 +1,5 @@
 ﻿using Antlr.Runtime.Misc;
+using NutricionWeb.Helpers.SubGrupoReceta;
 using NutricionWeb.Models.Opcion;
 using NutricionWeb.Models.OpcionDetalle;
 using PagedList;
@@ -19,30 +20,33 @@ namespace NutricionWeb.Controllers.Opcion
     {
         private readonly IOpcionServicio _opcionServicio;
         private readonly IAlimentoServicio _alimentoServicio;
+        private readonly ICmbSubGrupoReceta _cmbSubGrupo;
 
-        public OpcionController(IOpcionServicio opcionServicio, IAlimentoServicio alimentoServicio)
+        public OpcionController(IOpcionServicio opcionServicio, IAlimentoServicio alimentoServicio, ICmbSubGrupoReceta cmbSubGrupo)
         {
             _opcionServicio = opcionServicio;
             _alimentoServicio = alimentoServicio;
+            _cmbSubGrupo = cmbSubGrupo;
         }
 
         // GET: Opcion
-        public async Task<ActionResult> Index(List<long> recetas, int? page, string cadenaBuscar, bool eliminado = false)
+        public async Task<ActionResult> Index(List<long> recetas, int? page, string cadenaBuscar, long? idSub, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
 
-            var opciones =
-                await _opcionServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
-
+            var opciones = await _opcionServicio.Get(eliminado, idSub,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            ViewBag.Cmb = await _cmbSubGrupo.Poblar();
 
             return View(opciones.Select(x => new OpcionViewModel()
             {
                 Id = x.Id,
                 Codigo = x.Codigo,
                 Descripcion = x.Descripcion,
-                Eliminado = x.Eliminado
+                Eliminado = x.Eliminado,
+             
+                
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
@@ -121,7 +125,10 @@ namespace NutricionWeb.Controllers.Opcion
         // GET: Opcion/Create
         public async Task<ActionResult> Create()
         {
-            return View(new OpcionABMViewModel());
+            return View(new OpcionABMViewModel()
+            {
+                SubGrupos = await _cmbSubGrupo.Poblar(),
+            });
         }
 
         // POST: Opcion/Create
@@ -136,12 +143,13 @@ namespace NutricionWeb.Controllers.Opcion
                     var opcionDto = CargarDatos(vm);
                     opcionDto.Codigo = await _opcionServicio.GetNextCode();
 
-                    await _opcionServicio.Add(opcionDto,1);
+                    await _opcionServicio.Add(opcionDto,vm.SubGrupoId);
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
+                vm.SubGrupos = await _cmbSubGrupo.Poblar();
                 return View(vm);
             }
             return RedirectToAction("Index");

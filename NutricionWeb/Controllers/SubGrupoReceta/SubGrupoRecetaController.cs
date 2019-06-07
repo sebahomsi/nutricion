@@ -1,4 +1,5 @@
-﻿using NutricionWeb.Models.GrupoReceta;
+﻿using NutricionWeb.Helpers.SubGrupoReceta;
+using NutricionWeb.Models.GrupoReceta;
 using NutricionWeb.Models.SubGrupoReceta;
 using PagedList;
 using Servicio.Interface.GrupoReceta;
@@ -16,11 +17,13 @@ namespace NutricionWeb.Controllers.SubGrupoReceta
     {
         private readonly ISubGrupoRecetaServicio _subGrupoServicio;
         private readonly IGrupoRecetaServicio _grupoServicio;
+       
 
         public SubGrupoRecetaController(ISubGrupoRecetaServicio subGrupoServicio, IGrupoRecetaServicio grupoServicio)
         {
             _subGrupoServicio = subGrupoServicio;
             _grupoServicio = grupoServicio;
+       
         }
         // GET: SubGrupo
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.OpcionDetalle;
+using Servicio.Interface.SubGrupoReceta;
 
 namespace Servicio.Opcion
 {
@@ -60,20 +61,29 @@ namespace Servicio.Opcion
             await Context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OpcionDto>> Get(bool eliminado, string cadenaBuscar = "")
+        public async Task<ICollection<OpcionDto>> Get(bool eliminado, long? idSub, string cadenaBuscar = "")
         {
             Expression<Func<Dominio.Entidades.Opcion, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar);
 
-            return await Context.Opciones
+            var lista= await Context.Opciones
                 .AsNoTracking()
+                .Include(p=>p.SubGruposRecetas)
                 .Where(expression)
                 .Select(x => new OpcionDto()
                 {
                     Id = x.Id,
                     Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
-                    Eliminado = x.Eliminado
+                    Eliminado = x.Eliminado,
+                    SubGruposRecetas = x.SubGruposRecetas.Select( s =>new SubGrupoRecetaDto() {
+                       Id = s.Id,
+                       Codigo = s.Codigo,
+                       Descripcion = s.Descripcion,
+                       Eliminado = s.Eliminado     
+                    }).ToList()
                 }).ToListAsync();
+
+            return idSub.HasValue ? lista.Where(x => x.SubGruposRecetas.Any(s => x.Id == idSub.Value)).ToList() : lista;
         }
 
         public async Task<OpcionDto> GetById(long id)
