@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using NutricionWeb.Models.MacroNutriente;
 
 namespace NutricionWeb.Models.Alimento
@@ -17,6 +18,7 @@ namespace NutricionWeb.Models.Alimento
         public string Descripcion { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido")]
+        [Display(Name = "SubGrupo")]
         public long SubGrupoId { get; set; }
 
         [Display(Name = "SubGrupo")]
@@ -26,6 +28,8 @@ namespace NutricionWeb.Models.Alimento
         public bool Eliminado { get; set; }
 
         public MacroNutrienteViewModel MacroNutriente { get; set; }
+
+        public IEnumerable<SelectListItem> SubGrupos { get; set; }
 
     }
 }

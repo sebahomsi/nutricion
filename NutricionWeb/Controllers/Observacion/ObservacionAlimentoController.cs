@@ -69,8 +69,8 @@ namespace NutricionWeb.Controllers.Observacion
         // GET: ObservacionAlimento/Create
         public async Task<ActionResult> CreateParcial(long? observacionId, long? pacienteId)
         {
-            ViewBag.Pacienteid = pacienteId.Value;
-            TempData["Paciente"] = pacienteId.Value;
+            ViewBag.Pacienteid = pacienteId ?? -1;
+            TempData["Paciente"] = pacienteId ?? -1;
             return PartialView(new ObservacionAlimentoABMViewModel()
             {
                 ObservacionId = observacionId.Value
@@ -79,22 +79,21 @@ namespace NutricionWeb.Controllers.Observacion
 
         // POST: ObservacionAlimento/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateParcial(ObservacionAlimentoABMViewModel vm)
+        public async Task<ActionResult> CreateParcial(long observacionId, long alimentoId)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _observacionAlimentoServicio.Add(vm.ObservacionId, vm.AlimentoId);
+                    await _observacionAlimentoServicio.Add(observacionId, alimentoId);
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return PartialView(vm);
+                return Json(new { estado = false, mensaje = ex.Message });
             }
-            return RedirectToAction("ObservacionesParcial", "Paciente", new { id = TempData["Paciente"] });
+            return Json(new { estado = true });
         }
 
         // GET: ObservacionAlimento/Edit/5
@@ -143,12 +142,13 @@ namespace NutricionWeb.Controllers.Observacion
         }
 
         //===========================Metodos especiales
-        public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar)
+        public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar, long observacionId)
         {
+            ViewBag.ObservacionId = observacionId;
             var pageNumber = page ?? 1;
             var eliminado = false;
             var alimentos =
-                await _alimentoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _alimentoServicio.GetbyObservacionId(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty, observacionId);
 
             return PartialView(alimentos.Select(x => new AlimentoViewModel()
             {
@@ -164,6 +164,19 @@ namespace NutricionWeb.Controllers.Observacion
             var alimento = await _alimentoServicio.GetById(alimentoId);
 
             return Json(alimento, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> QuitarAlimento(long observacionId, long alimentoId)
+        {
+            try
+            {
+                await _observacionAlimentoServicio.Delete(observacionId, alimentoId);
+            }
+            catch (Exception e)
+            {
+                return Json(new { estado = false, mensaje = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { estado = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

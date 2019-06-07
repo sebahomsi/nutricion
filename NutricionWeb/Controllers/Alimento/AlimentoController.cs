@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using NutricionWeb.Helpers.SubGrupo;
 using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.MacroNutriente;
 using NutricionWeb.Models.SubGrupo;
@@ -22,13 +25,17 @@ namespace NutricionWeb.Controllers.Alimento
         private readonly IAlimentoServicio _alimentoServicio;
         private readonly ISubGrupoServicio _subGrupoServicio;
         private readonly IMacroNutrienteServicio _macroNutrienteServicio;
+        private readonly IComboBoxSubGrupo _comboBoxSubGrupo;
 
-        public AlimentoController(IAlimentoServicio alimentoServicio, ISubGrupoServicio subGrupoServicio, IMacroNutrienteServicio macroNutrienteServicio)
+        public AlimentoController(IAlimentoServicio alimentoServicio, ISubGrupoServicio subGrupoServicio, IMacroNutrienteServicio macroNutrienteServicio, IComboBoxSubGrupo comboBoxSubGrupo)
         {
             _alimentoServicio = alimentoServicio;
             _subGrupoServicio = subGrupoServicio;
             _macroNutrienteServicio = macroNutrienteServicio;
+            _comboBoxSubGrupo = comboBoxSubGrupo;
         }
+
+        
         // GET: Alimento
         [Authorize(Roles = "Administrador, Empleado")]
         public async Task<ActionResult> Index(int? page, string cadenaBuscar,bool eliminado = false)
@@ -81,6 +88,40 @@ namespace NutricionWeb.Controllers.Alimento
                 return View(vm);
             }
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> CreateParcial(long? observacionId)
+        {
+            ViewBag.ObservacionId = observacionId ?? -1;
+            return PartialView(new AlimentoABMViewModel()
+            {
+                SubGrupos = await _comboBoxSubGrupo.Poblar()
+            });
+        }
+
+        // POST: Alimento/Create
+        [Authorize(Roles = "Administrador, Empleado")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(AlimentoABMViewModel vm)
+        {
+            
+            try
+            {
+               
+                    var alimentoDto = CargarDatos(vm);
+                    alimentoDto.Codigo = await _alimentoServicio.GetNextCode();
+
+                    await _alimentoServicio.Add(alimentoDto);
+                
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                vm.SubGrupos = await _comboBoxSubGrupo.Poblar();
+                return Json(new { estado = false, vista = RenderRazorViewToString("~/View/Alimento/CreateParcial.cshtml", vm) });
+            }
+            return Json(new { estado = true });
         }
 
         // GET: Alimento/Edit/5
@@ -275,6 +316,21 @@ namespace NutricionWeb.Controllers.Alimento
             };
         }
 
-        
+        protected string RenderRazorViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext,
+                    viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View,
+                    ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
+
     }
 }

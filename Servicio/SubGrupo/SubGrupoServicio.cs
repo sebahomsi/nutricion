@@ -101,5 +101,11 @@ namespace Servicio.SubGrupo
         {
             return await Context.SubGrupos.AnyAsync() ? await Context.SubGrupos.MaxAsync(x => x.Codigo) + 1 : 1;
         }
+
+        public async Task<string> GetSubGrupoNameById(long? id)
+        {
+            var subGrupo = await Context.SubGrupos.FirstOrDefaultAsync(sg => sg.Id == id);
+            return subGrupo.Descripcion;
+        }
     }
 }

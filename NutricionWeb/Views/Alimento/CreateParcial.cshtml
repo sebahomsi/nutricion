@@ -1,0 +1,161 @@
+﻿@model NutricionWeb.Models.Alimento.AlimentoABMViewModel
+
+@{
+    ViewBag.Title = "Alimento";
+}
+
+<div class="titulo-ABM">
+    <h4 class="create-h4">Nuevo Alimento</h4>
+</div>
+
+
+@using (Html.BeginForm("CreateParcial", "Alimento", FormMethod.Post, new { @id = "formCreateAlimento" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SubGrupoId, new { @class = "control-label col-md-2" })
+        <div class="col-md-4" style="width: 310px">
+            @Html.DropDownListFor(model => model.SubGrupoId, Model.SubGrupos, "Seleccione un SubGrupo", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SubGrupoId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+   
+
+   
+
+    <div class="titulo-ABM">
+        <h4 class="create-h4">MacroNutrientes</h4>
+    </div>
+
+    <div class="row" style="margin-left: 5%;">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.MacroNutriente.HidratosCarbono)
+            @Html.EditorFor(model => model.MacroNutriente.HidratosCarbono, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MacroNutriente.HidratosCarbono, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.MacroNutriente.Grasa)
+            @Html.EditorFor(model => model.MacroNutriente.Grasa, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MacroNutriente.Grasa, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row" style="margin-left: 5%;">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.MacroNutriente.Proteina)
+            @Html.EditorFor(model => model.MacroNutriente.Proteina, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MacroNutriente.Proteina, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.MacroNutriente.Energia)
+            @Html.EditorFor(model => model.MacroNutriente.Energia, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MacroNutriente.Energia, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row" style="margin-left: 5%;">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.MacroNutriente.Calorias)
+            <div class="form-group">
+                <div class="col-md-4" style="width: 310px">
+                    @Html.EditorFor(model => model.MacroNutriente.Calorias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.MacroNutriente.Calorias, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-md-2" align="left">
+                    <div id="btn-Total" class="btn btn-default" type="button">Calcular</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Aceptar" id="aceptar" class="btn btn-success" />
+            @Ajax.ActionLink("Volver", "BuscarAlimento", "ObservacionAlimento", new { observacionId = @ViewBag.ObservacionId }, new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "partialFindAlimento",
+                OnComplete = "showBuscar"
+
+            }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+
+    var showBuscar = () => {
+            $("#formBuscar").show();
+        }
+
+    $(() => {
+        $("#aceptar").click((e) => {
+
+            e.preventDefault();
+
+            $.post('@Url.Action("CreateParcial")', $("#formCreateAlimento").serialize(), (json) => {
+                if (json.estado) {
+                    showBuscar();
+                    $.get('@Url.Action("BuscarAlimento","ObservacionAlimento")', {observacionId : @ViewBag.ObservacionId }, (partial) => {
+                        $("#partialFindAlimento").empty().append(partial);
+                    });
+                } else {
+                    $("#partialFindAlimento").empty().append(json.vista);
+                }
+
+            });
+        });
+    });
+
+    $('#MacroNutriente_Energia,  #MacroNutriente_HidratosCarbono, #MacroNutriente_Grasa, #MacroNutriente_Proteina').on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    $(document).on("click",
+        "#btn-Total",
+        function() {
+
+            var url = '@Html.Raw(Url.Action("CalcularCalorias", "MacroNutriente"))';
+
+            $.get(url,
+                {
+                    prote: $('#MacroNutriente_Proteina').val(),
+                    hc: $('#MacroNutriente_HidratosCarbono').val(),
+                    grasa: $('#MacroNutriente_Grasa').val()
+                },
+                function(total) {
+
+                    $('#MacroNutriente_Calorias').val(total);
+
+                });
+        });
+
+</script>
+
+
+
+
+

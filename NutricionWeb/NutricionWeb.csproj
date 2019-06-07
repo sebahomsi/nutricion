@@ -309,6 +309,8 @@
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\Persona\ComboBoxSexo.cs" />
     <Compile Include="Helpers\Persona\IComboBoxSexo.cs" />
+    <Compile Include="Helpers\SubGrupo\ComboBoxSubGrupo.cs" />
+    <Compile Include="Helpers\SubGrupo\IComboBoxSubGrupo.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AlergiaIntolerancia\AlergiaIntoleranciaABMViewModel.cs" />
     <Compile Include="Models\AlergiaIntolerancia\AlergiaIntoleranciaViewModel.cs" />
@@ -833,6 +835,7 @@
     <Content Include="Views\Paciente\ObservacionesPatologiasParcial.cshtml" />
     <Content Include="Views\Patologia\CreateParcial.cshtml" />
     <Content Include="Views\AlergiaIntolerancia\CreateParcial.cshtml" />
+    <Content Include="Views\Alimento\CreateParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,6 +7,7 @@ using NutricionWeb.Helpers.Persona;
 using NutricionWeb.Models;
 using System.Web;
 using System.Web.Mvc;
+using NutricionWeb.Helpers.SubGrupo;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
@@ -50,6 +51,7 @@ namespace NutricionWeb
 
             container.RegisterType<IComboBoxSexo, ComboBoxSexo>();
             container.RegisterType<IComboBoxEstablecimiento, ComboBoxEstablecimiento>();
+            container.RegisterType<IComboBoxSubGrupo, ComboBoxSubGrupo>();
 
             Aplicacion.IoC.UnityConfig.RegisterComponents(container);
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

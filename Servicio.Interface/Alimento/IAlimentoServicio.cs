@@ -13,8 +13,11 @@ namespace Servicio.Interface.Alimento
         Task Update(AlimentoDto dto);
         Task Delete(long id);
         Task<ICollection<AlimentoDto>> Get(bool eliminado, string cadenaBuscar);
+        Task<ICollection<AlimentoDto>> GetbyObservacionId(bool eliminado, string cadenaBuscar, long observacionId);
         Task<AlimentoDto> GetById(long id);
         Task<int> GetNextCode();
         Task<ICollection<AlimentoDto>> GetFoodJson(string term);
+
+        
     }
 }

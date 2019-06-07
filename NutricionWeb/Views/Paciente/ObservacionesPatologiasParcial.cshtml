@@ -75,6 +75,42 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-alimentos" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Alimentos Rechazados</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right" id="formBuscar">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarAlimento" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarAlimento" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindAlimento"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-alimento" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!---------------------------------------------------------------------------------------------------->
 
 <div class="titulo-ABM">
@@ -162,18 +198,20 @@
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            Agregar boton
+            <div class="btn btn-primary-custom" id="levantarModalAlimento">Agregar</div>
         </div>
     </div>
 </div>
-
+<br />
 <div class="table-responsive">
     <table class="table">
         <tr class="cabecera-tabla">
             <th>
                 @Html.DisplayNameFor(model => model.Alimentos.FirstOrDefault().Descripcion)
             </th>
-
+            <th>
+                
+            </th>
         </tr>
 
         @foreach (var item in Model.Alimentos)
@@ -181,6 +219,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    <button id="@item.Id" class="btn btn-danger btn-xs pull-right" quitar-alimento>Quitar</button>
                 </td>
             </tr>
         }
@@ -206,6 +247,14 @@
 
         $.get(url, { cadenaBuscar: cadenaBuscar, observacionId:@Model.Id }, (parcial) => {
             $("#partialFindAlergia").empty().append(parcial);
+        });
+    }
+
+    var obtenerAlimentos = (cadenaBuscar) => {
+        var url = '@Url.Action("BuscarAlimento", "ObservacionAlimento")';
+
+        $.get(url, { cadenaBuscar: cadenaBuscar, observacionId:@Model.Id }, (parcial) => {
+            $("#partialFindAlimento").empty().append(parcial);
         });
     }
 
@@ -299,5 +348,46 @@
 
 
         //---------AlimentoRechazado
+
+        $("#levantarModalAlimento").click((e) => {
+            e.preventDefault();
+
+            $("#modal-alimentos").modal("show");
+
+            obtenerAlimentos("");
+        });
+
+        $("#cancelar-alimento").click((e) => {
+            $("#modal-alimentos").modal("hide");
+        });
+
+        $("#btn-BuscarAlimento").click(() => {
+            obtenerPatologias($("#txt-BuscarAlimento").val());
+        });
+
+        $("button[quitar-alimento]").click((e) => {
+            e.preventDefault();
+            let boton = $(e.target);
+            let id = boton.attr("id");
+            var url = '@Url.Action("QuitarAlimento", "ObservacionAlimento")';
+
+            $.get(url, {observacionId:@Model.Id , alimentoId : id }, (json) => {
+                if (json.estado) {
+                    if (window.parent.patologias) {
+                        window.parent.patologias();
+                    }
+                } else {
+                    $("#mensaje").empty().append(json.mensaje);
+                }
+            });
+
+        });
+
+        $('#modal-alimentos').on('hidden.bs.modal',
+            () => {
+                if (window.parent.patologias) {
+                    window.parent.patologias();
+                }
+            });
     });
 </script>

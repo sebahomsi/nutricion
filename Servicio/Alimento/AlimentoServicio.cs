@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Servicio.Alimento
 {
@@ -131,11 +132,43 @@ namespace Servicio.Alimento
                 }).Take(5).ToListAsync();
         }
 
+        
+
         public async Task<int> GetNextCode()
         {
             return await Context.Alimentos.AnyAsync()
                 ? await Context.Alimentos.MaxAsync(x => x.Codigo) + 1
                 : 1;
+        }
+
+        public async Task<ICollection<AlimentoDto>> GetbyObservacionId(bool eliminado, string cadenaBuscar, long observacionId)
+        {
+            var observacion = await Context.Observaciones.Include(x => x.Alimentos).FirstOrDefaultAsync(x => x.Id == observacionId);
+
+            var AimentosId = observacion.Alimentos.Select(x => new { Id = x.Id }.Id);
+
+            var alimentos = Context.Alimentos.Where(x => !AimentosId.Contains(x.Id) && !x.Eliminado && x.Descripcion.Contains(cadenaBuscar));
+
+            var a = alimentos.Select(x => new AlimentoDto()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Eliminado = x.Eliminado,
+                SubGrupoId = x.SubGrupoId,
+                SubGrupoStr = x.SubGrupo.Descripcion,
+                MacroNutriente = new MacroNutrienteDto()
+                {
+                    Id = x.MacroNutriente.Id,
+                    HidratosCarbono = x.MacroNutriente.HidratosCarbono,
+                    Grasa = x.MacroNutriente.Grasa,
+                    Proteina = x.MacroNutriente.Proteina,
+                    Energia = x.MacroNutriente.Energia,
+                    Calorias = x.MacroNutriente.Calorias
+                }
+            }).ToList();
+
+            return a;
         }
     }
 }
