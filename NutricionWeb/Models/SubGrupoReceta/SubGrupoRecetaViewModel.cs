@@ -1,5 +1,6 @@
 ﻿using NutricionWeb.Models.Opcion;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace NutricionWeb.Models.SubGrupoReceta
 {
@@ -16,6 +17,7 @@ namespace NutricionWeb.Models.SubGrupoReceta
 
         public long GrupoRecetaId { get; set; }
 
+        [DisplayName("Grpupo de Receta")]
         public string GrupoRecetaStr { get; set; }
 
         public string Descripcion { get; set; }
