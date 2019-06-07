@@ -31,7 +31,7 @@ namespace NutricionWeb.Controllers.Pago
 
             ViewBag.Eliminado = eliminado;
 
-            var pagos =await _pagoServicio.GetByDate(DateTime.Today, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            var pagos =await _pagoServicio.GetByDate(DateTime.Today,DateTime.Today, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (pagos == null) return HttpNotFound();
 
             return View(pagos.Select(x=>new PagoViewModel()
@@ -47,19 +47,21 @@ namespace NutricionWeb.Controllers.Pago
             }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
-        public async Task<ActionResult> IndexComplete(int? page, string cadenaBuscar,string fecha, bool eliminado)
+        public async Task<ActionResult> IndexComplete(int? page, string cadenaBuscar,string fecha, bool eliminado,string hasta)
         {
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
             var fechaD = DateTime.Now.Date;
+            var fechaH = DateTime.Now.Date;
 
             if (!string.IsNullOrEmpty(fecha))
             {
                 fechaD = DateTime.Parse(fecha);
+                fechaH = DateTime.Parse(hasta);
             }
 
-            var pagos = await _pagoServicio.GetByDate(fechaD, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+            var pagos = await _pagoServicio.GetByDate(fechaD,fechaH,eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (pagos == null) return HttpNotFound();
             ViewBag.Total = pagos.Sum(x => x.Monto);
             return PartialView(pagos.Select(x => new PagoViewModel()

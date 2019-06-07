@@ -12,7 +12,7 @@ namespace Servicio.Interface.Pago
         Task Update(PagoDto dto);
         Task Delete(long id);
         Task<ICollection<PagoDto>> Get(bool eliminado, string cadenaBuscar);
-        Task<ICollection<PagoDto>> GetByDate(DateTime fecha, bool eliminado, string cadenaBuscar);
+        Task<ICollection<PagoDto>> GetByDate(DateTime fecha, DateTime fechaH, bool eliminado, string cadenaBuscar);
         Task<PagoDto> GetById(long id);
         Task<int> GetNextCode();
     }
