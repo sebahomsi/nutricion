@@ -64,6 +64,8 @@
     <Compile Include="AutoMapper\DatoAntropometricoProfile.cs" />
     <Compile Include="AutoMapper\PlanAlimenticioProfile.cs" />
     <Compile Include="AutoMapper\TurnoProfile.cs" />
+    <Compile Include="Comentario\ComentarioDto.cs" />
+    <Compile Include="Comentario\IComentarioServicio.cs" />
     <Compile Include="ComidaDetalle\ComidaDetalleDto.cs" />
     <Compile Include="ComidaDetalle\IComidaDetalleServicio.cs" />
     <Compile Include="Comida\ComidaDto.cs" />

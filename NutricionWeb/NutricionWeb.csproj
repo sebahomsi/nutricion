@@ -319,6 +319,7 @@
     <Compile Include="Models\Alimento\AlimentoABMViewModel.cs" />
     <Compile Include="Models\Alimento\AlimentoViewModel.cs" />
     <Compile Include="Models\Anamnesis\AnamnesisViewModel.cs" />
+    <Compile Include="Models\Comentario\ComentarioViewModel.cs" />
     <Compile Include="Models\ComidaDetalle\ComidaDetalleViewModel.cs" />
     <Compile Include="Models\Comida\ComidaViewModel.cs" />
     <Compile Include="Models\DatoAnalitico\DatoAnaliticoABMViewModel.cs" />
