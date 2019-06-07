@@ -1,45 +1,81 @@
-﻿@model IEnumerable<NutricionWeb.Models.GrupoReceta.GrupoRecetaViewModel>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<NutricionWeb.Models.GrupoReceta.GrupoRecetaViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Eliminado)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Eliminado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Grupos de Recetas</h4>
+</div>
 
-</table>
+<div class="row">
+    <div class="col-lg-6" align="left">
+        <div class="btn-group">
+            @Html.ActionLink("Nuevo", "Create", new { }, new { @class = "btn btn-primary-custom1" })
+
+            @if (@ViewBag.Eliminado == false)
+            {
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = true }, new { @class = "btn btn-primary-custom" })
+
+            }
+            else
+            {
+                @Html.ActionLink("Ver Eliminados", "Index", new { eliminado = false }, new { @class = "btn btn-primary-custom" })
+
+            }
+        </div>
+    </div>
+    <div class="col-lg-6" align="right">
+        <form class="navbar-form navbar-right">
+            @using (Html.BeginForm("Index", "GrupoReceta", FormMethod.Get))
+            {
+                <form class="form-group-lg">
+                    @Html.TextBox("CadenaBuscar", ViewBag.FilterValue as string, new { placeholder = "Ingrese una cadena...", @class = "form-control", autocomplete = "off" })
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
+            }
+        </form>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td align="right">
+                    @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                    @if (item.Eliminado)
+                    {
+                        @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
+
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div align="center">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Grupo", new { page, cadenaBuscar = ViewBag.FilterValue }))
+</div>
+
