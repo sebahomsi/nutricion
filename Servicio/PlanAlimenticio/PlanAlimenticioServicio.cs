@@ -46,7 +46,9 @@ namespace Servicio.PlanAlimenticio
                 PacienteId = dto.PacienteId,
                 Comentarios = dto.Comentarios,
                 Eliminado = false,
-                TotalCalorias = 0
+                TotalCalorias = 0,
+                ComentarioPacienteOP = string.Empty
+                
             };
 
             Context.PlanesAlimenticios.Add(plan);
@@ -64,6 +66,7 @@ namespace Servicio.PlanAlimenticio
             plan.Motivo = dto.Motivo;
             plan.PacienteId = dto.PacienteId;
             plan.Comentarios = dto.Comentarios;
+            plan.ComentarioPacienteOP = dto.ComentarioPacienteOP;
 
             await Context.SaveChangesAsync();
         }
@@ -93,7 +96,10 @@ namespace Servicio.PlanAlimenticio
                     PacienteStr = x.Paciente.Apellido +" "+ x.Paciente.Nombre,
                     Comentarios = x.Comentarios,
                     Eliminado = x.Eliminado,
-                    TotalCalorias = x.TotalCalorias
+                    TotalCalorias = x.TotalCalorias,
+                    ComentarioPacienteOP = x.ComentarioPacienteOP,
+
+
                 }).ToListAsync();
         }
 
@@ -118,6 +124,7 @@ namespace Servicio.PlanAlimenticio
                 Comentarios = plan.Comentarios,
                 Eliminado = plan.Eliminado,
                 TotalCalorias = plan.TotalCalorias,
+                ComentarioPacienteOP =plan.ComentarioPacienteOP,
                 Dias = plan.Dias.Select(x=> new DiaDto()
                 {
                     Id = x.Id,
@@ -198,6 +205,7 @@ namespace Servicio.PlanAlimenticio
                 Codigo = GetNextCode("Plan"),
                 Comentarios = planAjeno.Comentarios,
                 TotalCalorias = planAjeno.TotalCalorias,
+                ComentarioPacienteOP = planAjeno.ComentarioPacienteOP,
                 Dias = planAjeno.Dias.Select(x => new Dominio.Entidades.Dia()
                 {
                     Codigo = GetNextCode("Dia"),

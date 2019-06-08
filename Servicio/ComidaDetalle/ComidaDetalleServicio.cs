@@ -4,7 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Servicio.Interface.Comida;
 using Servicio.Interface.ComidaDetalle;
+using Servicio.Interface.Opcion;
+using Servicio.Interface.OpcionDetalle;
 
 namespace Servicio.ComidaDetalle
 {
@@ -92,6 +95,9 @@ namespace Servicio.ComidaDetalle
                 .AsNoTracking()
                 .Include("Comida")
                 .Include("Opcion")
+                .Include("Opcion.OpcionDetalles")
+                .Include("Opcion.OpcionDetalles.Alimento")
+                .Include("Opcion.OpcionDetalles.UnidadMedida")
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (detalle == null) throw new ArgumentNullException();
@@ -105,7 +111,28 @@ namespace Servicio.ComidaDetalle
                 ComidaStr = detalle.Comida.Descripcion,
                 OpcionId = detalle.OpcionId,
                 OpcionStr = detalle.Opcion.Descripcion,
-                Eliminado = detalle.Eliminado
+                Eliminado = detalle.Eliminado,
+                Opcion = new OpcionDto()
+                {
+                    Id = detalle.Opcion.Id,
+                    Codigo = detalle.Opcion.Codigo,
+                    Descripcion = detalle.Opcion.Descripcion,
+                    ComidaStr = detalle.Comida.Descripcion,
+                    Eliminado = detalle.Opcion.Eliminado,
+                    OpcionDetalles = detalle.Opcion.OpcionDetalles.Select(x=> new OpcionDetalleDto()
+                    {
+                        Id = x.Id,
+                        Codigo = x.Codigo,
+                        Eliminado = x.Eliminado,
+                        OpcionId = x.OpcionId,
+                        OpcionStr = x.Opcion.Descripcion,
+                        Cantidad = x.Cantidad,
+                        UnidadMedidaId = x.UnidadMedidaId,
+                        AlimentoId = x.AlimentoId,
+                        AlimentoStr = x.Alimento.Descripcion,
+                        UnidadMedidaStr = x.UnidadMedida.Descripcion
+                    }).ToList()
+                }
             };
         }
 

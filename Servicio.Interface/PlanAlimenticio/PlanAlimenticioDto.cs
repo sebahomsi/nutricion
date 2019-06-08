@@ -22,6 +22,8 @@ namespace Servicio.Interface.PlanAlimenticio
         public DateTime Fecha { get; set; }
         public string Comentarios { get; set; }
         public bool Eliminado { get; set; }
+        public string ComentarioPacienteOP { get; set; }
+
 
         public int TotalCalorias { get; set; }
 

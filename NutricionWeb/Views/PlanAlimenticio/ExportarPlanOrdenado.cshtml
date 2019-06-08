@@ -134,19 +134,20 @@
         margin-bottom: 5px;
     }
 
-    table {
+    .tabla {
         border-collapse: collapse;
         background-color: #F8F8FF;
     }
 
-    td {
+    .td {
         border: 1px solid #000;
         width: 12.5%;
     }
 
-    th {
+    .th {
         border: 1px solid #000;
         width: 12.5%;
+        text-align: center;
     }
 </style>
 
@@ -158,12 +159,16 @@
     {
         if (Model.Desayunos.Last().DiaStr == comida.DiaStr)
         {
-            <td comidaColumna id="@comida.DiaStr@comida.Descripcion">
+            <td class="td" comidaColumna id="@comida.DiaStr@comida.Descripcion">
                 @foreach (var detalle in comida.ComidasDetalles)
                 {
-                    <a onclick="detalle(@comida.Id)">@detalle.OpcionStr .</a>
-                    <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                    <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
+                    if (!string.IsNullOrEmpty(detalle.Comentario))
+                    {
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                    <br />
 
                 }
                 @if (comida.ComidasDetalles.Count == 0)
@@ -183,12 +188,18 @@
         }
         else
         {
-            <td comidaColumna id="@comida.DiaStr@comida.Descripcion">
+            <td class="td" comidaColumna id="@comida.DiaStr@comida.Descripcion">
                 @foreach (var detalle in comida.ComidasDetalles)
                 {
-                    <a onclick="detalle(@comida.Id)">@detalle.OpcionStr .</a>
-                    <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                    <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
+
+                    if (!string.IsNullOrEmpty(detalle.Comentario))
+                    {
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                    <br />
+
                 }
 
                 @if (comida.ComidasDetalles.Count == 0)
@@ -211,51 +222,52 @@
     }
 }
 
-
-<h2>ExportarPlanOrdenado</h2>
-<table>
+<div class="titulo-ABM" style="text-align: center;">
+    <h4 class="create-h4" style="font-size: 2.3em">Plan Alimenticio - @ViewBag.Paciente</h4>
+</div>
+<table class="tabla">
     <tr>
         <th style="border: none;"></th>
-        <th>Lunes</th>
-        <th>Martes</th>
-        <th>Miercoles</th>
-        <th>Jueves</th>
-        <th>Viernes</th>
-        <th>Sabado</th>
-        <th>Domingo</th>
+        <th class="th">Lunes</th>
+        <th class="th">Martes</th>
+        <th class="th">Miercoles</th>
+        <th class="th">Jueves</th>
+        <th class="th">Viernes</th>
+        <th class="th">Sabado</th>
+        <th class="th">Domingo</th>
 
     </tr>
 
     <tr id="desayuno">
-        <td>Desayuno</td>
+        <td class="td">Desayuno</td>
         @DibujarComidas(Model.Desayunos)
     </tr>
     <tr id="mediaMañana">
-        <td>Media Mañana</td>
+        <td class="td">Media Mañana</td>
         @DibujarComidas(Model.MediaMañana)
     </tr>
     <tr id="almuerzo">
-        <td>Almuerzo</td>
+        <td class="td">Almuerzo</td>
         @DibujarComidas(Model.Almuerzo)
     </tr>
     <tr id="opcionalMediodia">
-        <td>Opcional Mediodia</td>
+        <td class="td">Opcional Mediodia</td>
         @DibujarComidas(Model.OpcionalMediodia)
     </tr>
     <tr id="merienda">
-        <td>Merienda</td>
+        <td class="td">Merienda</td>
         @DibujarComidas(Model.Merienda)
     </tr>
     <tr id="mediaTarde">
-        <td>Media tarde</td>
+        <td class="td">Media tarde</td>
         @DibujarComidas(Model.MediaTarde)
     </tr>
     <tr id="cena">
-        <td>Cena</td>
+        <td class="td">Cena</td>
         @DibujarComidas(Model.Cena)
     </tr>
     <tr id="opcionalNoche">
-        <td>Opcional Noche</td>
+        <td class="td">Opcional Noche</td>
         @DibujarComidas(Model.OpcionalNoche)
     </tr>
 </table>
@@ -273,7 +285,7 @@
             $("#modal-detalle").modal("show");
 
             $.get('@Url.Action("DetalleComida", "Comida")',
-                { comidaId: id },
+                { detalleId: id },
                 (parcial) => {
                     $("#partialFindDetalleComida").empty().append(parcial);
                 });

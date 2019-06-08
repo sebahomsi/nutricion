@@ -26,7 +26,7 @@ namespace NutricionWeb.Models.Opcion
         [ScaffoldColumn(false)]
         public string EliminadoStr => Eliminado ? "SI" : "NO";
 
-        public long? SubGrupoRecetaId { get; set; }
+ 
 
         public List<OpcionDetalleViewModel> OpcionDetalles { get; set; }
         public List<ComidaDetalleViewModel> ComidasDetalles { get; set; }

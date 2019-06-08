@@ -18,6 +18,7 @@ namespace Dominio.Entidades
         public string Comentarios { get; set; }
         public bool Eliminado { get; set; }
 
+        public string ComentarioPacienteOP { get; set; }          
         public int TotalCalorias { get; set; }
 
         //Propiedades de Navegacion

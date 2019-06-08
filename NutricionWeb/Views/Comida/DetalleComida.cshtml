@@ -1,16 +1,57 @@
-﻿@model NutricionWeb.Models.Comida.ComidaViewModel
+﻿@model NutricionWeb.Models.ComidaDetalle.ComidaDetalleViewModel
 
+<span id="mensaje" class="text-danger"></span>
 
-@foreach (var opcion in Model.ComidasDetalles)
-{
-    foreach (var receta in opcion.Opcion.OpcionDetalles)
+@foreach (var opcionDetalle in Model.Opcion.OpcionDetalles)
     {
-        <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+        <p style="font-size: 12px; margin: 0; color: black;">@opcionDetalle.AlimentoStr: @opcionDetalle.CantidadMostrar</p>
     }
-    <p>Opcion: @opcion.OpcionStr</p>
-    <p>Comentario: @opcion.Comentario</p>
-}
+    <p>Opcion: @Model.OpcionStr</p>
+    <p id="comentario" >Comentario: @Model.Comentario</p>
+
 
 <p>
-    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new{ @class="btn btn-danger"})
+    <button class="btn btn-danger" comidaDetalleID="@Model.Id" id="eliminar-Detalle">Eliminar</button>
+    <button class="btn btn-primary-custom" comidaDetalleID="@Model.Id" id="modificar-Detalle">Guardar</button>
 </p>
+
+<script>
+
+    $("#comentario").dblclick((e) => {
+        $(e.target).hide();
+        $(e.target).after('<input type="text" id="comentarioNuevo" class="form-control" />');
+    });
+
+    $("#eliminar-Detalle").click((e) => {
+        e.preventDefault();
+
+        $.post('@Url.Action("Delete","Comida")', { detalleId:@Model.Id }, (json) => {
+
+            if (json.estado) {
+                $("#modal-detalle").modal("hide");
+                location.reload();
+            } else {
+                $("#mensaje").empty().append(json.mensaje);
+            }
+
+        });
+
+    });
+
+
+    $("#modificar-Detalle").click((e) => {
+        e.preventDefault();
+
+        $.post('@Url.Action("EditarComentario","Comida")', { detalleId:@Model.Id , comentario : $("#comentarioNuevo").val() }, (json) => {
+
+            if (json.estado) {
+                $("#modal-detalle").modal("hide");
+                location.reload();
+            } else {
+                $("#mensaje").empty().append(json.mensaje);
+            }
+
+        });
+
+    });
+</script>

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using NutricionWeb.Models.Comida;
 using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Dia;
@@ -11,6 +12,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using NutricionWeb.Models.Opcion;
+using NutricionWeb.Models.OpcionDetalle;
 
 namespace NutricionWeb.Controllers.Comida
 {
@@ -126,18 +129,18 @@ namespace NutricionWeb.Controllers.Comida
         // POST: Comida/Delete/5
         [HttpPost]
         [Authorize(Roles = "Administrador, Empleado")]
-        public ActionResult Delete(int id, FormCollection collection)
+        public async Task<ActionResult> Delete(long detalleId)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                 await _comidaDetalleServicio.Delete(detalleId);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new { estado = false, mensaje = ex.Message });
             }
+
+            return Json(new { estado = true });
         }
 
         /// <summary>
@@ -220,15 +223,65 @@ namespace NutricionWeb.Controllers.Comida
             return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = TempData["PlanId"] });
         }
         [Authorize(Roles = "Administrador, Empleado")]
-        public async Task<ActionResult> DetalleComida(long comidaId)
+        public async Task<ActionResult> DetalleComida(long detalleId)
         {
-            var comida = await _comidaServicio.GetById(comidaId);
+            var detalle = await _comidaDetalleServicio.GetById(detalleId);
 
-            var model = new ComidaViewModel()
+            var model = new ComidaDetalleViewModel()
             {
+                    Id = detalle.Id,
+                    Codigo = detalle.Codigo,
+                    Eliminado = detalle.Eliminado,
+                    Comentario = detalle.Comentario,
+                    ComidaId = detalle.ComidaId,
+                    OpcionId = detalle.OpcionId,
+                    ComidaStr = detalle.ComidaStr,
+                    OpcionStr = detalle.OpcionStr,
+                    Opcion = new OpcionViewModel()
+                    {
+                        Id = detalle.Opcion.Id,
+                        Codigo = detalle.Opcion.Codigo,
+                        Descripcion = detalle.Opcion.Descripcion,
+                        Eliminado = detalle.Opcion.Eliminado,
+                        OpcionDetalles = detalle.Opcion.OpcionDetalles.Select(o=> new OpcionDetalleViewModel()
+                        {
+                            Id = o.Id,
+                            Codigo = o.Codigo,
+                            Eliminado = o.Eliminado,
+                            OpcionId = o.OpcionId,
+                            OpcionStr = o.OpcionStr,
+                            AlimentoId = o.AlimentoId,
+                            AlimentoStr = o.AlimentoStr,
+                            Cantidad = o.Cantidad,
+                            UnidadMedidaId = o.UnidadMedidaId,
+                            UnidadMedidaStr = o.UnidadMedidaStr
+                        }).ToList()
+                    }
+               
             };
 
             return PartialView(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditarComentario(long detalleId , string comentario)
+        {
+            try
+            {
+                var detalle = await _comidaDetalleServicio.GetById(detalleId);
+
+                detalle.Comentario = comentario;
+
+                await _comidaDetalleServicio.Update(detalle);
+
+                
+            }
+            catch (Exception ex)
+            {
+                return Json(new { estado = false, mensaje = ex.Message });
+            }
+
+            return Json(new { estado = true });
         }
     }
 }

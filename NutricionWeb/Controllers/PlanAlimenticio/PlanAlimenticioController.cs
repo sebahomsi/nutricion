@@ -13,7 +13,6 @@ using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
 using System;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
@@ -312,6 +311,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             var comidas = await _planAlimenticioServicio.GetSortringComidas(id.Value);
 
             ViewBag.PlanId = id;
+            ViewBag.Paciente = plan.PacienteStr;
 
             var comidasVm = Mapper.Map<PlanAlimenticioVistaViewModel>(comidas);
 
@@ -482,7 +482,9 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PacienteStr = vm.PacienteStr,
                 Comentarios = vm.Comentarios,
                 Eliminado = vm.Eliminado,
-                TotalCalorias = 0
+                TotalCalorias = 0,
+                ComentarioPacienteOP = vm.ComentarioPacienteOP,
+
             };
         }
     }

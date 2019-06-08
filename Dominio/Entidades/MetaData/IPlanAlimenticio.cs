@@ -18,6 +18,7 @@ namespace Dominio.Entidades.MetaData
         string Motivo { get; set; }
 
         DateTime Fecha { get; set; }
+        string ComentarioPacienteOP { get; set; }
 
         bool Eliminado { get; set; }
 
