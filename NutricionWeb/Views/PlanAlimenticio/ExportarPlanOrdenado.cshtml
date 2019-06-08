@@ -174,14 +174,14 @@
                 @if (comida.ComidasDetalles.Count == 0)
                 {
                     <div align="center">
-                        <div id="@comida.Id" class="btn btn-primary btn-xs" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
-                        <div id="@comida.Id" class="btn btn-success btn-xs" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                        <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
+                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
                     </div>
                 }
                 else
                 {
                     <div align="center">
-                        <div id="@comida.Id" class="btn btn-success btn-xs" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
                     </div>
                 }
             </td>
@@ -205,14 +205,14 @@
                 @if (comida.ComidasDetalles.Count == 0)
                 {
                     <div align="center">
-                        <div id="@comida.Id" class="btn btn-primary btn-xs" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
-                        <div id="@comida.Id" class="btn btn-success btn-xs" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                        <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
+                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
                     </div>
                 }
                 else
                 {
                     <div align="center">
-                        <div id="@comida.Id" class="btn btn-success btn-xs" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
                     </div>
                 }
 
@@ -225,7 +225,7 @@
 <div class="titulo-ABM" style="text-align: center;">
     <h4 class="create-h4" style="font-size: 2.3em">Plan Alimenticio - @ViewBag.Paciente</h4>
 </div>
-<table class="tabla">
+<table class="tabla" width="100%">
     <tr>
         <th style="border: none;"></th>
         <th class="th">Lunes</th>
@@ -239,42 +239,43 @@
     </tr>
 
     <tr id="desayuno">
-        <td class="td">Desayuno</td>
+        <td class="td text-center">Desayuno</td>
         @DibujarComidas(Model.Desayunos)
     </tr>
     <tr id="mediaMañana">
-        <td class="td">Media Mañana</td>
+        <td class="td text-center">Media Mañana</td>
         @DibujarComidas(Model.MediaMañana)
     </tr>
     <tr id="almuerzo">
-        <td class="td">Almuerzo</td>
+        <td class="td text-center">Almuerzo</td>
         @DibujarComidas(Model.Almuerzo)
     </tr>
     <tr id="opcionalMediodia">
-        <td class="td">Opcional Mediodia</td>
+        <td class="td text-center">Opcional Mediodia</td>
         @DibujarComidas(Model.OpcionalMediodia)
     </tr>
     <tr id="merienda">
-        <td class="td">Merienda</td>
+        <td class="td text-center">Merienda</td>
         @DibujarComidas(Model.Merienda)
     </tr>
     <tr id="mediaTarde">
-        <td class="td">Media tarde</td>
+        <td class="td text-center">Media tarde</td>
         @DibujarComidas(Model.MediaTarde)
     </tr>
     <tr id="cena">
-        <td class="td">Cena</td>
+        <td class="td text-center">Cena</td>
         @DibujarComidas(Model.Cena)
     </tr>
     <tr id="opcionalNoche">
-        <td class="td">Opcional Noche</td>
+        <td class="td text-center">Opcional Noche</td>
         @DibujarComidas(Model.OpcionalNoche)
     </tr>
 </table>
 
 
-<p>
-    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId })
+<p style="margin-top: 5px">
+    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId },new { @class="btn btn-primary-custom" })
+    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan","PlanAlimenticio", new { volver = 1 , planId = ViewBag.PlanId },new { @class="btn btn-primary-custom" })
 </p>
 
 <br /><br />

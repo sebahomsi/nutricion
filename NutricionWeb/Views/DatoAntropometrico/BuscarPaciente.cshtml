@@ -2,32 +2,41 @@
 @model PagedList.IPagedList<NutricionWeb.Models.Paciente.PacienteViewModel>
 
 
-<table class="table">
-    <tr>
+<div class="table-responsive">
+    <table class="table">
+        <tr class="cabecera-tabla">
 
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().ApyNom)
-        </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Dni)
+            </th>
 
-        <th></th>
-    </tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ApyNom)
+            </th>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.ApyNom)
-            </td>
-
-            <td align="right">
-                <input type="button" id="seleccionar-paciente" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
-
-            </td>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApyNom)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApyNom)
+                </td>
+
+                <td align="right">
+                    <input type="button" id="seleccionar-paciente" name="@item.Id" class="btn btn-primary-custom btn-xs" value="Seleccionar" />
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 
 <div align="center">
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount

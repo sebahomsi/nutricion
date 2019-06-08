@@ -86,6 +86,7 @@ namespace Servicio.PlanAlimenticio
             return await Context.PlanesAlimenticios.AsNoTracking()
                 .Include("Paciente")
                 .Where(expression)
+                .OrderBy(x=>x.Fecha)
                 .Select(x => new PlanAlimenticioDto()
                 {
                     Id = x.Id,
@@ -181,6 +182,7 @@ namespace Servicio.PlanAlimenticio
         {
             var datos = await Context.PlanesAlimenticios
                 .Include(x=>x.Paciente)
+                .OrderByDescending(x => x.Fecha)
                 .Where(x => x.PacienteId == id).ToListAsync();
 
             var planesAlimenticios = Mapper.Map<IEnumerable<PlanAlimenticioDto>>(datos);

@@ -34,7 +34,15 @@
         @AgregarTabs("estrategia", "estrategia-Vista", "Estrategia", "")
         @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
         @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
-        @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
+        if (Model.TieneObservacion)
+        {
+            @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "navbar-right")
+        }
+        else
+        {
+            @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "")
+        }
+   
     }
 
 
@@ -55,7 +63,7 @@
         @AgregarVista("patologias-Vista", "patologias-Parcial")
     }
 
-    
+
 </div>
 
 @section scripts
@@ -77,16 +85,11 @@
         }
 
         var planesAlimenticios = function() {
-            var url = '@Url.Action("PlanesAlimenticiosParcial", "Paciente")';
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url + "?id=" + @Model.Id, true);
-            xhr.send();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    document.getElementById("planesAlimenticios-Parcial").innerHTML = "";
-                    document.getElementById("planesAlimenticios-Parcial").innerHTML = xhr.response;
-                }
-            }
+            $.get('@Url.Action("PlanesAlimenticiosParcial", "Paciente")',
+                { id: @Model.Id },
+                function(parcial) {
+                    $("#planesAlimenticios-Parcial").empty().append(parcial);
+                });
         }
 
         var datosAnaliticos = function() {
@@ -166,7 +169,7 @@
             }
         }
 
-       
+
         var patologias = function () {
             @if (Model.TieneObservacion) {
                 <text>var url = '@Url.Action("ObservacionesPatologiasParcial")';
@@ -178,7 +181,7 @@
                         });</text>
             }
         }
-        
+
 
 
         var estadisticas = function() {
@@ -242,10 +245,14 @@
                 function () {
                     observaciones();
                 });
-            document.getElementById("patologias").addEventListener("click",
-                function () {
+            @if (Model.TieneObservacion)
+            {
+                <text>document.getElementById("patologias").addEventListener("click",
+                function() {
                     patologias();
-                });
+                });</text>
+            }
+
             document.getElementById("estrategia").addEventListener("click",
                 function () {
                     estrategia();

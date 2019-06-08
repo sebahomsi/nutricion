@@ -68,14 +68,18 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         }
 
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> DuplicarPlan()
+        public async Task<ActionResult> DuplicarPlan(int? volver,long? planId)
         {
+            ViewBag.Volver = volver ?? 0;
+            ViewBag.PlanId = planId ?? 0;
             return View(new DuplicarViewModel());
         }
 
         [HttpPost]
         public async Task<ActionResult> DuplicarPlan(DuplicarViewModel vm)
         {
+            var planId = long.Parse(Request["planId"]);
+            var volver = int.Parse(Request["volver"]);
             try
             {
                 if (ModelState.IsValid)
@@ -87,6 +91,11 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
+            }
+
+            if (volver == 1)
+            {
+                return RedirectToAction("ExportarPlanOrdenado", new {id = planId});
             }
             return RedirectToAction("Index");
         }
@@ -455,7 +464,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             var pageNumber = page ?? 1;
             var eliminado = false;
             var planes =
-                await _planAlimenticioServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _planAlimenticioServicio.Get(false, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             if (planes == null) return RedirectToAction("Error", "Home");
 

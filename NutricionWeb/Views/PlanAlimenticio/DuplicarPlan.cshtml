@@ -90,6 +90,8 @@
         <h4 style="margin-left: 17%;">Seleccione Paciente al cual se le asignará el plan y el plan ya existente.</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("planId",new { @ViewBag.PlanId })
+        @Html.Hidden("volver",new { @ViewBag.Volver })
         @Html.HiddenFor(model => model.PlanId)
         @Html.HiddenFor(model => model.PacienteId)
 
@@ -119,7 +121,15 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Aceptar" class="btn btn-success" />
-                @Html.ActionLink("Volver", "Index", new {}, new {@class = "btn btn-default"})
+                @if (ViewBag.Volver == 0)
+                {
+                    @Html.ActionLink("Volver", "Index", new {}, new {@class = "btn btn-default"})
+                }
+                else
+                {
+                    @Html.ActionLink("Volver", "ExportarPlanOrdenado","PlanAlimenticio", new { id = ViewBag.PlanId }, new {@class = "btn btn-default"})
+                }
+
             </div>
         </div>
     </div>

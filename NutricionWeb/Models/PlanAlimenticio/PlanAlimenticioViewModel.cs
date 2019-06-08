@@ -23,7 +23,7 @@ namespace NutricionWeb.Models.PlanAlimenticio
         public DateTime Fecha { get; set; }
 
         [Display(Name = "Fecha y Hora")]
-        public string FechaStr => Fecha.ToString("dd/MM/yyyy");
+        public string FechaStr => Fecha.ToString("dd/MM/yyyy HH:mm");
 
         public string HoraStr => Fecha.ToString("HH:mm");
 
