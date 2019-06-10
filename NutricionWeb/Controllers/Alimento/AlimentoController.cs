@@ -282,7 +282,7 @@ namespace NutricionWeb.Controllers.Alimento
             }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
         [Authorize(Roles = "Administrador, Empleado")]
-        public ActionResult CalcularCalorias(int prote, int hc, int grasa)
+        public ActionResult CalcularCalorias(decimal prote, decimal hc, decimal grasa)
         {
             //if (prote == null || hc == null || grasa == null)
             //    return Json(total, JsonRequestBehavior.AllowGet);

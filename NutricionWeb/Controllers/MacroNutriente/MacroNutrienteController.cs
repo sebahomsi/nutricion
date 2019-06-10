@@ -156,7 +156,7 @@ namespace NutricionWeb.Controllers.MacroNutriente
 
         //===========================Hugo masticador de penes
 
-        public ActionResult CalcularCalorias(int prote, int hc, int grasa)
+        public ActionResult CalcularCalorias(decimal prote, decimal hc, decimal grasa)
         {
             //if (prote == null || hc == null || grasa == null)
             //    return Json(total, JsonRequestBehavior.AllowGet);
