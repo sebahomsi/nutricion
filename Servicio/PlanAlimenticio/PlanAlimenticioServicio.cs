@@ -260,28 +260,28 @@ namespace Servicio.PlanAlimenticio
                             switch (detalle.UnidadMedidaStr.ToLower())
                             {
                                 case "g":
-                                    caloria = (int) (detalle.Cantidad * caloria / 100);
+                                    caloria = (detalle.Cantidad * caloria / 100);
                                     break;
                                 case "ml":
-                                    caloria = (int)(detalle.Cantidad * caloria / 100);
+                                    caloria = (detalle.Cantidad * caloria / 100);
                                     break;
                                 case "l":
-                                    caloria = (int)((detalle.Cantidad * 1000) * caloria / 100);
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
                                     break;
                                 case "kg":
-                                    caloria = (int) ((detalle.Cantidad * 1000) * caloria / 100);
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
                                     break;
                                 case "cdta":
-                                    caloria = (int) ((detalle.Cantidad * 5) * caloria / 100);
+                                    caloria = ((detalle.Cantidad * 5) * caloria / 100);
                                     break;
                                 case "cda":
-                                    caloria = (int) ((detalle.Cantidad * 15) * caloria / 100);
+                                    caloria = ((detalle.Cantidad * 15) * caloria / 100);
                                     break;
                                 case "tz":
-                                    caloria = (int) ((detalle.Cantidad * 150) * caloria / 100);
+                                    caloria = ((detalle.Cantidad * 150) * caloria / 100);
                                     break;
                                 case "tcta":
-                                    caloria = (int) ((detalle.Cantidad * 100) * caloria / 100);
+                                    caloria = ((detalle.Cantidad * 100) * caloria / 100);
                                     break;
                                 default :
                                     throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");

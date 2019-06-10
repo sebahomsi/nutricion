@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
-using NutricionWeb.Models.MacroNutriente;
+﻿using NutricionWeb.Models.MacroNutriente;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.MacroNutriente;
+using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace NutricionWeb.Controllers.MacroNutriente
 {
@@ -161,7 +156,7 @@ namespace NutricionWeb.Controllers.MacroNutriente
 
         //===========================Hugo masticador de penes
 
-        public ActionResult CalcularCalorias(int prote, int hc, int grasa)
+        public ActionResult CalcularCalorias(decimal prote, decimal hc, decimal grasa)
         {
             //if (prote == null || hc == null || grasa == null)
             //    return Json(total, JsonRequestBehavior.AllowGet);

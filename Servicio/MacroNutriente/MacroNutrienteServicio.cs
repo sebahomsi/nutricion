@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Servicio.Interface.MacroNutriente;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Servicio.Interface.Alimento;
-using Servicio.Interface.MacroNutriente;
 
 namespace Servicio.MacroNutriente
 {

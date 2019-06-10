@@ -128,7 +128,7 @@ namespace Servicio.OpcionDetalle
             return id?.Id;
         }
 
-        public async Task IncreaseAmount(long id ,double cantidad)
+        public async Task IncreaseAmount(long id ,decimal cantidad)
         {
             var detalle = await Context.OpcionesDetalles.FirstOrDefaultAsync(x => x.Id == id);
 
