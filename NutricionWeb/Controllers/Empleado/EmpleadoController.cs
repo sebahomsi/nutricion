@@ -122,6 +122,7 @@ namespace NutricionWeb.Controllers.Empleado
                 Cuit = empleado.Cuit,
                 Dni = empleado.Dni,
                 FechaNacDateTime = empleado.FechaNac,
+                FechaNac = empleado.FechaNac.ToShortDateString(),
                 Sexo = empleado.Sexo,
                 Mail = empleado.Mail,
                 Eliminado = empleado.Eliminado,

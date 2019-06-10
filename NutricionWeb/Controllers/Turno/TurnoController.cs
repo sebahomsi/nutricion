@@ -169,6 +169,8 @@ namespace NutricionWeb.Controllers.Turno
                 PacienteStr = turno.PacienteStr,
                 HorarioEntradaDateTime = turno.HorarioEntrada,
                 HorarioSalidaDateTime = turno.HorarioSalida,
+                HorarioEntrada = turno.HorarioEntrada.ToShortDateString(),
+                HorarioSalida = turno.HorarioSalida.ToShortDateString(),
                 Motivo = turno.Motivo,
                 Numero = turno.Numero,
                 Eliminado = turno.Eliminado,
