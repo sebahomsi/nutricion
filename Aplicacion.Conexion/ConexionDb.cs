@@ -2,14 +2,14 @@
 {
     public static class ConexionDb
     {
-        //private const string Servidor = @"NutricionNovillo2.mssql.somee.com";
-        //private const string BaseDatos = "NutricionNovillo2";
-        //private const string Usuario = "novilloSolana";
-        //private const string Password = "solana456";
-        private const string Servidor = @"SEBAHOMSI\SQLEXPRESS";
-        private const string BaseDatos = "NutriProd1";
-        private const string Usuario = "sa";
-        private const string Password = "dumas123";
+        private const string Servidor = @"nutricionnovillo2.mssql.somee.com";
+        private const string BaseDatos = "nutricionnovillo2";
+        private const string Usuario = "novillosolana";
+        private const string Password = "solana456";
+        //private const string Servidor = @"ALEJANDRO\SQLEXPRESS";
+        //private const string BaseDatos = "NutriProduction";
+        //private const string Usuario = "sa";
+        //private const string Password = "hola123";
 
 
         public static string ObtenerCadenaConexion => $"Data Source={Servidor}; Initial Catalog={BaseDatos}; User Id={Usuario}; Password={Password}";

@@ -10,6 +10,10 @@ namespace NutricionWeb.Models.Alimento
 {
     public class AlimentoABMViewModel
     {
+        public AlimentoABMViewModel()
+        {
+            MacroNutriente = new MacroNutrienteViewModel();
+        }
         public long Id { get; set; }
 
         public int Codigo { get; set; }

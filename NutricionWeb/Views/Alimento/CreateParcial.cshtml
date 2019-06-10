@@ -17,7 +17,7 @@
 
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    
+
 
 
 
@@ -38,9 +38,9 @@
             @Html.ValidationMessageFor(model => model.SubGrupoId, "", new { @class = "text-danger" })
         </div>
     </div>
-   
 
-   
+
+
 
     <div class="titulo-ABM">
         <h4 class="create-h4">MacroNutrientes</h4>
@@ -49,12 +49,14 @@
     <div class="row" style="margin-left: 5%;">
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.MacroNutriente.HidratosCarbono)
-            @Html.EditorFor(model => model.MacroNutriente.HidratosCarbono, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.EditorFor(model => model.MacroNutriente.HidratosCarbono, new { htmlAttributes = new { @class = "form-control" } })*@
+            <input type="text" name="Hidratos" id="HidratosCarbono" class="form-control" value="@Model.MacroNutriente.HidratosCarbono" />
             @Html.ValidationMessageFor(model => model.MacroNutriente.HidratosCarbono, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.MacroNutriente.Grasa)
-            @Html.EditorFor(model => model.MacroNutriente.Grasa, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.EditorFor(model => model.MacroNutriente.Grasa, new { htmlAttributes = new { @class = "form-control" } })*@
+            <input type="text" name="Grasa" id="Grasa" class="form-control" value="@Model.MacroNutriente.Grasa" />
             @Html.ValidationMessageFor(model => model.MacroNutriente.Grasa, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -62,12 +64,14 @@
     <div class="row" style="margin-left: 5%;">
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.MacroNutriente.Proteina)
-            @Html.EditorFor(model => model.MacroNutriente.Proteina, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.EditorFor(model => model.MacroNutriente.Proteina, new { htmlAttributes = new { @class = "form-control" } })*@
+            <input type="text" name="Proteina" id="Proteina" class="form-control" value="@Model.MacroNutriente.Proteina" />
             @Html.ValidationMessageFor(model => model.MacroNutriente.Proteina, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.MacroNutriente.Energia)
-            @Html.EditorFor(model => model.MacroNutriente.Energia, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.EditorFor(model => model.MacroNutriente.Energia, new { htmlAttributes = new { @class = "form-control" } })*@
+            <input type="text" name="Energia" id="Energia" class="form-control" value="@Model.MacroNutriente.Energia" />
             @Html.ValidationMessageFor(model => model.MacroNutriente.Energia, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -77,7 +81,8 @@
             @Html.LabelFor(model => model.MacroNutriente.Calorias)
             <div class="form-group">
                 <div class="col-md-4" style="width: 310px">
-                    @Html.EditorFor(model => model.MacroNutriente.Calorias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @*@Html.EditorFor(model => model.MacroNutriente.Calorias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+                    <input type="text" name="Calorias" id="Calorias" class="form-control" value="@Model.MacroNutriente.Calorias" readonly="readonly" />
                     @Html.ValidationMessageFor(model => model.MacroNutriente.Calorias, "", new { @class = "text-danger" })
 
                 </div>
@@ -130,8 +135,8 @@
         });
     });
 
-    $('#MacroNutriente_Energia,  #MacroNutriente_HidratosCarbono, #MacroNutriente_Grasa, #MacroNutriente_Proteina').on('input', function () {
-        this.value = this.value.replace(/[^0-9]/g, '');
+    $('#Energia,  #HidratosCarbono, #Grasa, #Proteina').on('input', function () {
+        this.value = this.value.replace(/[^\d.]/g, '');
     });
 
     $(document).on("click",
@@ -142,13 +147,13 @@
 
             $.get(url,
                 {
-                    prote: $('#MacroNutriente_Proteina').val(),
-                    hc: $('#MacroNutriente_HidratosCarbono').val(),
-                    grasa: $('#MacroNutriente_Grasa').val()
+                    prote: $('#Proteina').val(),
+                    hc: $('#HidratosCarbono').val(),
+                    grasa: $('#Grasa').val()
                 },
                 function(total) {
 
-                    $('#MacroNutriente_Calorias').val(total);
+                    $('#Calorias').val(total);
 
                 });
         });
