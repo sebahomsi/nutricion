@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NutricionWeb.Models.MacroNutriente
 {
@@ -12,16 +8,16 @@ namespace NutricionWeb.Models.MacroNutriente
 
         
 
-        public int Proteina { get; set; }
+        public decimal Proteina { get; set; }
 
-        public int Grasa { get; set; }
+        public decimal Grasa { get; set; }
 
-        public int Energia { get; set; }
+        public decimal Energia { get; set; }
 
         [Display(Name = "Hidratos de Carbono")]
-        public int HidratosCarbono { get; set; }
+        public decimal HidratosCarbono { get; set; }
 
-        public int Calorias { get; set; }
+        public decimal Calorias { get; set; }
 
         public bool Eliminado { get; set; }
 

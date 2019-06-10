@@ -10,20 +10,16 @@ namespace NutricionWeb.Models.MacroNutriente
         [Required(ErrorMessage = "Campo Requerido")]
         public string AlimentoStr { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
-        public int Proteina { get; set; }
+        public decimal Proteina { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
-        public int Grasa { get; set; }
+        public decimal Grasa { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
-        public int Energia { get; set; }
+        public decimal Energia { get; set; }
 
         [Display(Name = "Hidratos de Carbono")]
-        [Required(ErrorMessage = "Campo Requerido")]
-        public int HidratosCarbono { get; set; }
+        public decimal HidratosCarbono { get; set; }
 
-        public int Calorias { get; set; }
+        public decimal Calorias { get; set; }
 
         public bool Eliminado { get; set; }
     }

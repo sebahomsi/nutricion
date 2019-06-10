@@ -12,7 +12,7 @@ namespace Dominio.Entidades
         public int Codigo { get; set; }
         public long OpcionId { get; set; }
         public long AlimentoId { get; set; }
-        public double Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
         public long UnidadMedidaId { get; set; }
         public bool Eliminado { get; set; }
 

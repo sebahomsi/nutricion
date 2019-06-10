@@ -8,15 +8,15 @@
 
         public string AlimentoStr { get; set; }
 
-        public int Proteina { get; set; }
+        public decimal Proteina { get; set; }
 
-        public int Grasa { get; set; }
+        public decimal Grasa { get; set; }
 
-        public int Energia { get; set; }
+        public decimal Energia { get; set; }
 
-        public int HidratosCarbono { get; set; }
+        public decimal HidratosCarbono { get; set; }
 
-        public int Calorias { get; set; }
+        public decimal Calorias { get; set; }
 
         public bool Eliminado { get; set; }
     }

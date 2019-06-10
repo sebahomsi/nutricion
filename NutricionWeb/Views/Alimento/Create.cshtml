@@ -144,9 +144,11 @@
 
 <script type="text/javascript">
 
-    $('#MacroNutriente_Energia,  #MacroNutriente_HidratosCarbono, #MacroNutriente_Grasa, #MacroNutriente_Proteina').on('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
+    //$('#MacroNutriente_Energia,  #MacroNutriente_HidratosCarbono, #MacroNutriente_Grasa, #MacroNutriente_Proteina').on('input', function () {
+    //    this.value = this.value.replace(/[^\d.]/g, '') 
+    //});
+
+
 
         $(document).on("click",
             "#btn-Total",

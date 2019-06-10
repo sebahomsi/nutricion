@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NutricionWeb.Models.OpcionDetalle
 {
@@ -22,7 +18,7 @@ namespace NutricionWeb.Models.OpcionDetalle
         [Display(Name = "Alimento")]
         public string AlimentoStr { get; set; }
 
-        public double Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
 
         public long UnidadMedidaId { get; set; }
 

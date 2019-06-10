@@ -1,28 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dominio.Entidades.MetaData
 {
     public interface IMacroNutriente
     {
-        [Required(ErrorMessage = "Campo Obligatorio")]
-        int Proteina { get; set; }
+        decimal Proteina { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
-        int Grasa { get; set; }
+        decimal Grasa { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
-        int Energia { get; set; }
+        decimal Energia { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
-        int HidratosCarbono { get; set; }
+        decimal HidratosCarbono { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
-        int Calorias { get; set; }
+        decimal Calorias { get; set; }
 
         bool Eliminado { get; set; }
     }
