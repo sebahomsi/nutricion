@@ -7,6 +7,7 @@ using Servicio.Interface.Dia;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.PlanAlimenticio;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
         private readonly IComidaServicio _comidaServicio;
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
         private readonly IDiaServicio _diaServicio;
+        
 
         public ComidaDetalleController(IComidaDetalleServicio comidaDetalleServicio, IOpcionServicio opcionServicio, IComidaServicio comidaServicio, IPlanAlimenticioServicio planAlimenticioServicio, IDiaServicio diaServicio)
         {
@@ -326,15 +328,15 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             return Json(opcion, JsonRequestBehavior.AllowGet);
         }
         [Authorize(Roles = "Administrador, Empleado")]
-        public async Task<ActionResult> BuscarOpcionModal(int? page, string cadenaBuscar)
+        public async Task<ActionResult> BuscarOpcionModal(int? page, string cadenaBuscar,long comidaId)
         {
             var pageNumber = page ?? 1;
             var eliminado = false;
 
-            ViewBag.ComidaId = TempData["ComidaId"];
+            ViewBag.ComidaId = comidaId;
 
             var opciones =
-                await _opcionServicio.Get(eliminado, null,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                await _opcionServicio.Get(eliminado,comidaId, null,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return PartialView(opciones.Select(x => new OpcionViewModel()
             {
@@ -373,6 +375,32 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                 ComidaId = vm.ComidaId,
                 Eliminado = vm.Eliminado
             };
+        }
+
+        public async Task<ActionResult> AgregarOpcionesPlan(List<long> ids , long planId,long comidaId)
+        {
+            try
+            {
+                foreach (var id in ids)
+                {
+                    var cod = await _comidaDetalleServicio.GetNextCode();
+                    var comidaDetalle = new ComidaDetalleDto()
+                    {
+                        Codigo = cod,
+                        Comentario = "",
+                        ComidaId = comidaId,
+                        Eliminado = false,
+                        OpcionId = id,
+                    };
+                    await _comidaDetalleServicio.Add(comidaDetalle);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { estado = false, mensaje="No se guardaron los datos intente nuevamente" });
+            }
+
+            return Json(new { estado = true });
         }
     }
 }

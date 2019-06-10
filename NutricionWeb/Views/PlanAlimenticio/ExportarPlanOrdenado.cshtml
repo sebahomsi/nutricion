@@ -1,9 +1,12 @@
-﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioVistaViewModel
+﻿@using Dominio.Entidades
+@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioVistaViewModel
 
 
 @{
     ViewBag.Title = "Plan";
 }
+
+<div class="text-danger" id="mensajePlan"></div>
 
 @*================Modal Duplicar =========================*@
 <div class="modal fade" id="modal-duplicar" tabindex="-1" role="dialog">
@@ -191,7 +194,7 @@
             <td class="td" comidaColumna id="@comida.DiaStr@comida.Descripcion">
                 @foreach (var detalle in comida.ComidasDetalles)
                 {
-                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
+                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr.</a>
 
                     if (!string.IsNullOrEmpty(detalle.Comentario))
                     {
@@ -282,6 +285,8 @@
 @section Scripts {
     <script>
 
+        var opcionIds = [];
+
         var detalle = id => {
             $("#modal-detalle").modal("show");
 
@@ -305,20 +310,49 @@
 
         var agregar = id => {
             $("#modal-AgregarComida").modal("show");
-            $.get('@Url.Action("CreatePartialPlanOrdenado", "ComidaDetalle")',
+            $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
                 { comidaId: id },
                 parcial => {
                     $("#partialFindAgregarComida").empty().append(parcial);
                 });
         }
 
-        var seleccionarOpcion = (opcionId, opcionStr, comidaId) => {
-            $.get('@Url.Action("CreatePartialPlanOrdenado", "ComidaDetalle")',
-                { comidaId: comidaId, opcionId: opcionId, opcionStr: opcionStr },
-                parcial => {
-                    $("#partialFindAgregarComida").empty().append(parcial);
+        console.log(opcionIds);
+
+
+        $(document).on("click",
+            "input[name=seleccionar-opcion]",
+            (e) => {
+                var id = $(e.target).attr("id");
+                if (!opcionIds.includes(id)) {
+                    opcionIds.push(id);
+                }
+            });
+
+        $(document).on("click",
+            "#guardarOpciones",
+            (e) => {
+                var comidaId = $("#ComidaId").val();
+                $.post('@Url.Action("AgregarOpcionesPlan","ComidaDetalle")',
+                    { ids: opcionIds, planId: @ViewBag.PlanId , comidaId },
+                    (json) => {
+                    if (json.estado) {
+                        opcionIds = [];
+                        location.reload();
+                    } else {
+
+                        $("#mensajePlan").empty().append(json.mensaje);
+                        $("#modal-AgregarComida").modal("hide");
+                        opcionIds = [];
+                    }
                 });
-        }
+            });
+
+        $('#modal-AgregarComida').on('hide.bs.modal',
+            function(e) {
+                opcionIds = [];
+            });
+
 
 
         var recorreFila = (idFila) => {

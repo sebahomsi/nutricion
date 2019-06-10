@@ -78,6 +78,7 @@ namespace NutricionWeb.Controllers.Empleado
         {
             try
             {
+                vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
                     var pic = string.Empty;
@@ -120,7 +121,7 @@ namespace NutricionWeb.Controllers.Empleado
                 Telefono = empleado.Telefono,
                 Cuit = empleado.Cuit,
                 Dni = empleado.Dni,
-                FechaNac = empleado.FechaNac,
+                FechaNacDateTime = empleado.FechaNac,
                 Sexo = empleado.Sexo,
                 Mail = empleado.Mail,
                 Eliminado = empleado.Eliminado,
@@ -134,6 +135,7 @@ namespace NutricionWeb.Controllers.Empleado
         {
             try
             {
+                vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
                     var pic = string.Empty;
@@ -226,6 +228,16 @@ namespace NutricionWeb.Controllers.Empleado
         }
 
         //===============================================================================//
+
+        private static EmpleadoABMViewModel ModificarFechas(EmpleadoABMViewModel vm)
+        {
+            var horaEntrada = vm.FechaNac.ToString().Split('/');
+
+            vm.FechaNacDateTime = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}");
+
+            return vm;
+        }
+
         private EmpleadoDto CargarDatos(EmpleadoABMViewModel vm, string pic)
         {
             return new EmpleadoDto()
@@ -240,7 +252,7 @@ namespace NutricionWeb.Controllers.Empleado
                 Telefono = vm.Telefono,
                 Cuit = vm.Cuit,
                 Sexo = vm.Sexo,
-                FechaNac = vm.FechaNac,
+                FechaNac = vm.FechaNacDateTime,
                 EstablecimientoId = vm.EstablecimientoId,
                 Foto = pic
             };

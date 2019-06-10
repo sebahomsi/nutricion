@@ -20,7 +20,9 @@ namespace NutricionWeb.Models.Opcion
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Obligatorio")]
+        //[Required(ErrorMessage = "Campo Obligatorio")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obligatorio")]
+        [StringLength(30, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         public string Descripcion { get; set; }
 
         public bool Eliminado { get; set; }

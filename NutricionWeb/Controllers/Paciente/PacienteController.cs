@@ -122,6 +122,7 @@ namespace NutricionWeb.Controllers.Paciente
         {
             try
             {
+                vm = ModificarFechas(vm);
                 var modelErrors = new List<string>();
                 if (ModelState.IsValid)
                 {
@@ -177,7 +178,7 @@ namespace NutricionWeb.Controllers.Paciente
                 Telefono = paciente.Telefono,
                 Cuit = paciente.Cuit,
                 Dni = paciente.Dni,
-                FechaNac = paciente.FechaNac,
+                FechaNacDateTime = paciente.FechaNac,
                 FechaAlta = paciente.FechaAlta,
                 Sexo = paciente.Sexo,
                 Mail = paciente.Mail,
@@ -192,6 +193,7 @@ namespace NutricionWeb.Controllers.Paciente
         {
             try
             {
+                vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
                     var pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
@@ -311,7 +313,7 @@ namespace NutricionWeb.Controllers.Paciente
                 Telefono = vm.Telefono,
                 Cuit = vm.Cuit,
                 Sexo = vm.Sexo,
-                FechaNac = vm.FechaNac,
+                FechaNac = vm.FechaNacDateTime,
                 FechaAlta = vm.FechaAlta,
                 Foto = pic,
                 EstablecimientoId = vm.EstablecimientoId
@@ -485,6 +487,16 @@ namespace NutricionWeb.Controllers.Paciente
 
 
         //=======================Metodos privados ======================
+
+        private static PacienteABMViewModel ModificarFechas(PacienteABMViewModel vm)
+        {
+            var horaEntrada = vm.FechaNac.ToString().Split('/');
+
+            vm.FechaNacDateTime = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}");
+
+            return vm;
+        }
+
         protected string RenderRazorViewToString(string viewName, object model)
         {
             ViewData.Model = model;

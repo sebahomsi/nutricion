@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Servicio.Interface.Comida;
 using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.OpcionDetalle;
@@ -14,6 +15,12 @@ namespace Servicio.Opcion
 {
     public class OpcionServicio : ServicioBase, IOpcionServicio
     {
+        private readonly IComidaServicio _comidaServicio;
+
+        public OpcionServicio(IComidaServicio comidaServicio)
+        {
+            _comidaServicio = comidaServicio;
+        }
         public async Task<long> Add(OpcionDto dto, IEnumerable<long?> subGruposId)
         {
             var verify = await VerifyDuplicity(dto);
@@ -91,6 +98,36 @@ namespace Servicio.Opcion
                        Codigo = s.Codigo,
                        Descripcion = s.Descripcion,
                        Eliminado = s.Eliminado     
+                    }).ToList()
+                }).ToListAsync();
+
+            return idSub.HasValue ? lista.Where(x => x.SubGruposRecetas.Any(s => s.Id == idSub.Value)).ToList() : lista;
+        }
+        public async Task<ICollection<OpcionDto>> Get(bool eliminado, long comidaId, long? idSub, string cadenaBuscar = "")
+        {
+            var comida = await _comidaServicio.GetById(comidaId);
+            var id= comida.ComidasDetalles.Select(x => new {
+                Id=x.OpcionId
+            }.Id).ToList();
+
+            Expression<Func<Dominio.Entidades.Opcion, bool>> expression = x => x.Eliminado == eliminado && x.Descripcion.Contains(cadenaBuscar)&& !id.Contains(x.Id);
+
+            var lista = await Context.Opciones
+                .AsNoTracking()
+                .Include(p => p.SubGruposRecetas)
+                .Where(expression)
+                .Select(x => new OpcionDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    Eliminado = x.Eliminado,
+                    SubGruposRecetas = x.SubGruposRecetas.Select(s => new SubGrupoRecetaDto()
+                    {
+                        Id = s.Id,
+                        Codigo = s.Codigo,
+                        Descripcion = s.Descripcion,
+                        Eliminado = s.Eliminado
                     }).ToList()
                 }).ToListAsync();
 

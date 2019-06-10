@@ -19,13 +19,17 @@
                     @Html.DisplayFor(modelItem => item.Descripcion)
                 </td>
 
-                <td class="pull-right">
+                <td align="right">
                     <input type="button" id="@item.Id" desc="@item.Descripcion" name="seleccionar-opcion" class="btn btn-primary-custom btn-xs" value="Seleccionar" />
                 </td>
             </tr>
         }
 
     </table>
+    
+    <button id="guardarOpciones" class="btn btn-success" >Guardar</button>
+    <input id="ComidaId" type="hidden" value="@ViewBag.ComidaId" />
+
 </div>
 
 <div align="center">
@@ -36,11 +40,11 @@
 <script type="text/javascript">
     $(() => {
 
-        $("input[name=seleccionar-opcion]").click(e => {
+        @*$("input[name=seleccionar-opcion]").click(e => {
             if (window.parent.seleccionarOpcion) {
                 window.parent.seleccionarOpcion(e.target.id, $(e.target).attr("desc"), @ViewBag.ComidaId);
             }
-        });
+        });*@
 
     });
 </script>

@@ -33,7 +33,9 @@ namespace NutricionWeb.Models.Persona
         public string Mail { get; set; }
 
         [Display(Name = "Fecha de Nacimiento")]
-        public DateTime FechaNac { get; set; }
+        public string FechaNac { get; set; }
+
+        public DateTime FechaNacDateTime { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio")]
         public int Sexo { get; set; }

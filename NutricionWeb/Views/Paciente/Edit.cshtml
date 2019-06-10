@@ -74,7 +74,7 @@
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
                             </span>
-                            <input type="text" class="form-control" id="FechaNac" name="FechaNac" readonly="readonly" value="@Model.FechaNac.ToShortDateString()" />
+                            <input type="text" class="form-control" id="FechaNac" name="FechaNac" readonly="readonly" value="@Model.FechaNac" />
 
                             @Html.ValidationMessageFor(model => model.FechaNac, "", new { @class = "text-danger" })
                         </div>
