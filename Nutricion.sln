@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1- Presentacion", "1- Presentacion", "{52BFF167-D9EF-4DAB-8FFD-3E9BD2587359}"
 EndProject
@@ -28,6 +28,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutricionWeb", "NutricionWeb\NutricionWeb.csproj", "{F0704D42-96C8-420F-A706-2AA476E69225}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-Puente", "6-Puente", "{960E0346-BC99-4B0D-ABBB-5BD88378B7FE}"
+	ProjectSection(SolutionItems) = preProject
+		SqlQuery_1.sql = SqlQuery_1.sql
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge", "Bridge\Bridge.csproj", "{D393DEA4-6655-440E-930E-12FED4A79F4F}"
 EndProject
@@ -41,7 +44,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutricionXamarin.Android", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutricionXamarin.iOS", "NutricionXamarin\NutricionXamarin.iOS\NutricionXamarin.iOS.csproj", "{95371B7F-7982-4DFA-9126-68F0426F3F73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutricionXamarin", "NutricionXamarin\NutricionXamarin\NutricionXamarin.csproj", "{80EA7793-534A-4A86-990F-602C2412B4FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NutricionXamarin", "NutricionXamarin\NutricionXamarin\NutricionXamarin.csproj", "{80EA7793-534A-4A86-990F-602C2412B4FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
