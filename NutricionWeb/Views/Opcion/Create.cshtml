@@ -100,14 +100,13 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-
+        console.log("");
         var buscarSubGrupos = (cadenaBuscar) => {
-            $("#partialFindSubGrupos").empty();
 
             $.get('@Url.Action("BuscarSubGrupos", "SubGrupoReceta")',
                 { cadenaBuscar: cadenaBuscar },
                 (parcial) => {
-                    $("#partialFindSubGrupos").append(parcial);
+                    $("#partialFindSubGrupos").empty().append(parcial);
                 });
         }
 
@@ -126,11 +125,14 @@
 
             $("#btn-SubGrupo").click(() => {
                 $("#modal-subgrupos").modal("show");
-
                 buscarSubGrupos("");
             });
 
-            
+            $("#btn-BuscarSubGrupo").click((e) => {
+                e.preventDefault();
+                var val = $("#txt-BuscarSugGrupo").val();
+                buscarSubGrupos(val);
+            });
 
 
             $(document).on("click",
@@ -144,9 +146,11 @@
                     if (verificar(id)) {
                         $("#tablaSubgrupo")
                             .append(
-                                `<tr id="sub${id}"> <td> ${descripcion}  <input hidden type="text" name="SubGruposId" value="${id}" imput /> </td>
-                                <td> <button subId= "${id}" class="btn btn-danger btn-xs pull-right" quitar-subgrupo>Quitar</button> </td> </tr>`);
-                        boton.removeClass("btn-primary").addClass("btn-primary-custom");
+                                `<tr id="sub${id}"> <td> ${descripcion
+                                }  <input hidden type="text" name="SubGruposId" value="${id}" imput /> </td>
+                                <td> <button subId= "${id
+                                }" class="btn btn-danger btn-xs pull-right" quitar-subgrupo>Quitar</button> </td> </tr>`);
+                        boton.removeClass("btn-primary-custom").addClass("btn-primary");
                         boton.val("Seleccionado");
                     }
                 });

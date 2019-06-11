@@ -321,67 +321,11 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
             ViewBag.PlanId = id;
             ViewBag.Paciente = plan.PacienteStr;
+            ViewBag.Recetario = plan.Comentarios;
 
             var comidasVm = Mapper.Map<PlanAlimenticioVistaViewModel>(comidas);
 
             return View(comidasVm);
-
-            #region viejo
-            //return View(new PlanAlimenticioViewModel()
-            //{
-            //    Id = plan.Id,
-            //    Codigo = plan.Codigo,
-            //    Fecha = plan.Fecha,
-            //    Motivo = plan.Motivo,
-            //    PacienteId = plan.PacienteId,
-            //    PacienteStr = plan.PacienteStr,
-            //    Comentarios = plan.Comentarios,
-            //    Eliminado = plan.Eliminado,
-            //    TotalCalorias = plan.TotalCalorias,
-            //    Dias = plan.Dias.Select(x => new DiaViewModel()
-            //    {
-            //        Id = x.Id,
-            //        Codigo = x.Codigo,
-            //        Descripcion = x.Descripcion,
-            //        PlanAlimenticioId = x.PlanAlimenticioId,
-            //        Comidas = x.Comidas.Select(q => new ComidaViewModel()
-            //        {
-            //            Id = q.Id,
-            //            Codigo = q.Codigo,
-            //            Descripcion = q.Descripcion,
-            //            DiaId = q.DiaId,
-            //            DiaStr = q.DiaStr,
-            //            ComidasDetalles = q.ComidasDetalles.Select(t => new ComidaDetalleViewModel()
-            //            {
-            //                Id = t.Id,
-            //                Codigo = t.Codigo,
-            //                Comentario = t.Comentario,
-            //                ComidaId = t.ComidaId,
-            //                ComidaStr = t.ComidaStr,
-            //                OpcionId = t.OpcionId,
-            //                OpcionStr = t.OpcionStr,
-            //                Eliminado = t.Eliminado,
-            //                Opcion = new OpcionViewModel()
-            //                {
-            //                    OpcionDetalles = t.Opcion.OpcionDetalles.Select(o => new OpcionDetalleViewModel()
-            //                    {
-            //                        Id = o.Id,
-            //                        AlimentoId = o.AlimentoId,
-            //                        AlimentoStr = o.AlimentoStr,
-            //                        Cantidad = o.Cantidad,
-            //                        Codigo = o.Codigo,
-            //                        Eliminado = o.Eliminado,
-            //                        OpcionId = o.OpcionId,
-            //                        OpcionStr = o.OpcionStr,
-            //                        UnidadMedidaId = o.UnidadMedidaId,
-            //                        UnidadMedidaStr = o.UnidadMedidaStr
-            //                    }).ToList()
-            //                }
-            //            }).ToList()
-            //        }).ToList()
-            //    }).ToList()
-            //}); 
-            #endregion
         }
 
         public async Task<ActionResult> ExportarPlanPdf(long id)
@@ -495,6 +439,21 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 ComentarioPacienteOP = vm.ComentarioPacienteOP,
 
             };
+        }
+
+        public async Task<ActionResult> ModificarRecetario(string recetario , long planId)
+        {
+            try
+            {
+                var plan = await _planAlimenticioServicio.GetById(planId);
+                plan.Comentarios = recetario;
+                await _planAlimenticioServicio.Update(plan);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { estado = false , mensaje = ex.Message });
+            }
+            return Json(new {estado = true });
         }
     }
 }
