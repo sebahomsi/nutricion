@@ -133,13 +133,13 @@
 
         $(function () {
           console.log("sad");
-            $('#MasaCorporal, #MasaGrasa, #PerimetroCintura, #PerimetroCadera, #Altura, #PerimetroCuello').on('input', function () {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
+          $('#MasaCorporal, #MasaGrasa, #PerimetroCintura, #PerimetroCadera, #Altura, #PerimetroCuello').on('input', function () {
+              this.value = this.value.replace(/[^0-9.]/g, '');
+          });
 
-            $('#PesoActual, #PesoIdeal, #PesoDeseado,#PesoHabitual').on('input', function () {
-                this.value = this.value.replace(/[^0-9,]/g, '');
-            });
+          $('#PesoActual, #PesoIdeal, #PesoDeseado,#PesoHabitual').on('input', function () {
+              this.value = this.value.replace(/[^0-9.]/g, '');
+          });
 
         });
 

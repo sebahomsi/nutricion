@@ -213,24 +213,24 @@
 
 
 
-@section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
 
         $(function () {
-
+            console.log("d");
             $("#btn-Paciente").click(function() {
                     listaPaciente();
                 }
             );
 
             $('#MasaCorporal, #MasaGrasa, #PerimetroCintura, #PerimetroCadera, #Altura, #PerimetroCuello').on('input', function () {
-                this.value = this.value.replace(/[^0-9]/g, '');
+                this.value = this.value.replace(/[^0-9.]/g, '');
             });
 
             $('#PesoActual, #PesoIdeal, #PesoDeseado,#PesoHabitual').on('input', function () {
-                this.value = this.value.replace(/[^0-9,]/g, '');
+                this.value = this.value.replace(/[^0-9.]/g, '');
             });
 
             function listaPaciente() {
@@ -263,4 +263,3 @@
         });
 
     </script>
-}
