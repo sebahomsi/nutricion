@@ -31,7 +31,6 @@ namespace NutricionWebApi.Controllers
                 Nombre = x.Nombre,
                 Celular = x.Celular,
                 Telefono = x.Telefono,
-                Direccion = x.Direccion,
                 Dni = x.Dni,
                 FechaNac = x.FechaNac,
                 Sexo = x.Sexo,
