@@ -205,17 +205,22 @@ namespace Servicio.DatoAntropometrico
             var edad = DateTime.Now.Year - paciente.FechaNac.Date.Year;
 
             var nacimientoAhora = paciente.FechaNac.Date.AddYears(edad);
+            int sexo = 1;
 
             if (DateTime.Now.CompareTo(nacimientoAhora) < 0)
             {
                 edad--;
+            }
+            if (paciente.Sexo == 2)
+            {
+                sexo = 0;
             }
 
             return await Task.Run(() =>
             {
                 double.TryParse(imc, out var imcDecimal);
                 double.TryParse(edad.ToString(), out var edadD);
-                var resultado = (imcDecimal * 1.2) + (0.23 * edadD) - (10.8 * paciente.Sexo) - 5.4;
+                var resultado = (imcDecimal * 1.2) + (0.23 * edadD) - (10.8 * sexo) - 5.4;
                
                 return resultado.ToString("##.000");
             });
