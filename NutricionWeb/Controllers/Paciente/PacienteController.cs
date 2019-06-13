@@ -179,7 +179,7 @@ namespace NutricionWeb.Controllers.Paciente
                 Cuit = paciente.Cuit,
                 Dni = paciente.Dni,
                 FechaNacDateTime = paciente.FechaNac,
-                FechaNac = paciente.FechaNac.ToShortDateString(),
+                FechaNac = paciente.FechaNac.ToString("dd/MM/yyyy"),
                 FechaAlta = paciente.FechaAlta,
                 Sexo = paciente.Sexo,
                 Mail = paciente.Mail,
