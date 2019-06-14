@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div id="partialFind"></div>
+                        <div id="partialFindGrupo"></div>
                     </div>
                 </div>
             </div>
@@ -99,14 +99,14 @@
             );
         
             function listaGrupo() { //esta funcion abre la vista parcial y la llena con lo que hay en BuscarGrupo del controlador
-                $("#partialFind").empty();
+                $("#partialFindGrupo").empty();
 
                 $.get('@Html.Raw(Url.Action("BuscarGrupo", "SubGrupo"))',
                     {
                         cadenaBuscar: $("#txt-BuscarGrupo").val()
                     },
                     function(listaAlumno) {
-                        $("#partialFind").append(listaAlumno);
+                        $("#partialFindGrupo").append(listaAlumno);
                     });
             }
 
