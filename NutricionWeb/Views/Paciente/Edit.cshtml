@@ -138,7 +138,8 @@
             $("#fecha").datetimepicker({
                 useCurrent: true,
                 format: "DD/MM/YYYY",
-                ignoreReadonly: true
+                ignoreReadonly: true,
+                viewMode: 'years'
             });
             $('#Dni').on('input', function () {
                 this.value = this.value.replace(/[^0-9]/g, '');

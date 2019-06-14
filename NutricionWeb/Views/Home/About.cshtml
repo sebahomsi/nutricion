@@ -33,9 +33,10 @@
                             function(i, v) {
                                 events.push({
                                     eventID: v.Id,
-                                    title: "hs" +": "+ v.PacienteStr,
+                                    title: v.Hora + " - " + v.PacienteStr,
                                     description: v.Motivo,
-                                    start: moment(v.HorarioEntrada),
+                                    start: v.Fecha,
+                                    end: v.fecha,
                                     pacienteID: v.PacienteId,
                                     color: v.EstadoColor,
                                     url : '@Url.Action("Edit","Turno")/?id='+v.Id+'&volver=1'
@@ -48,8 +49,8 @@
             function generateCalender(events) {
                 $('#calendar').fullCalendar({
                     contentHeight: 500,
-                    defaultDate: new Date(),
-                    timeFormat: 'H(:mm)',
+                    //defaultDate: new Date(),
+                    //timeFormat: 'H(:mm)',
                     eventLimit: true,
                     events: events
                 });

@@ -18,10 +18,12 @@ namespace NutricionWeb.Models.Alimento
 
         public int Codigo { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
+
+        [Required(ErrorMessage = "Campo Obligatorio")]
+        [StringLength(250, ErrorMessage = "El campo {0} no debe superar los {1} caracteres.")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
+        [Required(ErrorMessage = "Campo Obligatorio")]
         [Display(Name = "SubGrupo")]
         public long SubGrupoId { get; set; }
 

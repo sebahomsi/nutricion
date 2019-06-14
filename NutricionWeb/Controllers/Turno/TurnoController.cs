@@ -8,6 +8,7 @@ using Servicio.Interface.Paciente;
 using Servicio.Interface.Turno;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -292,9 +293,9 @@ namespace NutricionWeb.Controllers.Turno
 
         private static TurnoABMViewModel ModificarFechas(TurnoABMViewModel vm)
         {
-            var horaEntrada = vm.HorarioEntrada.ToString().Split('/');
+            var horaEntrada = vm.HorarioEntrada.Split('/');
 
-            var horaSalida = vm.HorarioSalida.ToString().Split('/');
+            var horaSalida = vm.HorarioSalida.Split('/');
 
             vm.HorarioEntradaDateTime = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}");
 
@@ -307,7 +308,15 @@ namespace NutricionWeb.Controllers.Turno
         {
             var establecimientoId = ObtenerEstablecimientoIdUser();
 
-            var events = await _turnoServicio.Get(establecimientoId, false, string.Empty);
+            var turnos = await _turnoServicio.Get(establecimientoId, false, string.Empty);
+
+            var events = turnos.Select(x=> new
+            {
+                x.Id,
+                x.PacienteStr,
+                Fecha = x.HorarioEntrada.ToString("yyyy-MM-dd"),
+                Hora = x.HorarioEntrada.ToString("HH:mm", CultureInfo.InvariantCulture)
+            });
 
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
