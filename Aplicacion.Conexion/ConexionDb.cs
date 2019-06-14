@@ -6,10 +6,10 @@
         private const string BaseDatos = "nutricionnovillo2";
         private const string Usuario = "novillosolana";
         private const string Password = "solana456";
-        //private const string Servidor = @"LUCAS\SQLEXPRESS";
+        //private const string Servidor = @"DESKTOP-TTT7KKD";
         //private const string BaseDatos = "NutriProduction";
         //private const string Usuario = "sa";
-        //private const string Password = "minimi";
+        //private const string Password = "pa$$word";
 
 
         public static string ObtenerCadenaConexion => $"Data Source={Servidor}; Initial Catalog={BaseDatos}; User Id={Usuario}; Password={Password}";

@@ -62,7 +62,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PliegueTriceps = x.PliegueTriceps,
                 PliegueAbdominal = x.PliegueAbdominal,
                 TotalPliegues = x.TotalPliegues
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).OrderBy(x=>x.FechaMedicion).ToPagedList(pageNumber, CantidadFilasPorPaginas));
         }
 
 
@@ -109,7 +109,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             return PartialView(new DatoAntropometricoABMViewModel()
             {
                 PacienteId = paciente.Id,
-                PacienteStr = $"{paciente.Apellido} {paciente.Nombre}"
+                PacienteStr = $"{paciente.Apellido} {paciente.Nombre}",
+                FechaMedicion = DateTime.Now
             });
         }
 
