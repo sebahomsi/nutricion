@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NutricionWeb.Models.Opcion;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using NutricionWeb.Models.Opcion;
 
 namespace NutricionWeb.Models.ComidaDetalle
 {
@@ -35,7 +31,7 @@ namespace NutricionWeb.Models.ComidaDetalle
         public long OpcionId { get; set; }
         public long ComidaId { get; set; }
 
-        [Display( Name = "Receta")]
+        [Display(Name = "Receta")]
         public string OpcionStr { get; set; }
 
         [Display(Name = "Comida")]

@@ -35,42 +35,8 @@
     </div>
 </div>
 
-@*================Modal Agregar Comida=====================*@
-@*<div class="modal fade" id="modal-AgregarComida" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div align="right">
-                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <br>
-                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
-                    <h2>Agregar Comida</h2>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="form" style="height: 382px">
-                    <div class="form-group navbar-right">
-                        <div class="col-md-4" style="width: 310px">
-                            <input type="text" class="form-control " id="txt-BuscarSugGrupo" placeholder="Ingrese una cadena...">
-                        </div>
-                        <div class="col-md-2" align="left">
-                            <div id="btn-BuscarSubGrupo" class="btn btn-default ">Buscar</div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div id="partialFindAgregarComida"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>*@
 
-
+@*================Modal Agregar Comida =========================*@
 <div class="modal fade" id="modal-AgregarComida" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -314,15 +280,19 @@
     </tr>
 </table>
 
+<label style="margin-top: 5px">
+    Total Calorias: @ViewBag.Calorias kcal
+</label>
+
 <label style="max-width:100%;min-width:100%;margin-top: 5px" id="lblrecetario">Comentarios : @ViewBag.Recetario</label>
 <textarea id="recetariotxtarea" class="form-control" cols="12" style="max-width:100%;min-width:100%; width: 100%; margin-top:30px;display: none">@ViewBag.Recetario</textarea>
 <button class="btn btn-primary-custom btn-xs" style="display: none" id="guardarRecetario">Guardar</button>
 <button class="btn btn-danger btn-xs" style="display: none" id="cancelarRecetario">Cancelar</button>
 
 <p style="margin-top: 5px">
-    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId },new { @class="btn btn-primary-custom" })
-    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan","PlanAlimenticio", new { volver = 1 , planId = ViewBag.PlanId },new { @class="btn btn-primary-custom" })
-    <button class="btn btn-primary-custom"  id="modificarRecetario">Recetario</button>
+    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
+    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
+    <button class="btn btn-primary-custom" id="modificarRecetario">Recetario</button>
 </p>
 
 <br /><br />
@@ -335,7 +305,7 @@
             $("#modal-detalle").modal("show");
 
             $.get('@Url.Action("DetalleComida", "Comida")',
-                { detalleId: id },
+                { detalleId: id, planId : @ViewBag.PlanId },
                 (parcial) => {
                     $("#partialFindDetalleComida").empty().append(parcial);
                 });

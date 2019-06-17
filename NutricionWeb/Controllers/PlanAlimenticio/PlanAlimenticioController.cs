@@ -322,6 +322,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             ViewBag.PlanId = id;
             ViewBag.Paciente = plan.PacienteStr;
             ViewBag.Recetario = plan.Comentarios;
+            ViewBag.Calorias = plan.TotalCalorias;
 
             var comidasVm = Mapper.Map<PlanAlimenticioVistaViewModel>(comidas);
 
