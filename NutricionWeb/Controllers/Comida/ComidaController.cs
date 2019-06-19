@@ -72,53 +72,6 @@ namespace NutricionWeb.Controllers.Comida
             });
         }
 
-        // GET: Comida/Create
-        [Authorize(Roles = "Administrador, Empleado")]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Comida/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Comida/Edit/5
-        [Authorize(Roles = "Administrador, Empleado")]
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Comida/Edit/5
-        [HttpPost]
-        [Authorize(Roles = "Administrador, Empleado")]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: Comida/Delete/5
         [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Delete(int id)
@@ -129,11 +82,12 @@ namespace NutricionWeb.Controllers.Comida
         // POST: Comida/Delete/5
         [HttpPost]
         [Authorize(Roles = "Administrador, Empleado")]
-        public async Task<ActionResult> Delete(long detalleId)
+        public async Task<ActionResult> Delete(long detalleId, long? planId)
         {
             try
             {
                  await _comidaDetalleServicio.Delete(detalleId);
+                 await _planAlimenticioServicio.CalculateTotalCalories(planId.Value);
             }
             catch (Exception ex)
             {
@@ -216,15 +170,13 @@ namespace NutricionWeb.Controllers.Comida
                     }
                 }
             }
-
-           
-
-
             return RedirectToAction("ExportarPlanOrdenado", "PlanAlimenticio", new { id = TempData["PlanId"] });
         }
         [Authorize(Roles = "Administrador, Empleado")]
-        public async Task<ActionResult> DetalleComida(long detalleId)
+        public async Task<ActionResult> DetalleComida(long detalleId , long? planId)
         {
+            ViewBag.PlanId = planId.Value;
+
             var detalle = await _comidaDetalleServicio.GetById(detalleId);
 
             var model = new ComidaDetalleViewModel()
@@ -272,9 +224,7 @@ namespace NutricionWeb.Controllers.Comida
 
                 detalle.Comentario = comentario;
 
-                await _comidaDetalleServicio.Update(detalle);
-
-                
+                await _comidaDetalleServicio.Update(detalle);              
             }
             catch (Exception ex)
             {

@@ -61,10 +61,22 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.PacienteId)
-    @Html.HiddenFor(model => model.FechaMedicion)
     @Html.HiddenFor(model => model.Codigo)
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaMedicion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4" style="width: 310px">
+            <div class="input-group datepicker" id="fecha">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar">
+                    </span>
+                </span>
+                <input type="text" class="form-control" id="FechaMedicion" name="FechaMedicion" value="@Model.FechaMedicion" readonly="readonly" />
 
+                @Html.ValidationMessageFor(model => model.FechaMedicion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.PacienteStr, new { @class = "control-label col-md-2" })
@@ -225,13 +237,29 @@
                 }
             );
 
+            $("#fecha").datetimepicker({
+                useCurrent: true,
+                format: "DD/MM/YYYY",
+                ignoreReadonly: true,
+                viewMode: 'days'
+            });
+
             $('#MasaCorporal, #MasaGrasa, #PerimetroCintura, #PerimetroCadera, #Altura, #PerimetroCuello').on('input', function () {
-                this.value = this.value.replace(/[^0-9.]/g, '');
+                this.value = this.value.replace(/[^0-9.]/g, '.');
             });
 
             $('#PesoActual, #PesoIdeal, #PesoDeseado,#PesoHabitual').on('input', function () {
-                this.value = this.value.replace(/[^0-9.]/g, '');
+                this.value = this.value.replace(/[^0-9.]/g, '.');
             });
+
+            //$('#PliegueMuslo, #PliegueAbdominal, #PlieguePierna,#PliegueSubescapular,#PliegueSuprailiaco,#PliegueTriceps').on('input', function () {
+            //    this.value = this.value.replace(/[^0-9.]/g, '.');
+            //});
+
+            //$('#PliegueMuslo, #PliegueAbdominal, #PlieguePierna,#PliegueSubescapular,#PliegueSuprailiaco,#PliegueTriceps')
+            //    .each((index, element) => {
+            //        element.value = element.value.replace(',', '.');
+            //    });
 
             function listaPaciente() {
                 $("#partialFindPaciente").empty();

@@ -393,6 +393,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
                         OpcionId = id,
                     };
                     await _comidaDetalleServicio.Add(comidaDetalle);
+                    await _planAlimenticioServicio.CalculateTotalCalories(planId);
                 }
             }
             catch (Exception ex)

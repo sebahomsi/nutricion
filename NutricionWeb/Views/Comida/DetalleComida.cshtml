@@ -25,7 +25,7 @@
     $("#eliminar-Detalle").click((e) => {
         e.preventDefault();
 
-        $.post('@Url.Action("Delete","Comida")', { detalleId:@Model.Id }, (json) => {
+        $.post('@Url.Action("Delete","Comida")', { detalleId:@Model.Id , planId : @ViewBag.PlanId }, (json) => {
 
             if (json.estado) {
                 $("#modal-detalle").modal("hide");

@@ -315,7 +315,10 @@ namespace NutricionWeb.Controllers.Turno
                 x.Id,
                 x.PacienteStr,
                 Fecha = x.HorarioEntrada.ToString("yyyy-MM-dd"),
-                Hora = x.HorarioEntrada.ToString("HH:mm", CultureInfo.InvariantCulture)
+                Hora = x.HorarioEntrada.ToString("HH:mm", CultureInfo.InvariantCulture),
+                x.EstadoColor,
+                x.Motivo,
+                x.PacienteId
             });
 
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
