@@ -69,7 +69,7 @@
         <div class="col-lg-4" >
             <div class="row">
                 <div class=" col-lg-8">
-                    @Html.TextBox("CadenaBuscar", ViewBag.FilterValue as string, new { placeholder = "Ingrese una cadena...", @class = "form-control", autocomplete = "off" })
+                    @Html.TextBox("CadenaBuscar", ViewBag.FilterValue as string, new { placeholder = "Nombre/Apellido", @class = "form-control", autocomplete = "off" })
                 </div>
                 <div class=" col-lg-4">
                     <button type="submit" class="btn btn-default" id="txtBuscar">Buscar</button>
@@ -108,7 +108,7 @@
             format: 'L'
         });
         var filtrar = function () {
-            var cadenaBuscar = $("#txtBuscar").val();
+            var cadenaBuscar = $("#CadenaBuscar").val();
             console.log(cadenaBuscar);
             var fecha = $("#Desde").val();
             var hasta = $("#Hasta").val();
