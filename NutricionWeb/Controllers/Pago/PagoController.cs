@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -57,8 +58,8 @@ namespace NutricionWeb.Controllers.Pago
 
             if (!string.IsNullOrEmpty(fecha))
             {
-                fechaD = DateTime.Parse(fecha);
-                fechaH = DateTime.Parse(hasta);
+                fechaD = ModificarFechaEntrada(fecha);
+                fechaH = ModificarFechaSalida(hasta);
             }
 
             var pagos = await _pagoServicio.GetByDate(fechaD,fechaH,eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
@@ -74,7 +75,7 @@ namespace NutricionWeb.Controllers.Pago
                 PacienteId = x.PacienteId,
                 PacienteStr = x.PacienteStr,
                 Codigo = x.Codigo,
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginas));
+            }).ToPagedList(pageNumber, CantidadFilasPorPaginasLarge));
         }
 
         // GET: Pago/Details/5
@@ -218,6 +219,28 @@ namespace NutricionWeb.Controllers.Pago
 
             return RedirectToAction("Index");
         }
-        
+
+        private static DateTime ModificarFechaEntrada(string fecha)
+        {
+            var horaEntrada = fecha.Split('/');
+
+            var c = new CultureInfo("en-US");
+
+            var devolver = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}", c);
+
+            return devolver;
+        }
+
+        private static DateTime ModificarFechaSalida(string fecha)
+        {
+            var horaSalida = fecha.Split('/');
+
+            var c = new CultureInfo("en-US");
+
+            var devolver = DateTime.Parse($"{horaSalida[1]}/{horaSalida[0]}/{horaSalida[2]}", c);
+
+            return devolver;
+        }
+
     }
 }
