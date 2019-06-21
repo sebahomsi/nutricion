@@ -318,8 +318,9 @@
 <button class="btn btn-danger btn-xs" style="display: none" id="cancelarRecetario">Cancelar</button>
 
 <p style="margin-top: 5px">
-    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
-    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
+    @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente",  new { id = ViewBag.PacienteId}, new{ @class="btn btn-default"})
+    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new {planId = ViewBag.PlanId}, new {@class = "btn btn-primary-custom"})
+    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new {volver = 1, planId = ViewBag.PlanId}, new {@class = "btn btn-primary-custom"})
     <button class="btn btn-primary-custom" id="modificarRecetario">Recetario</button>
 </p>
 
