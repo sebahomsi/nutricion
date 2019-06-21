@@ -271,18 +271,28 @@ namespace Servicio.PlanAlimenticio
                                 case "kg":
                                     caloria = ((detalle.Cantidad * 1000) * caloria / 100);
                                     break;
-                                case "cdta":
+                                case "cdapo":
                                     caloria = ((detalle.Cantidad * 5) * caloria / 100);
                                     break;
-                                case "cda":
+                                case "cdasp":
                                     caloria = ((detalle.Cantidad * 15) * caloria / 100);
                                     break;
-                                case "tz":
-                                    caloria = ((detalle.Cantidad * 150) * caloria / 100);
+                                case "tzTE":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
                                     break;
-                                case "tcta":
-                                    caloria = ((detalle.Cantidad * 100) * caloria / 100);
+                                case "tzCAFE":
+                                    caloria = ((detalle.Cantidad * 250) * caloria / 100);
                                     break;
+                                case "plhon":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "plpr":
+                                    caloria = ((detalle.Cantidad * 120) * caloria / 100);
+                                    break;
+                                case "cdate":
+                                    caloria = ((detalle.Cantidad * 2) * caloria / 100);
+                                    break;                            
+
                                 default :
                                     throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
                                     
