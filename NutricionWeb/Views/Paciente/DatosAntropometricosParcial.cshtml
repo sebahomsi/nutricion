@@ -22,18 +22,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().FechaMedicion)
             </th>
-            
+
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().PesoActual) 
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Altura)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().PesoDeseado) 
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PesoActual)
             </th>
 
-            
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().MasaGrasa) 
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PesoDeseado)
+            </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().MasaGrasa)
             </th>
             <th>
                 IMC
@@ -43,66 +47,70 @@
         
         @foreach (var item in Model.OrderBy(model => model.FechaMedicion))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaMedicionStr)
-                </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaMedicionStr)
+        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.PesoActual) kg
-                </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Altura) cm
+        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.PesoDeseado) kg
-                </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PesoActual) kg
+        </td>
 
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.MasaGrasa) %
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MasaCorporal) Kg/M²
-                </td>
-                <td align="right">
+        <td>
+            @Html.DisplayFor(modelItem => item.PesoDeseado) kg
+        </td>
 
-                    @Ajax.ActionLink("Actualizar", "Edit", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
-                    {
-                        HttpMethod = "GET",
-                        InsertionMode = InsertionMode.Replace,
-                        UpdateTargetId = "datosAntropometricos-Parcial",
 
-                    }, new {@class = "btn btn-warning btn-xs"})
+        <td>
+            @Html.DisplayFor(modelItem => item.MasaGrasa) %
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MasaCorporal) Kg/M²
+        </td>
+        <td align="right">
 
-                    @Ajax.ActionLink("Detalles", "Details", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
-                    {
-                        HttpMethod = "GET",
-                        InsertionMode = InsertionMode.Replace,
-                        UpdateTargetId = "datosAntropometricos-Parcial",
+            @Ajax.ActionLink("Actualizar", "Edit", "DatoAntropometrico", new { id = item.Id }, new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "datosAntropometricos-Parcial",
 
-                    }, new {@class = "btn btn-default btn-xs"})
+            }, new { @class = "btn btn-warning btn-xs" })
 
-                    @if (item.Eliminado)
-                    {
-                        @Ajax.ActionLink("Activar", "Delete", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
-                        {
-                            HttpMethod = "GET",
-                            InsertionMode = InsertionMode.Replace,
-                            UpdateTargetId = "datosAntropometricos-Parcial",
+            @Ajax.ActionLink("Detalles", "Details", "DatoAntropometrico", new { id = item.Id }, new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "datosAntropometricos-Parcial",
 
-                        }, new {@class = "btn btn-info btn-xs"})
-                    }
-                    else
-                    {
-                        @Ajax.ActionLink("Eliminar", "Delete", "DatoAntropometrico", new {id = item.Id}, new AjaxOptions()
-                        {
-                            HttpMethod = "GET",
-                            InsertionMode = InsertionMode.Replace,
-                            UpdateTargetId = "datosAntropometricos-Parcial",
+            }, new { @class = "btn btn-default btn-xs" })
 
-                        }, new {@class = "btn btn-danger btn-xs"})
-                    }
-                </td>
-            </tr>
+            @if (item.Eliminado)
+            {
+                @Ajax.ActionLink("Activar", "Delete", "DatoAntropometrico", new { id = item.Id }, new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "datosAntropometricos-Parcial",
+
+                }, new { @class = "btn btn-info btn-xs" })
+            }
+            else
+            {
+                @Ajax.ActionLink("Eliminar", "Delete", "DatoAntropometrico", new { id = item.Id }, new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "datosAntropometricos-Parcial",
+
+                }, new { @class = "btn btn-danger btn-xs" })
+            }
+        </td>
+    </tr>
         }
 
     </table>
