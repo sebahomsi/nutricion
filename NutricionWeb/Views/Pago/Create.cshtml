@@ -107,11 +107,14 @@
                 }
             );
 
+            $("#btn-BuscarPaciente").click(() => {
+                listaPaciente();
+            });
 
             function listaPaciente() {
                 $("#partialFindPaciente").empty();
 
-                $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAntropometrico"))',
+                $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAnalitico"))',
                     {
                         cadenaBuscar: $("#txt-BuscarPaciente").val()
                     },
@@ -126,7 +129,7 @@
                 "#seleccionar-paciente",
                 function() {
 
-                    var url = '@Html.Raw(Url.Action("TraerPaciente", "DatoAntropometrico"))';
+                    var url = '@Html.Raw(Url.Action("TraerPaciente", "DatoAnalitico"))';
 
                     $.get(url,
                         { pacienteId: $(this).attr("name") },
