@@ -158,15 +158,16 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Aceptar" class="btn btn-success" />
-                @if ((int?) ViewBag.Volver == null || ViewBag.Volver == 0)
+                @if ((int?)ViewBag.Volver == null || ViewBag.Volver == 0)
                 {
-                    @Html.ActionLink("Volver", "Index", new {}, new {@class = "btn btn-default"})
+                    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+
                 }
                 else
                 {
-                    @Html.ActionLink("Volver", "About","Home", new {}, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Volver", "About", "Home", new { }, new { @class = "btn btn-default" })
                 }
-
+                @Html.ActionLink("Ir al paciente", "DatosAdicionales", "Paciente", new { id = Model.PacienteId }, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
