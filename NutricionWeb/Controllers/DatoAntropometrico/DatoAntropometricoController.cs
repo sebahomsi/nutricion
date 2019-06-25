@@ -105,12 +105,16 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             if (id == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(id.Value);
+            var mediciones = await _datoAntropometricoServicio.GetByIdPaciente(id.Value);
+            var ultimaAgregada=mediciones.Where(x=>!x.Eliminado).OrderByDescending(x => x.FechaMedicion).FirstOrDefault();
 
             return PartialView(new DatoAntropometricoABMViewModel()
             {
                 PacienteId = paciente.Id,
                 PacienteStr = $"{paciente.Apellido} {paciente.Nombre}",
-                FechaMedicion = DateTime.Now
+                FechaMedicion = DateTime.Now,
+                Altura = ultimaAgregada!=null? ultimaAgregada.Altura:"",
+                
             });
         }
 

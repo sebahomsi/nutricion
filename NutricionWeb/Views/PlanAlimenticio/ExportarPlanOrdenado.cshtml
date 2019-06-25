@@ -36,6 +36,34 @@
 </div>
 
 
+@*================Modal Duplicar Comida =========================*@
+<div class="modal fade" id="modal-duplicarComida" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Comida</h2>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="">
+                        <div id="partialFindDuplicarComidaSemanal"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @*================Modal Agregar Comida =========================*@
 <div class="modal fade" id="modal-AgregarComida" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -247,35 +275,35 @@
     </tr>
 
     <tr id="desayuno">
-        <td class="td text-center">Desayuno</td>
+        <td class="td text-center" desayuno style="cursor: pointer">Desayuno</td>
         @DibujarComidas(Model.Desayunos)
     </tr>
     <tr id="mediaMañana">
-        <td class="td text-center">Media Mañana</td>
+        <td class="td text-center" mediaManana style="cursor: pointer">Media Mañana</td>
         @DibujarComidas(Model.MediaMañana)
     </tr>
     <tr id="almuerzo">
-        <td class="td text-center">Almuerzo</td>
+        <td class="td text-center" almuerzo style="cursor: pointer">Almuerzo</td>
         @DibujarComidas(Model.Almuerzo)
     </tr>
     <tr id="opcionalMediodia">
-        <td class="td text-center">Opcional Mediodia</td>
+        <td class="td text-center" opcionalmedioDia style="cursor: pointer">Opcional Mediodia</td>
         @DibujarComidas(Model.OpcionalMediodia)
     </tr>
     <tr id="merienda">
-        <td class="td text-center">Merienda</td>
+        <td class="td text-center" merienda style="cursor: pointer">Merienda</td>
         @DibujarComidas(Model.Merienda)
     </tr>
     <tr id="mediaTarde">
-        <td class="td text-center">Media tarde</td>
+        <td class="td text-center" mediaTarde style="cursor: pointer">Media tarde</td>
         @DibujarComidas(Model.MediaTarde)
     </tr>
     <tr id="cena">
-        <td class="td text-center">Cena</td>
+        <td class="td text-center" cena style="cursor: pointer">Cena</td>
         @DibujarComidas(Model.Cena)
     </tr>
     <tr id="opcionalNoche">
-        <td class="td text-center">Opcional Noche</td>
+        <td class="td text-center" opcionalNoche style="cursor: pointer">Opcional Noche</td>
         @DibujarComidas(Model.OpcionalNoche)
     </tr>
 </table>
@@ -290,9 +318,10 @@
 <button class="btn btn-danger btn-xs" style="display: none" id="cancelarRecetario">Cancelar</button>
 
 <p style="margin-top: 5px">
-    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
-    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
-    <button class="btn btn-primary-custom" id="modificarRecetario">Recetario</button>
+    @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente",  new { id = ViewBag.PacienteId}, new{ @class="btn btn-default"})
+    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new {planId = ViewBag.PlanId}, new {@class = "btn btn-primary-custom"})
+    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new {volver = 1, planId = ViewBag.PlanId}, new {@class = "btn btn-primary-custom"})
+    <button class="btn btn-primary-custom" id="modificarRecetario">Cambiar Comentario</button>
 </p>
 
 <br /><br />
@@ -305,7 +334,7 @@
             $("#modal-detalle").modal("show");
 
             $.get('@Url.Action("DetalleComida", "Comida")',
-                { detalleId: id, planId : @ViewBag.PlanId },
+                { detalleId: id, planId: @ViewBag.PlanId },
                 (parcial) => {
                     $("#partialFindDetalleComida").empty().append(parcial);
                 });
@@ -431,6 +460,10 @@
 
             $("#cancelarRecetario").click(() => {
                 recetario();
+            });
+
+            $("td[desayuno]").click(() => {
+                $("#modal-duplicarComida").modal("show");
             });
 
         });

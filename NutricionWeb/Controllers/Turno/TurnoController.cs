@@ -170,8 +170,8 @@ namespace NutricionWeb.Controllers.Turno
                 PacienteStr = turno.PacienteStr,
                 HorarioEntradaDateTime = turno.HorarioEntrada,
                 HorarioSalidaDateTime = turno.HorarioSalida,
-                HorarioEntrada = turno.HorarioEntrada.ToShortDateString(),
-                HorarioSalida = turno.HorarioSalida.ToShortDateString(),
+                HorarioEntrada = turno.HorarioEntrada.ToString("dd/MM/yyyy HH:mm"),
+                HorarioSalida = turno.HorarioSalida.ToString("dd/MM/yyyy HH:mm"),
                 Motivo = turno.Motivo,
                 Numero = turno.Numero,
                 Eliminado = turno.Eliminado,
@@ -297,9 +297,15 @@ namespace NutricionWeb.Controllers.Turno
 
             var horaSalida = vm.HorarioSalida.Split('/');
 
-            vm.HorarioEntradaDateTime = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}");
+            var c = new CultureInfo("en-US");
 
-            vm.HorarioSalidaDateTime = DateTime.Parse($"{horaSalida[1]}/{horaSalida[0]}/{horaSalida[2]}");
+            vm.HorarioEntradaDateTime = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}", c);
+
+            vm.HorarioSalidaDateTime = DateTime.Parse($"{horaSalida[1]}/{horaSalida[0]}/{horaSalida[2]}", c);
+
+            // Asi estaban antes
+            //vm.HorarioEntradaDateTime = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}");
+            //vm.HorarioSalidaDateTime = DateTime.Parse($"{horaSalida[1]}/{horaSalida[0]}/{horaSalida[2]}");
 
             return vm;
         }

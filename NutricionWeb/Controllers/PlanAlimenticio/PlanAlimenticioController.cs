@@ -321,6 +321,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
             ViewBag.PlanId = id;
             ViewBag.Paciente = plan.PacienteStr;
+            ViewBag.PacienteId = plan.PacienteId;
             ViewBag.Recetario = plan.Comentarios;
             ViewBag.Calorias = plan.TotalCalorias;
 
