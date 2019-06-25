@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="NutricionXamarin.Views.Login.LoginPage"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        <Grid BindingContext="{Binding Login}">
+            <!--<Image Source="fondo.png" Aspect="AspectFill">
+            </Image>-->
+            <BoxView BackgroundColor="Black" Opacity="0.7"></BoxView>
+            <StackLayout Padding="20">
+                <Label Text="Login"  
+                       TextColor="{StaticResource FontColor}" 
+                       HorizontalOptions="Center" FontAttributes="Bold" 
+                       FontSize="25"/>
+                <Label Text="Usuario" 
+                       TextColor="{StaticResource FontColor}">
+                </Label>
+                <Entry 
+                    Placeholder="ingrese su usuario" 
+                    Text="{Binding Usuario,Mode=TwoWay}" 
+                    TextColor="{StaticResource FontColor}">
+                </Entry>
+
+                <Label Text="Contraseña" 
+                       TextColor="{StaticResource FontColor}">
+                </Label>
+                <Entry Placeholder="ingrese su contraseña" 
+                       IsPassword="True" 
+                       Text="{Binding Password,Mode=TwoWay}" 
+                       TextColor="{StaticResource FontColor}">
+                </Entry>
+
+                <StackLayout
+                Padding="0,20,0,20"
+                Orientation="Horizontal">
+                    <Label Text="Recordarme" 
+                           HorizontalOptions="StartAndExpand" 
+                           TextColor="{StaticResource FontColor}">
+                    </Label>
+                    <Switch HorizontalOptions="End" 
+                        IsToggled="{Binding Recordame,Mode=TwoWay}">
+
+                    </Switch>
+                </StackLayout>
+                <ActivityIndicator
+                HorizontalOptions="CenterAndExpand"
+                IsRunning="{Binding IsRunning,Mode=TwoWay}"
+                Color="{StaticResource FontColor}">
+
+                </ActivityIndicator>
+                <StackLayout
+                HorizontalOptions="Center"
+                Orientation="Horizontal">
+                    <Button Text="Ingresar" 
+                        Command="{Binding IngresarCommand}" 
+                        BackgroundColor="{StaticResource AccentColor1}" WidthRequest="200" 
+                        BorderRadius="23" TextColor="{StaticResource FontColor}" 
+                        IsEnabled="{Binding IsEnable}">
+                    </Button>
+
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
