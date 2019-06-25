@@ -80,15 +80,22 @@
             </div>
             @*Cuerpo del modal*@
             <div class="modal-body">
-                <div class="" style="height:382px">
-                    <div class="form-group navbar-right">
-                        <div class="col-md-4" style="width: 310px">
+                <div class="" style="height: 382px">
+                    <div class="navbar-form navbar-right">
+
+                        <div class="form-group">
+
+
+
                             <input type="text" class="form-control " id="txt-BuscarComida" placeholder="Ingrese una cadena...">
-                        </div>
-                        <div class="col-md-2" align="left">
-                            <div id="btn-BuscarComida" class="btn btn-default" style="margin-top: 0px;margin-bottom: 0px;">Buscar</div>
+                            <div id="btn-BuscarComida" class="btn btn-default" style="margin-top: 0px; margin-bottom: 0px;">Buscar</div>
                         </div>
                     </div>
+                    <div class="navbar-form navbar-right">
+                        <strong>Subgrupo</strong>
+                        @Html.DropDownList("idSub", ViewBag.Cmb as IEnumerable<SelectListItem>, "Ninguno", new {@class = "form-control", @id = "idSub"})
+                    </div>
+
                     <div class="col-md-12">
                         <div id="partialFindAgregarComida"></div>
                     </div>
@@ -318,9 +325,10 @@
 <button class="btn btn-danger btn-xs" style="display: none" id="cancelarRecetario">Cancelar</button>
 
 <p style="margin-top: 5px">
-    @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente",  new { id = ViewBag.PacienteId}, new{ @class="btn btn-default"})
-    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new {planId = ViewBag.PlanId}, new {@class = "btn btn-primary-custom"})
-    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new {volver = 1, planId = ViewBag.PlanId}, new {@class = "btn btn-primary-custom"})
+    @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente", new { id = ViewBag.PacienteId }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
+    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
+    @*@Html.ActionLink("Copiar fila de otro plan", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })*@
     <button class="btn btn-primary-custom" id="modificarRecetario">Cambiar Comentario</button>
 </p>
 
@@ -329,6 +337,15 @@
     <script>
 
         var opcionIds = [];
+        var comidaIdFlag = -1;
+
+        var buscarComidas = function(cadenaBuscar ,comidaId,subgrupoId) {
+            $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
+                { cadenaBuscar,comidaId , subgrupoId },
+                parcial => {
+                    $("#partialFindAgregarComida").empty().append(parcial);
+                });
+        }
 
         var detalle = id => {
             $("#modal-detalle").modal("show");
@@ -352,7 +369,9 @@
         }
 
         var agregar = id => {
+            comidaIdFlag = -1;
             $("#modal-AgregarComida").modal("show");
+            comidaIdFlag = id;
             $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
                 { comidaId: id },
                 parcial => {
@@ -389,6 +408,7 @@
                             $("#mensajePlan").empty().append(json.mensaje);
                             $("#modal-AgregarComida").modal("hide");
                             opcionIds = [];
+                            comidaIdFlag = -1;
                         }
                     });
             });
@@ -465,6 +485,19 @@
             $("td[desayuno]").click(() => {
                 $("#modal-duplicarComida").modal("show");
             });
+
+            $("#idSub").change(function() {
+                var subgrupoId = this.value;
+                var buscar = $("#txt-BuscarComida").val();
+                buscarComidas(buscar,comidaIdFlag, subgrupoId);
+            });
+
+            $("#btn-BuscarComida").click(function () {
+                var subgrupoId = $("#idSub").val();
+                var buscar = $("#txt-BuscarComida").val();
+                buscarComidas(buscar,comidaIdFlag, subgrupoId);
+            });
+
 
         });
     </script>

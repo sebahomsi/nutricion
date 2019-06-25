@@ -53,6 +53,10 @@ namespace NutricionWeb.Controllers.Pago
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
+
+            ViewBag.Hasta = hasta;
+            ViewBag.Desde = fecha;
+
             var fechaD = DateTime.Now.Date;
             var fechaH = DateTime.Now.Date;
 

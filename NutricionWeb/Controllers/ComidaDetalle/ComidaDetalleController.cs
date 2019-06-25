@@ -328,7 +328,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             return Json(opcion, JsonRequestBehavior.AllowGet);
         }
         [Authorize(Roles = "Administrador, Empleado")]
-        public async Task<ActionResult> BuscarOpcionModal(int? page, string cadenaBuscar,long comidaId)
+        public async Task<ActionResult> BuscarOpcionModal(int? page, string cadenaBuscar,long comidaId,long? subgrupoId)
         {
             var pageNumber = page ?? 1;
             var eliminado = false;
@@ -336,7 +336,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             ViewBag.ComidaId = comidaId;
 
             var opciones =
-                await _opcionServicio.Get(eliminado,comidaId, null,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
+                 await _opcionServicio.Get(eliminado,comidaId, subgrupoId, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
             return PartialView(opciones.Select(x => new OpcionViewModel()
             {

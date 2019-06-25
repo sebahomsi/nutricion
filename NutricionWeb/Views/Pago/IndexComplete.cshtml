@@ -40,15 +40,15 @@
 
 
                 <td align="right">
-                    @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Actualizar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
                     @if (item.EstaEliminado)
                     {
-                        @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Activar", "Delete", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
                     }
                     else
                     {
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
                     }
 
                 </td>
@@ -57,9 +57,10 @@
 
     </table>
 </div>
+
 <div align="center">
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("Index", "Pago", new { page, cadenaBuscar = ViewBag.FilterValue }))
+    @Html.PagedListPager(Model, page => Url.Action("IndexComplete", "Pago", new { page, cadenaBuscar = ViewBag.FilterValue,eliminado = @ViewBag.Eliminado, hasta = @ViewBag.Hasta, fecha = @ViewBag.Desde }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "contenedor" }))
 </div>
 <div align="right">
     <div class="col-lg-12 pull-right">

@@ -15,6 +15,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
+using NutricionWeb.Helpers.SubGrupo;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.PlanAlimenticio
@@ -26,15 +28,19 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         private readonly IDiaServicio _diaServicio;
         private readonly IOpcionServicio _opcionServicio;
         private readonly IAlimentoServicio _alimentoServicio;
+        private readonly IComboBoxSubGrupo _comboBoxSubGrupo;
 
-        public PlanAlimenticioController(IPlanAlimenticioServicio planAlimenticioServicio, IPacienteServicio pacienteServicio, IDiaServicio diaServicio, IOpcionServicio opcionServicio, IAlimentoServicio alimentoServicio)
+        public PlanAlimenticioController(IPlanAlimenticioServicio planAlimenticioServicio, IPacienteServicio pacienteServicio, IDiaServicio diaServicio, IOpcionServicio opcionServicio, IAlimentoServicio alimentoServicio, IComboBoxSubGrupo comboBoxSubGrupo)
         {
             _planAlimenticioServicio = planAlimenticioServicio;
             _pacienteServicio = pacienteServicio;
             _diaServicio = diaServicio;
             _opcionServicio = opcionServicio;
             _alimentoServicio = alimentoServicio;
+            _comboBoxSubGrupo = comboBoxSubGrupo;
         }
+
+        
 
         // GET: PlanAlimenticio
         [Authorize(Roles = "Administrador")]
@@ -318,6 +324,8 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             var plan = await _planAlimenticioServicio.GetById(id.Value);
 
             var comidas = await _planAlimenticioServicio.GetSortringComidas(id.Value);
+
+            ViewBag.Cmb = await _comboBoxSubGrupo.Poblar();
 
             ViewBag.PlanId = id;
             ViewBag.Paciente = plan.PacienteStr;

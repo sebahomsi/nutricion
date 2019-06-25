@@ -3,38 +3,41 @@
 
 <p>
 
-    <table class="table">
-        <tr>
 
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().GrupoStr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
-            </th>
+    <div class="table-responsive">
+        <table class="table">
+            <tr class="cabecera-tabla">
 
-            <th></th>
-        </tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().GrupoStr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)
+                </th>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.GrupoStr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-
-                <td>
-                    <input type="button" id="seleccionar-subgrupo" name="@item.Id" class="btn btn-primary-custom" value="Seleccionar" />
-
-                </td>
+                <th></th>
             </tr>
-        }
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GrupoStr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+
+                    <td align="right">
+                        <input type="button" id="seleccionar-subgrupo" name="@item.Id" class="btn btn-primary-custom btn-xs" value="Seleccionar" />
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 
     <div align="center">
         Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
