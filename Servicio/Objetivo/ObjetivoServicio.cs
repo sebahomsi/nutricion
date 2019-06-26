@@ -38,7 +38,7 @@ namespace Servicio.Objetivo
 
             if (objetivo == null) return new ObjetivoDto()
             {
-                Descripcion = "Objetivo",
+                Descripcion = "",
                 PacienteId = id,
                 Id = 0
             };

@@ -4,13 +4,35 @@
 <div class="row">
     <div class="col-lg-6" align="left">
         <div class="btn-group">
-            @Ajax.ActionLink("Nuevo","CreateParcial","DatoAntropometrico",new{ id = (long) ViewBag.PacienteId },new AjaxOptions()
+            @Ajax.ActionLink("Nuevo", "CreateParcial", "DatoAntropometrico", new { id = (long)ViewBag.PacienteId }, new AjaxOptions()
             {
                 HttpMethod = "GET",
                 InsertionMode = InsertionMode.Replace,
                 UpdateTargetId = "datosAntropometricos-Parcial",
 
-            },new {@class="btn btn-primary-custom"})
+            }, new { @class = "btn btn-primary-custom" })
+            @if (@ViewBag.Eliminado == false)
+            {
+
+                @Ajax.ActionLink("Ver Eliminado", "DatosAntropometricosParcial", "Paciente", new { id = (long)ViewBag.PacienteId, eliminado = !ViewBag.Eliminado }, new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "datosAntropometricos-Parcial",
+
+                }, new { @class = "btn btn-primary-custom" })
+            }
+            else
+            {
+                @Ajax.ActionLink("Ver Activos", "DatosAntropometricosParcial", "Paciente", new { id = (long)ViewBag.PacienteId, eliminado = !ViewBag.Eliminado }, new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "datosAntropometricos-Parcial",
+
+                }, new { @class = "btn btn-primary-custom" })
+
+            }
         </div>
     </div>
 </div>

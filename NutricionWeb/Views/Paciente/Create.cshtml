@@ -87,7 +87,7 @@
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
                             </span>
-                            <input type="text" class="form-control" id="FechaNac" name="FechaNac" value="@Model.FechaNac" readonly="readonly" />
+                            <input type="text" class="form-control" id="FechaNac" name="FechaNac" value="@Model.FechaNac"  />
 
                             @Html.ValidationMessageFor(model => model.FechaNac, "", new { @class = "text-danger" })
                         </div>
@@ -148,11 +148,14 @@
             $("#fecha").datetimepicker({
                 useCurrent: true,
                 format: "DD/MM/YYYY",
-                ignoreReadonly: true,
-                viewMode: 'years'
+                ignoreReadonly: true,               
             });
             $(document).ready(function(){
                 $("#FechaNac").attr("value", "01/01/1980");
+                 $('#FechaNac').on('input', function () {
+                    this.value = this.value.replace(/[^0-9/]/g, '');
+                });
+
 
                 $('#Dni').on('input', function () {
                     this.value = this.value.replace(/[^0-9]/g, '');
