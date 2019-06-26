@@ -292,12 +292,12 @@ namespace Servicio.Paciente
         public async Task<(long? Id, string Mensaje)> VerifyDuplicity(PacienteDto dto)
         {
             var paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
-                .FirstOrDefaultAsync(x => x.Mail == dto.Mail);
+                .FirstOrDefaultAsync(x => x.Mail == dto.Mail && x.Id!=dto.Id);
 
             if (paciente != null) { return (paciente.Id, Mensaje: "Ya existe un paciente con ese Mail"); }
 
             paciente = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
-                .FirstOrDefaultAsync(x => x.Dni == dto.Dni);
+                .FirstOrDefaultAsync(x => x.Dni == dto.Dni && x.Id!=dto.Id);
 
             if (paciente != null) { return  (paciente.Id, Mensaje: "Ya existe un paciente con ese Dni"); }
 

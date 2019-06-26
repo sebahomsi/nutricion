@@ -347,7 +347,7 @@ namespace NutricionWeb.Controllers.Paciente
             });
         }
 
-        public async Task<ActionResult> DatosAntropometricosParcial(long? id)
+        public async Task<ActionResult> DatosAntropometricosParcial(long? id, bool eliminado = false)
         {
             if (id == null) return RedirectToAction("Error", "Home");
 
@@ -355,9 +355,10 @@ namespace NutricionWeb.Controllers.Paciente
 
             var datosAntropometricos = Mapper.Map<IEnumerable<DatoAntropometricoViewModel>>(datos);
 
+            ViewBag.Eliminado = eliminado;
             ViewBag.PacienteId = id;
 
-            return PartialView(datosAntropometricos.ToList());
+            return PartialView(datosAntropometricos.Where(x => x.Eliminado == eliminado).ToList());
 
         }
 
@@ -386,7 +387,7 @@ namespace NutricionWeb.Controllers.Paciente
 
         }
 
-        public async Task<ActionResult> PlanesAlimenticiosParcial(long? id)
+        public async Task<ActionResult> PlanesAlimenticiosParcial(long? id, bool eliminado = false)
         {
             if (id == null) return RedirectToAction("Error", "Home");
 
@@ -394,12 +395,13 @@ namespace NutricionWeb.Controllers.Paciente
 
             var planesAlimenticios = Mapper.Map<IEnumerable<PlanAlimenticioViewModel>>(datos);
 
+            ViewBag.Eliminado = eliminado;
             ViewBag.PacienteId = id;
 
-            return PartialView(planesAlimenticios.ToList());
+            return PartialView(planesAlimenticios.Where(x=> x.Eliminado == eliminado).ToList());
         }
 
-        public async Task<ActionResult> DatosAnaliticosParcial(long? id)
+        public async Task<ActionResult> DatosAnaliticosParcial(long? id, bool eliminado = false)
         {
             if (id == null) return RedirectToAction("Error", "Home");
 
@@ -407,9 +409,10 @@ namespace NutricionWeb.Controllers.Paciente
 
             var datosAnaliticos = Mapper.Map<IEnumerable<DatoAnaliticoViewModel>>(datos);
 
+            ViewBag.Eliminado = eliminado;
             ViewBag.PacienteId = id;
 
-            return PartialView(datosAnaliticos.ToList());
+            return PartialView(datosAnaliticos.Where(x => x.Eliminado == eliminado).ToList());
         }
 
         public async Task<ActionResult> TurnosParcial(long? id)
