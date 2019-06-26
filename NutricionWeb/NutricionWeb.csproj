@@ -300,7 +300,9 @@
     </Compile>
     <Compile Include="Helpers\AutoMapper\DatoAntropometricoProfileView.cs" />
     <Compile Include="Helpers\AutoMapper\IniciarAutoMapper.cs" />
+    <Compile Include="Helpers\AutoMapper\PacienteProfileView.cs" />
     <Compile Include="Helpers\AutoMapper\TurnosProfileView.cs" />
+    <Compile Include="Helpers\Context.cs" />
     <Compile Include="Helpers\Diccionario.cs" />
     <Compile Include="Helpers\Establecimiento\ComboBoxEstablecimiento.cs" />
     <Compile Include="Helpers\Establecimiento\IComboBoxEstablecimiento.cs" />
@@ -338,6 +340,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MacroNutriente\MacroNutrienteABMViewModel.cs" />
     <Compile Include="Models\MacroNutriente\MacroNutrienteViewModel.cs" />
+    <Compile Include="Models\Mail\CuerpoMailViewModel.cs" />
     <Compile Include="Models\Mail\MailViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Mensaje\MensajeViewModel.cs" />
@@ -841,6 +844,8 @@
     <Content Include="Views\Alimento\CreateParcial.cshtml" />
     <Content Include="Views\SubGrupoReceta\BuscarGrupo.cshtml" />
     <Content Include="Views\SubGrupoReceta\BuscarSubGrupos.cshtml" />
+    <Content Include="Views\Mail\GeneratePdf.cshtml" />
+    <Content Include="Views\Mail\GenerarCuerpoMail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

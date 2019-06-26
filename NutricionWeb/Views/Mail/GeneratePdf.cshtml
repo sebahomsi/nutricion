@@ -1,0 +1,299 @@
+﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioVistaViewModel
+
+@{
+    ViewBag.Title = "ExportarPlanOrdenado";
+}
+
+@{
+    Layout = null;
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/sidebar.css" rel="stylesheet" />
+
+
+<style>
+    .row {
+        display: table;
+        width: 100%;
+    }
+
+    [class*="col-"] {
+        float: none;
+        display: table-cell;
+        vertical-align: top;
+    }
+</style>
+
+<h2>Plan Alimenticio</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" style=" width:12.5%">
+
+        </div>
+        <div class="col-md-2 text-center" style="border-left:1px solid black; border-top:1px solid black; width:12.5%">
+            Lunes
+        </div>
+        <div class="col-md-2 text-center" style="border-left:1px solid black; border-top:1px solid black;   width:12.5%">
+            Martes
+        </div>
+        <div class="col-md-2 text-center" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%; ">
+            Miercoles
+        </div>
+        <div class="col-md-2 text-center" style="border-left:1px solid black;  border-top:1px solid black;  width:12.5%;">
+            Jueves
+        </div>
+        <div class="col-md-2 text-center" style="border-left:1px solid black;  border-top:1px solid black;  width:12.5%;">
+            Viernes
+        </div>
+        <div class="col-md-2 text-center" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%; ">
+            Sabado
+        </div>
+        <div class="col-md-2 text-center" style="border-right:1px solid black; border-top:1px solid black;  border-left:1px solid black; width:12.5%; ">
+            Domingo
+        </div>
+    </div>
+
+    <div class="row" id="desayuno">
+        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            Desayuno
+        </div>
+        @foreach (var comida in Model.Desayunos)
+        {
+            if (Model.Desayunos.Last() == comida)
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%" id="@comida.DiaStr@comida.Descripcion">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%" id="@comida.DiaStr@comida.Descripcion">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+
+                </div>
+            }
+
+        }
+    </div>
+    <div class="row" id="mediaMañana">
+        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            Media Mañana
+        </div>
+        @foreach (var comida in Model.MediaMañana)
+        {
+            if (Model.MediaMañana.Last() == comida)
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:.<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+        }
+    </div>
+    <div class="row" id="almuerzo">
+        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            Almuerzo
+        </div>
+        @foreach (var comida in Model.Almuerzo)
+        {
+            if (Model.Almuerzo.Last() == comida)
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+        }
+    </div>
+    <div class="row" id="merienda">
+        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            Merienda
+        </div>
+        @foreach (var comida in Model.Merienda)
+        {
+            if (Model.Merienda.Last() == comida)
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+        }
+    </div>
+    <div class="row" id="mediaTarde">
+        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+            Media Tarde
+        </div>
+        @foreach (var comida in Model.MediaTarde)
+        {
+            if (Model.MediaTarde.Last() == comida)
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2 " style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+        }
+    </div>
+    <div class="row" id="cena">
+        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  width:12.5%">
+            Cena
+        </div>
+        @foreach (var comida in Model.Cena)
+        {
+            if (Model.Cena.Last() == comida)
+            {
+                <div class="col-md-2 " style=" border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  border-right:1px solid black; width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  width:12.5%">
+                    @foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        @detalle.OpcionStr @:<br />
+                        foreach (var receta in detalle.Opcion.OpcionDetalles)
+                        {
+                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
+                        }
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                </div>
+            }
+        }
+    </div>
+
+</div>
+
+<p>
+    Total Calorias: @ViewBag.Calorias
+</p>
+
+
+<br /><br />
+
+
+

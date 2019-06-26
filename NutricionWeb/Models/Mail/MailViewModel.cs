@@ -22,12 +22,16 @@ namespace NutricionWeb.Models.Mail
         [DataType(DataType.Password)]
         public string Contraseña { get; set; }
 
+        public long PacienteId { get; set; }
+
         [Display(Name = "Cuerpo")]
         [DataType(DataType.MultilineText)]
         public string CuerpoMensaje { get; set; }
 
         [DataType(DataType.Text)]
         public string Asunto { get; set; }
+
+        public bool IncluirHistoriaClinica { get; set; }
 
         public List<HttpPostedFileBase> Imagenes { get; set; }
 
