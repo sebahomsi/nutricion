@@ -32,7 +32,7 @@ namespace NutricionWeb.Models.DatoAnalitico
         public string PresionSistolica { get; set; }
 
         public string Trigliceridos { get; set; }
-
+        [Display(Name = "Glucemia")]
         public string Glusemia { get; set; }
         public string Insulina { get; set; }
         [Display(Name = "Vitamina D")]
@@ -44,6 +44,7 @@ namespace NutricionWeb.Models.DatoAnalitico
         public string Fosforo { get; set; }
         [Display(Name = "Globulos Rojos")]
         public string GlobulosRojos { get; set; }
+        [Display(Name = "Hematocrito")]
         public string Hematocritos { get; set; }
         public string Hemoglobina { get; set; }
 
