@@ -13,6 +13,8 @@ namespace NutricionWeb.Helpers.AutoMapper
 
                 cfg.AddProfile(new TurnosProfileView());
                 cfg.AddProfile(new DatoAntropometricoProfileView());
+                cfg.AddProfile(new PacienteProfileView());
+                
                 #endregion
 
 

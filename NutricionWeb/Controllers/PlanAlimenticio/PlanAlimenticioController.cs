@@ -17,6 +17,13 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using NutricionWeb.Helpers.SubGrupo;
+using Servicio.Alimento;
+using Servicio.Comida;
+using Servicio.ComidaDetalle;
+using Servicio.Dia;
+using Servicio.Opcion;
+using Servicio.Paciente;
+using Servicio.PlanAlimenticio;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.PlanAlimenticio
@@ -26,21 +33,31 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
         private readonly IPacienteServicio _pacienteServicio;
         private readonly IDiaServicio _diaServicio;
-        private readonly IOpcionServicio _opcionServicio;
-        private readonly IAlimentoServicio _alimentoServicio;
         private readonly IComboBoxSubGrupo _comboBoxSubGrupo;
 
-        public PlanAlimenticioController(IPlanAlimenticioServicio planAlimenticioServicio, IPacienteServicio pacienteServicio, IDiaServicio diaServicio, IOpcionServicio opcionServicio, IAlimentoServicio alimentoServicio, IComboBoxSubGrupo comboBoxSubGrupo)
+        public PlanAlimenticioController(IPlanAlimenticioServicio planAlimenticioServicio, IPacienteServicio pacienteServicio, IDiaServicio diaServicio, IComboBoxSubGrupo comboBoxSubGrupo)
         {
             _planAlimenticioServicio = planAlimenticioServicio;
             _pacienteServicio = pacienteServicio;
             _diaServicio = diaServicio;
-            _opcionServicio = opcionServicio;
-            _alimentoServicio = alimentoServicio;
             _comboBoxSubGrupo = comboBoxSubGrupo;
         }
 
-        
+        //public async Task<Byte[]> GeneratePdfMail(long planId)
+        //{
+        //    var plan = await _planAlimenticioServicio.GetById(planId);
+
+        //    var mailpdft = new ActionAsPdf(Url.Action("GeneratePdf", "PlanAlimenticio"), new { id = planId })
+        //    {
+        //        FileName = "PlanAlimenticio_" + plan.PacienteStr + ".pdf",
+        //        PageSize = Rotativa.Options.Size.A4,
+        //        PageOrientation = Rotativa.Options.Orientation.Landscape,
+        //    };
+
+        //    Byte[] PdfData = mailpdft.BuildFile(ControllerContext);
+        //    return PdfData;
+        //}
+
 
         // GET: PlanAlimenticio
         [Authorize(Roles = "Administrador")]
@@ -364,6 +381,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 PageOrientation = Rotativa.Options.Orientation.Landscape,
             };
         }
+
 
 
         public async Task<ActionResult> TraerPaciente(long? pacienteId)

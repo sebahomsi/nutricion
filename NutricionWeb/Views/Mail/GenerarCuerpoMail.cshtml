@@ -1,0 +1,78 @@
+﻿@model NutricionWeb.Models.Mail.CuerpoMailViewModel
+
+@{
+    ViewBag.Title = "GenerarCuerpoMail";
+    Layout = null;
+}
+
+@{
+    var nota = "";
+    var masa = double.Parse(Model.DatoAntropometrico.MasaCorporal);
+    var color = "";
+    if (masa >= 18.5 && masa <= 24.9)
+    {
+        nota = "Peso Normal";
+        color = "color: rgba(254,240,0,1)";
+    }
+    if (masa >= 25 && masa <= 26.9)
+    {
+        nota = "Sobrepeso grado I";
+        color = "color: rgba(253,184,49,1)";
+    }
+    if (masa >= 27 && masa <= 29.9)
+    {
+        nota = "Sobrepeso grado II";
+        color = "color: rgba(248,152,28,1)";
+    }
+    if (masa >= 30 && masa <= 34.9)
+    {
+        nota = "Obesidad grado I";
+        color = "color: rgba(243,117,56,1)";
+    }
+    if (masa >= 35 && masa <= 39.9)
+    {
+        nota = "Obesidad grado II";
+        color = "color: rgba(236,65,54,1)";
+    }
+    if (masa >= 40)
+    {
+        nota = "Obesidad morbida";
+        color = "color: rgba(236,23,79,1)";
+    }
+}
+
+<h2>HISTORIA CLINICA Y NUTRICIONAL</h2>
+
+<br /><br />
+
+<h3>Datos del paciente</h3>
+<p>Paciente: @Model.Paciente.ApyNom</p>
+<p>E-Mail: @Model.Paciente.Mail</p>
+<p>Tel: @Model.Paciente.Celular</p>
+<p>Fecha de nacimiento: @Model.Paciente.FechaNacStr</p>
+<p>Edad: @Model.Paciente.Edad</p>
+<p>Fecha de historia clinica: @Model.DatoAntropometrico.FechaMedicionStr</p>
+
+<br />
+
+<h3>Mediciones</h3>
+<p>Altura: @Model.DatoAntropometrico.Altura cm.</p>
+<p>Peso Actual: @Model.DatoAntropometrico.PesoActual Kg.</p>
+<p>Peso Habitual: @Model.DatoAntropometrico.PesoHabitual Kg.</p>
+<p>Peso Deseado: @Model.DatoAntropometrico.PesoDeseado Kg.</p>
+<p>Peso Ideal: @Model.DatoAntropometrico.PesoIdeal Kg.</p>
+<p>IMC: @Model.DatoAntropometrico.MasaCorporal Kg/m² - <span style="@color">(@nota)</span></p>
+<p>Masa de grasa(%): @Model.DatoAntropometrico.MasaGrasa %</p>
+
+<br />
+
+<h3>Objetivos del tratamiento</h3>
+<p>@Model.Objetivo.Descripcion</p>
+
+<br />
+
+<h3>Estrategias del tratamiento</h3>
+<p>@Model.Estrategia.Descripcion</p>
+
+
+<img src="~/Content/Imagenes/logo-novillo.png" style="width: 30%;" />
