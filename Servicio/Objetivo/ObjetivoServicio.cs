@@ -38,7 +38,15 @@ namespace Servicio.Objetivo
 
             if (objetivo == null) return new ObjetivoDto()
             {
-                Descripcion = "",
+                Descripcion = $"OBJETIVOS DEL TRATAMIENTO\n\t" +
+                "Mejorar algunos hábitos específicos en pos de una alimentación suficiente,"+
+                "completa,"+
+                "armónica y adecuada. \n\t" +
+                "Normalizar los valores de IMC.Reducción de peso en forma paulatina y saludable.\n\t " +
+                "Aumentar ingesta deác.grasos poliinsaturados y monoinsaturados(omega 3, 6 y 9); reducir ingesta de ác.\n\t " +
+                "Grasos saturados y colesterol.\n\t " +
+                "Aumentar ingesta de fibra de forma paulatina. \n\t" +
+                "Disminuir circunferencia de cintura para reducir riesgo cardiometabólico. \n\t",
                 PacienteId = id,
                 Id = 0
             };

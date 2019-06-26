@@ -37,7 +37,8 @@ namespace Servicio.Estrategia
 
             if (estrategia == null) return new EstrategiaDto()
             {
-                Descripcion = "Estrategia",
+                Descripcion = "Plan alimentario: se entregará plan nutricional levemente hipocalórico, con selección de alimentos,  para realizar durante 15 días y evaluar adhesión al tratamiento\n\n"+
+                "Actividad física: Se sugiere aumentar la actividad física por lo menos 3 veces a la semana durante sesiones de al menos 60 minutos.",
                 PacienteId = id,
                 Id = 0
             };
