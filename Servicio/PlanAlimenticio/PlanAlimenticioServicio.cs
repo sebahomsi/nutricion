@@ -253,6 +253,8 @@ namespace Servicio.PlanAlimenticio
 
                         foreach (var detalle in opcion.OpcionDetalles)
                         {
+                            var cantidadComidas = comida.ComidasDetalles.Count();
+
                             var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
 
                             var caloria = alimento.MacroNutriente.Calorias;
@@ -297,13 +299,233 @@ namespace Servicio.PlanAlimenticio
                                     throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
                                     
                             }
-                            caloriasPlan += caloria;
+                            caloriasPlan += caloria/cantidadComidas;
                         }
                     }
                 }
             }
             plan.TotalCalorias = (int) caloriasPlan;
             await Context.SaveChangesAsync();
+        }
+
+        public async Task<int> CalculateTotalCaloriesGrasas(long plandId)
+        {
+            var plan = await Context.PlanesAlimenticios.Include("Dias.Comidas.ComidasDetalles").FirstOrDefaultAsync(x => x.Id == plandId);
+
+            if (plan == null) throw new ArgumentNullException();
+
+            var dias = plan.Dias;
+            var caloriasPlan = 0m;
+
+            foreach (var dia in dias)
+            {
+                foreach (var comida in dia.Comidas)
+                {
+                    foreach (var comidaDetalle in comida.ComidasDetalles)
+                    {
+                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
+
+                        var cantidadComidas = comida.ComidasDetalles.Count();
+
+                        foreach (var detalle in opcion.OpcionDetalles)
+                        {
+                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
+
+                            var caloria = alimento.MacroNutriente.Grasa * 9;
+
+                            switch (detalle.UnidadMedidaStr.ToLower())
+                            {
+                                case "g":
+                                    caloria = (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "ml":
+                                    caloria = (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "l":
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "kg":
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "cdapo":
+                                    caloria = ((detalle.Cantidad * 5) * caloria / 100);
+                                    break;
+                                case "cdasp":
+                                    caloria = ((detalle.Cantidad * 15) * caloria / 100);
+                                    break;
+                                case "tzTE":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "tzCAFE":
+                                    caloria = ((detalle.Cantidad * 250) * caloria / 100);
+                                    break;
+                                case "plhon":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "plpr":
+                                    caloria = ((detalle.Cantidad * 120) * caloria / 100);
+                                    break;
+                                case "cdate":
+                                    caloria = ((detalle.Cantidad * 2) * caloria / 100);
+                                    break;
+
+                                default:
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
+
+                            }
+                            caloriasPlan += caloria/ cantidadComidas;
+                        }
+                    }
+                }
+            }
+            return (int)caloriasPlan;
+        }
+
+
+        public async Task<int> CalculateTotalCaloriesCarbos(long plandId)
+        {
+            var plan = await Context.PlanesAlimenticios.Include("Dias.Comidas.ComidasDetalles").FirstOrDefaultAsync(x => x.Id == plandId);
+
+            if (plan == null) throw new ArgumentNullException();
+
+            var dias = plan.Dias;
+            var caloriasPlan = 0m;
+
+            foreach (var dia in dias)
+            {
+                foreach (var comida in dia.Comidas)
+                {
+                    foreach (var comidaDetalle in comida.ComidasDetalles)
+                    {
+                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
+
+                        var cantidadComidas = comida.ComidasDetalles.Count();
+
+                        foreach (var detalle in opcion.OpcionDetalles)
+                        {
+                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
+
+                            var caloria = alimento.MacroNutriente.HidratosCarbono * 4;
+
+                            switch (detalle.UnidadMedidaStr.ToLower())
+                            {
+                                case "g":
+                                    caloria = (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "ml":
+                                    caloria = (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "l":
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "kg":
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "cdapo":
+                                    caloria = ((detalle.Cantidad * 5) * caloria / 100);
+                                    break;
+                                case "cdasp":
+                                    caloria = ((detalle.Cantidad * 15) * caloria / 100);
+                                    break;
+                                case "tzTE":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "tzCAFE":
+                                    caloria = ((detalle.Cantidad * 250) * caloria / 100);
+                                    break;
+                                case "plhon":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "plpr":
+                                    caloria = ((detalle.Cantidad * 120) * caloria / 100);
+                                    break;
+                                case "cdate":
+                                    caloria = ((detalle.Cantidad * 2) * caloria / 100);
+                                    break;
+
+                                default:
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
+
+                            }
+                            caloriasPlan += caloria/ cantidadComidas;
+                        }
+                    }
+                }
+            }
+            return (int)caloriasPlan;
+        }
+
+        public async Task<int> CalculateTotalCaloriesProtes(long plandId)
+        {
+            var plan = await Context.PlanesAlimenticios.Include("Dias.Comidas.ComidasDetalles").FirstOrDefaultAsync(x => x.Id == plandId);
+
+            if (plan == null) throw new ArgumentNullException();
+
+            var dias = plan.Dias;
+            var caloriasPlan = 0m;
+
+            foreach (var dia in dias)
+            {
+                foreach (var comida in dia.Comidas)
+                {
+                    foreach (var comidaDetalle in comida.ComidasDetalles)
+                    {
+                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
+
+                        var cantidadComidas = comida.ComidasDetalles.Count();
+
+                        foreach (var detalle in opcion.OpcionDetalles)
+                        {
+                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
+
+                            var caloria = alimento.MacroNutriente.Proteina * 4;
+
+                            switch (detalle.UnidadMedidaStr.ToLower())
+                            {
+                                case "g":
+                                    caloria = (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "ml":
+                                    caloria = (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "l":
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "kg":
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "cdapo":
+                                    caloria = ((detalle.Cantidad * 5) * caloria / 100);
+                                    break;
+                                case "cdasp":
+                                    caloria = ((detalle.Cantidad * 15) * caloria / 100);
+                                    break;
+                                case "tzTE":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "tzCAFE":
+                                    caloria = ((detalle.Cantidad * 250) * caloria / 100);
+                                    break;
+                                case "plhon":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "plpr":
+                                    caloria = ((detalle.Cantidad * 120) * caloria / 100);
+                                    break;
+                                case "cdate":
+                                    caloria = ((detalle.Cantidad * 2) * caloria / 100);
+                                    break;
+
+                                default:
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
+
+                            }
+                            caloriasPlan += caloria/cantidadComidas;
+                        }
+                    }
+                }
+            }
+            return (int)caloriasPlan;
         }
 
         private async Task SetCodes()

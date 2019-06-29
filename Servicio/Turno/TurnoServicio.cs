@@ -109,6 +109,17 @@ namespace Servicio.Turno
 
         }
 
+        public async Task<TurnoDto> GetLastByPacienteId(long pacienteId)
+        {
+            var turnos = await GetByIdPaciente(pacienteId);
+
+            if (!turnos.Any()) return null;
+
+            var ultimo = turnos.OrderByDescending(t => t.HorarioEntrada).Last(x => x.HorarioEntrada > DateTime.Now);
+
+            return ultimo;
+        }
+
         public async Task<int> GetNextCode()
         {
             return await Context.Turnos.AnyAsync() ? await Context.Turnos.MaxAsync(x => x.Numero) + 1 : 1;
