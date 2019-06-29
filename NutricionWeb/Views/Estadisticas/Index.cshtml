@@ -9,6 +9,14 @@
                 <canvas id="myChart" width="500" height="250"></canvas>
             </div>
         </div>
+        <div class="col-md-6">
+            <div>
+                <h2>Turnos</h2>
+            </div>
+            <div>
+                <canvas id="turnosChart" width="500" height="250"></canvas>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -65,16 +73,76 @@
 
         }
 
+        var graficoTurnos = datos => {
+
+            let descripcion = $.map(datos, (val, i) => {
+                return val.Descripcion;
+            });
+
+            let color = $.map(datos, (val, i) => {
+                return val.Color;
+            });
+
+            let cantidad = $.map(datos, (val, i) => {
+               return val.Cantidad;
+            });
+
+            
+
+            
+
+              var ctx = document.getElementById('turnosChart').getContext('2d');
+            
+              var turnos = new Chart(ctx,
+                {
+                    type: 'bar',
+                    data: {
+                        labels: descripcion,
+                        datasets: [
+                            {
+                                label: 'Turnos',
+                                fill: true,
+                                data: cantidad,
+                                backgroundColor: color,
+                                borderColor: color,
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    stepSize: 1
+                                    
+                                }
+                            }],
+                             xAxes: [{
+                                barThickness: 30
+                            }]
+                        }
+                    }
+                });
+
+        }
+
         var obtenerDatosAntropometricos = () => {
             $.get('@Url.Action("ObtenerDatosAntropometricos","Estadisticas")', { pacienteId : @ViewBag.PacienteId }, datos => {
 
                 graficoAntropometrico(datos);
             });
         }
+        var obtenerTurnos = () => {
+            $.get('@Url.Action("ObtenerTurnosPorPaciente","Estadisticas")', { pacienteId : @ViewBag.PacienteId }, datos => {
 
+                graficoTurnos(datos);
+            });
+        }
+       
         $(function () {
 
             obtenerDatosAntropometricos();
+            obtenerTurnos();
 
         });
 
