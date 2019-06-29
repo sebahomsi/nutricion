@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Servicio.Interface.Turno;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -17,11 +18,13 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
     {
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
         private readonly IPacienteServicio _pacienteServicio;
+        private readonly ITurnoServicio _turnoServicio;
 
-        public DatoAntropometricoController(IDatoAntropometricoServicio datoAntropometricoServicio, IPacienteServicio pacienteServicio)
+        public DatoAntropometricoController(IDatoAntropometricoServicio datoAntropometricoServicio, IPacienteServicio pacienteServicio, ITurnoServicio turnoServicio)
         {
             _datoAntropometricoServicio = datoAntropometricoServicio;
             _pacienteServicio = pacienteServicio;
+            _turnoServicio = turnoServicio;
         }
 
         // GET: DatoAntropometrico
@@ -331,11 +334,18 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
         }
 
-        public async Task<ActionResult> TraerPaciente(long? pacienteId)
+        public async Task<ActionResult> TraerPaciente(long? pacienteId, bool? traerTurno)
         {
             if (pacienteId == null) return RedirectToAction("Error", "Home");
 
             var paciente = await _pacienteServicio.GetById(pacienteId.Value);
+
+            if (traerTurno.HasValue)
+            {
+                var turno = await _turnoServicio.GetLastByPacienteId(pacienteId.Value);
+                var fecha = turno.HorarioEntrada.ToString("dd/MM/yyyy HH:mm");
+                return Json(new { paciente, fecha }, JsonRequestBehavior.AllowGet);
+            }
 
             return Json(paciente, JsonRequestBehavior.AllowGet);
         }

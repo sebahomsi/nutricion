@@ -95,18 +95,27 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.CuerpoMensaje, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.CuerpoMensaje, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.CuerpoMensaje, new { htmlAttributes = new { @class = "form-control", @rows = "10", @cols = "20" } })
                         @Html.ValidationMessageFor(model => model.CuerpoMensaje, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                
+
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.IncluirHistoriaClinica, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.IncluirHistoriaClinica, new { htmlAttributes = new {  } })
+                    <div class="col-md-1">
+                        @Html.EditorFor(model => model.IncluirHistoriaClinica, new { htmlAttributes = new { } })
                         @Html.ValidationMessageFor(model => model.IncluirHistoriaClinica, "", new { @class = "text-danger" })
                     </div>
+                    @Html.LabelFor(model => model.IncluirPlan, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-1">
+                        @Html.EditorFor(model => model.IncluirPlan, new { htmlAttributes = new { } })
+                        @Html.ValidationMessageFor(model => model.IncluirPlan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                   
                 </div>
 
 
@@ -141,48 +150,54 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
 
-          $("#btn-Paciente").click(function() {
-                    listaPaciente();
-                }
-            );
+        $("#btn-Paciente").click(function() {
+                listaPaciente();
+            }
+        );
 
         $("#btn-BuscarPaciente").click(() => {
             listaPaciente();
         });
-            function listaPaciente() {
-                $("#partialFindPaciente").empty();
 
-                $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAntropometrico"))',
-                    {
-                        cadenaBuscar: $("#txt-BuscarPaciente").val()
-                    },
-                    function (listaPaciente) {
-                        $("#partialFindPaciente").append(listaPaciente);
-                    });
-            }
+        function listaPaciente() {
+            $("#partialFindPaciente").empty();
 
-
-
-            $(document).on("click",
-                "#seleccionar-paciente",
-                function() {
-
-                    var url = '@Html.Raw(Url.Action("TraerPaciente", "DatoAntropometrico"))';
-
-                    $.get(url,
-                        { pacienteId: $(this).attr("name") },
-                        function(paciente) {
-
-                            $('#MailDestino').val(paciente.Mail);
-                            $('#PacienteId').val(paciente.Id);
-                            $('#cancelar-paciente').trigger("click");
-                        });
+            $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAntropometrico"))',
+                {
+                    cadenaBuscar: $("#txt-BuscarPaciente").val()
+                },
+                function(listaPaciente) {
+                    $("#partialFindPaciente").append(listaPaciente);
                 });
+        }
+
+
+        $(document).on("click",
+            "#seleccionar-paciente",
+            function() {
+
+                const url = '@Html.Raw(Url.Action("TraerPaciente", "DatoAntropometrico"))';
+
+                $.get(url,
+                    { pacienteId: $(this).attr("name"), traerTurno: true },
+                    function(json) {
+
+                        $('#MailDestino').val(json.paciente.Mail);
+                        $('#PacienteId').val(json.paciente.Id);
+                        $('#cancelar-paciente').trigger("click");
+                        if (json.fecha) {
+                            $('#CuerpoMensaje').val(`Hola ${json.paciente.Nombre}! te envio este mail para realizar los primeros 15 dias\nTu proxima consulta será: ${json.fecha}`);
+                        } else {
+                            $('#CuerpoMensaje').val(`Hola ${json.paciente.Nombre}! te envio este mail para realizar los primeros 15 dias`);
+                        }
+                        
+                    });
+            });
 
         //=======================JavaScriptPuro==========================
         var prueba;
         var insertarImagen = function(src) {
-            var img = document.createElement("img");
+            const img = document.createElement("img");
             img.style.width = "50px";
             img.style.height = "50px";
             img.style.margin = "5px";
@@ -226,25 +241,25 @@
                         console.log(file.type);
                         console.log(file.name);
                         if (file.type.includes("image")) {
-                            fileReader.onload = (function (e) {
+                            fileReader.onload = (function(e) {
                                 insertarImagen(e.target.result);
                             });
                         }
                         if (file.type.includes("zip")) {
-                            fileReader.onload = (function (e) {
+                            fileReader.onload = (function(e) {
                                 insertarImagen("/Content/Imagenes/icono-ZIP.png");
                             });
 
                         }
                         if (file.name.includes("rar")) {
-                            fileReader.onload = (function (e) {
+                            fileReader.onload = (function(e) {
                                 insertarImagen("/Content/Imagenes/rar.png");
                             });
 
                         }
-                        if (file.name.includes("docx") || file.name.includes(".txt") ) {
-                            fileReader.onload = (function (e) {
-                            insertarImagen("/Content/Imagenes/word.png");
+                        if (file.name.includes("docx") || file.name.includes(".txt")) {
+                            fileReader.onload = (function(e) {
+                                insertarImagen("/Content/Imagenes/word.png");
                             });
                         }
                         fileReader.readAsDataURL(files[i]);

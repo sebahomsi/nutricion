@@ -31,7 +31,11 @@ namespace NutricionWeb.Models.Mail
         [DataType(DataType.Text)]
         public string Asunto { get; set; }
 
+        [Display(Name = "Incluir Historia Clinica")]
         public bool IncluirHistoriaClinica { get; set; }
+
+        [Display(Name = "Incluir Plan")]
+        public bool IncluirPlan { get; set; }
 
         public List<HttpPostedFileBase> Imagenes { get; set; }
 

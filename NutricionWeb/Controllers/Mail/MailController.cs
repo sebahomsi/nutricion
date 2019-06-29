@@ -1,4 +1,17 @@
-﻿using NutricionWeb.Models.Mail;
+﻿using AutoMapper;
+using NutricionWeb.Models.DatoAntropometrico;
+using NutricionWeb.Models.Estrategia;
+using NutricionWeb.Models.Mail;
+using NutricionWeb.Models.Objetivo;
+using NutricionWeb.Models.Paciente;
+using NutricionWeb.Models.PlanAlimenticio;
+using Rotativa;
+using Servicio.Interface.DatoAntropometrico;
+using Servicio.Interface.Estrategia;
+using Servicio.Interface.Objetivo;
+using Servicio.Interface.Paciente;
+using Servicio.Interface.PlanAlimenticio;
+using Servicio.Interface.Turno;
 using System;
 using System.IO;
 using System.Linq;
@@ -7,26 +20,6 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Rotativa;
-using Servicio.Interface.PlanAlimenticio;
-using System.Web.Routing;
-using System.Web;
-using NutricionWeb.Controllers.PlanAlimenticio;
-using NutricionWeb.Helpers;
-using NutricionWeb.Helpers.SubGrupo;
-using Servicio.Interface.Alimento;
-using Servicio.Interface.Opcion;
-using Servicio.Interface.Paciente;
-using Servicio.Interface.Dia;
-using AutoMapper;
-using NutricionWeb.Models.DatoAntropometrico;
-using NutricionWeb.Models.Estrategia;
-using NutricionWeb.Models.Objetivo;
-using NutricionWeb.Models.Paciente;
-using NutricionWeb.Models.PlanAlimenticio;
-using Servicio.Interface.DatoAntropometrico;
-using Servicio.Interface.Estrategia;
-using Servicio.Interface.Objetivo;
 
 namespace NutricionWeb.Controllers.Mail
 {
@@ -34,28 +27,22 @@ namespace NutricionWeb.Controllers.Mail
     {
         // GET: Mail
         private readonly IPlanAlimenticioServicio _planAlimenticioServicio;
- 
+
         private readonly IPacienteServicio _pacienteServicio;
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
         private readonly IObjetivoServicio _objetivoServicio;
         private readonly IEstrategiaServicio _estrategiaServicio;
 
-        private readonly IDiaServicio _diaServicio;
-        private readonly IOpcionServicio _opcionServicio;
-        private readonly IAlimentoServicio _alimentoServicio;
-        private readonly IComboBoxSubGrupo _comboBoxSubGrupo;
+        private readonly ITurnoServicio _turnoServicio;
 
-        public MailController(IPlanAlimenticioServicio planAlimenticioServicio, IPacienteServicio pacienteServicio, IDatoAntropometricoServicio datoAntropometricoServicio, IObjetivoServicio objetivoServicio, IEstrategiaServicio estrategiaServicio, IDiaServicio diaServicio, IOpcionServicio opcionServicio, IAlimentoServicio alimentoServicio, IComboBoxSubGrupo comboBoxSubGrupo)
+        public MailController(IPlanAlimenticioServicio planAlimenticioServicio, IPacienteServicio pacienteServicio, IDatoAntropometricoServicio datoAntropometricoServicio, IObjetivoServicio objetivoServicio, IEstrategiaServicio estrategiaServicio, ITurnoServicio turnoServicio)
         {
             _planAlimenticioServicio = planAlimenticioServicio;
             _pacienteServicio = pacienteServicio;
             _datoAntropometricoServicio = datoAntropometricoServicio;
             _objetivoServicio = objetivoServicio;
             _estrategiaServicio = estrategiaServicio;
-            _diaServicio = diaServicio;
-            _opcionServicio = opcionServicio;
-            _alimentoServicio = alimentoServicio;
-            _comboBoxSubGrupo = comboBoxSubGrupo;
+            _turnoServicio = turnoServicio;
         }
 
         public async Task<ActionResult> Create(long? pacienteId)
@@ -63,11 +50,23 @@ namespace NutricionWeb.Controllers.Mail
             if (pacienteId.HasValue)
             {
                 var paciente = await _pacienteServicio.GetById(pacienteId.Value);
+                var turno = await _turnoServicio.GetLastByPacienteId(pacienteId.Value);
+                if (turno != null)
+                {
+                    return View(new MailViewModel()
+                    {
+                        MailEmisor = User.Identity.Name,
+                        MailDestino = paciente.Mail,
+                        PacienteId = pacienteId.Value,
+                        CuerpoMensaje = $"Hola {paciente.Nombre}! te envio este mail para realizar los primeros 15 dias!\nTu proxima consulta será: {turno.HorarioEntrada:dd/MM/yyyy HH:mm}"
+                    });
+                }
                 return View(new MailViewModel()
                 {
                     MailEmisor = User.Identity.Name,
                     MailDestino = paciente.Mail,
-                    PacienteId = pacienteId.Value
+                    PacienteId = pacienteId.Value,
+                    CuerpoMensaje = $"Hola {paciente.Nombre}! te envio este mail para realizar los primeros 15 dias!"
                 });
             }
             return View(new MailViewModel()
@@ -85,9 +84,6 @@ namespace NutricionWeb.Controllers.Mail
             {
                 if (ModelState.IsValid)
                 {
-                    var pdf = await GeneratePdfMail(vm.PacienteId);
-
-                    var stream = new MemoryStream(pdf);
                     var mmsg = new MailMessage();
                     mmsg.To.Add(vm.MailDestino);
                     mmsg.Subject = vm.Asunto;
@@ -95,7 +91,7 @@ namespace NutricionWeb.Controllers.Mail
                     mmsg.From = new MailAddress(vm.MailEmisor);
                     mmsg.Body = vm.CuerpoMensaje;
                     mmsg.BodyEncoding = Encoding.UTF8;
-                    if (vm.Imagenes.Any(x=>x != null))
+                    if (vm.Imagenes.Any(x => x != null))
                     {
                         foreach (var imagen in vm.Imagenes)
                         {
@@ -107,7 +103,16 @@ namespace NutricionWeb.Controllers.Mail
 
                     if (vm.IncluirHistoriaClinica)
                     {
-                        mmsg.Attachments.Add(new Attachment(stream, "Plan", "application/pdf"));
+                        var pdf = await GeneratePdfMail(vm.PacienteId);
+                        var stream = new MemoryStream(pdf);
+                        mmsg.Attachments.Add(new Attachment(stream, "Historia Clinica", "application/pdf"));
+                    }
+
+                    if (vm.IncluirPlan)
+                    {
+                        var pdf = await GeneratePdfMailPlan(vm.PacienteId);
+                        var stream = new MemoryStream(pdf);
+                        mmsg.Attachments.Add(new Attachment(stream, "Plan Alimenticio", "application/pdf"));
                     }
 
                     var cliente = new SmtpClient
@@ -117,7 +122,7 @@ namespace NutricionWeb.Controllers.Mail
                         EnableSsl = true,
                         Host = "smtp.gmail.com"
                     };
-                    
+
                     cliente.Send(mmsg);
 
                 }
@@ -130,22 +135,47 @@ namespace NutricionWeb.Controllers.Mail
             return Json("Su Mail se envio correctamente");
         }
 
-        public async Task<Byte[]> GeneratePdfMail(long pacienteId)
+        public async Task<byte[]> GeneratePdfMail(long pacienteId)
         {
             var paciente = await _pacienteServicio.GetById(pacienteId);
 
+            var datosAntropometricos = await _datoAntropometricoServicio.GetByIdPaciente(pacienteId);
+
+            var datoAntropometricoDtos = datosAntropometricos.ToList();
+
+            if (!datoAntropometricoDtos.Any()) throw new ArgumentException("No tiene Datos Antropometricos cargados");
+
             var mailpdft = new ActionAsPdf("GenerarCuerpoMail", new { pacienteId })
             {
-                FileName = "PlanAlimenticio_" + $"{paciente.Apellido} {paciente.Nombre}" + ".pdf",
+                FileName = "Historia Clinica_" + $"{paciente.Apellido} {paciente.Nombre}.pdf",
                 PageSize = Rotativa.Options.Size.A4,
                 PageOrientation = Rotativa.Options.Orientation.Portrait,
             };
 
-          
-
-            Byte[] PdfData = mailpdft.BuildFile(this.ControllerContext);
-            return PdfData;
+            var pdfData = mailpdft.BuildFile(ControllerContext);
+            return pdfData;
         }
+
+        public async Task<byte[]> GeneratePdfMailPlan(long pacienteId)
+        {
+            var plan = await _planAlimenticioServicio.GetByIdPaciente(pacienteId);
+
+            var ultimoPlan = plan.OrderByDescending(x => x.Fecha).FirstOrDefault();
+
+            if (ultimoPlan == null) throw new ArgumentException("No tiene Plan Alimenticio cargado");
+
+            var mailpdft = new ActionAsPdf("GeneratePdf", new { ultimoPlan.Id })
+            {
+                FileName = "Plan Alimenticio_" + $"{ultimoPlan.PacienteStr}.pdf",
+                PageSize = Rotativa.Options.Size.A4,
+                PageOrientation = Rotativa.Options.Orientation.Portrait,
+            };
+
+            var pdfData = mailpdft.BuildFile(ControllerContext);
+            return pdfData;
+        }
+
+
 
         public async Task<ActionResult> GeneratePdf(long id)
         {
@@ -165,11 +195,13 @@ namespace NutricionWeb.Controllers.Mail
 
         public async Task<ActionResult> GenerarCuerpoMail(long pacienteId)
         {
-            var paciente = Mapper.Map<PacienteViewModel>(await _pacienteServicio.GetById(pacienteId));
-
             var datosAntropometricos = await _datoAntropometricoServicio.GetByIdPaciente(pacienteId);
 
-            var datoAntropometrico = Mapper.Map<DatoAntropometricoViewModel>(datosAntropometricos.OrderByDescending(x=>x.FechaMedicion).First());
+            var datoAntropometricoDtos = datosAntropometricos.ToList();
+
+            var paciente = Mapper.Map<PacienteViewModel>(await _pacienteServicio.GetById(pacienteId));
+
+            var datoAntropometrico = Mapper.Map<DatoAntropometricoViewModel>(datoAntropometricoDtos.OrderByDescending(x => x.FechaMedicion).First());
 
             var objetivo = Mapper.Map<ObjetivoViewModel>(await _objetivoServicio.GetByPacienteId(pacienteId));
 
