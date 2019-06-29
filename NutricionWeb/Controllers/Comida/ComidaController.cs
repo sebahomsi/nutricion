@@ -195,7 +195,7 @@ namespace NutricionWeb.Controllers.Comida
                         Codigo = detalle.Opcion.Codigo,
                         Descripcion = detalle.Opcion.Descripcion,
                         Eliminado = detalle.Opcion.Eliminado,
-                        OpcionDetalles = detalle.Opcion.OpcionDetalles.Select(o=> new OpcionDetalleViewModel()
+                        OpcionDetalles = detalle.Opcion.OpcionDetalles.Where(x=> x.Eliminado == false).Select(o=> new OpcionDetalleViewModel()
                         {
                             Id = o.Id,
                             Codigo = o.Codigo,
