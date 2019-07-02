@@ -115,8 +115,9 @@ namespace Servicio.Turno
 
             if (!turnos.Any()) return null;
 
-            var ultimo = turnos.OrderByDescending(t => t.HorarioEntrada).Last(x => x.HorarioEntrada > DateTime.Now);
-
+            //var ultimo = turnos.OrderByDescending(t => t.HorarioEntrada).Last(x => x.HorarioEntrada > DateTime.Now);
+            var ordenados = turnos.OrderByDescending(t => t.HorarioEntrada);
+            var ultimo = ordenados.Any(x=>x.HorarioEntrada>DateTime.Now)? ordenados.First(x => x.HorarioEntrada > DateTime.Now):null;
             return ultimo;
         }
 
