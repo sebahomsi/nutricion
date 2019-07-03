@@ -547,6 +547,8 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
+            ViewBag.FilterValue = cadenaBuscar;
+
             var establecimientoId = ObtenerEstablecimientoIdUser();
 
             var pageNumber = page ?? 1;

@@ -268,6 +268,8 @@ namespace NutricionWeb.Controllers.Alimento
             var pageNumber = page ?? 1;
             var eliminado = false;
 
+            ViewBag.FilterValue = cadenaBuscar;
+
             var subGrupos =
                 await _subGrupoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 

@@ -56,7 +56,7 @@
 
         @foreach (var item in Model)
         {
-            <tr onclick="datosAdicionales(@item.Id)" id="@item.Id" onmouseover="oscurecerFila(@item.Id,1)" onmouseout="oscurecerFila(@item.Id,2)">
+            <tr filaPlan id="@item.Id" onmouseover="oscurecerFila(@item.Id,1)" onmouseout="oscurecerFila(@item.Id,2)">
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaStr)
                 </td>
@@ -130,6 +130,12 @@
         var url = '@Url.Action("ExportarPlanOrdenado", "PlanAlimenticio")';
         window.location.href = url + "?id=" + id;
     }
+
+    $(document).on("click", "tr[filaPlan]", function(e) {   
+        if (e.target.nodeName !== "A") {
+            datosAdicionales(this.id);
+        }      
+    });
 
    
 </script>

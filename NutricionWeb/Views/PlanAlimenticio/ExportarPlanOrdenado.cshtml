@@ -367,7 +367,6 @@
             $.get('@Url.Action("DuplicarComida", "Comida")',
                 { planId: @ViewBag.PlanId, comidaId: id },
                 parcial => {
-                    console.log(parcial);
                     $("#partialFindDuplicarComida").empty().append(parcial);
                 });
         }
@@ -382,9 +381,6 @@
                     $("#partialFindAgregarComida").empty().append(parcial);
                 });
         }
-
-        console.log(opcionIds);
-
 
         $(document).on("click",
             "input[name=seleccionar-opcion]",

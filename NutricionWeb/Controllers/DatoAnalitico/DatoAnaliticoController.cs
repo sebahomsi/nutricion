@@ -442,6 +442,9 @@ namespace NutricionWeb.Controllers.DatoAnalitico
 
             var pageNumber = page ?? 1;
             var eliminado = false;
+
+            ViewBag.FilterValue = cadenaBuscar;
+
             var pacientes =
                 await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 

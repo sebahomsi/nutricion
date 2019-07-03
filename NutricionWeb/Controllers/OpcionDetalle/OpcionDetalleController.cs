@@ -167,6 +167,8 @@ namespace NutricionWeb.Controllers.OpcionDetalle
             var pageNumber = page ?? 1;
             var eliminado = false;
 
+            ViewBag.FilterValue = cadenaBuscar;
+
             var alimentos =
                 await _alimentoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
             if (alimentos == null) return RedirectToAction("Error", "Home");
@@ -186,6 +188,9 @@ namespace NutricionWeb.Controllers.OpcionDetalle
         {
             var pageNumber = page ?? 1;
             var eliminado = false;
+
+            ViewBag.FilterValue = cadenaBuscar;
+
             var unidades =
                 await _unidadMedidaServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 

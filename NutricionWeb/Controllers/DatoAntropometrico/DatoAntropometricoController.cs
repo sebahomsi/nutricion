@@ -457,6 +457,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
             var pageNumber = page ?? 1;
 
+            ViewBag.FilterValue = cadenaBuscar;
+
             var pacientes =
                 await _pacienteServicio.Get(establecimientoId, false, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 

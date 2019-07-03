@@ -477,6 +477,7 @@ namespace NutricionWeb.Controllers.Turno
         public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
         {
             var establecimientoId = ObtenerEstablecimientoIdUser();
+            ViewBag.FilterValue = cadenaBuscar;
 
             var pageNumber = page ?? 1;
 

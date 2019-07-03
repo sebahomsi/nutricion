@@ -145,6 +145,8 @@ namespace NutricionWeb.Controllers.Observacion
         public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar, long observacionId)
         {
             ViewBag.ObservacionId = observacionId;
+            ViewBag.FilterValue = cadenaBuscar;
+
             var pageNumber = page ?? 1;
             var eliminado = false;
             var alimentos =

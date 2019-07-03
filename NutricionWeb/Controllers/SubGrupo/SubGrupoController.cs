@@ -179,6 +179,8 @@ namespace NutricionWeb.Controllers.SubGrupo
         //===========================================================//
         public async Task<ActionResult> BuscarGrupo(int? page,string cadenaBuscar)
         {
+            ViewBag.FilterValue = cadenaBuscar;
+
             var eliminado = false;
             var pageNumber = page ?? 1;
             var grupos = await _grupoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);

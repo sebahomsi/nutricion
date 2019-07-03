@@ -147,6 +147,8 @@ namespace NutricionWeb.Controllers.Observacion
         {
 
             ViewBag.ObservacionId = observacionId;
+            ViewBag.FilterValue = cadenaBuscar;
+
             var pageNumber = page ?? 1;
             var eliminado = false;
             var alergias =

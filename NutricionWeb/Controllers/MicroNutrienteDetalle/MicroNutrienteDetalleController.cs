@@ -208,6 +208,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         public async Task<ActionResult> BuscarAlimento(int? page,string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var alimentos =
                 await _alimentoServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
@@ -227,6 +228,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         public async Task<ActionResult> BuscarMicroNutriente(int? page,string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var micros =
                 await _microNutrienteServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
@@ -245,6 +247,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         public async Task<ActionResult> BuscarUnidad(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var unidades =
                 await _unidadMedidaServicio.Get(false,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
