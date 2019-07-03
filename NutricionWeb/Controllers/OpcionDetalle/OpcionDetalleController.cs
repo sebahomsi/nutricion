@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.Alimento;
+﻿using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.OpcionDetalle;
 using NutricionWeb.Models.UnidadMedida;
 using PagedList;
@@ -14,6 +8,10 @@ using Servicio.Interface.Dia;
 using Servicio.Interface.Opcion;
 using Servicio.Interface.OpcionDetalle;
 using Servicio.Interface.UnidadMedida;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -37,18 +35,6 @@ namespace NutricionWeb.Controllers.OpcionDetalle
             _opcionServicio = opcionServicio;
             _comidaServicio = comidaServicio;
             _diaServicio = diaServicio;
-        }
-
-        // GET: OpcionDetalle
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: OpcionDetalle/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: OpcionDetalle/Create
@@ -125,28 +111,6 @@ namespace NutricionWeb.Controllers.OpcionDetalle
 
             return RedirectToAction("ExportarPlan", "PlanAlimenticio", new { id = dia.PlanAlimenticioId });
 
-        }
-
-        // GET: OpcionDetalle/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: OpcionDetalle/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: OpcionDetalle/Delete/5

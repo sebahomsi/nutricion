@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.Patologia;
+﻿using NutricionWeb.Models.Patologia;
 using PagedList;
 using Servicio.Interface.Patologia;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 

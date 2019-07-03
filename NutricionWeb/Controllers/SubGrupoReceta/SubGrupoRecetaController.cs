@@ -1,5 +1,4 @@
-﻿using NutricionWeb.Helpers.SubGrupoReceta;
-using NutricionWeb.Models.GrupoReceta;
+﻿using NutricionWeb.Models.GrupoReceta;
 using NutricionWeb.Models.SubGrupoReceta;
 using PagedList;
 using Servicio.Interface.GrupoReceta;

@@ -19,12 +19,6 @@ namespace NutricionWeb.Controllers.MacroNutriente
             _alimentoServicio = alimentoServicio;
         }
 
-        // GET: MacroNutriente
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public async Task<ActionResult> Create(long alimentoId)
         {
             var alimento = await _alimentoServicio.GetById(alimentoId);

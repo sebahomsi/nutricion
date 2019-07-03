@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Servicio.Interface.DatoAntropometrico;
+using Servicio.Interface.Estado;
+using Servicio.Interface.Turno;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Servicio.Interface.DatoAntropometrico;
-using Servicio.Interface.Estado;
-using Servicio.Interface.Turno;
 
 namespace NutricionWeb.Controllers.Estadisticas
 {

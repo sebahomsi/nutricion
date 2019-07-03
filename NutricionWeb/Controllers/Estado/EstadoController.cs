@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using NutricionWeb.Models.Estado;
 using PagedList;
 using Servicio.Interface.Estado;
 using Servicio.Interface.Estado.Dto;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Estado
