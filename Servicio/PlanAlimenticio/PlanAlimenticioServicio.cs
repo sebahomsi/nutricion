@@ -600,5 +600,84 @@ namespace Servicio.PlanAlimenticio
 
 
         }
+
+        public async Task DuplicarComidaDeOtroPlan(long? planDesdeId, long? planHastaId, string comidaDescripcion)
+        {
+            var planDesde = Context.PlanesAlimenticios.Include("Paciente")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.Alimento.MacroNutriente").FirstOrDefault(p => p.Id == planDesdeId.Value);
+
+            var planHasta = Context.PlanesAlimenticios.Include("Paciente")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.Alimento.MacroNutriente").FirstOrDefault(p => p.Id == planHastaId.Value);
+
+            List<Dominio.Entidades.Comida> comidas = new List<Dominio.Entidades.Comida>();
+
+            var dias = planHasta.Dias;
+
+            var auxiliares = new List<DetalleAuxiliar>();
+            foreach (var dia in planDesde.Dias)
+            {
+                foreach (var comida in dia.Comidas)
+                {
+                    if (comida.Descripcion == comidaDescripcion)
+                    {
+                        var add = new DetalleAuxiliar()
+                        {
+                            ComidaDescripcion = comida.Descripcion,
+                            Detalles = comida.ComidasDetalles.ToList(),
+                            DiaDescripcion = dia.Descripcion,
+                        };
+
+                        auxiliares.Add(add);
+                    }
+                }
+            }
+
+            foreach (var aux in auxiliares)
+            {
+                foreach (var dia in planHasta.Dias)
+                {
+                    if (dia.Descripcion == aux.DiaDescripcion)
+                    {
+                        foreach (var comida in dia.Comidas)
+                        {
+                            if (comida.Descripcion == aux.ComidaDescripcion)
+                            {
+                                foreach (var detaller in aux.Detalles)
+                                {
+                                    if (aux.DiaDescripcion == dia.Descripcion)
+                                    {
+                                        var detalle = new Dominio.Entidades.ComidaDetalle()
+                                        {
+                                            Codigo = await _comidaDetalleServicio.GetNextCode(),
+                                            Comentario = detaller.Comentario,
+                                            ComidaId = comida.Id,
+                                            OpcionId = detaller.OpcionId,
+                                            Eliminado = false
+                                        };
+                                        Context.ComidasDetalles.Add(detalle);
+                                        await Context.SaveChangesAsync();
+                                    }                                   
+                                }                                
+                            }
+                        }
+                    }
+                }
+            }
+
+            await Context.SaveChangesAsync();
+
+        } 
+
+        public class DetalleAuxiliar
+        {
+            public string ComidaDescripcion { get; set; }
+
+            public string DiaDescripcion { get; set; }
+
+            public IList<Dominio.Entidades.ComidaDetalle> Detalles { get; set; }
+
+            
+
+        }
     }
 }

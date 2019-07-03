@@ -233,5 +233,20 @@ namespace NutricionWeb.Controllers.Comida
 
             return Json(new { estado = true });
         }
+
+        public async Task<ActionResult> DuplicarComidaDeOtroPlan(long? planDesdeId, long? planHastaId, string comidaDescripcion)
+        {
+            try
+            {
+                await _planAlimenticioServicio.DuplicarComidaDeOtroPlan(planDesdeId, planHastaId, comidaDescripcion);
+                await _planAlimenticioServicio.CalculateTotalCalories(planHastaId.Value);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { estado = false, mensaje = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { estado = true }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

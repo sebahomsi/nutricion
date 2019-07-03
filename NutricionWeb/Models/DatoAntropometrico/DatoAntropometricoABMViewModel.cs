@@ -75,6 +75,5 @@ namespace NutricionWeb.Models.DatoAntropometrico
         public decimal TotalPliegues { get; set; }
 
         public bool Eliminado { get; set; }
-
     }
 }

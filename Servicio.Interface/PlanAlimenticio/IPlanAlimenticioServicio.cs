@@ -19,5 +19,6 @@ namespace Servicio.Interface.PlanAlimenticio
         Task<int> CalculateTotalCaloriesGrasas(long plandId);
         Task<int> CalculateTotalCaloriesCarbos(long plandId);
         Task<PlanDiasDto> GetSortringComidas(long PlanId);
+        Task DuplicarComidaDeOtroPlan(long? planDesdeId, long? planHastaId, string comidaDescripcion);
     }
 }

@@ -83,8 +83,8 @@ namespace Servicio.Paciente
         {
             Expression<Func<Dominio.Entidades.Paciente, bool>> expression =
                 x => x.Eliminado == eliminado
-            && (x.Apellido.Contains(cadenaBuscar)
-            || x.Nombre.Contains(cadenaBuscar)) && (!establecimientoId.HasValue || x.EstablecimientoId == establecimientoId);
+            && (x.Apellido.StartsWith(cadenaBuscar)
+            || x.Nombre.StartsWith(cadenaBuscar)) && (!establecimientoId.HasValue || x.EstablecimientoId == establecimientoId);
             return await Context.Personas.OfType<Dominio.Entidades.Paciente>()
                 .AsNoTracking()
                 .Where(expression)

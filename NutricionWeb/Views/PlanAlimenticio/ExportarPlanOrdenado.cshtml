@@ -37,27 +37,38 @@
 
 
 @*================Modal Duplicar Comida =========================*@
+
 <div class="modal fade" id="modal-duplicarComida" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            @*Parte de arriba del modal*@
             <div class="modal-header">
                 <div align="right">
                     <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <br>
                 <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
-                    <h2>Seleccionar Comida</h2>
+                    <h2>Seleccionar Plan</h2>
                 </div>
             </div>
+            @*Cuerpo del modal*@
             <div class="modal-body">
                 <div class="form" style="height:382px">
-                    <div class="">
-                        <div id="partialFindDuplicarComidaSemanal"></div>
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarPlan" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarPlan" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindPlan"></div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button type="button" id="cancelar-plan" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             </div>
         </div>
     </div>
@@ -93,7 +104,7 @@
                     </div>
                     <div class="navbar-form navbar-right">
                         <strong>Subgrupo</strong>
-                        @Html.DropDownList("idSub", ViewBag.Cmb as IEnumerable<SelectListItem>, "Ninguno", new {@class = "form-control", @id = "idSub"})
+                        @Html.DropDownList("idSub", ViewBag.Cmb as IEnumerable<SelectListItem>, "Ninguno", new { @class = "form-control", @id = "idSub" })
                     </div>
 
                     <div class="col-md-12">
@@ -341,7 +352,8 @@
     <script>
 
         var opcionIds = [];
-        var comidaIdFlag = -1;
+    var comidaIdFlag = -1;
+    var comidaSeleccionada = "";
 
         var buscarComidas = function(cadenaBuscar ,comidaId,subgrupoId) {
             $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
@@ -422,6 +434,10 @@
                 opcionIds = [];
             });
 
+    $('#modal-duplicarComida').on('hide.bs.modal',
+        function (e) {
+            comidaSeleccionada = "";
+            });
 
         var recorreFila = (idFila) => {
             var elementoAnterior;
@@ -448,7 +464,31 @@
                 }
 
             });
-        }
+    }
+
+    function listaPlan() {
+        $("#partialFindPlan").empty();
+
+        $.get('@Html.Raw(Url.Action("BuscarPlan", "PlanAlimenticio"))',
+            {
+                cadenaBuscar: $("#txt-BuscarPlan").val()
+            },
+            function (listaPlan) {
+                $("#partialFindPlan").append(listaPlan);
+            });
+    }
+
+    $(document).on("click", "#seleccionar-plan", function() {
+                $.get('@Url.Action("DuplicarComidaDeOtroPlan", "Comida")',
+                    { planDesdeId: $(this).attr("name"), planHastaId : @ViewBag.PlanId, comidaDescripcion : comidaSeleccionada }, (json) => {
+                        if (json.estado) {
+                            location.reload();
+                        } else {
+                            $("#mensajePlan").empty().append(json.mensaje);
+                        }
+                    });
+                
+            });
 
         $(() => {
             recorreFila("desayuno");
@@ -488,7 +528,11 @@
 
             $("td[desayuno]").click(() => {
                 $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "Desayuno"
             });
+
+            
 
             $("#idSub").change(function() {
                 var subgrupoId = this.value;
@@ -502,6 +546,9 @@
                 buscarComidas(buscar,comidaIdFlag, subgrupoId);
             });
 
+            $("#btn-BuscarPlan").click(() => {
+                listaPlan();
+            });
 
         });
     </script>

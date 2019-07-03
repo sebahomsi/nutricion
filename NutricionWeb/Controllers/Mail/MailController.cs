@@ -58,7 +58,7 @@ namespace NutricionWeb.Controllers.Mail
                         MailEmisor = User.Identity.Name,
                         MailDestino = paciente.Mail,
                         PacienteId = pacienteId.Value,
-                        CuerpoMensaje = $"Hola {paciente.Nombre}! te envio este mail para realizar los primeros 15 dias!\nTu proxima consulta será: {turno.HorarioEntrada:dd/MM/yyyy HH:mm}"
+                        CuerpoMensaje = $"Hola {paciente.Nombre}! te envío este mail para realizar los primeros 15 días!\nTu próxima consulta será: {turno.HorarioEntrada:dd/MM/yyyy HH:mm} hs"
                     });
                 }
                 return View(new MailViewModel()
@@ -66,7 +66,7 @@ namespace NutricionWeb.Controllers.Mail
                     MailEmisor = User.Identity.Name,
                     MailDestino = paciente.Mail,
                     PacienteId = pacienteId.Value,
-                    CuerpoMensaje = $"Hola {paciente.Nombre}! te envio este mail para realizar los primeros 15 dias!"
+                    CuerpoMensaje = $"Hola {paciente.Nombre}! te envío este mail para realizar los primeros 15 días!"
                 });
             }
             return View(new MailViewModel()
