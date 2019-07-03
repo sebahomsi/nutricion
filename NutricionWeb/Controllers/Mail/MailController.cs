@@ -58,15 +58,38 @@ namespace NutricionWeb.Controllers.Mail
                         MailEmisor = User.Identity.Name,
                         MailDestino = paciente.Mail,
                         PacienteId = pacienteId.Value,
-                        CuerpoMensaje = $"Hola {paciente.Nombre}! te envío este mail para realizar los primeros 15 días!\nTu próxima consulta será: {turno.HorarioEntrada:dd/MM/yyyy HH:mm} hs"
+                        CuerpoMensaje = $"Hola {paciente.Nombre}! te envío este mail para realizar los primeros 15 días!\nPara cualquier duda o sugerencia que tenga no dude en comunicarse por este medio. \nTu próxima consulta será: {turno.HorarioEntrada:dd/MM/yyyy HH:mm} hs\n" +
+                        $" Éxitos!\n" +
+                        $"Lic.Solana María Novillo \n" +
+                        $"M.P N° 815 \n" +
+                        $"Especializada en deportes. \n" +
+                        $"Diplomada en diabetes y obesidad \n" +
+                        $"Antropometrista ISAK II \n" +
+                        $"Disertante \n" +
+                        $"Socia - gerente de Nutritucumán \n" +
+                        $"Instagram: @lic.solnovillo\n " +
+                        $"Por cualquier duda o sugerencia que tengas no dudes en comunicarte por este medio."
                     });
+
+
                 }
                 return View(new MailViewModel()
                 {
                     MailEmisor = User.Identity.Name,
                     MailDestino = paciente.Mail,
                     PacienteId = pacienteId.Value,
-                    CuerpoMensaje = $"Hola {paciente.Nombre}! te envío este mail para realizar los primeros 15 días!"
+                    CuerpoMensaje = $"Hola {paciente.Nombre}! te envío este mail para realizar los primeros 15 días! " +
+                    $"\nPara cualquier duda o sugerencia que tenga no dude en comunicarse por este medio." +
+                    $" Éxitos!\n" +
+                    $"Lic.Solana María Novillo \n" +
+                    $"M.P N° 815 \n" +
+                    $"Especializada en deportes. \n" +
+                    $"Diplomada en diabetes y obesidad \n" +
+                    $"Antropometrista ISAK II \n" +
+                    $"Disertante \n" +
+                    $"Socia - gerente de Nutritucumán \n" +
+                    $"Instagram: @lic.solnovillo\n " +
+                    $"Por cualquier duda o sugerencia que tengas no dudes en comunicarte por este medio."
                 });
             }
             return View(new MailViewModel()
