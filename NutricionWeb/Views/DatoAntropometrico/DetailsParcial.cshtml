@@ -12,18 +12,19 @@
     <hr />
     <div class="col-md-1"></div>
     <div class="col-md-4">
-
-        <p class="info-style">
-            @Html.DisplayNameFor(model => model.FechaMedicion):
-            <span class="sub-info">
-                @Html.DisplayFor(model => model.FechaMedicionStr)
-            </span>
-        </p>
+        <br />
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.PacienteStr):
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PacienteStr)
+            </span>
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.FechaMedicion):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.FechaMedicionStr)
             </span>
         </p>
 
@@ -82,6 +83,7 @@
                 @Html.DisplayFor(model => model.PerimetroCintura) cm
             </span>
         </p>
+
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.MasaGrasa):
@@ -147,7 +149,6 @@
         </p>
 
     </div>
-
     <div class="col-md-offset-1 col-md-5">
 
         @if (Model.FotoStr != null)
@@ -162,25 +163,19 @@
 
     <div class="col-md-1"></div>
 
+
 </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col">
+        <p style="margin-top: 15px; margin-left: 10px">
+            @Ajax.ActionLink("Volver","DatosAntropometricosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "datosAntropometricos-Parcial",
 
-    <div class="form-actions no-color">
-        @if (Model.Eliminado)
-        {
-            <input type="submit" value="Activar" class="btn btn-info" />
-
-        }
-        else
-        {
-            <input type="submit" value="Eliminar" class="btn btn-danger" />
-
-        }
-        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
-
+            },new {@class="btn btn-default"})
+        </p>
     </div>
-}
-
+</div>

@@ -241,6 +241,48 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
         }
 
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> EditParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var plan = await _planAlimenticioServicio.GetById(id.Value);
+
+            return PartialView(new PlanAlimenticioABMViewModel()
+            {
+                Id = plan.Id,
+                Codigo = plan.Codigo,
+                Fecha = plan.Fecha,
+                Motivo = plan.Motivo,
+                PacienteId = plan.PacienteId,
+                PacienteStr = plan.PacienteStr,
+                Comentarios = plan.Comentarios,
+                Eliminado = plan.Eliminado
+            });
+        }
+
+        // POST: PlanAlimenticio/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditParcial(PlanAlimenticioABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var planDto = CargarDatos(vm);
+                    await _planAlimenticioServicio.Update(planDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("PlanesAlimenticiosParcial", "Paciente", new { id = vm.PacienteId });
+
+        }
+
         // GET: PlanAlimenticio/Delete/5
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
@@ -283,6 +325,47 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> DeleteParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var plan = await _planAlimenticioServicio.GetById(id.Value);
+
+            return PartialView(new PlanAlimenticioViewModel()
+            {
+                Id = plan.Id,
+                Codigo = plan.Codigo,
+                Fecha = plan.Fecha,
+                Motivo = plan.Motivo,
+                PacienteId = plan.PacienteId,
+                PacienteStr = plan.PacienteStr,
+                Comentarios = plan.Comentarios,
+                Eliminado = plan.Eliminado,
+                TotalCalorias = plan.TotalCalorias
+            });
+        }
+
+        // POST: PlanAlimenticio/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteParcial(PlanAlimenticioViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _planAlimenticioServicio.Delete(vm.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("PlanesAlimenticiosParcial", "Paciente", new { id = vm.PacienteId });
+        }
+
 
         // GET: PlanAlimenticio/Details/5
         [Authorize(Roles = "Administrador")]
@@ -293,6 +376,53 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             var plan = await _planAlimenticioServicio.GetById(id.Value);
 
             return View(new PlanAlimenticioViewModel()
+            {
+                Id = plan.Id,
+                Codigo = plan.Codigo,
+                Fecha = plan.Fecha,
+                Motivo = plan.Motivo,
+                PacienteId = plan.PacienteId,
+                PacienteStr = plan.PacienteStr,
+                Comentarios = plan.Comentarios,
+                Eliminado = plan.Eliminado,
+                TotalCalorias = plan.TotalCalorias,
+                Dias = plan.Dias.Select(x => new DiaViewModel()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    PlanAlimenticioId = x.PlanAlimenticioId,
+                    Comidas = x.Comidas.Select(q => new ComidaViewModel()
+                    {
+                        Id = q.Id,
+                        Codigo = q.Codigo,
+                        Descripcion = q.Descripcion,
+                        DiaId = q.DiaId,
+                        DiaStr = q.DiaStr,
+                        ComidasDetalles = q.ComidasDetalles.Select(t => new ComidaDetalleViewModel()
+                        {
+                            Id = t.Id,
+                            Codigo = t.Codigo,
+                            Comentario = t.Comentario,
+                            ComidaId = t.ComidaId,
+                            ComidaStr = t.ComidaStr,
+                            OpcionId = t.OpcionId,
+                            OpcionStr = t.OpcionStr,
+                            Eliminado = t.Eliminado,
+                        }).ToList()
+                    }).ToList()
+                }).ToList()
+            });
+        }
+
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> DetailsParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var plan = await _planAlimenticioServicio.GetById(id.Value);
+
+            return PartialView(new PlanAlimenticioViewModel()
             {
                 Id = plan.Id,
                 Codigo = plan.Codigo,
