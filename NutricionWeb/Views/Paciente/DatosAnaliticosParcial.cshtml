@@ -77,17 +77,41 @@
                 </td>
 
                 <td align="right">
-                    @Html.ActionLink("Actualizar", "Edit", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })
-                    @Html.ActionLink("Detalles", "Details", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                    @Ajax.ActionLink("Actualizar", "EditParcial", "DatoAnalitico", new { id = item.Id }, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "datosAnaliticos-Parcial",
+
+                    }, new { @class = "btn btn-warning btn-xs" })
+
+                    @Ajax.ActionLink("Detalles", "DetailsParcial", "DatoAnalitico", new { id = item.Id }, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "datosAnaliticos-Parcial",
+
+                    }, new { @class = "btn btn-default btn-xs" })
+
                     @if (item.Eliminado)
                     {
-                        @Html.ActionLink("Activar", "Delete", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
+                        @Ajax.ActionLink("Activar", "DeleteParcial", "DatoAnalitico", new { id = item.Id }, new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "datosAnaliticos-Parcial",
 
+                        }, new { @class = "btn btn-info btn-xs" })
                     }
                     else
                     {
-                        @Html.ActionLink("Eliminar", "Delete", "DatoAnalitico", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+                        @Ajax.ActionLink("Eliminar", "DeleteParcial", "DatoAnalitico", new { id = item.Id }, new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "datosAnaliticos-Parcial",
 
+                        }, new { @class = "btn btn-danger btn-xs" })
                     }
                 </td>
             </tr>

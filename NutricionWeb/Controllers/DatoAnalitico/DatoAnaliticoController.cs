@@ -196,6 +196,63 @@ namespace NutricionWeb.Controllers.DatoAnalitico
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> EditParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var datos = await _datoAnaliticoServicio.GetById(id.Value);
+
+            return PartialView(new DatoAnaliticoABMViewModel()
+            {
+                Id = datos.Id,
+                Codigo = datos.Codigo,
+                ColesterolHdl = datos.ColesterolHdl,
+                ColesterolLdl = datos.ColesterolLdl,
+                ColesterolTotal = datos.ColesterolTotal,
+                PacienteId = datos.PacienteId,
+                PacienteStr = datos.PacienteStr,
+                PresionDiastolica = datos.PresionDiastolica,
+                PresionSistolica = datos.PresionSistolica,
+                Trigliceridos = datos.Trigliceridos,
+                FechaMedicion = datos.FechaMedicion,
+                GlobulosRojos = datos.GlobulosRojos,
+                B12 = datos.B12,
+                CPK = datos.CPK,
+                Creatinina = datos.Creatinina,
+                Fosforo = datos.Fosforo,
+                Glusemia = datos.Glusemia,
+                Hematocritos = datos.Hematocritos,
+                Hemoglobina = datos.Hemoglobina,
+                Insulina = datos.Insulina,
+                VitaminaD = datos.VitaminaD,
+                Zinc = datos.Zinc,
+                Eliminado = datos.Eliminado
+            });
+        }
+
+        // POST: DatoAnalitico/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, Empleado")]
+        public async Task<ActionResult> EditParcial(DatoAnaliticoABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var datos = CargarDatos(vm);
+                    await _datoAnaliticoServicio.Update(datos);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("DatosAnaliticosParcial", "Paciente", new { id = vm.PacienteId });
+        }
+
         // GET: DatoAnalitico/Delete/5
         [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> Delete(long? id)
@@ -252,6 +309,61 @@ namespace NutricionWeb.Controllers.DatoAnalitico
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> DeleteParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var datos = await _datoAnaliticoServicio.GetById(id.Value);
+
+            return PartialView(new DatoAnaliticoViewModel()
+            {
+                Id = datos.Id,
+                Codigo = datos.Codigo,
+                ColesterolHdl = datos.ColesterolHdl,
+                ColesterolLdl = datos.ColesterolLdl,
+                ColesterolTotal = datos.ColesterolTotal,
+                PacienteId = datos.PacienteId,
+                PacienteStr = datos.PacienteStr,
+                PresionDiastolica = datos.PresionDiastolica,
+                PresionSistolica = datos.PresionSistolica,
+                Trigliceridos = datos.Trigliceridos,
+                FechaMedicion = datos.FechaMedicion,
+                GlobulosRojos = datos.GlobulosRojos,
+                B12 = datos.B12,
+                CPK = datos.CPK,
+                Creatinina = datos.Creatinina,
+                Fosforo = datos.Fosforo,
+                Glusemia = datos.Glusemia,
+                Hematocritos = datos.Hematocritos,
+                Hemoglobina = datos.Hemoglobina,
+                Insulina = datos.Insulina,
+                VitaminaD = datos.VitaminaD,
+                Zinc = datos.Zinc,
+                Eliminado = datos.Eliminado
+            });
+        }
+
+        // POST: DatoAnalitico/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteParcial(DatoAnaliticoViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _datoAnaliticoServicio.Delete(vm.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
+            return RedirectToAction("DatosAnaliticosParcial", "Paciente", new { id = vm.PacienteId });
+        }
+
         // GET: DatoAnalitico/Details/5
         public async Task<ActionResult> Details(long? id)
         {
@@ -260,6 +372,40 @@ namespace NutricionWeb.Controllers.DatoAnalitico
             var datos = await _datoAnaliticoServicio.GetById(id.Value);
 
             return View(new DatoAnaliticoViewModel()
+            {
+                Id = datos.Id,
+                Codigo = datos.Codigo,
+                ColesterolHdl = datos.ColesterolHdl,
+                ColesterolLdl = datos.ColesterolLdl,
+                ColesterolTotal = datos.ColesterolTotal,
+                PacienteId = datos.PacienteId,
+                PacienteStr = datos.PacienteStr,
+                PresionDiastolica = datos.PresionDiastolica,
+                PresionSistolica = datos.PresionSistolica,
+                Trigliceridos = datos.Trigliceridos,
+                FechaMedicion = datos.FechaMedicion,
+                GlobulosRojos = datos.GlobulosRojos,
+                B12 = datos.B12,
+                CPK = datos.CPK,
+                Creatinina = datos.Creatinina,
+                Fosforo = datos.Fosforo,
+                Glusemia = datos.Glusemia,
+                Hematocritos = datos.Hematocritos,
+                Hemoglobina = datos.Hemoglobina,
+                Insulina = datos.Insulina,
+                VitaminaD = datos.VitaminaD,
+                Zinc = datos.Zinc,
+                Eliminado = datos.Eliminado
+            });
+        }
+
+        public async Task<ActionResult> DetailsParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var datos = await _datoAnaliticoServicio.GetById(id.Value);
+
+            return PartialView(new DatoAnaliticoViewModel()
             {
                 Id = datos.Id,
                 Codigo = datos.Codigo,

@@ -63,7 +63,7 @@
     <div class="col-md-5">
 
 
-        
+
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.B12):
@@ -142,16 +142,16 @@
             </span>
         </p>
     </div>
-    
+
 
 </div>
 
-<br/>
-
+<br />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div class="form-actions no-color" style="margin-left: 0px;">
+
+    <div class="form-actions no-color">
         @if (Model.Eliminado)
         {
             <input type="submit" value="Activar" class="btn btn-info" />
@@ -166,3 +166,4 @@
 
     </div>
 }
+
