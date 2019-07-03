@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.Mensaje;
+﻿using NutricionWeb.Models.Mensaje;
 using PagedList;
 using Servicio.Interface.Establecimiento;
 using Servicio.Interface.Mensaje;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -139,51 +136,7 @@ namespace NutricionWeb.Controllers.Mensaje
             return RedirectToAction("IndexEnviados");
 
         }
-
-        // GET: Mensaje/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Mensaje/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Mensaje/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Mensaje/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+  
         //========================================Metodos
         private MensajeDto CargarDatos(MensajeABMViewModel vm)
         {

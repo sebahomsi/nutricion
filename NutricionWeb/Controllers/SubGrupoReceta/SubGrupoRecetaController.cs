@@ -1,5 +1,4 @@
-﻿using NutricionWeb.Helpers.SubGrupoReceta;
-using NutricionWeb.Models.GrupoReceta;
+﻿using NutricionWeb.Models.GrupoReceta;
 using NutricionWeb.Models.SubGrupoReceta;
 using PagedList;
 using Servicio.Interface.GrupoReceta;
@@ -217,6 +216,8 @@ namespace NutricionWeb.Controllers.SubGrupoReceta
         public async Task<ActionResult> BuscarSubGrupos(int? page, string cadenaBuscar, long? opcionId)
         {
             var pageNumber = page ?? 1;
+            ViewBag.FilterValue = cadenaBuscar;
+
             var eliminado = false;
             var subgrupos =
                 await _subGrupoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);

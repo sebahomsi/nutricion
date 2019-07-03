@@ -333,6 +333,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             var pageNumber = page ?? 1;
             var eliminado = false;
 
+            ViewBag.FilterValue = cadenaBuscar;
             ViewBag.ComidaId = comidaId;
 
             var opciones =
@@ -352,6 +353,7 @@ namespace NutricionWeb.Controllers.ComidaDetalle
             var pageNumber = page ?? 1;
             var eliminado = false;
 
+            ViewBag.FilterValue = cadenaBuscar;
             var opciones =
                 await _opcionServicio.Get(eliminado, null, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 

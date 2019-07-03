@@ -56,7 +56,7 @@
 
         @foreach (var item in Model)
         {
-            <tr onclick="datosAdicionales(@item.Id)" id="@item.Id" onmouseover="oscurecerFila(@item.Id,1)" onmouseout="oscurecerFila(@item.Id,2)">
+            <tr filaPlan id="@item.Id" onmouseover="oscurecerFila(@item.Id,1)" onmouseout="oscurecerFila(@item.Id,2)">
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaStr)
                 </td>
@@ -66,17 +66,41 @@
 
 
                 <td align="right">
-                    @Html.ActionLink("Actualizar", "Edit", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })
-                    @Html.ActionLink("Detalles", "Details", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                    @Ajax.ActionLink("Actualizar", "EditParcial", "PlanAlimenticio", new { id = item.Id }, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "planesAlimenticios-Parcial",
+
+                    }, new { @class = "btn btn-warning btn-xs" })
+
+                    @Ajax.ActionLink("Detalles", "DetailsParcial", "PlanAlimenticio", new { id = item.Id }, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "planesAlimenticios-Parcial",
+
+                    }, new { @class = "btn btn-default btn-xs" })
+
                     @if (item.Eliminado)
                     {
-                        @Html.ActionLink("Activar", "Delete", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
+                        @Ajax.ActionLink("Activar", "DeleteParcial", "PlanAlimenticio", new { id = item.Id }, new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "planesAlimenticios-Parcial",
 
+                        }, new { @class = "btn btn-info btn-xs" })
                     }
                     else
                     {
-                        @Html.ActionLink("Eliminar", "Delete", "PlanAlimenticio", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+                        @Ajax.ActionLink("Eliminar", "DeleteParcial", "PlanAlimenticio", new { id = item.Id }, new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "planesAlimenticios-Parcial",
 
+                        }, new { @class = "btn btn-danger btn-xs" })
                     }
 
                 </td>
@@ -106,6 +130,12 @@
         var url = '@Url.Action("ExportarPlanOrdenado", "PlanAlimenticio")';
         window.location.href = url + "?id=" + id;
     }
+
+    $(document).on("click", "tr[filaPlan]", function(e) {   
+        if (e.target.nodeName !== "A") {
+            datosAdicionales(this.id);
+        }      
+    });
 
    
 </script>

@@ -849,6 +849,18 @@
     <Content Include="Views\SubGrupoReceta\BuscarSubGrupos.cshtml" />
     <Content Include="Views\Mail\GeneratePdf.cshtml" />
     <Content Include="Views\Mail\GenerarCuerpoMail.cshtml" />
+    <Content Include="Views\DatoAnalitico\DeleteParcial.cshtml" />
+    <Content Include="Views\DatoAnalitico\EditParcial.cshtml" />
+    <Content Include="Views\DatoAnalitico\DetailsParcial.cshtml" />
+    <Content Include="Views\PlanAlimenticio\EditParcial.cshtml" />
+    <Content Include="Views\PlanAlimenticio\DeleteParcial.cshtml" />
+    <Content Include="Views\PlanAlimenticio\DetailsParcial.cshtml" />
+    <Content Include="Views\DatoAntropometrico\EditParcial.cshtml" />
+    <Content Include="Views\DatoAntropometrico\DeleteParcial.cshtml" />
+    <Content Include="Views\DatoAntropometrico\DetailsParcial.cshtml" />
+    <Content Include="Views\Turno\EditParcial.cshtml" />
+    <Content Include="Views\Turno\DeleteParcial.cshtml" />
+    <Content Include="Views\Turno\DetailsParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

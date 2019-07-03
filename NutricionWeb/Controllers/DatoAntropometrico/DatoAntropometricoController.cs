@@ -3,11 +3,11 @@ using NutricionWeb.Models.Paciente;
 using PagedList;
 using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Paciente;
+using Servicio.Interface.Turno;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Servicio.Interface.Turno;
 using static NutricionWeb.Helpers.File;
 using static NutricionWeb.Helpers.PagedList;
 
@@ -146,7 +146,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return PartialView(vm);
             }
-            return RedirectToAction("DatosAntropometricosParcial", "Paciente", new { id = vm.PacienteId });
+            return RedirectToAction("Index");
         }
 
 
@@ -158,7 +158,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
 
-            return PartialView(new DatoAntropometricoABMViewModel()
+            return View(new DatoAntropometricoABMViewModel()
             {
                 Id = dato.Id,
                 Codigo = dato.Codigo,
@@ -205,6 +205,63 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return PartialView(vm);
             }
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> EditParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var dato = await _datoAntropometricoServicio.GetById(id.Value);
+
+            return PartialView(new DatoAntropometricoABMViewModel()
+            {
+                Id = dato.Id,
+                Codigo = dato.Codigo,
+                PacienteId = dato.PacienteId,
+                PacienteStr = dato.PacienteStr,
+                Altura = dato.Altura,
+                FechaMedicion = dato.FechaMedicion,
+                MasaGrasa = dato.MasaGrasa,
+                MasaCorporal = dato.MasaCorporal,
+                PesoActual = dato.PesoActual,
+                PerimetroCintura = dato.PerimetroCintura,
+                PerimetroCadera = dato.PerimetroCadera,
+                Eliminado = dato.Eliminado,
+                PesoHabitual = dato.PesoHabitual,
+                PesoIdeal = dato.PesoIdeal,
+                PesoDeseado = dato.PesoDeseado,
+                PerimetroCuello = dato.PerimetroCuello,
+                PliegueSuprailiaco = dato.PliegueSuprailiaco,
+                PliegueMuslo = dato.PliegueMuslo,
+                PlieguePierna = dato.PlieguePierna,
+                PliegueSubescapular = dato.PliegueSubescapular,
+                PliegueTriceps = dato.PliegueTriceps,
+                PliegueAbdominal = dato.PliegueAbdominal,
+            });
+        }
+
+        // POST: DatoAntropometrico/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditParcial(DatoAntropometricoABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var pic = string.Empty;
+                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var datosDto = CargarDatos(vm, pic);
+                    await _datoAntropometricoServicio.Update(datosDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return PartialView(vm);
+            }
             return RedirectToAction("DatosAntropometricosParcial", "Paciente", new { id = vm.PacienteId });
         }
 
@@ -216,7 +273,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
 
-            return PartialView(new DatoAntropometricoViewModel()
+            return View(new DatoAntropometricoViewModel()
             {
                 Id = dato.Id,
                 Codigo = dato.Codigo,
@@ -260,14 +317,104 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Administrador")]
+        public async Task<ActionResult> DeleteParcial(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var dato = await _datoAntropometricoServicio.GetById(id.Value);
+
+            return PartialView(new DatoAntropometricoViewModel()
+            {
+                Id = dato.Id,
+                Codigo = dato.Codigo,
+                PacienteId = dato.PacienteId,
+                PacienteStr = dato.PacienteStr,
+                Altura = dato.Altura,
+                FechaMedicion = dato.FechaMedicion,
+                MasaGrasa = dato.MasaGrasa,
+                MasaCorporal = dato.MasaCorporal,
+                PesoActual = dato.PesoActual,
+                PerimetroCintura = dato.PerimetroCintura,
+                PerimetroCadera = dato.PerimetroCadera,
+                Eliminado = dato.Eliminado,
+                PesoHabitual = dato.PesoHabitual,
+                PesoIdeal = dato.PesoIdeal,
+                PesoDeseado = dato.PesoDeseado,
+                PerimetroCuello = dato.PerimetroCuello,
+                FotoStr = dato.Foto,
+                PliegueSuprailiaco = dato.PliegueSuprailiaco,
+                PliegueMuslo = dato.PliegueMuslo,
+                PlieguePierna = dato.PlieguePierna,
+                PliegueSubescapular = dato.PliegueSubescapular,
+                PliegueTriceps = dato.PliegueTriceps,
+                PliegueAbdominal = dato.PliegueAbdominal,
+                TotalPliegues = dato.TotalPliegues
+            });
+        }
+
+        // POST: DatoAntropometrico/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteParcial(DatoAntropometricoViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _datoAntropometricoServicio.Delete(vm.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
                 return PartialView(vm);
             }
             return RedirectToAction("DatosAntropometricosParcial", "Paciente", new { id = vm.PacienteId });
         }
 
-
         // GET: DatoAntropometrico/Details/5
         public async Task<ActionResult> Details(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var dato = await _datoAntropometricoServicio.GetById(id.Value);
+
+            return View(new DatoAntropometricoViewModel()
+            {
+                Id = dato.Id,
+                Codigo = dato.Codigo,
+                PacienteId = dato.PacienteId,
+                PacienteStr = dato.PacienteStr,
+                Altura = dato.Altura,
+                FechaMedicion = dato.FechaMedicion,
+                MasaGrasa = dato.MasaGrasa,
+                MasaCorporal = dato.MasaCorporal,
+                PesoActual = dato.PesoActual,
+                PerimetroCintura = dato.PerimetroCintura,
+                PerimetroCadera = dato.PerimetroCadera,
+                Eliminado = dato.Eliminado,
+                PesoHabitual = dato.PesoHabitual,
+                PesoIdeal = dato.PesoIdeal,
+                PesoDeseado = dato.PesoDeseado,
+                PerimetroCuello = dato.PerimetroCuello,
+                FotoStr = dato.Foto,
+                PliegueSuprailiaco = dato.PliegueSuprailiaco,
+                PliegueMuslo = dato.PliegueMuslo,
+                PlieguePierna = dato.PlieguePierna,
+                PliegueSubescapular = dato.PliegueSubescapular,
+                PliegueTriceps = dato.PliegueTriceps,
+                PliegueAbdominal = dato.PliegueAbdominal,
+                TotalPliegues = dato.TotalPliegues
+            });
+        }
+
+        public async Task<ActionResult> DetailsParcial(long? id)
         {
             if (id == null) return RedirectToAction("Error", "Home");
 
@@ -309,6 +456,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             var establecimientoId = ObtenerEstablecimientoIdUser();
 
             var pageNumber = page ?? 1;
+
+            ViewBag.FilterValue = cadenaBuscar;
 
             var pacientes =
                 await _pacienteServicio.Get(establecimientoId, false, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);

@@ -13,54 +13,57 @@
     <div class="col-md-7">
 
         <p class="info-style">
-            @Html.DisplayNameFor(model => model.PacienteStr):
+            @Html.DisplayNameFor(model => model.PacienteStr)
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PacienteStr)
             </span>
         </p>
 
         <p class="info-style">
-            @Html.DisplayNameFor(model => model.ColesterolHdl):
+            @Html.DisplayNameFor(model => model.ColesterolHdl)
             <span class="sub-info">
                 @Html.DisplayFor(model => model.ColesterolHdl) mg/dl
             </span>
         </p>
 
         <p class="info-style">
-            @Html.DisplayNameFor(model => model.ColesterolLdl):
+            @Html.DisplayNameFor(model => model.ColesterolLdl)
             <span class="sub-info">
                 @Html.DisplayFor(model => model.ColesterolLdl) mg/dl
             </span>
         </p>
         <p class="info-style">
-            @Html.DisplayNameFor(model => model.ColesterolTotal):
+            @Html.DisplayNameFor(model => model.ColesterolTotal)
             <span class="sub-info">
                 @Html.DisplayFor(model => model.ColesterolTotal) mg/dl
             </span>
         </p>
 
         <p class="info-style">
-            @Html.DisplayNameFor(model => model.PresionDiastolica):
+            @Html.DisplayNameFor(model => model.PresionDiastolica)
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PresionDiastolica) mmHg
             </span>
         </p>
 
         <p class="info-style">
-            @Html.DisplayNameFor(model => model.PresionSistolica):
+            @Html.DisplayNameFor(model => model.PresionSistolica)
             <span class="sub-info">
                 @Html.DisplayFor(model => model.PresionSistolica) mmHg
             </span>
         </p>
 
         <p class="info-style">
-            @Html.DisplayNameFor(model => model.Trigliceridos):
+            @Html.DisplayNameFor(model => model.Trigliceridos)
             <span class="sub-info">
                 @Html.DisplayFor(model => model.Trigliceridos) mg/dl
             </span>
         </p>
     </div>
     <div class="col-md-5">
+
+
+
 
         <p class="info-style">
             @Html.DisplayNameFor(model => model.B12):
@@ -138,19 +141,46 @@
                 @Html.DisplayFor(model => model.Glusemia)
             </span>
         </p>
-
-
     </div>
-
-
 
 
 </div>
 
+<br />
+<div class="row">
+    <div class="col">
+        @using (Ajax.BeginForm("DeleteParcial", "DatoAnalitico", new { }, new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "datosAnaliticos-Parcial"
+        }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            @Html.HiddenFor(x => x.PacienteId)
+            <div class="form-actions no-color" style="margin-left: 0px;">
+                @if (Model.Eliminado)
+                {
+                    <input type="submit" value="Activar" class="btn btn-info" />
 
+                }
+                else
+                {
+                    <input type="submit" value="Eliminar" class="btn btn-danger" />
 
-    <div class="form-actions no-color">
-       
-        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+                }
+                @Ajax.ActionLink("Volver","DatosAnaliticosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "datosAnaliticos-Parcial",
 
+                },new {@class="btn btn-default"})
+
+            </div>
+        }
     </div>
+</div>
+
+

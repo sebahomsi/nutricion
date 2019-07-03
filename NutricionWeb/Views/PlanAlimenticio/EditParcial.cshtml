@@ -45,9 +45,12 @@
     </div>
 </div>
 
-
-
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("EditParcial", "PlanAlimenticio", new { }, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "planesAlimenticios-Parcial"
+}, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -93,7 +96,13 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Aceptar" class="btn btn-success" />
-                @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+                @Ajax.ActionLink("Volver","PlanesAlimenticiosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "planesAlimenticios-Parcial",
+
+                },new {@class="btn btn-default"})
             </div>
         </div>
     </div>

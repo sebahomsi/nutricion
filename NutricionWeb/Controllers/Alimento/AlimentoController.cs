@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using NutricionWeb.Helpers.SubGrupo;
+﻿using NutricionWeb.Helpers.SubGrupo;
 using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.MacroNutriente;
 using NutricionWeb.Models.SubGrupo;
@@ -15,6 +6,11 @@ using PagedList;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.MacroNutriente;
 using Servicio.Interface.SubGrupo;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Alimento
@@ -267,6 +263,8 @@ namespace NutricionWeb.Controllers.Alimento
         {
             var pageNumber = page ?? 1;
             var eliminado = false;
+
+            ViewBag.FilterValue = cadenaBuscar;
 
             var subGrupos =
                 await _subGrupoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);

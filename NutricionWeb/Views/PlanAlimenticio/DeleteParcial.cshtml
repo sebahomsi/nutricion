@@ -1,0 +1,95 @@
+﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioViewModel
+
+@{
+    ViewBag.Title = "Plan";
+}
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Plan Alimenticio</h4>
+</div>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Motivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Motivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comentarios)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comentarios)
+        </dd>
+
+
+    </dl>
+
+    <div class="row">
+        <div class="col">
+            @using (Ajax.BeginForm("DeleteParcial", "PlanAlimenticio", new { }, new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "planesAlimenticios-Parcial"
+            }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.PacienteId)
+                <div class="form-actions no-color" style="margin-left: 0px;">
+                    @if (Model.Eliminado)
+                    {
+                        <input type="submit" value="Activar" class="btn btn-info" />
+
+                    }
+                    else
+                    {
+                        <input type="submit" value="Eliminar" class="btn btn-danger" />
+
+                    }
+                    @Ajax.ActionLink("Volver","PlanesAlimenticiosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "planesAlimenticios-Parcial",
+
+                    },new {@class="btn btn-default"})
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

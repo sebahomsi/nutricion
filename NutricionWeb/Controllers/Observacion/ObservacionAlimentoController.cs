@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using NutricionWeb.Models.Alimento;
+﻿using NutricionWeb.Models.Alimento;
 using NutricionWeb.Models.ObservacionAlimento;
 using PagedList;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.ObservacionAlimento;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 
@@ -24,17 +22,6 @@ namespace NutricionWeb.Controllers.Observacion
         {
             _observacionAlimentoServicio = observacionAlimentoServicio;
             _alimentoServicio = alimentoServicio;
-        }
-        // GET: ObservacionAlimento
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: ObservacionAlimento/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: ObservacionAlimento/Create
@@ -96,27 +83,6 @@ namespace NutricionWeb.Controllers.Observacion
             return Json(new { estado = true });
         }
 
-        // GET: ObservacionAlimento/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ObservacionAlimento/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: ObservacionAlimento/Delete/5
         public async Task<ActionResult> Delete(long observacionId, long alimentoId)
@@ -125,26 +91,12 @@ namespace NutricionWeb.Controllers.Observacion
             return RedirectToAction("Details", "Observacion", new { id = observacionId });
         }
 
-        // POST: ObservacionAlimento/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         //===========================Metodos especiales
         public async Task<ActionResult> BuscarAlimento(int? page, string cadenaBuscar, long observacionId)
         {
             ViewBag.ObservacionId = observacionId;
+            ViewBag.FilterValue = cadenaBuscar;
+
             var pageNumber = page ?? 1;
             var eliminado = false;
             var alimentos =

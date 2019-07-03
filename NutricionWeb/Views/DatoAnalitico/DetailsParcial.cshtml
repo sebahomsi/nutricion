@@ -149,8 +149,15 @@
 
 
 
-    <div class="form-actions no-color">
-       
-        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
+<div class="form-actions no-color">
 
-    </div>
+    @Ajax.ActionLink("Volver","DatosAnaliticosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "datosAnaliticos-Parcial",
+
+    },new {@class="btn btn-default"})
+
+</div>
+

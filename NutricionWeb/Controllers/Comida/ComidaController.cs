@@ -1,19 +1,18 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using NutricionWeb.Models.Comida;
 using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Dia;
+using NutricionWeb.Models.Opcion;
+using NutricionWeb.Models.OpcionDetalle;
 using Servicio.Interface.Comida;
 using Servicio.Interface.ComidaDetalle;
 using Servicio.Interface.Dia;
 using Servicio.Interface.PlanAlimenticio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using NutricionWeb.Models.Opcion;
-using NutricionWeb.Models.OpcionDetalle;
 
 namespace NutricionWeb.Controllers.Comida
 {
@@ -34,11 +33,6 @@ namespace NutricionWeb.Controllers.Comida
             _diaServicio = diaServicio;
             _planAlimenticioServicio = planAlimenticioServicio;
             _comidaDetalleServicio = comidaDetalleServicio;
-        }
-        // GET: Comida
-        public ActionResult Index()
-        {
-            return View();
         }
 
         // GET: Comida/Details/5
@@ -70,13 +64,6 @@ namespace NutricionWeb.Controllers.Comida
                 }).ToList()
 
             });
-        }
-
-        // GET: Comida/Delete/5
-        [Authorize(Roles = "Administrador, Empleado")]
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: Comida/Delete/5

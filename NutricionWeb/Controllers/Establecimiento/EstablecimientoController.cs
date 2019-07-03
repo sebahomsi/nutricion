@@ -1,13 +1,11 @@
-﻿using NutricionWeb.Models.Establecimiento;
+﻿using AutoMapper;
+using NutricionWeb.Models.Establecimiento;
+using PagedList;
 using Servicio.Interface.Establecimiento;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using AutoMapper;
-using PagedList;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Establecimiento
@@ -134,27 +132,6 @@ namespace NutricionWeb.Controllers.Establecimiento
 
         }
 
-        // GET: Establecimiento/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Establecimiento/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
         //==========================================Metodos
 
         private EstablecimientoDto CargarDatos(EstablecimientoViewModel vm)

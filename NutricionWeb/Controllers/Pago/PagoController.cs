@@ -1,14 +1,12 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using NutricionWeb.Models.Paciente;
-using NutricionWeb.Models.Pago;
+﻿using NutricionWeb.Models.Pago;
 using PagedList;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.Pago;
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.Pago

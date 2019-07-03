@@ -11,6 +11,28 @@
                 UpdateTargetId = "turnos-Parcial",
 
             }, new { @class = "btn btn-primary-custom" })
+            @if (@ViewBag.Eliminado == false)
+            {
+
+                @Ajax.ActionLink("Ver Eliminado", "TurnosParcial", "Paciente", new { id = (long)ViewBag.PacienteId, eliminado = !ViewBag.Eliminado }, new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "turnos-Parcial",
+
+                }, new { @class = "btn btn-primary-custom" })
+            }
+            else
+            {
+                @Ajax.ActionLink("Ver Activos", "TurnosParcial", "Paciente", new { id = (long)ViewBag.PacienteId, eliminado = !ViewBag.Eliminado }, new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "turnos-Parcial",
+
+                }, new { @class = "btn btn-primary-custom" })
+
+            }
         </div>
     </div>
 </div>
@@ -45,17 +67,41 @@
                     @Html.DisplayFor(modelItem => item.Motivo)
                 </td>
                 <td align="right">
-                    @Html.ActionLink("Actualizar", "Edit", "Turno", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })
-                    @Html.ActionLink("Detalles", "Details", "Turno", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                    @Ajax.ActionLink("Actualizar", "EditParcial", "Turno", new { id = item.Id }, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "turnos-Parcial",
+
+                    }, new { @class = "btn btn-warning btn-xs" })
+
+                    @Ajax.ActionLink("Detalles", "DetailsParcial", "Turno", new { id = item.Id }, new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "turnos-Parcial",
+
+                    }, new { @class = "btn btn-default btn-xs" })
+
                     @if (item.Eliminado)
                     {
-                        @Html.ActionLink("Activar", "Delete", "Turno", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
+                        @Ajax.ActionLink("Activar", "DeleteParcial", "Turno", new { id = item.Id }, new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "turnos-Parcial",
 
+                        }, new { @class = "btn btn-info btn-xs" })
                     }
                     else
                     {
-                        @Html.ActionLink("Eliminar", "Delete", "Turno", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+                        @Ajax.ActionLink("Eliminar", "DeleteParcial", "Turno", new { id = item.Id }, new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "turnos-Parcial",
 
+                        }, new { @class = "btn btn-danger btn-xs" })
                     }
                 </td>
             </tr>

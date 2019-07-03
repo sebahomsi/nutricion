@@ -1,0 +1,64 @@
+﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioViewModel
+
+@{
+    ViewBag.Title = "Plan";
+}
+
+<div class="titulo-ABM">
+    <h4 class="detail-plan-h4">Detalles del Plan</h4>
+</div>
+
+<div class="row">
+    <hr />
+    <div class="col-md-7" style="margin-left: 10px;">
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PacienteStr):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.PacienteStr)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Motivo):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Motivo)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Fecha):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.FechaStr)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Comentarios):
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.Comentarios)
+            </span>
+
+        </p>
+    </div>
+
+</div>
+<p style="margin-top: 15px; margin-left: 10px">
+    @Ajax.ActionLink("Volver","PlanesAlimenticiosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "planesAlimenticios-Parcial",
+
+    },new {@class="btn btn-default"})
+
+</p>
+
+<hr />
+
+
+

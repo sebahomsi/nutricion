@@ -415,7 +415,7 @@ namespace NutricionWeb.Controllers.Paciente
             return PartialView(datosAnaliticos.Where(x => x.Eliminado == eliminado).ToList());
         }
 
-        public async Task<ActionResult> TurnosParcial(long? id)
+        public async Task<ActionResult> TurnosParcial(long? id, bool eliminado = false)
         {
             if (id == null) return RedirectToAction("Error", "Home");
 
@@ -423,9 +423,10 @@ namespace NutricionWeb.Controllers.Paciente
 
             var turnos = Mapper.Map<IEnumerable<TurnoViewModel>>(datos);
 
+            ViewBag.Eliminado = eliminado;
             ViewBag.PacienteId = id;
 
-            return PartialView(turnos.ToList());
+            return PartialView(turnos.Where(x => x.Eliminado == eliminado).ToList());
         }
 
         public async Task<ActionResult> ObjetivosParcial(long? id)

@@ -1,0 +1,62 @@
+﻿@model NutricionWeb.Models.Turno.TurnoViewModel
+
+@{
+    ViewBag.Title = "Turno";
+}
+
+<div class="titulo-ABM">
+    <h4 class="detail-h4">Turno</h4>
+</div>
+
+<div class="row">
+    <hr />
+    <div class="col-md-7">
+
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.PacienteStr):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.PacienteStr)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            Fecha:
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.FechaEntradaStr)
+            </span>
+
+        </p>
+
+        <p class="info-style">
+            Horario:
+            <span class="sub-info">
+                @Html.DisplayFor(model => model.HorarioEntradaStr) -
+                @Html.DisplayFor(model => model.HorarioSalidaStr)
+
+            </span>
+
+        </p>
+        <p class="info-style">
+            @Html.DisplayNameFor(model => model.Motivo):
+            <span class="sub-info">
+
+                @Html.DisplayFor(model => model.Motivo)
+            </span>
+
+        </p>
+    </div>
+
+</div>
+<p style="margin-top: 15px; margin-left: 10px">
+    @Ajax.ActionLink("Volver","TurnosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "turnos-Parcial",
+
+    },new {@class="btn btn-default"})
+
+</p>
