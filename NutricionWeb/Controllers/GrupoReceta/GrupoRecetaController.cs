@@ -24,6 +24,7 @@ namespace NutricionWeb.Controllers.GrupoReceta
         {
             var pageNumber = page ?? 1;
             ViewBag.Eliminado = eliminado;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var grupos = await _grupoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 

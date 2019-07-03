@@ -30,6 +30,7 @@ namespace NutricionWeb.Controllers.SubGrupoReceta
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var subGrupos =
                 await _subGrupoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);

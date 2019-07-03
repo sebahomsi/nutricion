@@ -36,6 +36,7 @@ namespace NutricionWeb.Controllers.Empleado
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var empleados =
                 await _empleadoServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);

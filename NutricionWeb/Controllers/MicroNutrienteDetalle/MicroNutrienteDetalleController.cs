@@ -36,7 +36,7 @@ namespace NutricionWeb.Controllers.MicroNutrienteDetalle
         public async Task<ActionResult> Index(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
-
+            ViewBag.FilterValue = cadenaBuscar;
             var detalles =
                 await _microNutrienteDetalleServicio.Get(!string.IsNullOrEmpty(cadenaBuscar)
                     ? cadenaBuscar

@@ -24,7 +24,7 @@ namespace NutricionWeb.Controllers.Establecimiento
         public async Task<ActionResult> Index(int? page,string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
-
+            ViewBag.FilterValue = cadenaBuscar;
             var establecimientos = await _establecimientoServicio.Get();
 
             var vm = Mapper.Map<IEnumerable<EstablecimientoViewModel>>(establecimientos);

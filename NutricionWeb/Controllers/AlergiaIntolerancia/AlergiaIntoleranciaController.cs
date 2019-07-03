@@ -28,7 +28,7 @@ namespace NutricionWeb.Controllers.AlergiaIntolerancia
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
-
+            ViewBag.FilterValue = cadenaBuscar;
             var alergiasIntolerancias =
                 await _alergiaIntoleranciaServicio.Get(eliminado,
                     !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);

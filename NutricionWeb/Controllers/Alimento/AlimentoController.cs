@@ -37,7 +37,7 @@ namespace NutricionWeb.Controllers.Alimento
         public async Task<ActionResult> Index(int? page, string cadenaBuscar,bool eliminado = false)
         {
             var pageNumber = page ?? 1;
-
+            ViewBag.FilterValue = cadenaBuscar;
             ViewBag.Eliminado = eliminado;
 
             var alimentos =

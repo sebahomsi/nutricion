@@ -27,7 +27,7 @@ namespace NutricionWeb.Controllers.Pago
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var pageNumber = page ?? 1;
-
+            ViewBag.FilterValue = cadenaBuscar;
             ViewBag.Eliminado = eliminado;
 
             var pagos =await _pagoServicio.GetByDate(DateTime.Today,DateTime.Today, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);

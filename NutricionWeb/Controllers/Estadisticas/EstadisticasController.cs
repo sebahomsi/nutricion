@@ -25,6 +25,7 @@ namespace NutricionWeb.Controllers.Estadisticas
         public async Task<ActionResult> Index(long? id)
         { 
             ViewBag.PacienteId = id.Value;
+            
             return PartialView();
         }
         public async Task<ActionResult> ObtenerDatosAntropometricos(long? pacienteId)

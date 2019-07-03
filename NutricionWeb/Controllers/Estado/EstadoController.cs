@@ -26,6 +26,7 @@ namespace NutricionWeb.Controllers.Estado
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var datos = await _estadoServicio.Get(eliminado,!string.IsNullOrEmpty(cadenaBuscar)? cadenaBuscar:string.Empty);
 

@@ -33,6 +33,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var datos = await _datoAntropometricoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar)
                 ? cadenaBuscar

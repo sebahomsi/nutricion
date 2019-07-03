@@ -76,7 +76,7 @@ namespace NutricionWeb.Controllers.Paciente
         public async Task<ActionResult> Index(int? page, string cadenaBuscar, bool eliminado = false)
         {
             var establecimientoId = ObtenerEstablecimientoIdUser();
-
+            ViewBag.FilterValue = cadenaBuscar;
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;

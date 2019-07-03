@@ -26,6 +26,7 @@ namespace NutricionWeb.Controllers.Patologia
         {
             var pageNumber = page ?? 1;
             ViewBag.Eliminado = eliminado;
+            ViewBag.FilterValue = cadenaBuscar;
             var patologias =
                 await _patologiaServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 

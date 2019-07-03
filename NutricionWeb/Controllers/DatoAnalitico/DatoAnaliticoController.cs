@@ -30,6 +30,7 @@ namespace NutricionWeb.Controllers.DatoAnalitico
             var pageNumber = page ?? 1;
 
             ViewBag.Eliminado = eliminado;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var datos = await _datoAnaliticoServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar)
                 ? cadenaBuscar

@@ -28,6 +28,7 @@ namespace NutricionWeb.Controllers.Usuario
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
 
             var cadena = !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty;
+            ViewBag.FilterValue = cadenaBuscar;
 
             var usuarios = userManager.Users.Where(x => x.Email.Contains(cadena)
                                                         || x.UserName.Contains(cadena))

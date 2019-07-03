@@ -25,7 +25,7 @@ namespace NutricionWeb.Controllers.UnidadMedida
         {
             var pageNumber = page ?? 1;
             ViewBag.Eliminado = eliminado;
-
+            ViewBag.FilterValue = cadenaBuscar;
             var unidades =
                 await _unidadMedidaServicio.Get(eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
