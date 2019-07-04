@@ -147,7 +147,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return PartialView(vm);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("DatosAntropometricosParcial", "Paciente", new { id = vm.PacienteId });
         }
 
 
