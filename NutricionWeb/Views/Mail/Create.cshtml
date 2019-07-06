@@ -133,7 +133,14 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
                         <input type="submit" id="enviar" value="Enviar" class="btn btn-success" />
-                        @Html.ActionLink("Volver", "IndexEnviados", "Mensaje", new { }, new { @class = "btn btn-default" })
+                        @if (User.IsInRole("Empleado"))
+                        {
+                            @Html.ActionLink("Volver", "Index", "Home", new { }, new { @class = "btn btn-default" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Volver", "IndexEnviados", "Mensaje", new { }, new { @class = "btn btn-default" })
+                        }
                     </div>
                 </div>
             </div>
