@@ -190,6 +190,14 @@
                 listaEstado();
             });
 
+            $("#btn-BuscarPaciente").click(() => {
+                listaPaciente();
+            });
+
+            $("#btn-BuscarEstado").click(() => {
+                listaEstado();
+            });
+
             function listaEstado() {
                 $("#partialFindEstado").empty();
             
@@ -206,7 +214,7 @@
             function listaPaciente() {
                 $("#partialFindPaciente").empty();
 
-                $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAntropometrico"))',
+                $.get('@Html.Raw(Url.Action("BuscarPaciente", "Turno"))',
                     {
                         cadenaBuscar: $("#txt-BuscarPaciente").val()
                     },
