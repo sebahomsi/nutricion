@@ -1,0 +1,267 @@
+﻿@model NutricionWeb.Models.Mail.MailViewModel
+
+<!--Modal -->
+<div class="modal fade" id="modal-pacientes" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Paciente</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarPaciente" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarPaciente" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindPaciente"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-paciente" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12">
+
+    @*@using (Html.BeginForm("CreateParcial", "Mail", FormMethod.Post, new { @id = "formEnviarMail", enctype = "multipart/form-data" }))*@
+    @using (Ajax.BeginForm("CreateParcial", "Mail", new AjaxOptions()
+    {
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "mail-Parcial"
+    }, new {@id = "formEnviarMail", enctype = "multipart/form-data"}))
+    {
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.PacienteId)
+    <div class="form-horizontal">
+
+        <img src="~/Content/Imagenes/ajax-loader (3).gif" id="loading" hidden />
+        <span id="mensaje" style="margin-left: 35vw; margin-top: 50px; font-size: 1.5em;"></span>
+        <br />
+        <div class="col-md-6">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.MailDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4" style="width: 310px">
+                    @Html.EditorFor(model => model.MailDestino, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MailDestino, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2" align="left">
+                    <div id="btn-Paciente" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-pacientes" value="Modal BuscarPacientes" title="Seleccionar paciente">...</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MailEmisor, htmlAttributes: new { @class = "control-label col-md-2", @readonly = "readonly" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MailEmisor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MailEmisor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Asunto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Asunto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Asunto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CuerpoMensaje, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CuerpoMensaje, new { htmlAttributes = new { @class = "form-control", @rows = "10", @cols = "20" } })
+                    @Html.ValidationMessageFor(model => model.CuerpoMensaje, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IncluirHistoriaClinica, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-1">
+                    @Html.EditorFor(model => model.IncluirHistoriaClinica, new { htmlAttributes = new { } })
+                    @Html.ValidationMessageFor(model => model.IncluirHistoriaClinica, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.IncluirPlan, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-1">
+                    @Html.EditorFor(model => model.IncluirPlan, new { htmlAttributes = new { } })
+                    @Html.ValidationMessageFor(model => model.IncluirPlan, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+            </div>
+
+
+
+
+            <div class="form-group">
+                @Html.Label("Archivos", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <span class="btn btn-primary btn-primary">
+                        @Html.TextBoxFor(model => model.Imagenes, new { type = "file", @multiple = "multiple" })
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <input type="submit" id="enviar" value="Enviar" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+    <div class="col-md-6">
+        <div id="imagen"></div>
+    </div>
+
+</div>
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $("#btn-Paciente").click(function() {
+                listaPaciente();
+            }
+        );
+
+        $("#btn-BuscarPaciente").click(() => {
+            listaPaciente();
+        });
+
+        function listaPaciente() {
+            $("#partialFindPaciente").empty();
+
+            $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAntropometrico"))',
+                {
+                    cadenaBuscar: $("#txt-BuscarPaciente").val()
+                },
+                function(listaPaciente) {
+                    $("#partialFindPaciente").append(listaPaciente);
+                });
+        }
+
+
+        $(document).on("click",
+            "#seleccionar-paciente",
+            function() {
+
+                const url = '@Html.Raw(Url.Action("TraerPaciente", "DatoAntropometrico"))';
+
+                $.get(url,
+                    { pacienteId: $(this).attr("name"), traerTurno: true },
+                    function(json) {
+
+                        $('#MailDestino').val(json.paciente.Mail);
+                        $('#PacienteId').val(json.paciente.Id);
+                        $('#cancelar-paciente').trigger("click");
+                        if (json.fecha) {
+                            $('#CuerpoMensaje').val(`Hola ${json.paciente.Nombre}! te envio este mail para realizar los primeros 15 dias\nTu proxima consulta será: ${json.fecha}`);
+                        } else {
+                            $('#CuerpoMensaje').val(`Hola ${json.paciente.Nombre}! te envio este mail para realizar los primeros 15 dias`);
+                        }
+
+                    });
+            });
+
+        //=======================JavaScriptPuro==========================
+        var prueba;
+        var insertarImagen = function(src) {
+            const img = document.createElement("img");
+            img.style.width = "50px";
+            img.style.height = "50px";
+            img.style.margin = "5px";
+            img.src = src;
+            document.getElementById("imagen").appendChild(img);
+        }
+
+        var enviar = function(e) {
+            e.preventDefault();
+            var form = document.getElementById("formEnviarMail");
+            var data = new FormData(form);
+            console.log(data);
+            var url = '@Url.Action("CreateParcial")';
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            document.getElementById("loading").style.display = "block";
+            xhr.send(data);
+            xhr.onreadystatechange = function() {
+
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("mensaje").innerText = '';
+                    document.getElementById("mensaje").innerText = xhr.responseText;
+                }
+            }
+        }
+
+        var ready = function() {
+
+            document.getElementById("enviar").addEventListener("click", enviar);
+
+            document.getElementById("Imagenes").addEventListener("input",
+                function() {
+
+                    var files = this.files;
+                    document.getElementById("imagen").innerHTML = "";
+                    for (var i = 0; i < files.length; i++) {
+
+                        var fileReader = new FileReader();
+                        var file = files[i];
+                        console.log(file.type);
+                        console.log(file.name);
+                        if (file.type.includes("image")) {
+                            fileReader.onload = (function(e) {
+                                insertarImagen(e.target.result);
+                            });
+                        }
+                        if (file.type.includes("zip")) {
+                            fileReader.onload = (function(e) {
+                                insertarImagen("/Content/Imagenes/icono-ZIP.png");
+                            });
+
+                        }
+                        if (file.name.includes("rar")) {
+                            fileReader.onload = (function(e) {
+                                insertarImagen("/Content/Imagenes/rar.png");
+                            });
+
+                        }
+                        if (file.name.includes("docx") || file.name.includes(".txt")) {
+                            fileReader.onload = (function(e) {
+                                insertarImagen("/Content/Imagenes/word.png");
+                            });
+                        }
+                        fileReader.readAsDataURL(files[i]);
+                    }
+                });
+        }
+        window.addEventListener("load", ready);
+    </script>

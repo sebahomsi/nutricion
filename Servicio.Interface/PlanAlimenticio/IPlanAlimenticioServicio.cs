@@ -1,6 +1,8 @@
 ﻿using Servicio.Interface.Comida;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Servicio.Interface.ComidaDetalle;
+using Servicio.Interface.Opcion;
 
 namespace Servicio.Interface.PlanAlimenticio
 {
@@ -19,6 +21,8 @@ namespace Servicio.Interface.PlanAlimenticio
         Task<int> CalculateTotalCaloriesGrasas(long plandId);
         Task<int> CalculateTotalCaloriesCarbos(long plandId);
         Task<PlanDiasDto> GetSortringComidas(long PlanId);
+
+        Task<List<ComidaDetalleDto>> GetFoodsByPlanId(long id);
         Task DuplicarComidaDeOtroPlan(long? planDesdeId, long? planHastaId, string comidaDescripcion);
     }
 }

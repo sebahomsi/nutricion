@@ -361,9 +361,10 @@
 
 
 <label style="max-width:100%;min-width:100%;margin-top: 5px" id="lblrecetario">Comentarios : @ViewBag.Recetario</label>
-<textarea id="recetariotxtarea" class="form-control" cols="12" style="max-width:100%;min-width:100%; width: 100%; margin-top:30px;display: none">@ViewBag.Recetario</textarea>
-<button class="btn btn-primary-custom btn-xs" style="display: none" id="guardarRecetario">Guardar</button>
-<button class="btn btn-danger btn-xs" style="display: none" id="cancelarRecetario">Cancelar</button>
+<textarea id="comentariotxtarea" class="form-control" cols="12" style="max-width:100%;min-width:100%; width: 100%; margin-top:30px;display: none">@ViewBag.Recetario</textarea>
+<button class="btn btn-primary-custom btn-xs" style="display: none" id="guardarComentario">Guardar</button>
+<button class="btn btn-danger btn-xs" style="display: none" id="cancelarComentario">Cancelar</button>
+<strong id="recetario" style="display: none"></strong>
 
 <p style="margin-top: 5px">
     @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente", new { id = ViewBag.PacienteId }, new { @class = "btn btn-default" })
@@ -371,6 +372,7 @@
     @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
     @*@Html.ActionLink("Copiar fila de otro plan", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })*@
     <button class="btn btn-primary-custom" id="modificarRecetario">Cambiar Comentario</button>
+    <button class="btn btn-primary-custom" id="verRecetario">Ver recetario</button>
 </p>
 
 <br /><br />
@@ -378,12 +380,12 @@
     <script>
 
         var opcionIds = [];
-    var comidaIdFlag = -1;
-    var comidaSeleccionada = "";
+        var comidaIdFlag = -1;
+        var comidaSeleccionada = "";
 
-        var buscarComidas = function(cadenaBuscar ,comidaId,subgrupoId) {
+        var buscarComidas = function(cadenaBuscar, comidaId, subgrupoId) {
             $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
-                { cadenaBuscar,comidaId , subgrupoId },
+                { cadenaBuscar, comidaId, subgrupoId },
                 parcial => {
                     $("#partialFindAgregarComida").empty().append(parcial);
                 });
@@ -456,15 +458,16 @@
                 opcionIds = [];
             });
 
-    $('#modal-duplicarComida').on('hide.bs.modal',
-        function (e) {
-            comidaSeleccionada = "";
-            });
+        $('#modal-duplicarComida').on('hide.bs.modal',
+            function(e) {
+                comidaSeleccionada = "";
+            
+        });
 
         var recorreFila = (idFila) => {
             var elementoAnterior;
             var i = 0;
-            $('#' + idFila + " [comidaColumna]").each((index, elemento) => {
+            $(`#${idFila} [comidaColumna]`).each((index, elemento) => {
                 var elementoActual = $(elemento);
                 if (index !== 0) {
 
@@ -509,7 +512,7 @@
                             $("#mensajePlan").empty().append(json.mensaje);
                         }
                     });
-                
+
             });
 
         $(() => {
@@ -520,9 +523,9 @@
             recorreFila("mediaTarde");
             recorreFila("cena");
 
-            $("#guardarRecetario").click(() => {
+            $("#guardarComentario").click(() => {
                 $.post('@Url.Action("ModificarRecetario", "PlanAlimenticio")',
-                    { recetario: $("#recetariotxtarea").val(), planId: @ViewBag.PlanId },
+                    { recetario: $("#comentariotxtarea").val(), planId: @ViewBag.PlanId },
                     (json) => {
                         if (json.estado) {
                             location.reload();
@@ -533,9 +536,9 @@
             });
 
             var recetario = () => {
-                $("#recetariotxtarea").toggle();
-                $("#guardarRecetario").toggle();
-                $("#cancelarRecetario").toggle();
+                $("#comentariotxtarea").toggle();
+                $("#guardarComentario").toggle();
+                $("#cancelarComentario").toggle();
                 $("#lblrecetario").toggle();
             }
 
@@ -544,32 +547,47 @@
                 recetario();
             });
 
-            $("#cancelarRecetario").click(() => {
+            $("#cancelarComentario").click(() => {
                 recetario();
             });
 
             $("td[desayuno]").click(() => {
                 $("#modal-duplicarComida").modal("show");
                 listaPlan();
-                comidaSeleccionada = "Desayuno"
+                comidaSeleccionada = "Desayuno";
             });
 
-            
+
 
             $("#idSub").change(function() {
-                var subgrupoId = this.value;
-                var buscar = $("#txt-BuscarComida").val();
+                const subgrupoId = this.value;
+                const buscar = $("#txt-BuscarComida").val();
                 buscarComidas(buscar,comidaIdFlag, subgrupoId);
             });
 
             $("#btn-BuscarComida").click(function () {
-                var subgrupoId = $("#idSub").val();
-                var buscar = $("#txt-BuscarComida").val();
+                const subgrupoId = $("#idSub").val();
+                const buscar = $("#txt-BuscarComida").val();
                 buscarComidas(buscar,comidaIdFlag, subgrupoId);
             });
 
             $("#btn-BuscarPlan").click(() => {
                 listaPlan();
+            });
+
+            $("#verRecetario").click(() => {
+                $("#recetario").toggle();
+                if ($("#recetario").is(':visible')) {
+                    //console.log("visible");
+                    $("#recetario").empty();
+                    $.get('@Url.Action("ObtenerRecetarios","PlanAlimenticio")',{ planAlimenticio:@ViewBag.PlanId },(parcial) => {
+                        $("#recetario").empty().append(parcial);
+                    });
+                } else {
+                    //console.log("hidden");
+                    $("#recetario").empty();
+                } 
+               
             });
 
         });

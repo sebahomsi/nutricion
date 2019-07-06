@@ -1,0 +1,21 @@
+﻿@model IEnumerable<NutricionWeb.Models.ComidaDetalle.ComidaDetalleViewModel>
+
+
+@foreach (var comidaDetalle in Model)
+{
+    @comidaDetalle.OpcionStr
+    foreach (var opcionDetalle in comidaDetalle.Opcion.OpcionDetalles)
+    {
+
+        
+        @($"{opcionDetalle.AlimentoStr}  {opcionDetalle.CantidadMostrar}")
+
+        @:<br/>
+        
+    }
+    @:<hr/>
+
+}
+
+    
+
