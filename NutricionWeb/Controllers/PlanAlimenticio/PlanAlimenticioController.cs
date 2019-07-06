@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NutricionWeb.Helpers.SubGrupo;
 using NutricionWeb.Models.Comida;
 using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Dia;
@@ -6,9 +7,7 @@ using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using PagedList;
 using Rotativa;
-using Servicio.Interface.Alimento;
 using Servicio.Interface.Dia;
-using Servicio.Interface.Opcion;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
 using System;
@@ -93,7 +92,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         }
 
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> DuplicarPlan(int? volver,long? planId)
+        public async Task<ActionResult> DuplicarPlan(int? volver, long? planId)
         {
             ViewBag.Volver = volver ?? 0;
             ViewBag.PlanId = planId ?? 0;
@@ -120,7 +119,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
 
             if (volver == 1)
             {
-                return RedirectToAction("ExportarPlanOrdenado", new {id = planId});
+                return RedirectToAction("ExportarPlanOrdenado", new { id = planId });
             }
             return RedirectToAction("Index");
         }
@@ -490,6 +489,8 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 ViewBag.CarboPorce = 0;
                 ViewBag.GrasaPorce = 0;
                 ViewBag.ProtePorce = 0;
+
+                ViewBag.CarboGramo = 0;
             }
             else
             {
@@ -500,9 +501,13 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 ViewBag.CarboPorce = await _planAlimenticioServicio.CalculateTotalCaloriesCarbos(id.Value) * 100 / plan.TotalCalorias;
                 ViewBag.GrasaPorce = await _planAlimenticioServicio.CalculateTotalCaloriesGrasas(id.Value) * 100 / plan.TotalCalorias;
                 ViewBag.ProtePorce = await _planAlimenticioServicio.CalculateTotalCaloriesProtes(id.Value) * 100 / plan.TotalCalorias;
+
+                ViewBag.CarboGramo = await _planAlimenticioServicio.CalculateTotalCaloriesCarbos(id.Value) / 4;
+                ViewBag.ProteGramo = await _planAlimenticioServicio.CalculateTotalCaloriesProtes(id.Value) / 4;
+                ViewBag.GrasaGramo = await _planAlimenticioServicio.CalculateTotalCaloriesGrasas(id.Value) / 9;
             }
 
-          
+
 
             var comidasVm = Mapper.Map<PlanAlimenticioVistaViewModel>(comidas);
 
@@ -591,7 +596,6 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         public async Task<ActionResult> BuscarPlan(int? page, string cadenaBuscar)
         {
             var pageNumber = page ?? 1;
-            var eliminado = false;
             var planes =
                 await _planAlimenticioServicio.Get(false, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
 
@@ -626,7 +630,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             };
         }
 
-        public async Task<ActionResult> ModificarRecetario(string recetario , long planId)
+        public async Task<ActionResult> ModificarRecetario(string recetario, long planId)
         {
             try
             {
@@ -636,9 +640,9 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             }
             catch (Exception ex)
             {
-                return Json(new { estado = false , mensaje = ex.Message });
+                return Json(new { estado = false, mensaje = ex.Message });
             }
-            return Json(new {estado = true });
+            return Json(new { estado = true });
         }
 
         public async Task<ActionResult> ObtenerRecetarios(long? planAlimenticio)

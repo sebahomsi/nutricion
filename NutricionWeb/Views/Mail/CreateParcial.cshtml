@@ -1,10 +1,5 @@
 ﻿@model NutricionWeb.Models.Mail.MailViewModel
 
-@{
-    ViewBag.Title = "Mail";
-}
-
-
 <!--Modal -->
 <div class="modal fade" id="modal-pacientes" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -42,109 +37,105 @@
     </div>
 </div>
 
-<div class="titulo-ABM">
-    <h4 class="create-h4">Nuevo Correo Electronico</h4>
-</div>
 
 <div class="col-md-12">
 
-    @using (Html.BeginForm("Create", "Mail", FormMethod.Post, new { @id = "formEnviarMail", enctype = "multipart/form-data" }))
+    @*@using (Html.BeginForm("CreateParcial", "Mail", FormMethod.Post, new { @id = "formEnviarMail", enctype = "multipart/form-data" }))*@
+    @using (Ajax.BeginForm("CreateParcial", "Mail", new AjaxOptions()
     {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(x=>x.PacienteId)
-        <div class="form-horizontal">
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "mail-Parcial"
+    }, new {@id = "formEnviarMail", enctype = "multipart/form-data"}))
+    {
 
-            <img src="~/Content/Imagenes/ajax-loader (3).gif" id="loading" hidden />
-            <span id="mensaje"></span>
-            <hr />
-            <div class="col-md-6">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MailDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4" style="width: 310px">
-                        @Html.EditorFor(model => model.MailDestino, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MailDestino, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-2" align="left">
-                        <div id="btn-Paciente" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-pacientes" value="Modal BuscarPacientes" title="Seleccionar paciente">...</div>
-                    </div>
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.PacienteId)
+    <div class="form-horizontal">
+
+        <img src="~/Content/Imagenes/ajax-loader (3).gif" id="loading" hidden />
+        <span id="mensaje" style="margin-left: 35vw; margin-top: 50px; font-size: 1.5em;"></span>
+        <br />
+        <div class="col-md-6">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.MailDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4" style="width: 310px">
+                    @Html.EditorFor(model => model.MailDestino, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MailDestino, "", new { @class = "text-danger" })
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MailEmisor, htmlAttributes: new { @class = "control-label col-md-2",@readonly="readonly" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.MailEmisor, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MailEmisor, "", new { @class = "text-danger" })
-                    </div>
+                <div class="col-md-2" align="left">
+                    <div id="btn-Paciente" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-pacientes" value="Modal BuscarPacientes" title="Seleccionar paciente">...</div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MailEmisor, htmlAttributes: new { @class = "control-label col-md-2", @readonly = "readonly" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MailEmisor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MailEmisor, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Asunto, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Asunto, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Asunto, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CuerpoMensaje, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CuerpoMensaje, new { htmlAttributes = new { @class = "form-control", @rows = "10", @cols = "20" } })
-                        @Html.ValidationMessageFor(model => model.CuerpoMensaje, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Asunto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Asunto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Asunto, "", new { @class = "text-danger" })
                 </div>
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IncluirHistoriaClinica, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-1">
-                        @Html.EditorFor(model => model.IncluirHistoriaClinica, new { htmlAttributes = new { } })
-                        @Html.ValidationMessageFor(model => model.IncluirHistoriaClinica, "", new { @class = "text-danger" })
-                    </div>
-                    @Html.LabelFor(model => model.IncluirPlan, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-1">
-                        @Html.EditorFor(model => model.IncluirPlan, new { htmlAttributes = new { } })
-                        @Html.ValidationMessageFor(model => model.IncluirPlan, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CuerpoMensaje, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CuerpoMensaje, new { htmlAttributes = new { @class = "form-control", @rows = "10", @cols = "20" } })
+                    @Html.ValidationMessageFor(model => model.CuerpoMensaje, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                   
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IncluirHistoriaClinica, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-1">
+                    @Html.EditorFor(model => model.IncluirHistoriaClinica, new { htmlAttributes = new { } })
+                    @Html.ValidationMessageFor(model => model.IncluirHistoriaClinica, "", new { @class = "text-danger" })
                 </div>
-
-
-
-
-                <div class="form-group">
-                    @Html.Label("Archivos", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="btn btn-primary btn-primary">
-                            @Html.TextBoxFor(model => model.Imagenes, new { type = "file", @multiple = "multiple" })
-                        </span>
-                    </div>
+                @Html.LabelFor(model => model.IncluirPlan, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-1">
+                    @Html.EditorFor(model => model.IncluirPlan, new { htmlAttributes = new { } })
+                    @Html.ValidationMessageFor(model => model.IncluirPlan, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-4">
-                        <input type="submit" id="enviar" value="Enviar" class="btn btn-success" />
-                        @if (User.IsInRole("Empleado"))
-                        {
-                            @Html.ActionLink("Volver", "Index", "Home", new { }, new { @class = "btn btn-default" })
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Volver", "IndexEnviados", "Mensaje", new { }, new { @class = "btn btn-default" })
-                        }
-                    </div>
+            <div class="form-group">
+
+            </div>
+
+
+
+
+            <div class="form-group">
+                @Html.Label("Archivos", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <span class="btn btn-primary btn-primary">
+                        @Html.TextBoxFor(model => model.Imagenes, new { type = "file", @multiple = "multiple" })
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <input type="submit" id="enviar" value="Enviar" class="btn btn-success" />
                 </div>
             </div>
         </div>
+    </div>
     }
 
     <div class="col-md-6">
@@ -153,7 +144,6 @@
 
 </div>
 
-@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
 
@@ -197,7 +187,7 @@
                         } else {
                             $('#CuerpoMensaje').val(`Hola ${json.paciente.Nombre}! te envio este mail para realizar los primeros 15 dias`);
                         }
-                        
+
                     });
             });
 
@@ -217,7 +207,7 @@
             var form = document.getElementById("formEnviarMail");
             var data = new FormData(form);
             console.log(data);
-            var url = '@Url.Action("Create")';
+            var url = '@Url.Action("CreateParcial")';
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url, true);
             document.getElementById("loading").style.display = "block";
@@ -275,4 +265,3 @@
         }
         window.addEventListener("load", ready);
     </script>
-}

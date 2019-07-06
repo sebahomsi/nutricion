@@ -34,6 +34,7 @@
         @AgregarTabs("estrategia", "estrategia-Vista", "Estrategia", "")
         @AgregarTabs("planesAlimenticios", "planesAlimenticios-Vista", "Planes Alimenticios", "")
         @AgregarTabs("turnos", "turnos-Vista", "Turnos", "")
+        @AgregarTabs("mail", "mail-Vista", "Mail", "navbar-right")
         if (Model.TieneObservacion)
         {
             @AgregarTabs("estadisticas", "estadisticas-Vista", "Estadisticas", "navbar-right")
@@ -61,6 +62,7 @@
         @AgregarVista("observaciones-Vista", "observaciones-Parcial")
         @AgregarVista("estadisticas-Vista", "estadisticas-Parcial")
         @AgregarVista("patologias-Vista", "patologias-Parcial")
+        @AgregarVista("mail-Vista", "mail-Parcial")
     }
 
 
@@ -109,17 +111,19 @@
 
         var turnos = function() {
             var url = '@Url.Action("TurnosParcial")';
-            $.get(url, {id : @Model.Id}, function (parcial) {
-                $("#turnos-Parcial").empty();
-                $("#turnos-Parcial").append(parcial);
-            });
+            $.get(url,
+                { id: @Model.Id },
+                function(parcial) {
+                    $("#turnos-Parcial").empty();
+                    $("#turnos-Parcial").append(parcial);
+                });
         }
 
         var objetivo = function() {
             var url = '@Url.Action("ObjetivosParcial")';
             $.get(url,
                 { id: @Model.Id },
-                function (parcial) {
+                function(parcial) {
                     console.log(parcial);
                     $("#objetivo-Parcial").empty();
                     $("#objetivo-Parcial").append(parcial);
@@ -130,7 +134,7 @@
             var url = '@Url.Action("AnamnesisParcial")';
             $.get(url,
                 { id: @Model.Id },
-                function (parcial) {
+                function(parcial) {
                     console.log(parcial);
                     $("#anamnesis-Parcial").empty();
                     $("#anamnesis-Parcial").append(parcial);
@@ -141,28 +145,30 @@
             var url = '@Url.Action("EstrategiaParcial")';
             $.get(url,
                 { id: @Model.Id },
-                function (parcial) {
+                function(parcial) {
                     console.log(parcial);
                     $("#estrategia-Parcial").empty();
                     $("#estrategia-Parcial").append(parcial);
                 });
         }
 
-        var observaciones = function () {
-            @if (Model.TieneObservacion) {
+        var observaciones = function() {
+            @if (Model.TieneObservacion)
+            {
                 <text>var url = '@Url.Action("ObservacionesParcial")';
                     $.get(url,
                         { id: @Model.Id },
-                        function (parcial) {
+                        function(parcial) {
                             $("#observaciones-Parcial").empty();
                             $("#observaciones-Parcial").append(parcial);
                         });</text>
             }
-            else {
+            else
+            {
                 <text>var url2 = '@Url.Action("CreateParcial", "Observacion")';
                     $.get(url2,
                         { id: @Model.Id },
-                        function (parcial) {
+                        function(parcial) {
                             $("#observaciones-Parcial").empty();
                             $("#observaciones-Parcial").append(parcial);
                         });</text>
@@ -170,12 +176,13 @@
         }
 
 
-        var patologias = function () {
-            @if (Model.TieneObservacion) {
+        var patologias = function() {
+            @if (Model.TieneObservacion)
+            {
                 <text>var url = '@Url.Action("ObservacionesPatologiasParcial")';
                     $.get(url,
                         { id: @Model.Id },
-                        function (parcial) {
+                        function(parcial) {
                             $("#patologias-Parcial").empty();
                             $("#patologias-Parcial").append(parcial);
                         });</text>
@@ -183,16 +190,24 @@
         }
 
 
-
         var estadisticas = function() {
 
             var url = '@Url.Action("Index", "Estadisticas")';
-            $.get(url, { id: @Model.Id}, function (parcial) {
+            $.get(url,
+                { id: @Model.Id },
+                function(parcial) {
 
-                $("#estadisticas-Parcial").empty();
-                $("#estadisticas-Parcial").append(parcial);
+                    $("#estadisticas-Parcial").empty();
+                    $("#estadisticas-Parcial").append(parcial);
+                });
+
+        }
+
+        var mail = function() {
+            var url = '@Url.Action("CreateParcial", "Mail")';
+            $.get(url, { pacienteId: @Model.Id }, (parcial) => {
+                $("#mail-Parcial").empty().append(parcial);
             });
-
         }
 
         var inicio = function() {
@@ -208,7 +223,7 @@
                         });
 
                     document.getElementById("planesAlimenticios").addEventListener("click",
-                        function () {
+                        function() {
                             planesAlimenticios();
                         });
 
@@ -217,10 +232,12 @@
                             datosAnaliticos();
                         });
                 </text>
-             }else {
-                 @:turnos();
-                 @: $("#turnos").addClass("active");
-             }
+            }
+            else
+            {
+                @:turnos();
+                @: $("#turnos").addClass("active");
+            }
 
 
 
@@ -238,12 +255,16 @@
                     objetivo();
                 });
             document.getElementById("anamnesis").addEventListener("click",
-                function () {
+                function() {
                     anamnesis();
                 });
             document.getElementById("observaciones").addEventListener("click",
-                function () {
+                function() {
                     observaciones();
+                });
+            document.getElementById("mail").addEventListener("click",
+                function() {
+                    mail();
                 });
             @if (Model.TieneObservacion)
             {
@@ -254,7 +275,7 @@
             }
 
             document.getElementById("estrategia").addEventListener("click",
-                function () {
+                function() {
                     estrategia();
                 });
         };

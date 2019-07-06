@@ -113,6 +113,46 @@ namespace NutricionWeb.Controllers.OpcionDetalle
 
         }
 
+        public async Task<ActionResult> Edit(long? id)
+        {
+            if (id == null) return RedirectToAction("Error", "Home");
+
+            var detalle = await _opcionDetalleServicio.GetById(id.Value);
+
+            return View(new OpcionDetalleABMViewModel()
+            {
+                Id = detalle.Id,
+                Codigo = detalle.Codigo,
+                AlimentoId = detalle.AlimentoId,
+                UnidadMedidaId = detalle.UnidadMedidaId,
+                Cantidad = detalle.Cantidad,
+                Eliminado = detalle.Eliminado,
+                OpcionId = detalle.OpcionId,
+                AlimentoStr = detalle.AlimentoStr,
+                UnidadMedidaStr = detalle.UnidadMedidaStr
+            });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(OpcionDetalleABMViewModel vm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var detalleDto = CargarDatos(vm);
+
+                    await _opcionDetalleServicio.Update(detalleDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(vm);
+            }
+            return RedirectToAction("Details", "Opcion", new { id = vm.OpcionId });
+        }
+
         // GET: OpcionDetalle/Delete/5
        
         public async Task<ActionResult> Delete(long detalleId)

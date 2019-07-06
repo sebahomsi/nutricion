@@ -53,7 +53,8 @@
 
 
             <td align="right">
-                @Html.ActionLink("Eliminar", "Delete", "OpcionDetalle", new {opcionId = Model.Id, detalleId = item.Id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Actualizar", "Edit", "OpcionDetalle", new { id = item.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Eliminar", "Delete", "OpcionDetalle", new { opcionId = Model.Id, detalleId = item.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }

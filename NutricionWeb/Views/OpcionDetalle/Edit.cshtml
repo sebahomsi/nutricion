@@ -1,0 +1,241 @@
+﻿@model NutricionWeb.Models.OpcionDetalle.OpcionDetalleABMViewModel
+
+@{
+    ViewBag.Title = "Receta Detalles";
+}
+
+<div class="titulo-ABM">
+    <h4 class="create-h4">Actualizar Registro</h4>
+</div>
+
+<!--Modal -->
+<div class="modal fade" id="modal-unidades" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Unidad</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarUnidad" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarUnidad" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindUnidad"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-unidad" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal -->
+<div class="modal fade" id="modal-alimentos" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*Parte de arriba del modal*@
+            <div class="modal-header">
+                <div align="right">
+                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <br>
+                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                    <h2>Seleccionar Alimento</h2>
+                </div>
+            </div>
+            @*Cuerpo del modal*@
+            <div class="modal-body">
+                <div class="form" style="height:382px">
+                    <div class="form-group navbar-right">
+                        <div class="col-md-4" style="width: 310px">
+                            <input type="text" class="form-control " id="txt-BuscarAlimento" placeholder="Ingrese una cadena...">
+                        </div>
+                        <div class="col-md-2" align="left">
+                            <div id="btn-BuscarAlimento" class="btn btn-default ">Buscar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="partialFindAlimento"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelar-alimento" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4 style="margin-left: 17%;">Complete los campos con los datos solicitados.</h4>
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.AlimentoId)
+        @Html.HiddenFor(model => model.OpcionId)
+        @Html.HiddenFor(model => model.UnidadMedidaId)
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AlimentoStr, new { @class = "control-label col-md-2" })
+            <div class="col-md-4" style="width: 310px">
+                @Html.EditorFor(model => model.AlimentoStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.AlimentoStr, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2" align="left">
+                <div id="btn-Alimento" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-alimentos" value="Modal BuscarAlimentos" title="Seleccionar alimento">...</div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnidadMedidaStr, new { @class = "control-label col-md-2" })
+            <div class="col-md-4" style="width: 310px">
+                @Html.EditorFor(model => model.UnidadMedidaStr, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.UnidadMedidaStr, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2" align="left">
+                <div id="btn-Unidad" class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-unidades" value="Modal BuscarUnidades" title="Seleccionar unidad">...</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Aceptar" class="btn btn-success" />
+                @Html.ActionLink("Volver", "Details", "Opcion", new { id = Model.OpcionId }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#btn-Alimento").click(function() {
+                    listaAlimento();
+                }
+            );
+
+
+            $("#btn-Unidad").click(function () {
+                listaUnidad();
+            }
+            );
+
+            $("#btn-BuscarAlimento").click(() => {
+                listaAlimento();
+            });
+
+            $("#btn-BuscarUnidad").click(() => {
+                listaUnidad();
+            });
+
+            $('#Cantidad').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+            function listaAlimento() {
+                $("#partialFindAlimento").empty();
+
+                $.get('@Html.Raw(Url.Action("BuscarAlimento", "OpcionDetalle"))',
+                    {
+                        cadenaBuscar: $("#txt-BuscarAlimento").val()
+                    },
+                    function(listaAlimento) {
+                        $("#partialFindAlimento").append(listaAlimento);
+                    });
+            }
+
+            function listaUnidad() {
+                $("#partialFindUnidad").empty();
+
+                $.get('@Html.Raw(Url.Action("BuscarUnidad", "OpcionDetalle"))',
+                    {
+                        cadenaBuscar: $("#txt-BuscarUnidad").val()
+                    },
+                    function (listaUnidad) {
+                        $("#partialFindUnidad").append(listaUnidad);
+                    });
+            }
+
+
+
+            $(document).on("click",
+                "#seleccionar-alimento",
+                function() {
+
+                    var url = '@Html.Raw(Url.Action("TraerAlimento", "OpcionDetalle"))';
+
+                    $.get(url,
+                        { alimentoId: $(this).attr("name") },
+                        function(alimento) {
+
+                            $('#AlimentoStr').val(alimento.Descripcion);
+                            $('#AlimentoId').val(alimento.Id);
+                            $('#cancelar-alimento').trigger("click");
+                        });
+                });
+
+
+
+            $(document).on("click",
+                "#seleccionar-unidad",
+                function() {
+
+                    var url = '@Html.Raw(Url.Action("TraerUnidad", "OpcionDetalle"))';
+
+                    $.get(url,
+                        { unidadId: $(this).attr("name") },
+                        function(unidad) {
+
+                            $('#UnidadMedidaStr').val(unidad.Descripcion);
+                            $('#UnidadMedidaId').val(unidad.Id);
+                            $('#cancelar-unidad').trigger("click");
+                        });
+                });
+        });
+
+
+    </script>
+}

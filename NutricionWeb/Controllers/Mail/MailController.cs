@@ -58,17 +58,17 @@ namespace NutricionWeb.Controllers.Mail
                         MailEmisor = User.Identity.Name,
                         MailDestino = paciente.Mail,
                         PacienteId = pacienteId.Value,
-                        CuerpoMensaje = $"Hola {paciente.Nombre}! te envío este mail para realizar los primeros 15 días!\nPara cualquier duda o sugerencia que tenga no dude en comunicarse por este medio. \nTu próxima consulta será: {turno.HorarioEntrada:dd/MM/yyyy HH:mm} hs\n" +
-                        $" Éxitos!\n" +
+                        CuerpoMensaje = $"¡Hola {paciente.Nombre}! Te envío nuevo plan nutricional para realizar los proximos 15 días!\n\nPor cualquier duda o sugerencia que tengas no dudes en comunicarte por este medio.\n\nTu próxima consulta será el dia: {turno.HorarioEntrada:dd/MM/yyyy HH:mm} hs.\n\n" +
+                        $" Éxitos!\n\n" +
                         $"Lic.Solana María Novillo \n" +
                         $"M.P N° 815 \n" +
                         $"Especializada en deportes. \n" +
-                        $"Diplomada en diabetes y obesidad \n" +
-                        $"Antropometrista ISAK II \n" +
-                        $"Disertante \n" +
+                        $"Diplomada en diabetes y obesidad. \n" +
+                        $"Antropometrista ISAK II. \n" +
+                        $"Disertante. \n" +
                         $"Socia - gerente de Nutritucumán \n" +
-                        $"Instagram: @lic.solnovillo\n " +
-                        $"Por cualquier duda o sugerencia que tengas no dudes en comunicarte por este medio."
+                        $"Instagram: @lic.solnovillo\n ",
+                        Asunto = "Plan Nutricional"
                     });
 
 
@@ -78,9 +78,9 @@ namespace NutricionWeb.Controllers.Mail
                     MailEmisor = User.Identity.Name,
                     MailDestino = paciente.Mail,
                     PacienteId = pacienteId.Value,
-                    CuerpoMensaje = $"Hola {paciente.Nombre}! te envío este mail para realizar los primeros 15 días! " +
-                    $"\nPara cualquier duda o sugerencia que tenga no dude en comunicarse por este medio." +
-                    $" Éxitos!\n" +
+                    CuerpoMensaje = $"¡Hola {paciente.Nombre}! Te envío nuevo plan nutricional para realizar los proximos 15 días!\n\n" +
+                    $"Por cualquier duda o sugerencia que tengas no dudes en comunicarte por este medio.\n\n" +
+                    $" Éxitos!\n\n" +
                     $"Lic.Solana María Novillo \n" +
                     $"M.P N° 815 \n" +
                     $"Especializada en deportes. \n" +
@@ -88,8 +88,8 @@ namespace NutricionWeb.Controllers.Mail
                     $"Antropometrista ISAK II \n" +
                     $"Disertante \n" +
                     $"Socia - gerente de Nutritucumán \n" +
-                    $"Instagram: @lic.solnovillo\n " +
-                    $"Por cualquier duda o sugerencia que tengas no dudes en comunicarte por este medio."
+                    $"Instagram: @lic.solnovillo\n ",
+                    Asunto = "Plan Nutricional"
                 });
             }
             return View(new MailViewModel()
@@ -101,6 +101,119 @@ namespace NutricionWeb.Controllers.Mail
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(MailViewModel vm)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var mmsg = new MailMessage();
+                    mmsg.To.Add(vm.MailDestino);
+                    mmsg.Subject = vm.Asunto;
+                    mmsg.SubjectEncoding = Encoding.UTF8;
+                    mmsg.From = new MailAddress(vm.MailEmisor);
+                    mmsg.Body = vm.CuerpoMensaje;
+                    mmsg.BodyEncoding = Encoding.UTF8;
+                    if (vm.Imagenes.Any(x => x != null))
+                    {
+                        foreach (var imagen in vm.Imagenes)
+                        {
+                            var fileName = Path.GetFileName(imagen.FileName);
+                            mmsg.Attachments.Add(new Attachment(imagen.InputStream, fileName));
+
+                        }
+                    }
+
+                    if (vm.IncluirHistoriaClinica)
+                    {
+                        var pdf = await GeneratePdfMail(vm.PacienteId);
+                        var stream = new MemoryStream(pdf);
+                        mmsg.Attachments.Add(new Attachment(stream, "Historia Clinica", "application/pdf"));
+                    }
+
+                    if (vm.IncluirPlan)
+                    {
+                        var pdf = await GeneratePdfMailPlan(vm.PacienteId);
+                        var stream = new MemoryStream(pdf);
+                        mmsg.Attachments.Add(new Attachment(stream, "Plan Alimenticio", "application/pdf"));
+                    }
+
+                    var cliente = new SmtpClient
+                    {
+                        Credentials = new NetworkCredential(vm.MailEmisor, vm.Contraseña),
+                        Port = 587,
+                        EnableSsl = true,
+                        Host = "smtp.gmail.com"
+                    };
+
+                    cliente.Send(mmsg);
+
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+
+            return Json("Su Mail se envio correctamente");
+        }
+
+        public async Task<ActionResult> CreateParcial(long? pacienteId)
+        {
+            if (pacienteId.HasValue)
+            {
+                var paciente = await _pacienteServicio.GetById(pacienteId.Value);
+                var turno = await _turnoServicio.GetLastByPacienteId(pacienteId.Value);
+                if (turno != null)
+                {
+                    return PartialView(new MailViewModel()
+                    {
+                        MailEmisor = User.Identity.Name,
+                        MailDestino = paciente.Mail,
+                        PacienteId = pacienteId.Value,
+                        CuerpoMensaje = $"¡Hola {paciente.Nombre}! Te envío nuevo plan nutricional para realizar los proximos 15 días!\n\nPor cualquier duda o sugerencia que tengas no dudes en comunicarte por este medio.\n\nTu próxima consulta será el dia: {turno.HorarioEntrada:dd/MM/yyyy HH:mm} hs.\n\n" +
+                                        $" Éxitos!\n\n" +
+                                        $"Lic.Solana María Novillo \n" +
+                                        $"M.P N° 815 \n" +
+                                        $"Especializada en deportes. \n" +
+                                        $"Diplomada en diabetes y obesidad. \n" +
+                                        $"Antropometrista ISAK II. \n" +
+                                        $"Disertante. \n" +
+                                        $"Socia - gerente de Nutritucumán \n" +
+                                        $"Instagram: @lic.solnovillo\n ",
+                        Asunto = "Plan Nutricional"
+                    });
+                }
+
+                return PartialView(new MailViewModel()
+                {
+                    MailEmisor = User.Identity.Name,
+                    MailDestino = paciente.Mail,
+                    PacienteId = pacienteId.Value,
+                    CuerpoMensaje = $"¡Hola {paciente.Nombre}! Te envío nuevo plan nutricional para realizar los proximos 15 días!\n\n" +
+                                    $"Por cualquier duda o sugerencia que tengas no dudes en comunicarte por este medio.\n\n" +
+                                    $" Éxitos!\n\n" +
+                                    $"Lic.Solana María Novillo \n" +
+                                    $"M.P N° 815 \n" +
+                                    $"Especializada en deportes. \n" +
+                                    $"Diplomada en diabetes y obesidad \n" +
+                                    $"Antropometrista ISAK II \n" +
+                                    $"Disertante \n" +
+                                    $"Socia - gerente de Nutritucumán \n" +
+                                    $"Instagram: @lic.solnovillo\n ",
+                    Asunto = "Plan Nutricional"
+                });
+            }
+
+            return PartialView(new MailViewModel()
+            {
+                MailEmisor = User.Identity.Name
+            });
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateParcial(MailViewModel vm)
         {
 
             try
