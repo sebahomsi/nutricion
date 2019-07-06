@@ -861,6 +861,7 @@
     <Content Include="Views\Turno\EditParcial.cshtml" />
     <Content Include="Views\Turno\DeleteParcial.cshtml" />
     <Content Include="Views\Turno\DetailsParcial.cshtml" />
+    <Content Include="Views\Mail\CreateParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
