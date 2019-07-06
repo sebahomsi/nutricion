@@ -49,10 +49,16 @@ namespace NutricionWeb.Models.DatoAntropometrico
         public string MasaCorporal { get; set; }
 
         [Display(Name = "Buscar Foto")]
-        public HttpPostedFileBase Foto { get; set; }
+        public HttpPostedFileBase FotoFrente { get; set; }
 
         [Display(Name = "Foto")]
-        public string FotoStr { get; set; }
+        public string FotoFrenteStr { get; set; }
+
+        [Display(Name = "Buscar Foto")]
+        public HttpPostedFileBase FotoPerfil { get; set; }
+
+        [Display(Name = "Foto")]
+        public string FotoPerfilStr { get; set; }
 
         [Display(Name = "Pliegue Triceps")]
         public decimal PliegueTriceps { get; set; }

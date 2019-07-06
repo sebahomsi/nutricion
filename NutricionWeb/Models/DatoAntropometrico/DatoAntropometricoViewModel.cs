@@ -57,7 +57,9 @@ namespace NutricionWeb.Models.DatoAntropometrico
 
         public bool Eliminado { get; set; }
 
-        public string FotoStr { get; set; }
+        public string FotoPerfilStr { get; set; }
+
+        public string FotoFrenteStr { get; set; }
 
         [Display(Name = "Pliegue Triceps")]
         public decimal PliegueTriceps { get; set; }

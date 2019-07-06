@@ -12,9 +12,7 @@
                 @Html.DisplayNameFor(model => model.Motivo)
             </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.TotalCalorias)
-            </th>
+
             <th></th>
         </tr>
 
@@ -28,9 +26,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Motivo)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalCalorias)
-                </td>
+ 
                 <td align="right">
                     <input type="button" id="seleccionar-plan" name="@item.Id" class="btn btn-primary-custom btn-xs" value="Seleccionar" />
                 </td>

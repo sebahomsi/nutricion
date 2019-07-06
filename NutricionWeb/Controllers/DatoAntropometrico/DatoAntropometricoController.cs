@@ -86,9 +86,11 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             {
                 if (ModelState.IsValid)
                 {
-                    var pic = string.Empty;
-                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
-                    var datosDto = CargarDatos(vm, pic);
+                    var picPerfil = string.Empty;
+                    var picFrente = string.Empty;
+                    picPerfil = vm.FotoPerfil != null ? Upload(vm.FotoPerfil, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    picFrente = vm.FotoFrente != null ? Upload(vm.FotoFrente, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var datosDto = CargarDatos(vm, picPerfil, picFrente);
                     datosDto.Codigo = await _datoAntropometricoServicio.GetNextCode();
 
                     await _datoAntropometricoServicio.Add(datosDto);
@@ -111,6 +113,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             var paciente = await _pacienteServicio.GetById(id.Value);
             var mediciones = await _datoAntropometricoServicio.GetByIdPaciente(id.Value);
             var ultimaAgregada=mediciones.Where(x=>!x.Eliminado).OrderByDescending(x => x.FechaMedicion).FirstOrDefault();
+         
 
             return PartialView(new DatoAntropometricoABMViewModel()
             {
@@ -130,9 +133,11 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             {
                 if (ModelState.IsValid)
                 {
-                    var pic = string.Empty;
-                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
-                    var datosDto = CargarDatos(vm, pic);
+                    var picPerfil = string.Empty;
+                    var picFrente = string.Empty;
+                    picPerfil = vm.FotoPerfil != null ? Upload(vm.FotoPerfil, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    picFrente = vm.FotoFrente != null ? Upload(vm.FotoFrente, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var datosDto = CargarDatos(vm, picPerfil, picFrente);
                     datosDto.Codigo = await _datoAntropometricoServicio.GetNextCode();
 
                     await _datoAntropometricoServicio.Add(datosDto);
@@ -195,9 +200,11 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             {
                 if (ModelState.IsValid)
                 {
-                    var pic = string.Empty;
-                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
-                    var datosDto = CargarDatos(vm, pic);
+                    var picPerfil = string.Empty;
+                    var picFrente = string.Empty;
+                    picPerfil = vm.FotoPerfil != null ? Upload(vm.FotoPerfil, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    picFrente = vm.FotoFrente != null ? Upload(vm.FotoFrente, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var datosDto = CargarDatos(vm, picPerfil, picFrente);
                     await _datoAntropometricoServicio.Update(datosDto);
                 }
             }
@@ -252,9 +259,11 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             {
                 if (ModelState.IsValid)
                 {
-                    var pic = string.Empty;
-                    pic = vm.Foto != null ? Upload(vm.Foto, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
-                    var datosDto = CargarDatos(vm, pic);
+                    var picPerfil = string.Empty;
+                    var picFrente = string.Empty;
+                    picPerfil = vm.FotoPerfil != null ? Upload(vm.FotoPerfil, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    picFrente = vm.FotoFrente != null ? Upload(vm.FotoFrente, FolderDefault) : "~/Content/Imagenes/user-icon.jpg";
+                    var datosDto = CargarDatos(vm, picPerfil, picFrente);
                     await _datoAntropometricoServicio.Update(datosDto);
                 }
             }
@@ -292,7 +301,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoIdeal = dato.PesoIdeal,
                 PesoDeseado = dato.PesoDeseado,
                 PerimetroCuello = dato.PerimetroCuello,
-                FotoStr = dato.Foto,
+                FotoFrenteStr = dato.Foto.Split('|')[0],
+                FotoPerfilStr = dato.Foto.Split('|')[1],
                 PliegueSuprailiaco = dato.PliegueSuprailiaco,
                 PliegueMuslo = dato.PliegueMuslo,
                 PlieguePierna = dato.PlieguePierna,
@@ -348,7 +358,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoIdeal = dato.PesoIdeal,
                 PesoDeseado = dato.PesoDeseado,
                 PerimetroCuello = dato.PerimetroCuello,
-                FotoStr = dato.Foto,
+                FotoFrenteStr = dato.Foto.Split('|')[0],
+                FotoPerfilStr = dato.Foto.Split('|')[1],
                 PliegueSuprailiaco = dato.PliegueSuprailiaco,
                 PliegueMuslo = dato.PliegueMuslo,
                 PlieguePierna = dato.PlieguePierna,
@@ -404,7 +415,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoIdeal = dato.PesoIdeal,
                 PesoDeseado = dato.PesoDeseado,
                 PerimetroCuello = dato.PerimetroCuello,
-                FotoStr = dato.Foto,
+                FotoPerfilStr = dato.Foto.Split('|').Length < 1 ? dato.Foto : dato.Foto.Split('|')[1],
+                FotoFrenteStr = dato.Foto.Split('|').Length < 1 ? dato.Foto : dato.Foto.Split('|')[0],
                 PliegueSuprailiaco = dato.PliegueSuprailiaco,
                 PliegueMuslo = dato.PliegueMuslo,
                 PlieguePierna = dato.PlieguePierna,
@@ -420,8 +432,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             if (id == null) return RedirectToAction("Error", "Home");
 
             var dato = await _datoAntropometricoServicio.GetById(id.Value);
-
-            return PartialView(new DatoAntropometricoViewModel()
+            var mv = new DatoAntropometricoViewModel()
             {
                 Id = dato.Id,
                 Codigo = dato.Codigo,
@@ -439,7 +450,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PesoIdeal = dato.PesoIdeal,
                 PesoDeseado = dato.PesoDeseado,
                 PerimetroCuello = dato.PerimetroCuello,
-                FotoStr = dato.Foto,
+                FotoFrenteStr = dato.Foto.Split('|')[0],
+                FotoPerfilStr = dato.Foto.Split('|')[1],
                 PliegueSuprailiaco = dato.PliegueSuprailiaco,
                 PliegueMuslo = dato.PliegueMuslo,
                 PlieguePierna = dato.PlieguePierna,
@@ -447,7 +459,8 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PliegueTriceps = dato.PliegueTriceps,
                 PliegueAbdominal = dato.PliegueAbdominal,
                 TotalPliegues = dato.TotalPliegues
-            });
+            };
+            return PartialView(mv);
         }
 
         //===================================Metodos Privadox
@@ -500,7 +513,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
             return Json(paciente, JsonRequestBehavior.AllowGet);
         }
 
-        private DatoAntropometricoDto CargarDatos(DatoAntropometricoABMViewModel vm, string pic)
+        private DatoAntropometricoDto CargarDatos(DatoAntropometricoABMViewModel vm, string picFrente, string picPerfil)
         {
             return new DatoAntropometricoDto()
             {
@@ -516,7 +529,7 @@ namespace NutricionWeb.Controllers.DatoAntropometrico
                 PerimetroCintura = vm.PerimetroCintura,
                 PerimetroCadera = vm.PerimetroCadera,
                 Eliminado = vm.Eliminado,
-                Foto = pic,
+                Foto = picFrente +"|"+ picPerfil,
                 PesoHabitual = vm.PesoHabitual,
                 PesoIdeal = vm.PesoIdeal,
                 PesoDeseado = vm.PesoDeseado,
