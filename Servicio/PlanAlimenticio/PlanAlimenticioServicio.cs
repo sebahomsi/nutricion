@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Servicio.Interface.Alimento;
 using Servicio.Interface.Opcion;
+using Servicio.Interface.OpcionDetalle;
 
 namespace Servicio.PlanAlimenticio
 {
@@ -666,7 +667,29 @@ namespace Servicio.PlanAlimenticio
 
             await Context.SaveChangesAsync();
 
-        } 
+        }
+
+        public async Task<List<ComidaDetalleDto>> GetFoodsByPlanId(long id)
+        {
+            var plan = await GetById(id);
+            var comidas = new List<ComidaDetalleDto>();
+
+            foreach (var  dia in plan.Dias)
+            {
+                foreach (var comida in dia.Comidas)
+                {
+                    foreach (var detalle in comida.ComidasDetalles)
+                    {
+                        if (comidas.All(x => x.OpcionStr != detalle.OpcionStr))
+                        {
+                            comidas.Add(detalle);
+                        }
+                    }
+                }
+            }
+
+            return comidas;
+        }
 
         public class DetalleAuxiliar
         {
