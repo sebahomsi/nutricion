@@ -518,6 +518,8 @@
             recorreFila("merienda");
             recorreFila("mediaTarde");
             recorreFila("cena");
+            recorreFila("opcionalNoche");
+            recorreFila("opcionalMediodia");
 
             $("#guardarComentario").click(() => {
                 $.post('@Url.Action("ModificarRecetario", "PlanAlimenticio")',
@@ -551,6 +553,41 @@
                 $("#modal-duplicarComida").modal("show");
                 listaPlan();
                 comidaSeleccionada = "Desayuno";
+            });
+            $("td[mediaMañana]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "MediaMañana";
+            });
+            $("td[almuerzo]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "Almuerzo";
+            });
+            $("td[opcionalMediodia]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "OpcionalMediodia";
+            });
+            $("td[mediaTarde]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "MediaTarde";
+            });
+            $("td[merienda]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "Merienda";
+            });
+            $("td[cena]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "Cena";
+            });
+            $("td[opcionalNoche]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "OpcionalNoche";
             });
 
 
