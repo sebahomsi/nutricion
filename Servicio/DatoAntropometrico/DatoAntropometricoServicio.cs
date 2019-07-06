@@ -236,5 +236,19 @@ namespace Servicio.DatoAntropometrico
                 return totalPliegues;
             });
         }
+
+        public async Task Actualizar()
+        {
+            var lista = await Context.DatosAntropometricos.ToListAsync();
+
+            foreach (var dato in lista)
+            {
+                if (!dato.Foto.Contains('|'))
+                {
+                    dato.Foto = dato.Foto +"|"+ "~/Content/Imagenes/user-icon.jpg";
+                }
+            }
+            await Context.SaveChangesAsync();
+        }
     }
 }

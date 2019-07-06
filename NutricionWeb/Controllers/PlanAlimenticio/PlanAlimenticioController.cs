@@ -469,9 +469,13 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
         {
             if (id == null) return RedirectToAction("Error", "Home");
 
+            await _planAlimenticioServicio.CalculateTotalCalories(id.Value);
+
+
             var plan = await _planAlimenticioServicio.GetById(id.Value);
 
             var comidas = await _planAlimenticioServicio.GetSortringComidas(id.Value);
+
 
             ViewBag.Cmb = await _comboBoxSubGrupo.Poblar();
 

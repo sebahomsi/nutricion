@@ -150,11 +150,19 @@
 
     <div class="col-md-offset-1 col-md-5">
 
-        @if (Model.FotoStr != null)
+        @if (Model.FotoFrenteStr != null)
         {
             <div class="col">
                 <div class="imagen-fondo">
-                    <img src="@Url.Content(Model.FotoStr)" alt="Image" style="width:100%; height: auto;" />
+                    <img src="@Url.Content(Model.FotoFrenteStr)" alt="Image" style="width:100%; height: auto;" />
+                </div>
+            </div>
+        }
+        @if (Model.FotoPerfilStr != null)
+        {
+            <div class="col">
+                <div class="imagen-fondo">
+                    <img src="@Url.Content(Model.FotoPerfilStr)" alt="Image" style="width:100%; height: auto;" />
                 </div>
             </div>
         }

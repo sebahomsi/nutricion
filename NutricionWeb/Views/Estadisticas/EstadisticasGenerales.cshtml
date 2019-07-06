@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "EstadisticasGenerales";
+}
+
+<h2>Estadisticas Generales</h2>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div>
+                <h2>Pagos</h2>
+            </div>
+            <div>
+                <div class="input-group datepicker" id="fechaPago">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar">
+                        </span>
+                    </span>
+                    <input type="text" class="form-control" id="FechaPago" name="FechaPago" readonly="readonly" value="@DateTime.Now"/>
+                </div>
+            </div>
+            <div>
+                <canvas id="pagosChart" width="500" height="250"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h2>Pacientes</h2>
+            </div>
+            <div>
+                <canvas id="pacientesChart" width="500" height="250"></canvas>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+
+        @*var graficoAntropometrico = datos => {
+
+            let fechas = $.map(datos, (val, i) => {
+                return val.Fecha;
+            });
+
+            let pesos = $.map(datos, (val, i) => {
+                return parseFloat(val.Peso);
+            });
+
+            let backColor = $.map(datos, (val, i) => {
+               return val.BackColor;
+            });
+
+            let borderColor = $.map(datos, (val, i) => {
+              return val.BorderColor;
+            });
+
+            console.log(pesos);
+
+              var ctx = document.getElementById('myChart').getContext('2d');
+
+              var datosAntropometricos = new Chart(ctx,
+                {
+                    type: 'line',
+                    data: {
+                        labels: fechas,
+                        datasets: [
+                            {
+                                label: 'Curva de peso',
+                                fill: false,
+                                data: pesos,
+                                backgroundColor: backColor,
+                                borderColor: borderColor,
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+        }
+
+        var graficoTurnos = datos => {
+
+            let descripcion = $.map(datos, (val, i) => {
+                return val.Descripcion;
+            });
+
+            let color = $.map(datos, (val, i) => {
+                return val.Color;
+            });
+
+            let cantidad = $.map(datos, (val, i) => {
+               return val.Cantidad;
+            });
+
+
+
+
+
+              var ctx = document.getElementById('turnosChart').getContext('2d');
+
+              var turnos = new Chart(ctx,
+                {
+                    type: 'bar',
+                    data: {
+                        labels: descripcion,
+                        datasets: [
+                            {
+                                label: 'Turnos',
+                                fill: true,
+                                data: cantidad,
+                                backgroundColor: color,
+                                borderColor: color,
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    stepSize: 1
+
+                                }
+                            }],
+                             xAxes: [{
+                                barThickness: 30
+                            }]
+                        }
+                    }
+                });
+
+        }
+
+        var obtenerDatosAntropometricos = () => {
+            $.get('@Url.Action("ObtenerDatosAntropometricos","Estadisticas")', { pacienteId : @ViewBag.PacienteId }, datos => {
+
+                graficoAntropometrico(datos);
+            });
+        }
+        var obtenerTurnos = () => {
+            $.get('@Url.Action("ObtenerTurnosPorPaciente","Estadisticas")', { pacienteId : @ViewBag.PacienteId }, datos => {
+
+                graficoTurnos(datos);
+            });
+        }*@
+
+
+        $(() => {
+            $("#fechaPago").datetimepicker({
+                useCurrent: true,
+                format: "MM YYYY",
+                ignoreReadonly: true,
+                viewMode: 'months'
+            });
+        });
+
+    </script>
+}

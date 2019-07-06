@@ -1,10 +1,14 @@
-﻿using Servicio.Interface.DatoAntropometrico;
+﻿using System;
+using Servicio.Interface.DatoAntropometrico;
 using Servicio.Interface.Estado;
 using Servicio.Interface.Turno;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using NutricionWeb.Models.Pago;
+using Servicio.Interface.Pago;
+using Servicio.Pago;
 
 namespace NutricionWeb.Controllers.Estadisticas
 {
@@ -13,12 +17,39 @@ namespace NutricionWeb.Controllers.Estadisticas
         private readonly IDatoAntropometricoServicio _datoAntropometricoServicio;
         private readonly ITurnoServicio _turnoServicio;
         private readonly IEstadoServicio _estadoServicio;
+        private readonly IPagoServicio _pagoServicio;
 
-        public EstadisticasController(IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IEstadoServicio estadoServicio)
+        public EstadisticasController(IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IEstadoServicio estadoServicio, IPagoServicio pagoServicio)
         {
             _datoAntropometricoServicio = datoAntropometricoServicio;
             _turnoServicio = turnoServicio;
             _estadoServicio = estadoServicio;
+            _pagoServicio = pagoServicio;
+        }
+
+        public async Task<ActionResult> EstadisticasGenerales()
+        {
+            return View();
+        }
+        public async Task<ActionResult> EstadisticasPagos(DateTime fechaPago)
+        {
+            var fechaIni = fechaPago;
+
+            var fechaFin = fechaPago.AddMonths(1);
+            var pagos = await _pagoServicio.GetByDate(fechaIni, fechaFin, false, "");
+
+            var vms = pagos.Select(x => new PagoViewModel()
+            {
+                Id = x.Id,
+                Codigo = x.Codigo,
+                PacienteStr = x.PacienteStr,
+                PacienteId = x.PacienteId,
+                Fecha = x.Fecha,
+                Concepto = x.Concepto,
+                EstaEliminado = x.EstaEliminado,
+                Monto = x.Monto,
+            });
+            return Json(vms, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Estadisticas
