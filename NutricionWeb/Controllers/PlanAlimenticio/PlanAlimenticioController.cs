@@ -11,9 +11,20 @@ using Servicio.Interface.Dia;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.PlanAlimenticio;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
+using NutricionWeb.Helpers.SubGrupo;
+using NutricionWeb.Models.Opcion;
+using Servicio.Alimento;
+using Servicio.Comida;
+using Servicio.ComidaDetalle;
+using Servicio.Dia;
+using Servicio.Opcion;
+using Servicio.Paciente;
+using Servicio.PlanAlimenticio;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.PlanAlimenticio
@@ -525,6 +536,7 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             return new ActionAsPdf("ExportarPlanPdf", new { id = planId })
             {
                 FileName = "PlanAlimenticio_" + plan.PacienteStr + ".pdf",
+                IsJavaScriptDisabled = false,
                 PageSize = Rotativa.Options.Size.A4,
                 PageOrientation = Rotativa.Options.Orientation.Landscape,
             };
@@ -631,6 +643,13 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 return Json(new { estado = false, mensaje = ex.Message });
             }
             return Json(new { estado = true });
+        }
+
+        public async Task<ActionResult> ObtenerRecetarios(long? planAlimenticio)
+        {
+            var recetarios = await _planAlimenticioServicio.GetFoodsByPlanId(planAlimenticio.Value);
+            var model = Mapper.Map<IEnumerable<ComidaDetalleViewModel>>(recetarios);
+            return PartialView(model);
         }
     }
 }
