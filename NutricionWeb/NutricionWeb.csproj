@@ -863,6 +863,7 @@
     <Content Include="Views\Turno\DetailsParcial.cshtml" />
     <Content Include="Views\Mail\CreateParcial.cshtml" />
     <Content Include="Views\OpcionDetalle\Edit.cshtml" />
+    <Content Include="Views\Estadisticas\EstadisticasGenerales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
