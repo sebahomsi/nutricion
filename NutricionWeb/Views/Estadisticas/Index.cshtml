@@ -3,7 +3,7 @@
 
         <div class="col-md-6">
             <div>
-                <h2>Curva de peso</h2>
+                <h2 style="color: #89bc94;">Curva de peso</h2>
             </div>
             <div>
                 <canvas id="myChart" width="1000" height="500"></canvas>
@@ -15,7 +15,7 @@
         </div>
         <div class="col-md-6">
             <div>
-                <h2>Turnos</h2>
+                <h2 style="color: #89bc94;">Turnos</h2>
             </div>
             <div>
                 <canvas id="turnosChart" width="1000" height="500"></canvas>
@@ -45,11 +45,28 @@
               return val.BorderColor;
             });
 
-            console.log(pesos);
+            var max = 0;
+            var min = 0;
+
+            $.each(pesos, (index, val) => {
+                if (index == 0) {
+                    max = val;
+                    min = val;
+                } else {
+                    if (val > max) {
+                        max = val;
+                    }
+                    if (val < min) {
+                        min = val;
+                    }
+                }
+            });
+
+            console.log("MAXIMO: " + max + " MINIMO: " + min);
 
               var ctx = document.getElementById('myChart').getContext('2d');
-            
-              var datosAntropometricos = new Chart(ctx,
+
+            var datosAntropometricos = new Chart(ctx,
                 {
                     type: 'line',
                     data: {
@@ -62,13 +79,17 @@
                                 backgroundColor: backColor,
                                 borderColor: borderColor,
                                 borderWidth: 1
-                            }]
+                            }
+                        ]
                     },
                     options: {
                         scales: {
                             yAxes: [{
                                 ticks: {
-                                    beginAtZero: true
+                                    beginAtZero: false,
+                                    min: min - 30,
+                                    max: max + 10,
+                                    stepSize: 5
                                 }
                             }]
                         }
