@@ -1,16 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "EstadisticasGenerales";
+    ViewBag.Title = "Estadisticas";
 }
 
-<h2>Estadisticas Generales</h2>
+<div class="titulo-ABM">
+    <h4 class="create-h4">Estadísticas</h4>
+</div>
 
 <div class="container">
     <div class="row">
 
         <div class="col-md-6">
             <div>
-                <h2>Pagos</h2>
+                <h2 style="color: #89bc94;">Pagos</h2>
             </div>
             <div>
                 <div class="input-group datepicker" id="fechaPago">
@@ -18,7 +20,7 @@
                         <span class="glyphicon glyphicon-calendar">
                         </span>
                     </span>
-                    <input type="text" class="form-control" id="FechaPago" name="FechaPago" readonly="readonly" value="@DateTime.Now"/>
+                    <input type="text" class="form-control" id="FechaPago" name="FechaPago" readonly="readonly" value="@DateTime.Now" />
                 </div>
             </div>
             <div>
@@ -27,7 +29,7 @@
         </div>
         <div class="col-md-6">
             <div>
-                <h2>Pacientes</h2>
+                <h2 style="color: #89bc94;">Pacientes</h2>
             </div>
             <div>
                 <canvas id="pacientesChart" width="500" height="250"></canvas>
@@ -35,6 +37,28 @@
         </div>
 
     </div>
+    
+    <div class="row">
+
+        <div class="col-md-6">
+            <div>
+                <h2 style="color: #89bc94;">Turnos</h2>
+            </div>
+            <div>
+                <canvas id="turnosChart" width="500" height="250"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h2 style="color: #89bc94;">Chart 4</h2>
+            </div>
+            <div>
+                <canvas id="Chart4" width="500" height="250"></canvas>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 @section Scripts {
