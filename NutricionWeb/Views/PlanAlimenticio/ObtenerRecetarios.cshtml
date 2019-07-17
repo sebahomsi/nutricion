@@ -3,12 +3,16 @@
 <style>
 
     .tarjeta {
-        border: 1px solid #89bc94;
-        border-radius: 5px;
         margin-bottom: 30px;
         padding: 15px;
-        height: 250px;
-        max-height: 250px;
+    }
+
+    .tarjeta-columna {
+        border: 1px solid #89bc94;
+        border-radius: 5px;
+        min-height: 200px;
+        margin-top: 20px;
+        margin-left: 20px;
     }
 
     .tarjeta-titulo {
@@ -26,17 +30,18 @@
 @foreach (var comidaDetalle in Model)
 {
 
-    <div class="col-md-3">
-        <div class="card tarjeta">
+    <div class="col-md-3 tarjeta-columna">
+        <div class="card">
             <div class="card-body">
                 
-                <h5 class="tarjeta-titulo">@Html.ActionLink(comidaDetalle.OpcionStr, "Details", "Opcion", new { id = comidaDetalle.OpcionId }, new { })</h5>
+                <h5 class="tarjeta-titulo">@comidaDetalle.OpcionStr</h5>
                 <div class="tarjeta-texto">
                     @foreach (var opcionDetalle in comidaDetalle.Opcion.OpcionDetalles)
                     {
 
 
-                        @($"• {opcionDetalle.AlimentoStr}  {opcionDetalle.CantidadMostrar}")
+                        @($"• {opcionDetalle.AlimentoStr} - {opcionDetalle.CantidadMostrar}")
+
 
                         @:<br/>
 
