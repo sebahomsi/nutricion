@@ -8,6 +8,10 @@
             <div>
                 <canvas id="myChart" width="1000" height="500"></canvas>
             </div>
+            <div style="text-align: center">
+                <p style="color: black; font-weight: bold;" id="mensajePeso1"></p>
+                <p style="color: black; font-weight: bold;" id="mensajePeso2"></p>
+            </div>
         </div>
         <div class="col-md-6">
             <div>
@@ -130,6 +134,53 @@
             $.get('@Url.Action("ObtenerDatosAntropometricos","Estadisticas")', { pacienteId : @ViewBag.PacienteId }, datos => {
 
                 graficoAntropometrico(datos);
+
+                console.log("Primero: " + datos[0].Peso);
+
+                console.log("Ultimo: " + datos[datos.length - 1].Peso);
+
+                var mensaje = "Sin registros";
+                var mensaje2 = "Sin registros";
+
+                if (datos.length > 1) {
+                    var primerPeso = datos[0].Peso;
+                    var ultimoPeso = datos[datos.length - 1].Peso;
+                    var penultimoPeso = datos[datos.length - 2].Peso;
+
+                    var diferencia = primerPeso - ultimoPeso;
+
+                    var diferencia2 = penultimoPeso - ultimoPeso;
+                    
+
+                    if (diferencia == 0) {
+                        // Sigue igual
+                        mensaje = "No varió su peso desde la primera medición";
+                    }
+                    if (diferencia > 0) {
+                        // Bajo
+                        mensaje = "Bajó " + diferencia + "Kg desde la primera medición";
+                    }
+                    if (diferencia < 0) {
+                        // Subio
+                        mensaje = "Subió " + (diferencia*-1) + "Kg desde la primera medición";
+                    }
+
+                    if (diferencia2 == 0) {
+                        // Sigue igual
+                        mensaje2 = "No varió su peso en las ultimas dos mediciones";
+                    }
+                    if (diferencia2 > 0) {
+                        // Bajo
+                        mensaje2 = "Bajó " + diferencia2 + "Kg desde la ultima medición";
+                    }
+                    if (diferencia2 < 0) {
+                        // Subio
+                        mensaje2 = "Subió " + (diferencia2*-1) + "Kg desde la ultima medición";
+                    }
+                }
+
+                $("#mensajePeso1").empty().append(mensaje);
+                $("#mensajePeso2").empty().append(mensaje2);
             });
         }
         var obtenerTurnos = () => {
