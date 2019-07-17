@@ -1,19 +1,50 @@
 ﻿@model IEnumerable<NutricionWeb.Models.ComidaDetalle.ComidaDetalleViewModel>
 
+<style>
+
+    .tarjeta {
+        border: 1px solid #89bc94;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        padding: 15px;
+        height: 250px;
+        max-height: 250px;
+    }
+
+    .tarjeta-titulo {
+        color: #89bc94;
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+
+    .tarjeta-texto {
+        margin-top: 20px;
+    }
+
+</style>
 
 @foreach (var comidaDetalle in Model)
 {
-    @comidaDetalle.OpcionStr
-    foreach (var opcionDetalle in comidaDetalle.Opcion.OpcionDetalles)
-    {
 
-        
-        @($"{opcionDetalle.AlimentoStr}  {opcionDetalle.CantidadMostrar}")
+    <div class="col-md-3">
+        <div class="card tarjeta">
+            <div class="card-body">
+                
+                <h5 class="tarjeta-titulo">@Html.ActionLink(comidaDetalle.OpcionStr, "Details", "Opcion", new { id = comidaDetalle.OpcionId }, new { })</h5>
+                <div class="tarjeta-texto">
+                    @foreach (var opcionDetalle in comidaDetalle.Opcion.OpcionDetalles)
+                    {
 
-        @:<br/>
-        
-    }
-    @:<hr/>
+
+                        @($"• {opcionDetalle.AlimentoStr}  {opcionDetalle.CantidadMostrar}")
+
+                        @:<br/>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 
 }
 

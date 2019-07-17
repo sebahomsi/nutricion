@@ -146,6 +146,7 @@
         </div>
     </div>
 </div>
+
 <style>
     .row {
         display: table;
@@ -279,6 +280,7 @@
 <div class="titulo-ABM" style="text-align: center;">
     <h4 class="create-h4" style="font-size: 2.3em">Plan Alimenticio - @ViewBag.Paciente</h4>
 </div>
+
 <table class="tabla" width="100%">
     <tr>
         <th style="border: none;"></th>
@@ -328,43 +330,43 @@
 
 <br /><br />
 
-      <table class="table" style="max-width: 400px;">
-          <tr>
-              <th>Macronutriente</th>
-              <th>%</th>
-              <th>Kcal</th>
-              <th>Gramos</th>
-          </tr>
-          <tr>
-              <td>Hidratos de carbono</td>
-              <td>@ViewBag.CarboPorce %</td>
-              <td>@ViewBag.Carbos kcal</td>
-              <td>@ViewBag.CarboGramo g</td>
-          </tr>
-          <tr>
-              <td>Proteinas</td>
-              <td>@ViewBag.ProtePorce %</td>
-              <td>@ViewBag.Protes kcal</td>
-              <td>@ViewBag.ProteGramo g</td>
-          </tr>
-          <tr>
-              <td>Grasas</td>
-              <td>@ViewBag.GrasaPorce %</td>
-              <td>@ViewBag.Grasas kcal</td>
-              <td>@ViewBag.GrasaGramo g</td>
-          </tr>
-          <tr>
-              <td>Total Calorias</td>
-              <td>@ViewBag.Calorias kcal</td>
-          </tr>
-      </table>
+<table class="table" style="max-width: 400px;">
+  <tr>
+      <th>Macronutriente</th>
+      <th>%</th>
+      <th>Kcal</th>
+      <th>Gramos</th>
+  </tr>
+  <tr>
+      <td>Hidratos de carbono</td>
+      <td>@ViewBag.CarboPorce %</td>
+      <td>@ViewBag.Carbos kcal</td>
+      <td>@ViewBag.CarboGramo g</td>
+  </tr>
+  <tr>
+      <td>Proteinas</td>
+      <td>@ViewBag.ProtePorce %</td>
+      <td>@ViewBag.Protes kcal</td>
+      <td>@ViewBag.ProteGramo g</td>
+  </tr>
+  <tr>
+      <td>Grasas</td>
+      <td>@ViewBag.GrasaPorce %</td>
+      <td>@ViewBag.Grasas kcal</td>
+      <td>@ViewBag.GrasaGramo g</td>
+  </tr>
+  <tr>
+      <td>Total Calorias</td>
+      <td>@ViewBag.Calorias kcal</td>
+  </tr>
+</table>
 
 
 <label style="max-width:100%;min-width:100%;margin-top: 5px" id="lblrecetario">Comentarios : @ViewBag.Recetario</label>
 <textarea id="comentariotxtarea" class="form-control" cols="12" style="max-width:100%;min-width:100%; width: 100%; margin-top:30px;display: none">@ViewBag.Recetario</textarea>
 <button class="btn btn-primary-custom btn-xs" style="display: none" id="guardarComentario">Guardar</button>
 <button class="btn btn-danger btn-xs" style="display: none" id="cancelarComentario">Cancelar</button>
-<strong id="recetario" style="display: none"></strong>
+
 
 <p style="margin-top: 5px">
     @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente", new { id = ViewBag.PacienteId }, new { @class = "btn btn-default" })
@@ -376,6 +378,17 @@
 </p>
 
 <br /><br />
+
+<div id="recetario" style="display: none">
+    <div class="row" style="text-align: center; margin-bottom: 30px;">
+        <h4 style="color: #89bc94; font-size: 1.5em;">Recetario</h4>
+    </div>
+    
+    <div id="recetario-container" class="row"></div>
+
+</div>
+
+
 @section Scripts {
     <script>
 
@@ -615,14 +628,12 @@
             $("#verRecetario").click(() => {
                 $("#recetario").toggle();
                 if ($("#recetario").is(':visible')) {
-                    //console.log("visible");
-                    $("#recetario").empty();
+                    $("#recetario-container").empty();
                     $.get('@Url.Action("ObtenerRecetarios","PlanAlimenticio")',{ planAlimenticio:@ViewBag.PlanId },(parcial) => {
-                        $("#recetario").empty().append(parcial);
+                        $("#recetario-container").empty().append(parcial);
                     });
                 } else {
-                    //console.log("hidden");
-                    $("#recetario").empty();
+                    $("#recetario-container").empty();
                 } 
                
             });
