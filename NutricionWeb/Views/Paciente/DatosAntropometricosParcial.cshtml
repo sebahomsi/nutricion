@@ -64,6 +64,9 @@
             <th>
                 IMC
             </th>
+            <th>
+                Foto
+            </th>
             <th></th>
         </tr>
         
@@ -92,6 +95,16 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MasaCorporal) Kg/M²
+        </td>
+        <td>
+            @if (item.FotoFrenteStr != "~/Content/Imagenes/user-icon.jpg" || item.FotoPerfilStr != "~/Content/Imagenes/user-icon.jpg")
+            {
+                @:SI
+            }
+            else
+            {
+                @:NO
+            }
         </td>
         <td align="right">
 
@@ -132,6 +145,7 @@
                 }, new { @class = "btn btn-danger btn-xs" })
             }
         </td>
+
     </tr>
         }
 
