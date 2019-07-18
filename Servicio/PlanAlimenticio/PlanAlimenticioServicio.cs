@@ -314,7 +314,7 @@ namespace Servicio.PlanAlimenticio
                     }
                 }
             }
-            plan.TotalCalorias = (int) caloriasDia / contadorComidas;
+            plan.TotalCalorias =  contadorComidas != 0 ? (int) caloriasDia / contadorComidas : 0;
             await Context.SaveChangesAsync();
         }
 

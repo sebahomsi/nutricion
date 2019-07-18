@@ -246,7 +246,7 @@
             <td class="td" comidaColumna id="@comida.DiaStr@comida.Descripcion">
                 @foreach (var detalle in comida.ComidasDetalles)
                 {
-                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr.</a>
+                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
 
                     if (!string.IsNullOrEmpty(detalle.Comentario))
                     {
@@ -298,7 +298,7 @@
         <td class="td text-center" desayuno style="cursor: pointer">Desayuno</td>
         @DibujarComidas(Model.Desayunos)
     </tr>
-    <tr id="mediaMañana">
+    <tr id="mediaManana">
         <td class="td text-center" mediaManana style="cursor: pointer">Media Mañana</td>
         @DibujarComidas(Model.MediaMañana)
     </tr>
@@ -474,8 +474,8 @@
         $('#modal-duplicarComida').on('hide.bs.modal',
             function(e) {
                 comidaSeleccionada = "";
-            
-        });
+
+            });
 
         var recorreFila = (idFila) => {
             var elementoAnterior;
@@ -483,15 +483,15 @@
             $(`#${idFila} [comidaColumna]`).each((index, elemento) => {
                 var elementoActual = $(elemento);
                 if (index !== 0) {
-
+                    console.log("s");
                     if (elementoAnterior.text().trim() === elementoActual.text().trim() &&
                         elementoAnterior.text().trim() !== "") {
 
                         elementoActual.remove();
                         i++;
-                        if (index == 6) {
+                        //if (index == 7) {
                             elementoAnterior.attr("colspan", i + 1);
-                        }
+                        //}
                     } else {
                         elementoAnterior.attr("colspan", i + 1);
                         i = 0;
@@ -502,23 +502,28 @@
                 }
 
             });
-    }
+        }
 
-    function listaPlan() {
-        $("#partialFindPlan").empty();
+        function listaPlan() {
+            $("#partialFindPlan").empty();
 
-        $.get('@Html.Raw(Url.Action("BuscarPlan", "PlanAlimenticio"))',
-            {
-                cadenaBuscar: $("#txt-BuscarPlan").val()
-            },
-            function (listaPlan) {
-                $("#partialFindPlan").append(listaPlan);
-            });
-    }
+            $.get('@Html.Raw(Url.Action("BuscarPlan", "PlanAlimenticio"))',
+                {
+                    cadenaBuscar: $("#txt-BuscarPlan").val()
+                },
+                function(listaPlan) {
+                    $("#partialFindPlan").append(listaPlan);
+                });
+        }
 
-    $(document).on("click", "#seleccionar-plan", function() {
+        $(document).on("click",
+            "#seleccionar-plan",
+            function() {
                 $.get('@Url.Action("DuplicarComidaDeOtroPlan", "Comida")',
-                    { planDesdeId: $(this).attr("name"), planHastaId : @ViewBag.PlanId, comidaDescripcion : comidaSeleccionada }, (json) => {
+                    { planDesdeId: $(this).attr("name"), planHastaId: @ViewBag.PlanId,
+                        comidaDescripcion: comidaSeleccionada
+                    },
+                    (json) => {
                         if (json.estado) {
                             location.reload();
                         } else {
@@ -571,7 +576,7 @@
                 listaPlan();
                 comidaSeleccionada = "Desayuno";
             });
-            $("td[mediaMañana]").click(() => {
+            $("td[mediaManana]").click(() => {
                 $("#modal-duplicarComida").modal("show");
                 listaPlan();
                 comidaSeleccionada = "MediaMañana";
@@ -608,17 +613,16 @@
             });
 
 
-
             $("#idSub").change(function() {
                 const subgrupoId = this.value;
                 const buscar = $("#txt-BuscarComida").val();
-                buscarComidas(buscar,comidaIdFlag, subgrupoId);
+                buscarComidas(buscar, comidaIdFlag, subgrupoId);
             });
 
-            $("#btn-BuscarComida").click(function () {
+            $("#btn-BuscarComida").click(function() {
                 const subgrupoId = $("#idSub").val();
                 const buscar = $("#txt-BuscarComida").val();
-                buscarComidas(buscar,comidaIdFlag, subgrupoId);
+                buscarComidas(buscar, comidaIdFlag, subgrupoId);
             });
 
             $("#btn-BuscarPlan").click(() => {
@@ -629,13 +633,15 @@
                 $("#recetario").toggle();
                 if ($("#recetario").is(':visible')) {
                     $("#recetario-container").empty();
-                    $.get('@Url.Action("ObtenerRecetarios","PlanAlimenticio")',{ planAlimenticio:@ViewBag.PlanId },(parcial) => {
-                        $("#recetario-container").empty().append(parcial);
-                    });
+                    $.get('@Url.Action("ObtenerRecetarios", "PlanAlimenticio")',
+                        { planAlimenticio: @ViewBag.PlanId },
+                        (parcial) => {
+                            $("#recetario-container").empty().append(parcial);
+                        });
                 } else {
                     $("#recetario-container").empty();
-                } 
-               
+                }
+
             });
 
         });
