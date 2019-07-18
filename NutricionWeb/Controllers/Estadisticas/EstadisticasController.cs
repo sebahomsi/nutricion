@@ -63,6 +63,7 @@ namespace NutricionWeb.Controllers.Estadisticas
         {
             var datos = await _datoAntropometricoServicio.GetByIdPaciente(pacienteId.Value);
 
+            datos = datos.Where(x => !x.Eliminado);
 
             var json = datos.OrderBy(x=>x.FechaMedicion).Select(x => new
             {

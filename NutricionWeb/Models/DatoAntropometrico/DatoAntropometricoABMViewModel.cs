@@ -66,16 +66,16 @@ namespace NutricionWeb.Models.DatoAntropometrico
         [Display(Name = "Pliegue Subescapular")]
         public decimal PliegueSubescapular { get; set; }
 
-        [Display(Name = "Pliegue Suprailiaco")]
+        [Display(Name = "Pliegue Supraespinal")]
         public decimal PliegueSuprailiaco { get; set; }
 
         [Display(Name = "Pliegue Abdominal")]
         public decimal PliegueAbdominal { get; set; }
 
-        [Display(Name = "Pliegue Muslo")]
+        [Display(Name = "Pliegue Muslo Anterior")]
         public decimal PliegueMuslo { get; set; }
 
-        [Display(Name = "Pliegue Pierna")]
+        [Display(Name = "Pliegue Pantorrilla Medial")]
         public decimal PlieguePierna { get; set; }
 
         public decimal TotalPliegues { get; set; }
