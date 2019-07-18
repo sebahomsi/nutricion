@@ -167,6 +167,9 @@
                 {
                     @Html.ActionLink("Volver", "About", "Home", new { }, new { @class = "btn btn-default" })
                 }
+
+                @Html.ActionLink("Eliminar", "Delete", "Turno", new { id = Model.Id, volver = 1 }, new { @class = "btn btn-danger" })
+                
                 @Html.ActionLink("Ir al paciente", "DatosAdicionales", "Paciente", new { id = Model.PacienteId }, new { @class = "btn btn-primary" })
             </div>
         </div>
