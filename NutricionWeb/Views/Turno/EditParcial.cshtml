@@ -113,29 +113,36 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.HorarioEntrada, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" style="width: 310px">
+            <div class="col-md-4" style="width: 310px">
                 <div class="input-group datepicker" id="entrada">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-time">
                         </span>
                     </span>
-                    <input type="text" readonly="readonly" class="form-control" id="HorarioEntrada" name="HorarioEntrada" value="@Model.HorarioEntrada" />
-                    @Html.ValidationMessageFor(model => model.HorarioEntrada, "", new { @class = "text-danger" })
+                    <input type="text" readonly="readonly" class="form-control" id="HorarioEntrada" name="HorarioEntrada" />
                 </div>
+                @Html.ValidationMessageFor(model => model.HorarioEntrada, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2" align="left">
+                <span>@Model.HorarioEntrada</span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.HorarioSalida, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" style="width: 310px">
+            <div class="col-md-4" style="width: 310px">
                 <div class="input-group datepicker" id="salida">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-time">
                         </span>
                     </span>
-                    <input type="text" readonly="readonly" class="form-control" id="HorarioSalida" name="HorarioSalida" value="@Model.HorarioSalida" />
-                    @Html.ValidationMessageFor(model => model.HorarioSalida, "", new { @class = "text-danger" })
+                    <input type="text" readonly="readonly" class="form-control" id="HorarioSalida" name="HorarioSalida" />
                 </div>
+                @Html.ValidationMessageFor(model => model.HorarioSalida, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-2" align="left">
+                <span>@Model.HorarioSalida</span>
             </div>
         </div>
 
@@ -165,13 +172,13 @@
                 <input type="submit" value="Aceptar" class="btn btn-success" />
                 @if ((int?)ViewBag.Volver == null || ViewBag.Volver == 0)
                 {
-                    @Ajax.ActionLink("Volver","TurnosParcial","Paciente",new{ id= @Model.PacienteId },new AjaxOptions()
+                    @Ajax.ActionLink("Volver", "TurnosParcial", "Paciente", new { id = @Model.PacienteId }, new AjaxOptions()
                     {
                         HttpMethod = "GET",
                         InsertionMode = InsertionMode.Replace,
                         UpdateTargetId = "turnos-Parcial",
 
-                    },new {@class="btn btn-default"})
+                    }, new { @class = "btn btn-default" })
 
                 }
                 else
@@ -185,7 +192,7 @@
 }
 
 
-@section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
@@ -197,9 +204,26 @@
                 }
             );
 
-            $("#btn-Estado").click(function () {
+            $("#btn-Estado").click(function() {
                 listaEstado();
             });
+
+            $("#btn-BuscarPaciente").click(() => {
+                listaPaciente();
+            });
+
+            $("#btn-BuscarEstado").click(() => {
+                listaEstado();
+            });
+
+
+            $("#entrada").on("dp.change", (e) => {
+                console.log(e.date._d.getMinutes());
+                var minutos = e.date;
+                minutos._d.setMinutes(e.date._d.getMinutes() + 15);
+                $("#salida").data("DateTimePicker").date(minutos);
+            });
+
 
             function listaEstado() {
                 $("#partialFindEstado").empty();
@@ -213,11 +237,10 @@
                     });
             }
 
-
             function listaPaciente() {
                 $("#partialFindPaciente").empty();
 
-                $.get('@Html.Raw(Url.Action("BuscarPaciente", "DatoAntropometrico"))',
+                $.get('@Html.Raw(Url.Action("BuscarPaciente", "Turno"))',
                     {
                         cadenaBuscar: $("#txt-BuscarPaciente").val()
                     },
@@ -261,14 +284,37 @@
 
 
 
-            $("#HorarioEntrada, #HorarioSalida").datetimepicker({
-                locale: "es",
-                ignoreReadonly: true,
-                stepping: 15
-                //format: "DD/MM/YYYY HH:mm"
+
+            $(function() {
+                var now = new Date();
+
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+
+                $("#entrada, #salida").datetimepicker({
+                    //locale: "es",
+                    useCurrent: true,
+                    minDate: today,
+                    format: "DD/MM/YYYY HH:mm",
+                    ignoreReadonly: true,
+                    stepping: 15
+                });
+
+                $(document).ready(function() {
+                    var now = new Date();
+
+                    var day = ("0" + now.getDate()).slice(-2);
+                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+                });
             });
         });
 
 
     </script>
-}
+

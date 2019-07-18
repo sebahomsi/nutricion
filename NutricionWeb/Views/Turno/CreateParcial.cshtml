@@ -78,9 +78,9 @@
                         <span class="glyphicon glyphicon-time">
                         </span>
                     </span>
-                    <input type="text" class="form-control" id="HorarioEntrada" name="HorarioEntrada" readonly="readonly" />
-                    @Html.ValidationMessageFor(model => model.HorarioEntrada, "", new { @class = "text-danger" })
+                    <input type="text" class="form-control" id="HorarioEntrada" name="HorarioEntrada" readonly="readonly"  />
                 </div>
+                @Html.ValidationMessageFor(model => model.HorarioEntrada, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -93,8 +93,8 @@
                         </span>
                     </span>
                     <input type="text" class="form-control" id="HorarioSalida" name="HorarioSalida" readonly="readonly"/>
-                    @Html.ValidationMessageFor(model => model.HorarioSalida, "", new { @class = "text-danger" })
                 </div>
+                @Html.ValidationMessageFor(model => model.HorarioSalida, "", new {@class = "text-danger"})
             </div>
         </div>
 

@@ -88,8 +88,7 @@ namespace NutricionWeb.Controllers.Turno
                     {
                         if (turno.HorarioEntrada.Date == vm.HorarioEntradaDateTime.Date)
                         {
-                            if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntradaDateTime.TimeOfDay &&
-                                vm.HorarioEntradaDateTime.TimeOfDay < turno.HorarioSalida.TimeOfDay)
+                            if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntradaDateTime.TimeOfDay && vm.HorarioEntradaDateTime.TimeOfDay < turno.HorarioSalida.TimeOfDay)
                             {
                                 ModelState.AddModelError(string.Empty, "Ya existe un turno para ese rango de horarios");
 
@@ -97,6 +96,7 @@ namespace NutricionWeb.Controllers.Turno
                             }
                         }
                     }
+
                     var turnoDto = CargarDatos(vm);
                     turnoDto.Numero = await _turnoServicio.GetNextCode();
 
@@ -130,11 +130,34 @@ namespace NutricionWeb.Controllers.Turno
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateParcial(TurnoABMViewModel vm)
         {
+            var establecimientoId = ObtenerEstablecimientoIdUser();
             try
             {
                 vm = ModificarFechas(vm);
                 if (ModelState.IsValid)
                 {
+                    if (vm.HorarioEntradaDateTime.Date > vm.HorarioSalidaDateTime.Date)
+                    {
+                        ModelState.AddModelError(string.Empty, "El campo Horario de Entrada no puede ser mayor al de Salida");
+
+                        return View(vm);
+                    }
+
+                    var turnos = await _turnoServicio.Get(establecimientoId, false, string.Empty);
+
+                    foreach (var turno in turnos)
+                    {
+                        if (turno.HorarioEntrada.Date == vm.HorarioEntradaDateTime.Date)
+                        {
+                            if (turno.HorarioEntrada.TimeOfDay < vm.HorarioEntradaDateTime.TimeOfDay && vm.HorarioEntradaDateTime.TimeOfDay < turno.HorarioSalida.TimeOfDay)
+                            {
+                                ModelState.AddModelError(string.Empty, "Ya existe un turno para ese rango de horarios");
+
+                                return View(vm);
+                            }
+                        }
+                    }
+
                     var datosDto = CargarDatos(vm);
                     datosDto.Numero = await _turnoServicio.GetNextCode();
 
@@ -222,6 +245,11 @@ namespace NutricionWeb.Controllers.Turno
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
+
+                var turno = await _turnoServicio.GetById(vm.Id);
+                vm.HorarioSalida = turno.HorarioSalida.ToString("dd/MM/yyyy HH:mm");
+                vm.HorarioEntrada = turno.HorarioEntrada.ToString("dd/MM/yyyy HH:mm");
+
                 return View(vm);
             }
 
@@ -295,6 +323,11 @@ namespace NutricionWeb.Controllers.Turno
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
+
+                var turno = await _turnoServicio.GetById(vm.Id);
+                vm.HorarioSalida = turno.HorarioSalida.ToString("dd/MM/yyyy HH:mm");
+                vm.HorarioEntrada = turno.HorarioEntrada.ToString("dd/MM/yyyy HH:mm");
+
                 return PartialView(vm);
             }
 
