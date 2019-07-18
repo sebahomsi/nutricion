@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Dominio.Entidades.MetaData;
 using NutricionWeb.Models.Pago;
+using Servicio.Interface.Paciente;
 using Servicio.Interface.Pago;
 using Servicio.Pago;
 
@@ -18,13 +20,15 @@ namespace NutricionWeb.Controllers.Estadisticas
         private readonly ITurnoServicio _turnoServicio;
         private readonly IEstadoServicio _estadoServicio;
         private readonly IPagoServicio _pagoServicio;
+        private readonly IPacienteServicio _pacienteServicio;
 
-        public EstadisticasController(IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IEstadoServicio estadoServicio, IPagoServicio pagoServicio)
+        public EstadisticasController(IDatoAntropometricoServicio datoAntropometricoServicio, ITurnoServicio turnoServicio, IEstadoServicio estadoServicio, IPagoServicio pagoServicio, IPacienteServicio pacienteServicio)
         {
             _datoAntropometricoServicio = datoAntropometricoServicio;
             _turnoServicio = turnoServicio;
             _estadoServicio = estadoServicio;
             _pagoServicio = pagoServicio;
+            _pacienteServicio = pacienteServicio;   
         }
 
         public async Task<ActionResult> EstadisticasGenerales()
@@ -75,6 +79,84 @@ namespace NutricionWeb.Controllers.Estadisticas
 
             return Json(json, JsonRequestBehavior.AllowGet);
         }
+
+        public async Task<ActionResult> ObtenerPagos(string fechaDesde, string fechaHasta)
+        {
+            var desde = DateTime.Parse(fechaDesde);
+            var hasta = DateTime.Parse(fechaHasta);
+            var datos = await _pagoServicio.GetByDate(desde, hasta, false, "");
+            var fechas = new List<DateTime>();
+            var auxs= new List<PagoAux>();
+
+            foreach (var pago in datos)
+            {
+                if (!fechas.Contains(pago.Fecha))
+                {
+                    fechas.Add(pago.Fecha);
+                }
+            }
+
+            foreach (var fecha in fechas)
+            {
+                var pago=new PagoAux()
+                {
+                    Fecha = fecha,
+                    Monto = datos.Where(x=>x.Fecha==fecha).Sum(x=>x.Monto)
+                };
+                auxs.Add(pago);
+            }
+
+            var json = auxs.OrderBy(x => x.Fecha).Select(x=>new
+            {
+                Fecha = x.Fecha.ToShortDateString(),
+                Monto = decimal.Parse(x.Monto.ToString()),
+                BackColor = "rgba(75, 192, 192, 1)",
+                BorderColor = "rgba(75, 192, 192, 1)",
+            });
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> ObtenerPacientes(string fechaDesde, string fechaHasta)
+        {
+            var auxs = new List<PacienteAux>();
+            var desde = DateTime.Parse(fechaDesde);
+            var hasta = DateTime.Parse(fechaHasta);
+
+            var pacientesNuevos = await _pacienteServicio.GetByDateNewPacientes(desde, hasta);
+            var pacientesActivos = await _pacienteServicio.GetByDateActivePacientes(desde, hasta);
+            var pacientesInactivos = await _pacienteServicio.GetByDateInactivePacientes(desde, hasta);
+
+            var nuevos = new PacienteAux()
+            {
+                Cantidad = pacientesNuevos.Count(),
+                Estado = "Nuevo"
+            };
+            var activos = new PacienteAux()
+            {
+                Cantidad = pacientesActivos.Count(),
+                Estado = "Con Medición"
+            };
+            var inactivos = new PacienteAux()
+            {
+                Cantidad = pacientesInactivos.Count(),
+                Estado = "Sin Medición"
+            };
+            auxs.Add(nuevos);
+            auxs.Add(activos);
+            auxs.Add(inactivos);
+
+            var json = auxs.OrderBy(x => x.Estado).Select(x => new
+            {
+                Cantidad = x.Cantidad,
+                Estado = x.Estado,
+                BackColor = "rgba(75, 192, 192, 1)",
+                BorderColor = "rgba(75, 192, 192, 1)",
+            });
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
         public async Task<ActionResult> ObtenerTurnosPorPaciente(long? pacienteId)
         {
             var datos = await _turnoServicio.GetByIdPaciente(pacienteId.Value);
@@ -122,6 +204,21 @@ namespace NutricionWeb.Controllers.Estadisticas
             public string Descripcion { get; set; }
 
             public string Color { get; set; }
+
+            public int Cantidad { get; set; }
+        }
+
+        private class PagoAux
+        {
+            public DateTime Fecha { get; set; }
+
+            public double Monto { get; set; }
+
+        }
+
+        private class PacienteAux
+        {
+            public string Estado { get; set; }
 
             public int Cantidad { get; set; }
         }

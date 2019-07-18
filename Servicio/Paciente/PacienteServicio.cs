@@ -304,5 +304,91 @@ namespace Servicio.Paciente
             return (null, Mensaje: "");
         }
 
+        public async Task<IEnumerable<PacienteDto>> GetByDateNewPacientes(DateTime desde, DateTime hasta)
+        {
+            Expression<Func<Dominio.Entidades.Paciente, bool>> expression = x => (x.FechaAlta >= desde && x.FechaAlta <= hasta) && !x.Eliminado;
+            var das = await Context.Personas.OfType<Dominio.Entidades.Paciente>().AsNoTracking()
+                .Where(expression)
+                .Select(x => new PacienteDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Apellido = x.Apellido,
+                    Nombre = x.Nombre,
+                    Celular = x.Celular,
+                    Dni = x.Dni,
+                    Cuit = x.Cuit,
+                    Mail = x.Mail,
+                    Telefono = x.Telefono,
+                    Sexo = x.Sexo,
+                    FechaNac = x.FechaNac,
+                    FechaAlta = x.FechaAlta,
+                    Foto = x.Foto,
+                    Eliminado = x.Eliminado,
+                    TieneObservacion = x.TieneObservacion,
+
+                }).ToListAsync();
+            return das;
+        }
+
+        public async Task<IEnumerable<PacienteDto>> GetByDateActivePacientes(DateTime desde, DateTime hasta)
+        {
+
+            var pacientes = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+                .AsNoTracking()
+                .Include("DatosAnaliticos")
+                .Include("DatosAntropometricos")
+                .Include("PlanesAlimenticios")
+                .Include("Turnos").Where(x=>!x.Eliminado&&x.DatosAntropometricos.Any(p=>p.FechaMedicion>=desde&&p.FechaMedicion<=hasta)).Select(x => new PacienteDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Apellido = x.Apellido,
+                    Nombre = x.Nombre,
+                    Celular = x.Celular,
+                    Dni = x.Dni,
+                    Cuit = x.Cuit,
+                    Mail = x.Mail,
+                    Telefono = x.Telefono,
+                    Sexo = x.Sexo,
+                    FechaNac = x.FechaNac,
+                    FechaAlta = x.FechaAlta,
+                    Foto = x.Foto,
+                    Eliminado = x.Eliminado,
+                    TieneObservacion = x.TieneObservacion,
+                }).ToListAsync();
+           
+
+            return pacientes;
+
+        }
+
+        public async Task<IEnumerable<PacienteDto>> GetByDateInactivePacientes(DateTime desde, DateTime hasta)
+        {
+            var pacientes = await Context.Personas.OfType<Dominio.Entidades.Paciente>()
+                .AsNoTracking()
+                .Include("DatosAnaliticos")
+                .Include("DatosAntropometricos")
+                .Include("PlanesAlimenticios")
+                .Include("Turnos").Where(x => !x.Eliminado && !x.DatosAntropometricos.Any(p => p.FechaMedicion >= desde && p.FechaMedicion <= hasta)).Select(x => new PacienteDto()
+                {
+                    Id = x.Id,
+                    Codigo = x.Codigo,
+                    Apellido = x.Apellido,
+                    Nombre = x.Nombre,
+                    Celular = x.Celular,
+                    Dni = x.Dni,
+                    Cuit = x.Cuit,
+                    Mail = x.Mail,
+                    Telefono = x.Telefono,
+                    Sexo = x.Sexo,
+                    FechaNac = x.FechaNac,
+                    FechaAlta = x.FechaAlta,
+                    Foto = x.Foto,
+                    Eliminado = x.Eliminado,
+                    TieneObservacion = x.TieneObservacion,
+                }).ToListAsync();
+            return pacientes;
+        }
     }
 }

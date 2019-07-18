@@ -15,12 +15,40 @@
                 <h2 style="color: #89bc94;">Pagos</h2>
             </div>
             <div>
-                <div class="input-group datepicker" id="fechaPago">
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar">
-                        </span>
-                    </span>
-                    <input type="text" class="form-control" id="FechaPago" name="FechaPago" readonly="readonly" value="@DateTime.Now" />
+                <div class="row">
+                    <div class="col-md-2" align="right">
+                        @Html.Label("Desde", htmlAttributes: new { @class = "control-label", @style = "margin-top:5px;" })
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="input-group datepicker" id="FechaDesde">
+                            <span class="input-group-addon primarySpan">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type="hidden" class="form-control" name="Desde" id="Desde" value="@DateTime.Now.AddDays(-(DateTime.Now.Day-1))"/>
+                            <input type="text" class="form-control" readonly="readonly" id="DesdeR" placeholder="DD/MM/YYYY" />
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2" align="right">
+                        @Html.Label("Hasta", htmlAttributes: new { @class = "control-label", @style = "margin-top:5px;" })
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="input-group datepicker" id="FechaHasta">
+                            <span class="input-group-addon primarySpan">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type="hidden" class="form-control" name="Desde" id="Hasta" value="@DateTime.Now"/>
+                            <input type="text" class="form-control" readonly="readonly" id="HastaR" placeholder="DD/MM/YYYY" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-default" id="aceptarPago" style="margin-left: -45px;">Aceptar</button>
+                    </div>
                 </div>
             </div>
             <div>
@@ -32,28 +60,44 @@
                 <h2 style="color: #89bc94;">Pacientes</h2>
             </div>
             <div>
+                <div class="row">
+                    <div class="col-md-2" align="right">
+                        @Html.Label("Desde", htmlAttributes: new { @class = "control-label", @style = "margin-top:5px;" })
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="input-group datepicker" id="FechaDesdePaciente">
+                            <span class="input-group-addon primarySpan">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type="hidden" class="form-control" name="DesdePaciente" id="DesdePaciente" value="@DateTime.Now.AddDays(-(DateTime.Now.Day-1))" />
+                            <input type="text" class="form-control" readonly="readonly" id="DesdeRP" placeholder="DD/MM/YYYY" />
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2" align="right">
+                        @Html.Label("Hasta", htmlAttributes: new { @class = "control-label", @style = "margin-top:5px;" })
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="input-group datepicker" id="FechaHastaPaciente">
+                            <span class="input-group-addon primarySpan">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type="hidden" class="form-control" name="DesdePaciente" id="HastaPaciente" value="@DateTime.Now" />
+                            <input type="text" class="form-control" readonly="readonly" id="HastaRP" placeholder="DD/MM/YYYY" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-default" id="aceptarPaciente" style="margin-left: -45px;">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+            <div>
                 <canvas id="pacientesChart" width="500" height="250"></canvas>
-            </div>
-        </div>
-
-    </div>
-    
-    <div class="row">
-
-        <div class="col-md-6">
-            <div>
-                <h2 style="color: #89bc94;">Turnos</h2>
-            </div>
-            <div>
-                <canvas id="turnosChart" width="500" height="250"></canvas>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div>
-                <h2 style="color: #89bc94;">Chart 4</h2>
-            </div>
-            <div>
-                <canvas id="Chart4" width="500" height="250"></canvas>
             </div>
         </div>
 
@@ -64,39 +108,92 @@
 @section Scripts {
 
     <script>
+        var pacienteChart;
+        var pagosChart;
 
-        @*var graficoAntropometrico = datos => {
+        $("#FechaDesde").datetimepicker({
+            locale: 'es',
+            format: 'L'
+
+        });
+        $("#FechaHasta").datetimepicker({
+            locale: 'es',
+            format: 'L'
+        });
+        $("#FechaDesdePaciente").datetimepicker({
+            locale: 'es',
+            format: 'L'
+
+        });
+        $("#FechaHastaPaciente").datetimepicker({
+            locale: 'es',
+            format: 'L'
+        });
+       
+        var obtenerPagos = (desde, hasta) => {
+
+            $.get('@Url.Action("ObtenerPagos", "Estadisticas")',
+                { fechaDesde: desde, fechaHasta: hasta },
+                (pagos) => {
+
+                    graficoPagos(pagos);
+
+                });
+        }
+
+        var graficoPagos = (datos) => {
 
             let fechas = $.map(datos, (val, i) => {
                 return val.Fecha;
             });
 
-            let pesos = $.map(datos, (val, i) => {
-                return parseFloat(val.Peso);
+            let montos = $.map(datos, (val, i) => {
+                return parseFloat(val.Monto);
             });
 
             let backColor = $.map(datos, (val, i) => {
-               return val.BackColor;
+                return val.BackColor;
             });
 
             let borderColor = $.map(datos, (val, i) => {
-              return val.BorderColor;
+                return val.BorderColor;
             });
 
-            console.log(pesos);
+            var max = 0;
+            var min = 0;
 
-              var ctx = document.getElementById('myChart').getContext('2d');
+            $.each(montos, (index, val) => {
+                if (index == 0) {
+                    max = val;
+                    min = val;
+                } else {
+                    if (val > max) {
+                        max = val;
+                    }
+                    if (val < min) {
+                        min = val;
+                    }
+                }
+            });
 
-              var datosAntropometricos = new Chart(ctx,
+            if ((min - 1500) < 0) {
+                min = 0;
+            } else {
+                min = min - 1500;
+            }
+
+            var ctx = document.getElementById('pagosChart').getContext('2d');
+
+            pagosChart = new Chart(ctx,
                 {
                     type: 'line',
                     data: {
                         labels: fechas,
                         datasets: [
                             {
-                                label: 'Curva de peso',
+                                label: 'Pagos',
                                 fill: false,
-                                data: pesos,
+                                data: montos,
                                 backgroundColor: backColor,
                                 borderColor: borderColor,
                                 borderWidth: 1
@@ -106,7 +203,9 @@
                         scales: {
                             yAxes: [{
                                 ticks: {
-                                    beginAtZero: true
+                                    beginAtZero: true,
+                                    min: min,
+                                    max: max + 2000
                                 }
                             }]
                         }
@@ -115,38 +214,63 @@
 
         }
 
-        var graficoTurnos = datos => {
+        $("#aceptarPago").on("click", (e) => {
+                    
+            let fechaDesde = $("#Desde").val();
+            let fechaHasta = $("#Hasta").val();
+            pagosChart.destroy();
+            obtenerPagos(fechaDesde, fechaHasta);
+        });
 
-            let descripcion = $.map(datos, (val, i) => {
-                return val.Descripcion;
+        /********** PACIENTE **********/
+
+        var obtenerPacientes = (desde, hasta) => {
+
+            $.get('@Url.Action("ObtenerPacientes", "Estadisticas")',
+                { fechaDesde: desde, fechaHasta: hasta },
+                (pacientes) => {
+
+                    
+                    graficoPacientes(pacientes);
+                    
+
+                });
+        }
+
+        var graficoPacientes = (datos) => {
+
+            let estados = $.map(datos, (val, i) => {
+                return val.Estado;
             });
 
-            let color = $.map(datos, (val, i) => {
-                return val.Color;
+            let cantidades = $.map(datos, (val, i) => {
+                return val.Cantidad;
             });
 
-            let cantidad = $.map(datos, (val, i) => {
-               return val.Cantidad;
+            let backColor = $.map(datos, (val, i) => {
+                return val.BackColor;
             });
 
+            let borderColor = $.map(datos, (val, i) => {
+                return val.BorderColor;
+            });
 
-
-
-
-              var ctx = document.getElementById('turnosChart').getContext('2d');
-
-              var turnos = new Chart(ctx,
+            var ctx2 = document.getElementById('pacientesChart').getContext('2d');
+            
+                
+                
+             pacientesChart = new Chart(ctx2,
                 {
                     type: 'bar',
                     data: {
-                        labels: descripcion,
+                        labels: estados,
                         datasets: [
                             {
-                                label: 'Turnos',
+                                label: 'Pacientes',
                                 fill: true,
-                                data: cantidad,
-                                backgroundColor: color,
-                                borderColor: color,
+                                data: cantidades,
+                                backgroundColor: backColor,
+                                borderColor: borderColor,
                                 borderWidth: 1
                             }]
                     },
@@ -155,40 +279,32 @@
                             yAxes: [{
                                 ticks: {
                                     beginAtZero: true,
-                                    stepSize: 1
-
+                                    stepSize: 10
                                 }
                             }],
-                             xAxes: [{
+                            xAxes: [{
                                 barThickness: 30
                             }]
                         }
                     }
                 });
-
+            
         }
 
-        var obtenerDatosAntropometricos = () => {
-            $.get('@Url.Action("ObtenerDatosAntropometricos","Estadisticas")', { pacienteId : @ViewBag.PacienteId }, datos => {
-
-                graficoAntropometrico(datos);
-            });
-        }
-        var obtenerTurnos = () => {
-            $.get('@Url.Action("ObtenerTurnosPorPaciente","Estadisticas")', { pacienteId : @ViewBag.PacienteId }, datos => {
-
-                graficoTurnos(datos);
-            });
-        }*@
-
+        $("#aceptarPaciente").on("click", (e) => {
+                    
+            let fechaDesde = $("#DesdePaciente").val();
+            let fechaHasta = $("#HastaPaciente").val();
+            pacientesChart.destroy();
+            obtenerPacientes(fechaDesde, fechaHasta);
+        });
 
         $(() => {
-            $("#fechaPago").datetimepicker({
-                useCurrent: true,
-                format: "MM YYYY",
-                ignoreReadonly: true,
-                viewMode: 'months'
-            });
+            
+            obtenerPagos($("#Desde").val(), $("#Hasta").val());
+
+            obtenerPacientes($("#DesdePaciente").val(), $("#HastaPaciente").val());
+
         });
 
     </script>
