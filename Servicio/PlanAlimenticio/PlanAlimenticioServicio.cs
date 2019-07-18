@@ -242,10 +242,17 @@ namespace Servicio.PlanAlimenticio
             if (plan == null) throw new ArgumentNullException();
 
             var dias = plan.Dias;
-            var caloriasPlan = 0m;
+            var caloriasPromedioComida = 0m;
+            var caloriasDia = 0m;
+            var contadorComidas = 0;
 
             foreach (var dia in dias)
             {
+                if (dia.Comidas.First().ComidasDetalles.Any())
+                {
+                    contadorComidas++;
+                }
+
                 foreach (var comida in dia.Comidas)
                 {
                     foreach (var comidaDetalle in comida.ComidasDetalles)
@@ -300,12 +307,14 @@ namespace Servicio.PlanAlimenticio
                                     throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
                                     
                             }
-                            caloriasPlan += caloria/cantidadComidas;
+                            caloriasPromedioComida += caloria/cantidadComidas;
                         }
+                        caloriasDia += caloriasPromedioComida;
+                        caloriasPromedioComida = 0;
                     }
                 }
             }
-            plan.TotalCalorias = (int) caloriasPlan;
+            plan.TotalCalorias =  contadorComidas != 0 ? (int) caloriasDia / contadorComidas : 0;
             await Context.SaveChangesAsync();
         }
 
@@ -316,10 +325,17 @@ namespace Servicio.PlanAlimenticio
             if (plan == null) throw new ArgumentNullException();
 
             var dias = plan.Dias;
-            var caloriasPlan = 0m;
+            var caloriasPromedioComida = 0m;
+            var caloriasDia = 0m;
+            var contadorComidas = 0;
 
             foreach (var dia in dias)
             {
+                if (dia.Comidas.First().ComidasDetalles.Any())
+                {
+                    contadorComidas++;
+                }
+
                 foreach (var comida in dia.Comidas)
                 {
                     foreach (var comidaDetalle in comida.ComidasDetalles)
@@ -374,12 +390,14 @@ namespace Servicio.PlanAlimenticio
                                     throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
 
                             }
-                            caloriasPlan += caloria/ cantidadComidas;
+                            caloriasPromedioComida += caloria / cantidadComidas;
                         }
+                        caloriasDia += caloriasPromedioComida;
+                        caloriasPromedioComida = 0;
                     }
                 }
             }
-            return (int)caloriasPlan;
+            return (int)caloriasDia / contadorComidas;
         }
 
 
@@ -390,10 +408,17 @@ namespace Servicio.PlanAlimenticio
             if (plan == null) throw new ArgumentNullException();
 
             var dias = plan.Dias;
-            var caloriasPlan = 0m;
+            var caloriasPromedioComida = 0m;
+            var caloriasDia = 0m;
+            var contadorComidas = 0;
 
             foreach (var dia in dias)
             {
+                if (dia.Comidas.First().ComidasDetalles.Any())
+                {
+                    contadorComidas++;
+                }
+
                 foreach (var comida in dia.Comidas)
                 {
                     foreach (var comidaDetalle in comida.ComidasDetalles)
@@ -448,12 +473,14 @@ namespace Servicio.PlanAlimenticio
                                     throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
 
                             }
-                            caloriasPlan += caloria/ cantidadComidas;
+                            caloriasPromedioComida += caloria / cantidadComidas;
                         }
+                        caloriasDia += caloriasPromedioComida;
+                        caloriasPromedioComida = 0;
                     }
                 }
             }
-            return (int)caloriasPlan;
+            return (int)caloriasDia / contadorComidas;
         }
 
         public async Task<int> CalculateTotalCaloriesProtes(long plandId)
@@ -463,10 +490,17 @@ namespace Servicio.PlanAlimenticio
             if (plan == null) throw new ArgumentNullException();
 
             var dias = plan.Dias;
-            var caloriasPlan = 0m;
+            var caloriasPromedioComida = 0m;
+            var caloriasDia = 0m;
+            var contadorComidas = 0;
 
             foreach (var dia in dias)
             {
+                if (dia.Comidas.First().ComidasDetalles.Any())
+                {
+                    contadorComidas++;
+                }
+
                 foreach (var comida in dia.Comidas)
                 {
                     foreach (var comidaDetalle in comida.ComidasDetalles)
@@ -521,12 +555,14 @@ namespace Servicio.PlanAlimenticio
                                     throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
 
                             }
-                            caloriasPlan += caloria/cantidadComidas;
+                            caloriasPromedioComida += caloria / cantidadComidas;
                         }
+                        caloriasDia += caloriasPromedioComida;
+                        caloriasPromedioComida = 0;
                     }
                 }
             }
-            return (int)caloriasPlan;
+            return (int)caloriasDia / contadorComidas;
         }
 
         private async Task SetCodes()

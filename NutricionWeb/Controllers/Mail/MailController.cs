@@ -265,10 +265,9 @@ namespace NutricionWeb.Controllers.Mail
             }
             catch (Exception e)
             {
-                return Json(e.Message);
+                return Json( e.Message );
             }
-
-            return Json("Su Mail se envio correctamente");
+            return Json( "Su Mail se envio correctamente" );
         }
 
         public async Task<byte[]> GeneratePdfMail(long pacienteId)
@@ -328,7 +327,7 @@ namespace NutricionWeb.Controllers.Mail
             return View(comidasVm);
         }
 
-
+     
         public async Task<ActionResult> GenerarCuerpoMail(long pacienteId)
         {
             var datosAntropometricos = await _datoAntropometricoServicio.GetByIdPaciente(pacienteId);
@@ -353,6 +352,5 @@ namespace NutricionWeb.Controllers.Mail
 
             return View(cuerpoMail);
         }
-
     }
 }

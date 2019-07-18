@@ -40,13 +40,8 @@
 
 <div class="col-md-12">
 
-    @*@using (Html.BeginForm("CreateParcial", "Mail", FormMethod.Post, new { @id = "formEnviarMail", enctype = "multipart/form-data" }))*@
-    @using (Ajax.BeginForm("CreateParcial", "Mail", new AjaxOptions()
-    {
-    HttpMethod = "POST",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "mail-Parcial"
-    }, new {@id = "formEnviarMail", enctype = "multipart/form-data"}))
+    @using (Html.BeginForm("CreateParcial", "Mail", FormMethod.Post, new { @id = "formEnviarMail", enctype = "multipart/form-data" }))
+  
     {
 
     @Html.AntiForgeryToken()
@@ -54,14 +49,15 @@
     <div class="form-horizontal">
 
         <img src="~/Content/Imagenes/ajax-loader (3).gif" id="loading" hidden />
-        <span id="mensaje" style="margin-left: 35vw; margin-top: 50px; font-size: 1.5em;"></span>
+        <span id="mensaje"></span>
+        <br />        
         <br />
         <div class="col-md-6">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.MailDestino, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4" style="width: 310px">
-                    @Html.EditorFor(model => model.MailDestino, new { htmlAttributes = new { @class = "form-control", @readonly="readonly" } })
+                    @Html.EditorFor(model => model.MailDestino, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.MailDestino, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2" align="left">
@@ -147,6 +143,14 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
 
+
+        $(document).ajaxStart(function () {
+            $("#loading").show();
+            
+        }).ajaxStop(function () {
+            $("#loading").hide();
+        });
+
         $("#btn-Paciente").click(function() {
                 listaPaciente();
             }
@@ -201,67 +205,53 @@
             img.src = src;
             document.getElementById("imagen").appendChild(img);
         }
-
+        console.log("ds");
         var enviar = function(e) {
             e.preventDefault();
-            var form = document.getElementById("formEnviarMail");
-            var data = new FormData(form);
-            console.log(data);
-            var url = '@Url.Action("CreateParcial")';
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url, true);
-            document.getElementById("loading").style.display = "block";
-            xhr.send(data);
-            xhr.onreadystatechange = function() {
+            $.post('@Url.Action("CreateParcial")',  $("#formEnviarMail").serialize() , function (mensaje) {
+                $("#mensaje").text(mensaje);
+            });
 
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    document.getElementById("loading").style.display = "none";
-                    document.getElementById("mensaje").innerText = '';
-                    document.getElementById("mensaje").innerText = xhr.responseText;
-                }
-            }
         }
 
-        var ready = function() {
+        $("#enviar").click(function(e) {
+            enviar(e);
+        });
 
-            document.getElementById("enviar").addEventListener("click", enviar);
+        document.getElementById("Imagenes").addEventListener("input",
+            function() {
 
-            document.getElementById("Imagenes").addEventListener("input",
-                function() {
+                var files = this.files;
+                document.getElementById("imagen").innerHTML = "";
+                for (var i = 0; i < files.length; i++) {
 
-                    var files = this.files;
-                    document.getElementById("imagen").innerHTML = "";
-                    for (var i = 0; i < files.length; i++) {
-
-                        var fileReader = new FileReader();
-                        var file = files[i];
-                        console.log(file.type);
-                        console.log(file.name);
-                        if (file.type.includes("image")) {
-                            fileReader.onload = (function(e) {
-                                insertarImagen(e.target.result);
-                            });
-                        }
-                        if (file.type.includes("zip")) {
-                            fileReader.onload = (function(e) {
-                                insertarImagen("/Content/Imagenes/icono-ZIP.png");
-                            });
-
-                        }
-                        if (file.name.includes("rar")) {
-                            fileReader.onload = (function(e) {
-                                insertarImagen("/Content/Imagenes/rar.png");
-                            });
-
-                        }
-                        if (file.name.includes("docx") || file.name.includes(".txt")) {
-                            fileReader.onload = (function(e) {
-                                insertarImagen("/Content/Imagenes/word.png");
-                            });
-                        }
-                        fileReader.readAsDataURL(files[i]);
+                    var fileReader = new FileReader();
+                    var file = files[i];
+                    console.log(file.type);
+                    console.log(file.name);
+                    if (file.type.includes("image")) {
+                        fileReader.onload = (function(e) {
+                            insertarImagen(e.target.result);
+                        });
                     }
-                });
-        }
-        window.addEventListener("load", ready);
+                    if (file.type.includes("zip")) {
+                        fileReader.onload = (function(e) {
+                            insertarImagen("/Content/Imagenes/icono-ZIP.png");
+                        });
+
+                    }
+                    if (file.name.includes("rar")) {
+                        fileReader.onload = (function(e) {
+                            insertarImagen("/Content/Imagenes/rar.png");
+                        });
+
+                    }
+                    if (file.name.includes("docx") || file.name.includes(".txt")) {
+                        fileReader.onload = (function(e) {
+                            insertarImagen("/Content/Imagenes/word.png");
+                        });
+                    }
+                    fileReader.readAsDataURL(files[i]);
+                }
+            });
     </script>

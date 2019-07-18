@@ -495,6 +495,8 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
                 ViewBag.ProtePorce = 0;
 
                 ViewBag.CarboGramo = 0;
+                ViewBag.ProteGramo = 0;
+                ViewBag.GrasaGramo = 0;
             }
             else
             {
