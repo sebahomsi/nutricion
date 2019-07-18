@@ -81,14 +81,28 @@
 
 <div style="width: 80%; margin: 0 auto;">
     <p class="titulo-categoria regular">OBJETIVOS DEL TRATAMIENTO</p>
-    <p class="light bold">@Model.Objetivo.Descripcion</p>
+    @foreach (var parrafo in Model.Objetivo.Descripcion.Split('\n'))
+    {
+        if (parrafo.Length > 2)
+        {
+            <p class="light bold">• @parrafo</p>
+        }
+        
+    }
+    @*<p class="light bold">@Model.Objetivo.Descripcion</p>*@
 </div>
 
 <br /><br />
 
-<div style="width: 80%; margin: 0 auto;">
-    <p class="titulo-categoria regular">ESTRATEGIAS DEL TRATAMIENTO</p>
-    <p class="light bold">@Model.Estrategia.Descripcion</p>
-</div>
+      <div style="width: 80%; margin: 0 auto;">
+          <p class="titulo-categoria regular">ESTRATEGIAS DEL TRATAMIENTO</p>
+          @foreach (var parrafo in Model.Estrategia.Descripcion.Split('\n'))
+          {
+              if (parrafo.Length > 2)
+              {
+                 <p class="light bold">• @parrafo</p>
+              }
+          }
+      </div>
 
 

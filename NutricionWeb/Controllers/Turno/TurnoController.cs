@@ -336,8 +336,9 @@ namespace NutricionWeb.Controllers.Turno
 
         // GET: Turno/Delete/5
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Delete(long? id)
+        public async Task<ActionResult> Delete(long? id, int? volver)
         {
+            ViewBag.Volver = volver ?? 0;
             if (id == null) return RedirectToAction("Error", "Home");
 
             var turno = await _turnoServicio.GetById(id.Value);
@@ -358,8 +359,9 @@ namespace NutricionWeb.Controllers.Turno
         // POST: Turno/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(TurnoViewModel vm)
+        public async Task<ActionResult> Delete(TurnoViewModel vm, int? volver)
         {
+            ViewBag.Volver = volver;
             try
             {
                 if (ModelState.IsValid)
@@ -372,7 +374,8 @@ namespace NutricionWeb.Controllers.Turno
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
-            return RedirectToAction("Index");
+
+            return volver == 0 || volver == null ? RedirectToAction("Index") : RedirectToAction("About", "Home");
         }
 
         [Authorize(Roles = "Administrador")]
