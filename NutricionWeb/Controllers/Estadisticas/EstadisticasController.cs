@@ -11,6 +11,7 @@ using NutricionWeb.Models.Pago;
 using Servicio.Interface.Paciente;
 using Servicio.Interface.Pago;
 using Servicio.Pago;
+using System.Globalization;
 
 namespace NutricionWeb.Controllers.Estadisticas
 {
@@ -82,8 +83,8 @@ namespace NutricionWeb.Controllers.Estadisticas
 
         public async Task<ActionResult> ObtenerPagos(string fechaDesde, string fechaHasta)
         {
-            var desde = DateTime.Parse(fechaDesde);
-            var hasta = DateTime.Parse(fechaHasta);
+            var desde = ModificarFecha(fechaDesde);
+            var hasta = ModificarFecha(fechaHasta);
             var datos = await _pagoServicio.GetByDate(desde, hasta, false, "");
             var fechas = new List<DateTime>();
             var auxs= new List<PagoAux>();
@@ -116,7 +117,16 @@ namespace NutricionWeb.Controllers.Estadisticas
 
             return Json(json, JsonRequestBehavior.AllowGet);
         }
+        private static DateTime ModificarFecha(string fecha)
+        {
+            var horaEntrada = fecha.Split('/');
 
+            var c = new CultureInfo("en-US");
+
+            var devolver = DateTime.Parse($"{horaEntrada[1]}/{horaEntrada[0]}/{horaEntrada[2]}", c);
+
+            return devolver;
+        }
         public async Task<ActionResult> ObtenerPacientes(string fechaDesde, string fechaHasta)
         {
             var auxs = new List<PacienteAux>();
