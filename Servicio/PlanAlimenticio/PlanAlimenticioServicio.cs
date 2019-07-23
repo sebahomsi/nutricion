@@ -237,7 +237,11 @@ namespace Servicio.PlanAlimenticio
 
         public async Task CalculateTotalCalories(long plandId)
         {
-            var plan = await Context.PlanesAlimenticios.Include("Dias.Comidas.ComidasDetalles").FirstOrDefaultAsync(x=> x.Id == plandId);
+            var plan = await Context.PlanesAlimenticios
+                .Include("Dias.Comidas.ComidasDetalles")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.Alimento.MacroNutriente")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.UnidadMedida")
+                .FirstOrDefaultAsync(x => x.Id == plandId);
 
             if (plan == null) throw new ArgumentNullException();
 
@@ -257,17 +261,17 @@ namespace Servicio.PlanAlimenticio
                 {
                     foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
-                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
+                        var opcion = comidaDetalle.Opcion;
 
-                        foreach (var detalle in opcion.OpcionDetalles)
+                        foreach (var detalle in opcion.OpcionDetalles.Where(x=>x.Eliminado == false))
                         {
                             var cantidadComidas = comida.ComidasDetalles.Count();
 
-                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
+                            var alimento = detalle.Alimento;
 
                             var caloria = alimento.MacroNutriente.Calorias;
 
-                            switch (detalle.UnidadMedidaStr.ToLower())
+                            switch (detalle.UnidadMedida.Abreviatura.ToLower())
                             {
                                 case "g":
                                     caloria = (detalle.Cantidad * caloria / 100);
@@ -304,8 +308,8 @@ namespace Servicio.PlanAlimenticio
                                     break;                            
 
                                 default :
-                                    throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
-                                    
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedida.Abreviatura} en el alimento {detalle.Alimento.Descripcion} no es compatible con el calculo");
+
                             }
                             caloriasPromedioComida += caloria/cantidadComidas;
                         }
@@ -320,7 +324,11 @@ namespace Servicio.PlanAlimenticio
 
         public async Task<int> CalculateTotalCaloriesGrasas(long plandId)
         {
-            var plan = await Context.PlanesAlimenticios.Include("Dias.Comidas.ComidasDetalles").FirstOrDefaultAsync(x => x.Id == plandId);
+            var plan = await Context.PlanesAlimenticios
+                .Include("Dias.Comidas.ComidasDetalles")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.Alimento.MacroNutriente")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.UnidadMedida")
+                .FirstOrDefaultAsync(x => x.Id == plandId);
 
             if (plan == null) throw new ArgumentNullException();
 
@@ -340,17 +348,17 @@ namespace Servicio.PlanAlimenticio
                 {
                     foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
-                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
+                        var opcion = comidaDetalle.Opcion;
 
                         var cantidadComidas = comida.ComidasDetalles.Count();
 
-                        foreach (var detalle in opcion.OpcionDetalles)
+                        foreach (var detalle in opcion.OpcionDetalles.Where(x=> x.Eliminado == false))
                         {
-                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
+                            var alimento = detalle.Alimento;
 
                             var caloria = alimento.MacroNutriente.Grasa * 9;
 
-                            switch (detalle.UnidadMedidaStr.ToLower())
+                            switch (detalle.UnidadMedida.Abreviatura.ToLower())
                             {
                                 case "g":
                                     caloria = (detalle.Cantidad * caloria / 100);
@@ -387,7 +395,7 @@ namespace Servicio.PlanAlimenticio
                                     break;
 
                                 default:
-                                    throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedida.Abreviatura} en el alimento {detalle.Alimento.Descripcion} no es compatible con el calculo");
 
                             }
                             caloriasPromedioComida += caloria / cantidadComidas;
@@ -403,7 +411,11 @@ namespace Servicio.PlanAlimenticio
 
         public async Task<int> CalculateTotalCaloriesCarbos(long plandId)
         {
-            var plan = await Context.PlanesAlimenticios.Include("Dias.Comidas.ComidasDetalles").FirstOrDefaultAsync(x => x.Id == plandId);
+            var plan = await Context.PlanesAlimenticios
+                .Include("Dias.Comidas.ComidasDetalles")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.Alimento.MacroNutriente")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.UnidadMedida")
+                .FirstOrDefaultAsync(x => x.Id == plandId);
 
             if (plan == null) throw new ArgumentNullException();
 
@@ -423,17 +435,17 @@ namespace Servicio.PlanAlimenticio
                 {
                     foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
-                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
+                        var opcion = comidaDetalle.Opcion;
 
                         var cantidadComidas = comida.ComidasDetalles.Count();
 
-                        foreach (var detalle in opcion.OpcionDetalles)
+                        foreach (var detalle in opcion.OpcionDetalles.Where(x=> !x.Eliminado))
                         {
-                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
+                            var alimento = detalle.Alimento;
 
                             var caloria = alimento.MacroNutriente.HidratosCarbono * 4;
 
-                            switch (detalle.UnidadMedidaStr.ToLower())
+                            switch (detalle.UnidadMedida.Abreviatura.ToLower())
                             {
                                 case "g":
                                     caloria = (detalle.Cantidad * caloria / 100);
@@ -470,7 +482,7 @@ namespace Servicio.PlanAlimenticio
                                     break;
 
                                 default:
-                                    throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedida.Abreviatura} en el alimento {detalle.Alimento.Descripcion} no es compatible con el calculo");
 
                             }
                             caloriasPromedioComida += caloria / cantidadComidas;
@@ -485,7 +497,11 @@ namespace Servicio.PlanAlimenticio
 
         public async Task<int> CalculateTotalCaloriesProtes(long plandId)
         {
-            var plan = await Context.PlanesAlimenticios.Include("Dias.Comidas.ComidasDetalles").FirstOrDefaultAsync(x => x.Id == plandId);
+            var plan = await Context.PlanesAlimenticios
+                .Include("Dias.Comidas.ComidasDetalles")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.Alimento.MacroNutriente")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.UnidadMedida")
+                .FirstOrDefaultAsync(x => x.Id == plandId);
 
             if (plan == null) throw new ArgumentNullException();
 
@@ -505,17 +521,17 @@ namespace Servicio.PlanAlimenticio
                 {
                     foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
-                        var opcion = await _opcionServicio.GetById(comidaDetalle.OpcionId);
+                        var opcion = comidaDetalle.Opcion;
 
                         var cantidadComidas = comida.ComidasDetalles.Count();
 
-                        foreach (var detalle in opcion.OpcionDetalles)
+                        foreach (var detalle in opcion.OpcionDetalles.Where(x=> !x.Eliminado))
                         {
-                            var alimento = await _alimentoServicio.GetById(detalle.AlimentoId);
+                            var alimento = detalle.Alimento;
 
                             var caloria = alimento.MacroNutriente.Proteina * 4;
 
-                            switch (detalle.UnidadMedidaStr.ToLower())
+                            switch (detalle.UnidadMedida.Abreviatura.ToLower())
                             {
                                 case "g":
                                     caloria = (detalle.Cantidad * caloria / 100);
@@ -552,7 +568,7 @@ namespace Servicio.PlanAlimenticio
                                     break;
 
                                 default:
-                                    throw new Exception($"La unidad de medida {detalle.UnidadMedidaStr} en el alimento {detalle.AlimentoStr} no es compatible con el calculo");
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedida.Abreviatura} en el alimento {detalle.Alimento.Descripcion} no es compatible con el calculo");
 
                             }
                             caloriasPromedioComida += caloria / cantidadComidas;
@@ -589,7 +605,6 @@ namespace Servicio.PlanAlimenticio
                     return 0;
             }
         }
-
         public async Task<PlanDiasDto> GetSortringComidas(long PlanId)
         {
             var diasDto = new PlanDiasDto();         
@@ -604,27 +619,35 @@ namespace Servicio.PlanAlimenticio
                     switch (comida.Descripcion)
                     {
                         case "Almuerzo":
+                            comida.SubTotalCalorias = await CalcularSubtotalCalorias(plan.Id,comida.Id);
                             diasDto.Almuerzo.Add(comida);
                             break;
                         case "Cena":
+                            comida.SubTotalCalorias = await CalcularSubtotalCalorias(plan.Id, comida.Id);
                             diasDto.Cena.Add(comida);
                             break;
                         case "Desayuno":
+                            comida.SubTotalCalorias = await CalcularSubtotalCalorias(plan.Id, comida.Id);
                             diasDto.Desayunos.Add(comida);
                             break;
                         case "Media Mañana":
+                            comida.SubTotalCalorias = await CalcularSubtotalCalorias(plan.Id, comida.Id);
                             diasDto.MediaMañana.Add(comida);
                             break;
                         case "Media Tarde":
+                            comida.SubTotalCalorias = await CalcularSubtotalCalorias(plan.Id, comida.Id);
                             diasDto.MediaTarde.Add(comida);
                             break;
                         case "Merienda":
+                            comida.SubTotalCalorias = await CalcularSubtotalCalorias(plan.Id, comida.Id);
                             diasDto.Merienda.Add(comida);
                             break;
                         case "Opcional Mediodia":
+                            comida.SubTotalCalorias = await CalcularSubtotalCalorias(plan.Id, comida.Id);
                             diasDto.OpcionalMediodia.Add(comida);
                             break;
                         case "Opcional Noche":
+                            comida.SubTotalCalorias = await CalcularSubtotalCalorias(plan.Id, comida.Id);
                             diasDto.OpcionalNoche.Add(comida);
                             break;
                         default:
@@ -636,6 +659,87 @@ namespace Servicio.PlanAlimenticio
 
 
 
+        }
+
+        private async Task<decimal> CalcularSubtotalCalorias(long planId,long comidaId)
+        {
+
+            var plan = await Context.PlanesAlimenticios
+                .Include("Dias.Comidas.ComidasDetalles")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.Alimento.MacroNutriente")
+                .Include("Dias.Comidas.ComidasDetalles.Opcion.OpcionDetalles.UnidadMedida")
+                .FirstOrDefaultAsync(x => x.Id == planId);
+
+            if (plan == null) throw new ArgumentNullException();
+
+            var dias = plan.Dias;
+            var caloriasPromedioComida = 0m;
+
+            foreach (var dia in dias)
+            {
+
+                foreach (var comida in dia.Comidas)
+                {
+                    if (comida.Id != comidaId) continue;
+                    foreach (var comidaDetalle in comida.ComidasDetalles)
+                    {
+                        var opcion = comidaDetalle.Opcion;
+
+                        var cantidadComidas = comida.ComidasDetalles.Count();
+
+                        foreach (var detalle in opcion.OpcionDetalles.Where(x => !x.Eliminado))
+                        {
+                            var alimento = detalle.Alimento;
+
+                            var caloria = alimento.MacroNutriente.Calorias;
+
+                            switch (detalle.UnidadMedida.Abreviatura.ToLower())
+                            {
+                                case "g":
+                                    caloria = (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "ml":
+                                    caloria = (detalle.Cantidad * caloria / 100);
+                                    break;
+                                case "l":
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "kg":
+                                    caloria = ((detalle.Cantidad * 1000) * caloria / 100);
+                                    break;
+                                case "cdapo":
+                                    caloria = ((detalle.Cantidad * 5) * caloria / 100);
+                                    break;
+                                case "cdasp":
+                                    caloria = ((detalle.Cantidad * 15) * caloria / 100);
+                                    break;
+                                case "tzTE":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "tzCAFE":
+                                    caloria = ((detalle.Cantidad * 250) * caloria / 100);
+                                    break;
+                                case "plhon":
+                                    caloria = ((detalle.Cantidad * 200) * caloria / 100);
+                                    break;
+                                case "plpr":
+                                    caloria = ((detalle.Cantidad * 120) * caloria / 100);
+                                    break;
+                                case "cdate":
+                                    caloria = ((detalle.Cantidad * 2) * caloria / 100);
+                                    break;
+
+                                default:
+                                    throw new Exception($"La unidad de medida {detalle.UnidadMedida.Abreviatura} en el alimento {detalle.Alimento.Descripcion} no es compatible con el calculo");
+
+                            }
+                            caloriasPromedioComida += caloria / cantidadComidas;
+                        }
+                    }
+                }
+            }
+
+            return caloriasPromedioComida;
         }
 
         public async Task DuplicarComidaDeOtroPlan(long? planDesdeId, long? planHastaId, string comidaDescripcion)

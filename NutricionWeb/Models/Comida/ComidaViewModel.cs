@@ -12,10 +12,14 @@ namespace NutricionWeb.Models.Comida
 
         public string Descripcion { get; set; }
 
+        public string DescripcionTrim => Descripcion.Replace(" ", "").Replace("ñ","n");
+
         public long DiaId { get; set; }
 
         [Display(Name = "Dia")]
         public string DiaStr { get; set; }
+
+        public decimal SubTotalCalorias { get; set; }
 
         public List<ComidaDetalleViewModel> ComidasDetalles { get; set; }
     }

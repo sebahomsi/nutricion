@@ -14,6 +14,8 @@ namespace Servicio.Interface.Comida
         public string Descripcion { get; set; }
         public long DiaId { get; set; }
         public string DiaStr { get; set; }
+        public decimal SubTotalCalorias { get; set; }
+             
         
         public List<ComidaDetalleDto> ComidasDetalles { get; set; }
     }
