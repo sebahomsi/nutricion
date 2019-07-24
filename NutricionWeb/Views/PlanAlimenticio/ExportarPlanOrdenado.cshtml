@@ -35,9 +35,7 @@
     </div>
 </div>
 
-
 @*================Modal Duplicar Comida =========================*@
-
 <div class="modal fade" id="modal-duplicarComida" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -73,7 +71,6 @@
         </div>
     </div>
 </div>
-
 
 @*================Modal Agregar Comida =========================*@
 <div class="modal fade" id="modal-AgregarComida" tabindex="-1" role="dialog">
@@ -118,7 +115,6 @@
         </div>
     </div>
 </div>
-
 
 @*================Modal Detalle =========================*@
 <div class="modal fade" id="modal-detalle" tabindex="-1" role="dialog">
@@ -199,14 +195,26 @@
         width: 12.5%;
     }
 
+    .td-pad {
+        padding-left: 5px;
+    }
+
     .th {
         border: 1px solid #000;
         width: 12.5%;
         text-align: center;
     }
+
+    .kcal {
+        color: gray;
+        margin-top: 5px;
+        font-style: italic;
+    }
+
+    .kcal-bold {
+        font-weight: bold;
+    }
 </style>
-
-
 
 @helper DibujarComidas(List<NutricionWeb.Models.Comida.ComidaViewModel> comidas, string clases = "")
 {
@@ -214,7 +222,7 @@
     {
         if (Model.Desayunos.Last().DiaStr == comida.DiaStr)
         {
-<td class="td" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
+<td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
     @foreach (var detalle in comida.ComidasDetalles)
     {
         <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
@@ -241,13 +249,13 @@
         <div align="center">
             <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
         </div>
-        <div calorias="@comida.DescripcionTrim" hidden="hidden">@comida.SubTotalCalorias</div>
+        <div calorias="@comida.DescripcionTrim" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
     }
 </td>
         }
         else
         {
-<td class="td" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
+<td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
     @foreach (var detalle in comida.ComidasDetalles)
     {
         <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
@@ -272,7 +280,7 @@
         <div align="center">
             <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
         </div>
-        <div calorias="@comida.DescripcionTrim" hidden="hidden">@comida.SubTotalCalorias</div>
+        <div calorias="@comida.DescripcionTrim" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
     }
 
 </td>
@@ -300,39 +308,49 @@
 
     <tr id="desayuno">
         <td class="td text-center" desayuno style="cursor: pointer">
-            Desayuno
-            <div id="caloriasDesayuno"></div>
+            <span style="font-weight: bold;">Desayuno</span>
+            <div id="caloriasDesayuno" class="kcal kcal-bold"></div>
         </td>
         @DibujarComidas(Model.Desayunos)
     </tr>
     <tr id="mediaManana">
-        <td class="td text-center" mediaManana style="cursor: pointer">Media Mañana<div id="caloriasMediaManana"></div></td>
+        <td class="td text-center" mediaManana style="cursor: pointer"><span style="font-weight: bold;">Media Mañana</span><div id="caloriasMediaManana" class="kcal kcal-bold"></div></td>
         @DibujarComidas(Model.MediaMañana)
     </tr>
     <tr id="almuerzo">
-        <td class="td text-center" almuerzo style="cursor: pointer">Almuerzo<div id="caloriasAlmuerzo"></div></td>
+        <td class="td text-center" almuerzo style="cursor: pointer"><span style="font-weight: bold;">Almuerzo</span><div id="caloriasAlmuerzo" class="kcal kcal-bold"></div></td>
         @DibujarComidas(Model.Almuerzo)
     </tr>
     <tr id="opcionalMediodia">
-        <td class="td text-center" opcionalmedioDia style="cursor: pointer">Opcional Mediodia<div id="caloriasOpcionalMediodia"></div></td>
+        <td class="td text-center" opcionalmedioDia style="cursor: pointer"><span style="font-weight: bold;">Opcional Mediodia</span><div id="caloriasOpcionalMediodia" class="kcal kcal-bold"></div></td>
         @DibujarComidas(Model.OpcionalMediodia)
     </tr>
     <tr id="merienda">
-        <td class="td text-center" merienda style="cursor: pointer">Merienda<div id="caloriasMerienda"></div></td>
+        <td class="td text-center" merienda style="cursor: pointer"><span style="font-weight: bold;">Merienda</span><div id="caloriasMerienda" class="kcal kcal-bold"></div></td>
         @DibujarComidas(Model.Merienda)
     </tr>
     <tr id="mediaTarde">
-        <td class="td text-center" mediaTarde style="cursor: pointer">Media tarde<div id="caloriasMediaTarde"></div></td>
+        <td class="td text-center" mediaTarde style="cursor: pointer"><span style="font-weight: bold;">Media tarde</span><div id="caloriasMediaTarde" class="kcal kcal-bold"></div></td>
         @DibujarComidas(Model.MediaTarde)
     </tr>
     <tr id="cena">
-        <td class="td text-center" cena style="cursor: pointer">Cena<div id="caloriasCena"></div></td>
+        <td class="td text-center" cena style="cursor: pointer"><span style="font-weight: bold;">Cena</span><div id="caloriasCena" class="kcal kcal-bold"></div></td>
         @DibujarComidas(Model.Cena)
     </tr>
     <tr id="opcionalNoche">
-        <td class="td text-center" opcionalNoche style="cursor: pointer">Opcional Noche<div id="caloriasOpcionalNoche"></div></td>
+        <td class="td text-center" opcionalNoche style="cursor: pointer"><span style="font-weight: bold;">Opcional Noche</span><div id="caloriasOpcionalNoche" class="kcal kcal-bold"></div></td>
         @DibujarComidas(Model.OpcionalNoche)
     </tr>
+    @*<tr>
+        <td></td>
+        <td class="td text-center"><div id="caloriasLunes" class="kcal kcal-bold">kcal</div></td>
+        <td class="td text-center"><div id="caloriasMartes" class="kcal kcal-bold">kcal</div></td>
+        <td class="td text-center"><div id="caloriasMiercoles" class="kcal kcal-bold">kcal</div></td>
+        <td class="td text-center"><div id="caloriasJueves" class="kcal kcal-bold">kcal</div></td>
+        <td class="td text-center"><div id="caloriasViernes" class="kcal kcal-bold">kcal</div></td>
+        <td class="td text-center"><div id="caloriasSabado" class="kcal kcal-bold">kcal</div></td>
+        <td class="td text-center"><div id="caloriasDomingo" class="kcal kcal-bold">kcal</div></td>
+    </tr>*@
 </table>
 
 <br /><br />
@@ -377,35 +395,32 @@
     </tr>
     <tr>
         <td>Hidratos de carbono</td>
-        <td>- %</td>
-        <td>- kcal</td>
-        <td>- g</td>
+        <td class="kcal"><span id="porcentajeCarbo"></span> %</td>
+        <td class="kcal"><span id="totalCaloriasCarbo"></span> kcal</td>
+        <td class="kcal"><span id="totalGramosCarbo"></span> g</td>
     </tr>
     <tr>
         <td>Proteinas</td>
-        <td>- %</td>
-        <td>- kcal</td>
-        <td>- g</td>
+        <td class="kcal"><span id="porcentajeProte"></span> %</td>
+        <td class="kcal"><span id="totalCaloriasProte"></span> kcal</td>
+        <td class="kcal"><span id="totalGramosProte"></span> g</td>
     </tr>
     <tr>
         <td>Grasas</td>
-        <td>- %</td>
-        <td>- kcal</td>
-        <td>- g</td>
+        <td class="kcal"><span id="porcentajeGrasa"></span> %</td>
+        <td class="kcal"><span id="totalCaloriasGrasa"></span> kcal</td>
+        <td class="kcal"><span id="totalGramosGrasa"></span> g</td>
     </tr>
     <tr>
-        <td>Total Calorias</td>
-        <td><span id="totalCaloriasPlan"></span> kcal</td>
+        <td class="kcal-bold">Total Calorias</td>
+        <td class="kcal-bold"><span id="totalCaloriasPlan"></span> kcal</td>
     </tr>
 </table>
-
-
 
 <label style="max-width:100%;min-width:100%;margin-top: 5px" id="lblrecetario">Comentarios : @ViewBag.Recetario</label>
 <textarea id="comentariotxtarea" class="form-control" cols="12" style="max-width:100%;min-width:100%; width: 100%; margin-top:30px;display: none">@ViewBag.Recetario</textarea>
 <button class="btn btn-primary-custom btn-xs" style="display: none" id="guardarComentario">Guardar</button>
 <button class="btn btn-danger btn-xs" style="display: none" id="cancelarComentario">Cancelar</button>
-
 
 <p style="margin-top: 5px">
     @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente", new { id = ViewBag.PacienteId }, new { @class = "btn btn-default" })
@@ -433,8 +448,11 @@
 
         var opcionIds = [];
         var comidaIdFlag = -1;
-    var comidaSeleccionada = "";
+        var comidaSeleccionada = "";
         var totalCaloriasPlan = 0;
+        var totalCaloriasCarbo = 0;
+        var totalCaloriasProte = 0;
+        var totalCaloriasGrasa = 0;
 
         var buscarComidas = function(cadenaBuscar, comidaId, subgrupoId) {
             $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
@@ -523,7 +541,6 @@
             $(`#${idFila} [comidaColumna]`).each((index, elemento) => {
                 var elementoActual = $(elemento);
                 if (index !== 0) {
-                    console.log("s");
                     if (elementoAnterior.text().trim() === elementoActual.text().trim() &&
                         elementoAnterior.text().trim() !== "") {
 
@@ -575,24 +592,36 @@
 
             });
 
-    var calcularCaloriasPorComida = (comida) => {
-        let contadorCalorias = 0;
-        var contador = 0;
-            $(`[calorias=${comida}]`).each((index, elemento) => {
-                contadorCalorias += parseFloat($(elemento).text());
-                contador++;
-            });
-        if (contador != 0) {
-            $("#calorias" + comida).empty().append(contadorCalorias / contador);
-            totalCaloriasPlan += contadorCalorias / contador;
-        } else {
-            $("#calorias" + comida).empty().append(0);
-        }
-            
+        var calcularCaloriasPorComida = (comida) => {
+            let contadorCarbo = 0;
+            let contadorProte = 0;
+            let contadorGrasa = 0;
+            let contadorCalorias = 0;
+            var contador = 0;
+                $(`[calorias=${comida}]`).each((index, elemento) => {
+                    contadorCalorias += parseFloat($(elemento).text());
+                    contadorCarbo += parseFloat($(elemento).attr("carbo"));
+                    contadorProte += parseFloat($(elemento).attr("prote"));
+                    contadorGrasa += parseFloat($(elemento).attr("grasa"));
+                    contador++;
+                });
+            if (contador != 0) {
+                $("#calorias" + comida).empty().append((contadorCalorias / contador).toFixed(0) + " Kcal.");
+                totalCaloriasCarbo += contadorCarbo / contador;
+                totalCaloriasProte += contadorProte / contador;
+                totalCaloriasGrasa += contadorGrasa / contador;
+                totalCaloriasPlan += contadorCalorias / contador;
+            } else {
+                $("#calorias" + comida).empty().append(0 + " Kcal.");
+            }
         }
 
-    $(() => {
-        totalCaloriasPlan = 0;
+        $(() => {
+            totalCaloriasPlan = 0;
+            totalCaloriasCarbo = 0;
+            totalCaloriasProte = 0;
+            totalCaloriasGrasa = 0;
+
             recorreFila("desayuno");
             recorreFila("mediaManana");
             recorreFila("almuerzo");
@@ -611,7 +640,18 @@
             calcularCaloriasPorComida("OpcionalNoche");
             calcularCaloriasPorComida("OpcionalMediodia");
 
-        $("#totalCaloriasPlan").empty().append(totalCaloriasPlan);
+            $("#totalCaloriasPlan").empty().append(totalCaloriasPlan.toFixed(0));
+            $("#totalCaloriasCarbo").empty().append(totalCaloriasCarbo.toFixed(0));
+            $("#totalCaloriasProte").empty().append(totalCaloriasProte.toFixed(0));
+            $("#totalCaloriasGrasa").empty().append(totalCaloriasGrasa.toFixed(0));
+
+            $("#totalGramosCarbo").empty().append((totalCaloriasCarbo / 4).toFixed(1));
+            $("#totalGramosProte").empty().append((totalCaloriasProte / 4).toFixed(1));
+            $("#totalGramosGrasa").empty().append((totalCaloriasGrasa / 9).toFixed(1));
+
+            $("#porcentajeCarbo").empty().append(((totalCaloriasCarbo * 100) / totalCaloriasPlan).toFixed(1));
+            $("#porcentajeProte").empty().append(((totalCaloriasProte * 100) / totalCaloriasPlan).toFixed(1));
+            $("#porcentajeGrasa").empty().append(((totalCaloriasGrasa * 100) / totalCaloriasPlan).toFixed(1));
 
             $("#guardarComentario").click(() => {
                 $.post('@Url.Action("ModificarRecetario", "PlanAlimenticio")',
@@ -715,8 +755,8 @@
             });
 
         });
-    </script>
 
+    </script>
 }
 
 

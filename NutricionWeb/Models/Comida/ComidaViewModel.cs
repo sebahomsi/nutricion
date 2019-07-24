@@ -21,6 +21,12 @@ namespace NutricionWeb.Models.Comida
 
         public decimal SubTotalCalorias { get; set; }
 
+        public decimal SubTotalCaloriasCarbo { get; set; }
+
+        public decimal SubTotalCaloriasProte { get; set; }
+
+        public decimal SubTotalCaloriasGrasa { get; set; }
+
         public List<ComidaDetalleViewModel> ComidasDetalles { get; set; }
     }
 }
