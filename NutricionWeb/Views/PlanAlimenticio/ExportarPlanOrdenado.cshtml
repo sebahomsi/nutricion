@@ -249,7 +249,7 @@
         <div align="center">
             <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
         </div>
-        <div calorias="@comida.DescripcionTrim" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
+        <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
     }
 </td>
         }
@@ -280,7 +280,7 @@
         <div align="center">
             <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
         </div>
-        <div calorias="@comida.DescripcionTrim" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
+        <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
     }
 
 </td>
@@ -341,16 +341,16 @@
         <td class="td text-center" opcionalNoche style="cursor: pointer"><span style="font-weight: bold;">Opcional Noche</span><div id="caloriasOpcionalNoche" class="kcal kcal-bold"></div></td>
         @DibujarComidas(Model.OpcionalNoche)
     </tr>
-    @*<tr>
+    <tr>
         <td></td>
-        <td class="td text-center"><div id="caloriasLunes" class="kcal kcal-bold">kcal</div></td>
-        <td class="td text-center"><div id="caloriasMartes" class="kcal kcal-bold">kcal</div></td>
-        <td class="td text-center"><div id="caloriasMiercoles" class="kcal kcal-bold">kcal</div></td>
-        <td class="td text-center"><div id="caloriasJueves" class="kcal kcal-bold">kcal</div></td>
-        <td class="td text-center"><div id="caloriasViernes" class="kcal kcal-bold">kcal</div></td>
-        <td class="td text-center"><div id="caloriasSabado" class="kcal kcal-bold">kcal</div></td>
-        <td class="td text-center"><div id="caloriasDomingo" class="kcal kcal-bold">kcal</div></td>
-    </tr>*@
+        <td class="td text-center"><div id="caloriasLunes" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasMartes" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasMiercoles" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasJueves" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasViernes" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasSabado" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasDomingo" class="kcal kcal-bold"></div></td>
+    </tr>
 </table>
 
 <br /><br />
@@ -592,19 +592,35 @@
 
             });
 
+        var calcularCaloriasPorDia = (dia) => {
+            let contadorCalorias = 0;
+            var contador = 0;
+            console.log("asdasdasdasd");
+            $(`[dia=${dia}]`).each((index, elemento) => {
+                contadorCalorias += parseFloat($(elemento).text());
+                contador++;
+            });
+            if (contador != 0) {
+                $("#calorias" + dia).empty().append((contadorCalorias).toFixed(0) + " Kcal.");
+            } else {
+                $("#calorias" + dia).empty().append(0 + " Kcal.");
+            }
+        }
+
+
         var calcularCaloriasPorComida = (comida) => {
             let contadorCarbo = 0;
             let contadorProte = 0;
             let contadorGrasa = 0;
             let contadorCalorias = 0;
             var contador = 0;
-                $(`[calorias=${comida}]`).each((index, elemento) => {
-                    contadorCalorias += parseFloat($(elemento).text());
-                    contadorCarbo += parseFloat($(elemento).attr("carbo"));
-                    contadorProte += parseFloat($(elemento).attr("prote"));
-                    contadorGrasa += parseFloat($(elemento).attr("grasa"));
-                    contador++;
-                });
+            $(`[calorias=${comida}]`).each((index, elemento) => {
+                contadorCalorias += parseFloat($(elemento).text());
+                contadorCarbo += parseFloat($(elemento).attr("carbo"));
+                contadorProte += parseFloat($(elemento).attr("prote"));
+                contadorGrasa += parseFloat($(elemento).attr("grasa"));
+                contador++;
+            });
             if (contador != 0) {
                 $("#calorias" + comida).empty().append((contadorCalorias / contador).toFixed(0) + " Kcal.");
                 totalCaloriasCarbo += contadorCarbo / contador;
@@ -622,15 +638,6 @@
             totalCaloriasProte = 0;
             totalCaloriasGrasa = 0;
 
-            recorreFila("desayuno");
-            recorreFila("mediaManana");
-            recorreFila("almuerzo");
-            recorreFila("merienda");
-            recorreFila("mediaTarde");
-            recorreFila("cena");
-            recorreFila("opcionalNoche");
-            recorreFila("opcionalMediodia");
-
             calcularCaloriasPorComida("Desayuno");
             calcularCaloriasPorComida("MediaManana");
             calcularCaloriasPorComida("Almuerzo");
@@ -639,6 +646,23 @@
             calcularCaloriasPorComida("Cena");
             calcularCaloriasPorComida("OpcionalNoche");
             calcularCaloriasPorComida("OpcionalMediodia");
+
+            calcularCaloriasPorDia("Lunes");
+            calcularCaloriasPorDia("Martes");
+            calcularCaloriasPorDia("Miercoles");
+            calcularCaloriasPorDia("Jueves");
+            calcularCaloriasPorDia("Viernes");
+            calcularCaloriasPorDia("Sabado");
+            calcularCaloriasPorDia("Domingo");
+
+            recorreFila("desayuno");
+            recorreFila("mediaManana");
+            recorreFila("almuerzo");
+            recorreFila("merienda");
+            recorreFila("mediaTarde");
+            recorreFila("cena");
+            recorreFila("opcionalNoche");
+            recorreFila("opcionalMediodia");
 
             $("#totalCaloriasPlan").empty().append(totalCaloriasPlan.toFixed(0));
             $("#totalCaloriasCarbo").empty().append(totalCaloriasCarbo.toFixed(0));
