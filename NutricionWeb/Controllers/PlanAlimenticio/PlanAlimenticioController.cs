@@ -3,7 +3,6 @@ using NutricionWeb.Helpers.SubGrupo;
 using NutricionWeb.Models.Comida;
 using NutricionWeb.Models.ComidaDetalle;
 using NutricionWeb.Models.Dia;
-using NutricionWeb.Models.Paciente;
 using NutricionWeb.Models.PlanAlimenticio;
 using PagedList;
 using Rotativa;
@@ -15,16 +14,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Security;
-using NutricionWeb.Helpers.SubGrupo;
-using NutricionWeb.Models.Opcion;
-using Servicio.Alimento;
-using Servicio.Comida;
-using Servicio.ComidaDetalle;
-using Servicio.Dia;
-using Servicio.Opcion;
-using Servicio.Paciente;
-using Servicio.PlanAlimenticio;
 using static NutricionWeb.Helpers.PagedList;
 
 namespace NutricionWeb.Controllers.PlanAlimenticio
@@ -484,34 +473,34 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             ViewBag.PacienteId = plan.PacienteId;
             ViewBag.Recetario = plan.Comentarios;
             ViewBag.Calorias = plan.TotalCalorias;
-            //if (plan.TotalCalorias == 0)
-            //{
-            //    ViewBag.Carbos = 0;
-            //    ViewBag.Protes = 0;
-            //    ViewBag.Grasas = 0;
+            if (plan.TotalCalorias == 0)
+            {
+                ViewBag.Carbos = 0;
+                ViewBag.Protes = 0;
+                ViewBag.Grasas = 0;
 
-            //    ViewBag.CarboPorce = 0;
-            //    ViewBag.GrasaPorce = 0;
-            //    ViewBag.ProtePorce = 0;
+                ViewBag.CarboPorce = 0;
+                ViewBag.GrasaPorce = 0;
+                ViewBag.ProtePorce = 0;
 
-            //    ViewBag.CarboGramo = 0;
-            //    ViewBag.ProteGramo = 0;
-            //    ViewBag.GrasaGramo = 0;
-            //}
-            //else
-            //{
-            //    ViewBag.Carbos = await _planAlimenticioServicio.CalculateTotalCaloriesCarbos(id.Value);
-            //    ViewBag.Protes = await _planAlimenticioServicio.CalculateTotalCaloriesProtes(id.Value);
-            //    ViewBag.Grasas = await _planAlimenticioServicio.CalculateTotalCaloriesGrasas(id.Value);
+                ViewBag.CarboGramo = 0;
+                ViewBag.ProteGramo = 0;
+                ViewBag.GrasaGramo = 0;
+            }
+            else
+            {
+                ViewBag.Carbos = await _planAlimenticioServicio.CalculateTotalCaloriesCarbos(id.Value);
+                ViewBag.Protes = await _planAlimenticioServicio.CalculateTotalCaloriesProtes(id.Value);
+                ViewBag.Grasas = await _planAlimenticioServicio.CalculateTotalCaloriesGrasas(id.Value);
 
-            //    ViewBag.CarboPorce = await _planAlimenticioServicio.CalculateTotalCaloriesCarbos(id.Value) * 100 / plan.TotalCalorias;
-            //    ViewBag.GrasaPorce = await _planAlimenticioServicio.CalculateTotalCaloriesGrasas(id.Value) * 100 / plan.TotalCalorias;
-            //    ViewBag.ProtePorce = await _planAlimenticioServicio.CalculateTotalCaloriesProtes(id.Value) * 100 / plan.TotalCalorias;
+                ViewBag.CarboPorce = await _planAlimenticioServicio.CalculateTotalCaloriesCarbos(id.Value) * 100 / plan.TotalCalorias;
+                ViewBag.GrasaPorce = await _planAlimenticioServicio.CalculateTotalCaloriesGrasas(id.Value) * 100 / plan.TotalCalorias;
+                ViewBag.ProtePorce = await _planAlimenticioServicio.CalculateTotalCaloriesProtes(id.Value) * 100 / plan.TotalCalorias;
 
-            //    ViewBag.CarboGramo = await _planAlimenticioServicio.CalculateTotalCaloriesCarbos(id.Value) / 4;
-            //    ViewBag.ProteGramo = await _planAlimenticioServicio.CalculateTotalCaloriesProtes(id.Value) / 4;
-            //    ViewBag.GrasaGramo = await _planAlimenticioServicio.CalculateTotalCaloriesGrasas(id.Value) / 9;
-            //}
+                ViewBag.CarboGramo = await _planAlimenticioServicio.CalculateTotalCaloriesCarbos(id.Value) / 4;
+                ViewBag.ProteGramo = await _planAlimenticioServicio.CalculateTotalCaloriesProtes(id.Value) / 4;
+                ViewBag.GrasaGramo = await _planAlimenticioServicio.CalculateTotalCaloriesGrasas(id.Value) / 9;
+            }
 
 
 
@@ -548,8 +537,6 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             };
         }
 
-
-
         public async Task<ActionResult> TraerPaciente(long? pacienteId)
         {
             if (pacienteId == null) return RedirectToAction("Error", "Home");
@@ -557,37 +544,6 @@ namespace NutricionWeb.Controllers.PlanAlimenticio
             var paciente = await _pacienteServicio.GetById(pacienteId.Value);
 
             return Json(paciente, JsonRequestBehavior.AllowGet);
-        }
-
-        public async Task<ActionResult> BuscarPaciente(int? page, string cadenaBuscar)
-        {
-            ViewBag.FilterValue = cadenaBuscar;
-
-            var establecimientoId = ObtenerEstablecimientoIdUser();
-
-            var pageNumber = page ?? 1;
-            var eliminado = false;
-            var pacientes =
-                await _pacienteServicio.Get(establecimientoId, eliminado, !string.IsNullOrEmpty(cadenaBuscar) ? cadenaBuscar : string.Empty);
-
-            if (pacientes == null) return RedirectToAction("Error", "Home");
-
-            return PartialView(pacientes.Select(x => new PacienteViewModel()
-            {
-                Id = x.Id,
-                Codigo = x.Codigo,
-                Apellido = x.Apellido,
-                Nombre = x.Nombre,
-                Celular = x.Celular,
-                Telefono = x.Telefono,
-                Cuit = x.Cuit,
-                Dni = x.Dni,
-                FechaNac = x.FechaNac,
-                FechaAlta = x.FechaAlta,
-                Sexo = x.Sexo,
-                Mail = x.Mail,
-                Eliminado = x.Eliminado,
-            }).ToPagedList(pageNumber, CantidadFilasPorPaginasModal));
         }
 
         public async Task<ActionResult> TraerPlan(long? planId)

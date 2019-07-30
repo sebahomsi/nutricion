@@ -355,7 +355,7 @@
 
 <br /><br />
 
-@*<table class="table" style="max-width: 400px;">
+<table class="table" style="max-width: 400px;">
     <tr>
         <th>Macronutriente</th>
         <th>%</th>
@@ -384,9 +384,9 @@
         <td>Total Calorias</td>
         <td>@ViewBag.Calorias kcal</td>
     </tr>
-</table>*@
+</table>
 
-<table class="table" style="max-width: 400px;">
+@*<table class="table" style="max-width: 400px;">
     <tr>
         <th>Macronutriente</th>
         <th>%</th>
@@ -415,7 +415,7 @@
         <td class="kcal-bold">Total Calorias</td>
         <td class="kcal-bold"><span id="totalCaloriasPlan"></span> kcal</td>
     </tr>
-</table>
+</table>*@
 
 <label style="max-width:100%;min-width:100%;margin-top: 5px" id="lblrecetario">Comentarios : @ViewBag.Recetario</label>
 <textarea id="comentariotxtarea" class="form-control" cols="12" style="max-width:100%;min-width:100%; width: 100%; margin-top:30px;display: none">@ViewBag.Recetario</textarea>
@@ -595,7 +595,6 @@
         var calcularCaloriasPorDia = (dia) => {
             let contadorCalorias = 0;
             var contador = 0;
-            console.log("asdasdasdasd");
             $(`[dia=${dia}]`).each((index, elemento) => {
                 contadorCalorias += parseFloat($(elemento).text());
                 contador++;
@@ -664,18 +663,19 @@
             recorreFila("opcionalNoche");
             recorreFila("opcionalMediodia");
 
-            $("#totalCaloriasPlan").empty().append(totalCaloriasPlan.toFixed(0));
-            $("#totalCaloriasCarbo").empty().append(totalCaloriasCarbo.toFixed(0));
-            $("#totalCaloriasProte").empty().append(totalCaloriasProte.toFixed(0));
-            $("#totalCaloriasGrasa").empty().append(totalCaloriasGrasa.toFixed(0));
+            //$("#totalCaloriasPlan").empty().append(totalCaloriasPlan.toFixed(0));
 
-            $("#totalGramosCarbo").empty().append((totalCaloriasCarbo / 4).toFixed(1));
-            $("#totalGramosProte").empty().append((totalCaloriasProte / 4).toFixed(1));
-            $("#totalGramosGrasa").empty().append((totalCaloriasGrasa / 9).toFixed(1));
+            //$("#totalCaloriasCarbo").empty().append(totalCaloriasCarbo.toFixed(0));
+            //$("#totalCaloriasProte").empty().append(totalCaloriasProte.toFixed(0));
+            //$("#totalCaloriasGrasa").empty().append(totalCaloriasGrasa.toFixed(0));
 
-            $("#porcentajeCarbo").empty().append(((totalCaloriasCarbo * 100) / totalCaloriasPlan).toFixed(1));
-            $("#porcentajeProte").empty().append(((totalCaloriasProte * 100) / totalCaloriasPlan).toFixed(1));
-            $("#porcentajeGrasa").empty().append(((totalCaloriasGrasa * 100) / totalCaloriasPlan).toFixed(1));
+            //$("#totalGramosCarbo").empty().append((totalCaloriasCarbo / 4).toFixed(1));
+            //$("#totalGramosProte").empty().append((totalCaloriasProte / 4).toFixed(1));
+            //$("#totalGramosGrasa").empty().append((totalCaloriasGrasa / 9).toFixed(1));
+
+            //$("#porcentajeCarbo").empty().append(((totalCaloriasCarbo * 100) / totalCaloriasPlan).toFixed(1));
+            //$("#porcentajeProte").empty().append(((totalCaloriasProte * 100) / totalCaloriasPlan).toFixed(1));
+            //$("#porcentajeGrasa").empty().append(((totalCaloriasGrasa * 100) / totalCaloriasPlan).toFixed(1));
 
             $("#guardarComentario").click(() => {
                 $.post('@Url.Action("ModificarRecetario", "PlanAlimenticio")',

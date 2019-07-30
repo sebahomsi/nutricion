@@ -1,15 +1,12 @@
-﻿@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioVistaViewModel
+﻿@using Dominio.Entidades
+@model NutricionWeb.Models.PlanAlimenticio.PlanAlimenticioVistaViewModel
+
 
 @{
-    ViewBag.Title = "ExportarPlanOrdenado";
-}
-
-@{
+    ViewBag.Title = "Plan";
     Layout = null;
 }
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
-<link href="~/Content/Site.css" rel="stylesheet" />
-<link href="~/Content/sidebar.css" rel="stylesheet" />
+
 
 
 <style>
@@ -18,281 +15,563 @@
         width: 100%;
     }
 
-    [class*="col-"] {
-        float: none;
-        display: table-cell;
-        vertical-align: top;
+    .cabeceraDia {
+        border-left: 1px solid black;
+        border-top: 1px solid black;
+        width: 12.5%;
+    }
+
+    .cabeceraComida {
+        border-left: 1px solid black;
+        border-top: 1px solid black;
+        width: 12.5%
+    }
+
+    .comidasDomingos {
+        border-left: 1px solid black;
+        border-top: 1px solid black;
+        border-right: 1px solid black !important;
+        width: 12.5%
+    }
+
+    .comidasCena {
+        border-bottom: 1px solid black;
+    }
+
+    .cabeceraDomingo {
+        border-right: 1px solid black;
+    }
+
+    .cabeceraCena {
+        border-bottom: 1px solid black;
+    }
+
+    .btn {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .tabla {
+        border-collapse: collapse;
+        background-color: #F8F8FF;
+    }
+
+    .td {
+        border: 1px solid #000;
+        width: 12.5%;
+    }
+
+    .td-pad {
+        padding-left: 5px;
+    }
+
+    .th {
+        border: 1px solid #000;
+        width: 12.5%;
+        text-align: center;
+    }
+
+    .kcal {
+        color: gray;
+        margin-top: 5px;
+        font-style: italic;
+    }
+
+    .kcal-bold {
+        font-weight: bold;
     }
 </style>
 
-<h2>Plan Alimenticio</h2>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2" style=" width:12.5%">
-
-        </div>
-        <div class="col-md-2 text-center" style="border-left:1px solid black; border-top:1px solid black; width:12.5%">
-            Lunes
-        </div>
-        <div class="col-md-2 text-center" style="border-left:1px solid black; border-top:1px solid black;   width:12.5%">
-            Martes
-        </div>
-        <div class="col-md-2 text-center" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%; ">
-            Miercoles
-        </div>
-        <div class="col-md-2 text-center" style="border-left:1px solid black;  border-top:1px solid black;  width:12.5%;">
-            Jueves
-        </div>
-        <div class="col-md-2 text-center" style="border-left:1px solid black;  border-top:1px solid black;  width:12.5%;">
-            Viernes
-        </div>
-        <div class="col-md-2 text-center" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%; ">
-            Sabado
-        </div>
-        <div class="col-md-2 text-center" style="border-right:1px solid black; border-top:1px solid black;  border-left:1px solid black; width:12.5%; ">
-            Domingo
-        </div>
-    </div>
-
-    <div class="row" id="desayuno">
-        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-            Desayuno
-        </div>
-        @foreach (var comida in Model.Desayunos)
+@helper DibujarComidas(List<NutricionWeb.Models.Comida.ComidaViewModel> comidas, string clases = "")
+{
+    foreach (var comida in comidas)
+    {
+        if (Model.Desayunos.Last().DiaStr == comida.DiaStr)
         {
-            if (Model.Desayunos.Last() == comida)
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%" id="@comida.DiaStr@comida.Descripcion">
-                    @foreach (var detalle in comida.ComidasDetalles)
+            <td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
+                    if (!string.IsNullOrEmpty(detalle.Comentario))
                     {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
                         <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                    <br />
 
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%" id="@comida.DiaStr@comida.Descripcion">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
+                }
+            </td>
+        }
+        else
+        {
+            <td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
 
-                </div>
-            }
+                    if (!string.IsNullOrEmpty(detalle.Comentario))
+                    {
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                    <br />
 
-        }
-    </div>
-    <div class="row" id="mediaMañana">
-        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-            Media Mañana
-        </div>
-        @foreach (var comida in Model.MediaMañana)
-        {
-            if (Model.MediaMañana.Last() == comida)
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:.<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-        }
-    </div>
-    <div class="row" id="almuerzo">
-        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-            Almuerzo
-        </div>
-        @foreach (var comida in Model.Almuerzo)
-        {
-            if (Model.Almuerzo.Last() == comida)
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-        }
-    </div>
-    <div class="row" id="merienda">
-        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-            Merienda
-        </div>
-        @foreach (var comida in Model.Merienda)
-        {
-            if (Model.Merienda.Last() == comida)
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-        }
-    </div>
-    <div class="row" id="mediaTarde">
-        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-            Media Tarde
-        </div>
-        @foreach (var comida in Model.MediaTarde)
-        {
-            if (Model.MediaTarde.Last() == comida)
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="col-md-2 " style=" border-left:1px solid black; border-top:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-        }
-    </div>
-    <div class="row" id="cena">
-        <div class="col-md-2" style="border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  width:12.5%">
-            Cena
-        </div>
-        @foreach (var comida in Model.Cena)
-        {
-            if (Model.Cena.Last() == comida)
-            {
-                <div class="col-md-2 " style=" border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  border-right:1px solid black; width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="col-md-2" style=" border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;  width:12.5%">
-                    @foreach (var detalle in comida.ComidasDetalles)
-                    {
-                        @detalle.OpcionStr @:<br />
-                        foreach (var receta in detalle.Opcion.OpcionDetalles)
-                        {
-                            <p style="font-size: 12px; margin: 0; color: black;">@receta.AlimentoStr: @receta.CantidadMostrar</p>
-                        }
-                            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                </div>
-            }
-        }
-    </div>
+                }
 
+            </td>
+        }
+
+    }
+}
+
+<div class="titulo-ABM" style="text-align: center;">
+    <h4 class="create-h4" style="font-size: 2.3em">Plan Alimenticio - @ViewBag.Paciente</h4>
 </div>
 
-<p>
-    Total Calorias: @ViewBag.Calorias
-</p>
+<table class="tabla" width="100%">
+    <tr>
+        <th style="border: none;"></th>
+        <th class="th">Lunes</th>
+        <th class="th">Martes</th>
+        <th class="th">Miercoles</th>
+        <th class="th">Jueves</th>
+        <th class="th">Viernes</th>
+        <th class="th">Sabado</th>
+        <th class="th">Domingo</th>
 
+    </tr>
+
+    <tr id="desayuno">
+        <td class="td text-center" desayuno style="cursor: pointer">
+            <span style="font-weight: bold;">Desayuno</span>
+            <div id="caloriasDesayuno" class="kcal kcal-bold"></div>
+        </td>
+        @DibujarComidas(Model.Desayunos)
+    </tr>
+    <tr id="mediaManana">
+        <td class="td text-center" mediaManana style="cursor: pointer"><span style="font-weight: bold;">Media Mañana</span><div id="caloriasMediaManana" class="kcal kcal-bold"></div></td>
+        @DibujarComidas(Model.MediaMañana)
+    </tr>
+    <tr id="almuerzo">
+        <td class="td text-center" almuerzo style="cursor: pointer"><span style="font-weight: bold;">Almuerzo</span><div id="caloriasAlmuerzo" class="kcal kcal-bold"></div></td>
+        @DibujarComidas(Model.Almuerzo)
+    </tr>
+    <tr id="opcionalMediodia">
+        <td class="td text-center" opcionalmedioDia style="cursor: pointer"><span style="font-weight: bold;">Opcional Mediodia</span><div id="caloriasOpcionalMediodia" class="kcal kcal-bold"></div></td>
+        @DibujarComidas(Model.OpcionalMediodia)
+    </tr>
+    <tr id="merienda">
+        <td class="td text-center" merienda style="cursor: pointer"><span style="font-weight: bold;">Merienda</span><div id="caloriasMerienda" class="kcal kcal-bold"></div></td>
+        @DibujarComidas(Model.Merienda)
+    </tr>
+    <tr id="mediaTarde">
+        <td class="td text-center" mediaTarde style="cursor: pointer"><span style="font-weight: bold;">Media tarde</span><div id="caloriasMediaTarde" class="kcal kcal-bold"></div></td>
+        @DibujarComidas(Model.MediaTarde)
+    </tr>
+    <tr id="cena">
+        <td class="td text-center" cena style="cursor: pointer"><span style="font-weight: bold;">Cena</span><div id="caloriasCena" class="kcal kcal-bold"></div></td>
+        @DibujarComidas(Model.Cena)
+    </tr>
+    <tr id="opcionalNoche">
+        <td class="td text-center" opcionalNoche style="cursor: pointer"><span style="font-weight: bold;">Opcional Noche</span><div id="caloriasOpcionalNoche" class="kcal kcal-bold"></div></td>
+        @DibujarComidas(Model.OpcionalNoche)
+    </tr>
+    <tr>
+        <td></td>
+        <td class="td text-center"><div id="caloriasLunes" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasMartes" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasMiercoles" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasJueves" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasViernes" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasSabado" class="kcal kcal-bold"></div></td>
+        <td class="td text-center"><div id="caloriasDomingo" class="kcal kcal-bold"></div></td>
+    </tr>
+</table>
 
 <br /><br />
+
+<table class="table" style="max-width: 400px;">
+    <tr>
+        <th>Macronutriente</th>
+        <th>%</th>
+        <th>Kcal</th>
+        <th>Gramos</th>
+    </tr>
+    <tr>
+        <td>Hidratos de carbono</td>
+        <td>@ViewBag.CarboPorce %</td>
+        <td>@ViewBag.Carbos kcal</td>
+        <td>@ViewBag.CarboGramo g</td>
+    </tr>
+    <tr>
+        <td>Proteinas</td>
+        <td>@ViewBag.ProtePorce %</td>
+        <td>@ViewBag.Protes kcal</td>
+        <td>@ViewBag.ProteGramo g</td>
+    </tr>
+    <tr>
+        <td>Grasas</td>
+        <td>@ViewBag.GrasaPorce %</td>
+        <td>@ViewBag.Grasas kcal</td>
+        <td>@ViewBag.GrasaGramo g</td>
+    </tr>
+    <tr>
+        <td>Total Calorias</td>
+        <td>@ViewBag.Calorias kcal</td>
+    </tr>
+</table>
+
+<br /><br />
+
+<div id="recetario">
+    <div class="row" style="text-align: center; margin-bottom: 30px;">
+        <h4 style="color: #89bc94; font-size: 1.5em;">Recetario</h4>
+    </div>
+
+    <div id="recetario-container" class="row"></div>
+
+</div>
+@Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
+
+
+@section Scripts {
+    <script>
+
+        var opcionIds = [];
+        var comidaIdFlag = -1;
+        var comidaSeleccionada = "";
+        var totalCaloriasPlan = 0;
+        var totalCaloriasCarbo = 0;
+        var totalCaloriasProte = 0;
+        var totalCaloriasGrasa = 0;
+
+        var buscarComidas = function(cadenaBuscar, comidaId, subgrupoId) {
+            $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
+                { cadenaBuscar, comidaId, subgrupoId },
+                parcial => {
+                    $("#partialFindAgregarComida").empty().append(parcial);
+                });
+        }
+
+        var detalle = id => {
+            $("#modal-detalle").modal("show");
+
+            $.get('@Url.Action("DetalleComida", "Comida")',
+                { detalleId: id, planId: @ViewBag.PlanId },
+                (parcial) => {
+                    $("#partialFindDetalleComida").empty().append(parcial);
+                });
+        }
+
+        var duplicar = id => {
+            $("#modal-duplicar").modal("show");
+
+            $.get('@Url.Action("DuplicarComida", "Comida")',
+                { planId: @ViewBag.PlanId, comidaId: id },
+                parcial => {
+                    $("#partialFindDuplicarComida").empty().append(parcial);
+                });
+        }
+
+        var agregar = id => {
+            comidaIdFlag = -1;
+            $("#modal-AgregarComida").modal("show");
+            comidaIdFlag = id;
+            $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
+                { comidaId: id },
+                parcial => {
+                    $("#partialFindAgregarComida").empty().append(parcial);
+                });
+        }
+
+        $(document).on("click",
+            "input[name=seleccionar-opcion]",
+            (e) => {
+                var id = $(e.target).attr("id");
+                $(e.target).removeClass("btn-primary-custom").addClass("btn-primary");
+                $(e.target).val("Seleccionado");
+                if (!opcionIds.includes(id)) {
+                    opcionIds.push(id);
+                }
+            });
+
+        $(document).on("click",
+            "#guardarOpciones",
+            (e) => {
+                var comidaId = $("#ComidaId").val();
+                $.post('@Url.Action("AgregarOpcionesPlan", "ComidaDetalle")',
+                    { ids: opcionIds, planId: @ViewBag.PlanId, comidaId },
+                    (json) => {
+                        if (json.estado) {
+                            opcionIds = [];
+                            location.reload();
+                        } else {
+
+                            $("#mensajePlan").empty().append(json.mensaje);
+                            $("#modal-AgregarComida").modal("hide");
+                            opcionIds = [];
+                            comidaIdFlag = -1;
+                        }
+                    });
+            });
+
+        $('#modal-AgregarComida').on('hide.bs.modal',
+            function(e) {
+                opcionIds = [];
+            });
+
+        $('#modal-duplicarComida').on('hide.bs.modal',
+            function(e) {
+                comidaSeleccionada = "";
+
+            });
+
+        var recorreFila = (idFila) => {
+            var elementoAnterior;
+            var i = 0;
+            $(`#${idFila} [comidaColumna]`).each((index, elemento) => {
+                var elementoActual = $(elemento);
+                if (index !== 0) {
+                    if (elementoAnterior.text().trim() === elementoActual.text().trim() &&
+                        elementoAnterior.text().trim() !== "") {
+
+                        elementoActual.remove();
+                        i++;
+                        //if (index == 7) {
+                        elementoAnterior.attr("colspan", i + 1);
+                        //}
+                    } else {
+                        elementoAnterior.attr("colspan", i + 1);
+                        i = 0;
+                        elementoAnterior = $(elemento);
+                    }
+                } else {
+                    elementoAnterior = $(elemento);
+                }
+
+            });
+        }
+
+        function listaPlan() {
+            $("#partialFindPlan").empty();
+
+            $.get('@Html.Raw(Url.Action("BuscarPlan", "PlanAlimenticio"))',
+                {
+                    cadenaBuscar: $("#txt-BuscarPlan").val()
+                },
+                function(listaPlan) {
+                    $("#partialFindPlan").append(listaPlan);
+                });
+        }
+
+        $(document).on("click",
+            "#seleccionar-plan",
+            function() {
+                $.get('@Url.Action("DuplicarComidaDeOtroPlan", "Comida")',
+                    {
+                        planDesdeId: $(this).attr("name"),
+                        planHastaId: @ViewBag.PlanId,
+                        comidaDescripcion: comidaSeleccionada
+                    },
+                    (json) => {
+                        if (json.estado) {
+                            location.reload();
+                        } else {
+                            $("#mensajePlan").empty().append(json.mensaje);
+                        }
+                    });
+
+            });
+
+        var calcularCaloriasPorDia = (dia) => {
+            let contadorCalorias = 0;
+            var contador = 0;
+            $(`[dia=${dia}]`).each((index, elemento) => {
+                contadorCalorias += parseFloat($(elemento).text());
+                contador++;
+            });
+            if (contador != 0) {
+                $("#calorias" + dia).empty().append((contadorCalorias).toFixed(0) + " Kcal.");
+            } else {
+                $("#calorias" + dia).empty().append(0 + " Kcal.");
+            }
+        }
+
+
+        var calcularCaloriasPorComida = (comida) => {
+            let contadorCarbo = 0;
+            let contadorProte = 0;
+            let contadorGrasa = 0;
+            let contadorCalorias = 0;
+            var contador = 0;
+            $(`[calorias=${comida}]`).each((index, elemento) => {
+                contadorCalorias += parseFloat($(elemento).text());
+                contadorCarbo += parseFloat($(elemento).attr("carbo"));
+                contadorProte += parseFloat($(elemento).attr("prote"));
+                contadorGrasa += parseFloat($(elemento).attr("grasa"));
+                contador++;
+            });
+            if (contador != 0) {
+                $("#calorias" + comida).empty().append((contadorCalorias / contador).toFixed(0) + " Kcal.");
+                totalCaloriasCarbo += contadorCarbo / contador;
+                totalCaloriasProte += contadorProte / contador;
+                totalCaloriasGrasa += contadorGrasa / contador;
+                totalCaloriasPlan += contadorCalorias / contador;
+            } else {
+                $("#calorias" + comida).empty().append(0 + " Kcal.");
+            }
+        }
+
+        $(() => {
+            totalCaloriasPlan = 0;
+            totalCaloriasCarbo = 0;
+            totalCaloriasProte = 0;
+            totalCaloriasGrasa = 0;
+
+            calcularCaloriasPorComida("Desayuno");
+            calcularCaloriasPorComida("MediaManana");
+            calcularCaloriasPorComida("Almuerzo");
+            calcularCaloriasPorComida("Merienda");
+            calcularCaloriasPorComida("MediaTarde");
+            calcularCaloriasPorComida("Cena");
+            calcularCaloriasPorComida("OpcionalNoche");
+            calcularCaloriasPorComida("OpcionalMediodia");
+
+            calcularCaloriasPorDia("Lunes");
+            calcularCaloriasPorDia("Martes");
+            calcularCaloriasPorDia("Miercoles");
+            calcularCaloriasPorDia("Jueves");
+            calcularCaloriasPorDia("Viernes");
+            calcularCaloriasPorDia("Sabado");
+            calcularCaloriasPorDia("Domingo");
+
+            recorreFila("desayuno");
+            recorreFila("mediaManana");
+            recorreFila("almuerzo");
+            recorreFila("merienda");
+            recorreFila("mediaTarde");
+            recorreFila("cena");
+            recorreFila("opcionalNoche");
+            recorreFila("opcionalMediodia");
+
+            //$("#totalCaloriasPlan").empty().append(totalCaloriasPlan.toFixed(0));
+
+            //$("#totalCaloriasCarbo").empty().append(totalCaloriasCarbo.toFixed(0));
+            //$("#totalCaloriasProte").empty().append(totalCaloriasProte.toFixed(0));
+            //$("#totalCaloriasGrasa").empty().append(totalCaloriasGrasa.toFixed(0));
+
+            //$("#totalGramosCarbo").empty().append((totalCaloriasCarbo / 4).toFixed(1));
+            //$("#totalGramosProte").empty().append((totalCaloriasProte / 4).toFixed(1));
+            //$("#totalGramosGrasa").empty().append((totalCaloriasGrasa / 9).toFixed(1));
+
+            //$("#porcentajeCarbo").empty().append(((totalCaloriasCarbo * 100) / totalCaloriasPlan).toFixed(1));
+            //$("#porcentajeProte").empty().append(((totalCaloriasProte * 100) / totalCaloriasPlan).toFixed(1));
+            //$("#porcentajeGrasa").empty().append(((totalCaloriasGrasa * 100) / totalCaloriasPlan).toFixed(1));
+
+            $("#guardarComentario").click(() => {
+                $.post('@Url.Action("ModificarRecetario", "PlanAlimenticio")',
+                    { recetario: $("#comentariotxtarea").val(), planId: @ViewBag.PlanId },
+                    (json) => {
+                        if (json.estado) {
+                            location.reload();
+                        } else {
+                            $("#mensajePlan").empty().append(json.mensaje);
+                        }
+                    });
+            });
+
+            var recetario = () => {
+                $("#comentariotxtarea").toggle();
+                $("#guardarComentario").toggle();
+                $("#cancelarComentario").toggle();
+                $("#lblrecetario").toggle();
+            }
+
+
+            $("#modificarRecetario").click(() => {
+                recetario();
+            });
+
+            $("#cancelarComentario").click(() => {
+                recetario();
+            });
+
+            $("td[desayuno]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "Desayuno";
+            });
+            $("td[mediaManana]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "MediaMañana";
+            });
+            $("td[almuerzo]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "Almuerzo";
+            });
+            $("td[opcionalMediodia]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "OpcionalMediodia";
+            });
+            $("td[mediaTarde]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "MediaTarde";
+            });
+            $("td[merienda]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "Merienda";
+            });
+            $("td[cena]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "Cena";
+            });
+            $("td[opcionalNoche]").click(() => {
+                $("#modal-duplicarComida").modal("show");
+                listaPlan();
+                comidaSeleccionada = "OpcionalNoche";
+            });
+
+
+            $("#idSub").change(function() {
+                const subgrupoId = this.value;
+                const buscar = $("#txt-BuscarComida").val();
+                buscarComidas(buscar, comidaIdFlag, subgrupoId);
+            });
+
+            $("#btn-BuscarComida").click(function() {
+                const subgrupoId = $("#idSub").val();
+                const buscar = $("#txt-BuscarComida").val();
+                buscarComidas(buscar, comidaIdFlag, subgrupoId);
+            });
+
+            $("#btn-BuscarPlan").click(() => {
+                listaPlan();
+            });
+
+            $("#verRecetario").click(() => {
+                $("#recetario").toggle();
+                if ($("#recetario").is(':visible')) {
+                    $("#recetario-container").empty();
+                    $.get('@Url.Action("ObtenerRecetarios", "PlanAlimenticio")',
+                        { planAlimenticio: @ViewBag.PlanId },
+                        (parcial) => {
+                            $("#recetario-container").empty().append(parcial);
+                        });
+                } else {
+                    $("#recetario-container").empty();
+                }
+
+            });
+
+        });
+
+    </script>
+}
 
 
