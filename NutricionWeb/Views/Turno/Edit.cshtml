@@ -114,7 +114,7 @@
                         <span class="glyphicon glyphicon-time">
                         </span>
                     </span>
-                    <input type="text" readonly="readonly" class="form-control" id="HorarioEntrada" name="HorarioEntrada" />
+                    <input type="text" readonly="readonly" class="form-control" id="HorarioEntrada" name="HorarioEntrada" @*value="@Model.HorarioEntrada"*@ />
                 </div>
                 @Html.ValidationMessageFor(model => model.HorarioEntrada, "", new { @class = "text-danger" })
             </div>
@@ -131,7 +131,7 @@
                         <span class="glyphicon glyphicon-time">
                         </span>
                     </span>
-                    <input type="text" readonly="readonly" class="form-control" id="HorarioSalida" name="HorarioSalida"/>
+                    <input type="text" readonly="readonly" class="form-control" id="HorarioSalida" name="HorarioSalida" @*value="@Model.HorarioSalida"*@/>
                 </div>
                 @Html.ValidationMessageFor(model => model.HorarioSalida, "", new { @class = "text-danger" })
                
@@ -283,17 +283,27 @@
                 var day = ("0" + now.getDate()).slice(-2);
                 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                var today =(@Model.HorarioEntradaDateTime.Day) + "/" + (@Model.HorarioEntradaDateTime.Month)+ "/" + now.getFullYear()+ " " + (@Model.HorarioEntradaDateTime.Hour) + ":" + (@Model.HorarioEntradaDateTime.Minute);
 
 
                 $("#entrada, #salida").datetimepicker({
                     //locale: "es",
                     useCurrent: true,
-                    minDate: today,
+                    //minDate: today,
                     format: "DD/MM/YYYY HH:mm",
                     ignoreReadonly: true,
                     stepping: 15
                 });
+
+                $("#entrada").datetimepicker({
+                    defaultDate: today,
+                    format: "DD/MM/YYYY HH:mm"
+                });
+
+                @*$("#salida").datetimepicker({
+                    date: @Model.HorarioSalida,
+                    format: "DD/MM/YYYY HH:mm"
+                });*@
 
                 $(document).ready(function() {
                     var now = new Date();
