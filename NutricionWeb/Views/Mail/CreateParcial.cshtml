@@ -205,14 +205,27 @@
             img.src = src;
             document.getElementById("imagen").appendChild(img);
         }
-        console.log("ds");
+     
         var enviar = function(e) {
             e.preventDefault();
-            $.post('@Url.Action("CreateParcial")',  $("#formEnviarMail").serialize() , function (mensaje) {
-                $("#mensaje").text(mensaje);
+
+            var data = new FormData(document.getElementById('formEnviarMail'));
+            console.log(data);
+
+            $.ajax({
+                url: '@Url.Action("CreateParcial")',
+                data: data,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(mensaje) {
+                    $("#mensaje").text(mensaje);
+                }
             });
 
         }
+
+        
 
         $("#enviar").click(function(e) {
             enviar(e);
