@@ -210,7 +210,6 @@
 
 
             $("#entrada").on("dp.change", (e) => {
-                console.log(e.date._d.getMinutes());
                 var minutos = e.date;
                 minutos._d.setMinutes(e.date._d.getMinutes() + 15);
                 $("#salida").data("DateTimePicker").date(minutos);
@@ -283,11 +282,11 @@
                 var day = ("0" + now.getDate()).slice(-2);
                 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-                var today =(@Model.HorarioEntradaDateTime.Day) + "/" + (@Model.HorarioEntradaDateTime.Month)+ "/" + now.getFullYear()+ " " + (@Model.HorarioEntradaDateTime.Hour) + ":" + (@Model.HorarioEntradaDateTime.Minute);
+                var today =(@Model.HorarioEntradaDateTime.Month)  + "/" +(@Model.HorarioEntradaDateTime.Day) + "/" + now.getFullYear()+ " " + (@Model.HorarioEntradaDateTime.Hour) + ":" + (@Model.HorarioEntradaDateTime.Minute);
 
 
-                $("#entrada, #salida").datetimepicker({
-                    //locale: "es",
+                $("#salida").datetimepicker({
+                    //locale: "es", 
                     useCurrent: true,
                     //minDate: today,
                     format: "DD/MM/YYYY HH:mm",
@@ -295,25 +294,16 @@
                     stepping: 15
                 });
 
+
                 $("#entrada").datetimepicker({
-                    defaultDate: today,
-                    format: "DD/MM/YYYY HH:mm"
+                    ignoreReadonly: true,
+                    format: "DD/MM/YYYY HH:mm",
+                    defaultDate: new Date(today),
+                    stepping: 15
                 });
+                
 
-                @*$("#salida").datetimepicker({
-                    date: @Model.HorarioSalida,
-                    format: "DD/MM/YYYY HH:mm"
-                });*@
-
-                $(document).ready(function() {
-                    var now = new Date();
-
-                    var day = ("0" + now.getDate()).slice(-2);
-                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-                    var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-                });
+                
             });
         });
 
