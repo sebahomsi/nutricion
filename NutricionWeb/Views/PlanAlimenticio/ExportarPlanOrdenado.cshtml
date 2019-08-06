@@ -222,68 +222,68 @@
     {
         if (Model.Desayunos.Last().DiaStr == comida.DiaStr)
         {
-<td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
-    @foreach (var detalle in comida.ComidasDetalles)
-    {
-        <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
-        if (!string.IsNullOrEmpty(detalle.Comentario))
-        {
-            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-            <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-        }
-        <br />
+            <td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
+                    if (!string.IsNullOrEmpty(detalle.Comentario))
+                    {
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                    <br />
 
-    }
+                }
 
 
 
-    @if (comida.ComidasDetalles.Count == 0)
-    {
-        <div align="center">
-            <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
-            <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
-        </div>
-    }
-    else
-    {
-        <div align="center">
-            <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
-        </div>
-        <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
-    }
-</td>
+                @if (comida.ComidasDetalles.Count == 0)
+                {
+                    <div align="center">
+                        <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
+                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                    </div>
+                }
+                else
+                {
+                    <div align="center">
+                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
+                }
+            </td>
         }
         else
         {
-<td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
-    @foreach (var detalle in comida.ComidasDetalles)
-    {
-        <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
+            <td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
+                @foreach (var detalle in comida.ComidasDetalles)
+                {
+                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
 
-        if (!string.IsNullOrEmpty(detalle.Comentario))
-        {
-            <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-            <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-        }
-        <br />
+                    if (!string.IsNullOrEmpty(detalle.Comentario))
+                    {
+                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                    }
+                    <br />
 
-    }
-    @if (comida.ComidasDetalles.Count == 0)
-    {
-        <div align="center">
-            <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
-            <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
-        </div>
-    }
-    else
-    {
-        <div align="center">
-            <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
-        </div>
-        <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
-    }
+                }
+                @if (comida.ComidasDetalles.Count == 0)
+                {
+                    <div align="center">
+                        <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
+                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                    </div>
+                }
+                else
+                {
+                    <div align="center">
+                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
+                }
 
-</td>
+            </td>
         }
 
     }
@@ -387,35 +387,35 @@
 </table>
 
 @*<table class="table" style="max-width: 400px;">
-    <tr>
-        <th>Macronutriente</th>
-        <th>%</th>
-        <th>Kcal</th>
-        <th>Gramos</th>
-    </tr>
-    <tr>
-        <td>Hidratos de carbono</td>
-        <td class="kcal"><span id="porcentajeCarbo"></span> %</td>
-        <td class="kcal"><span id="totalCaloriasCarbo"></span> kcal</td>
-        <td class="kcal"><span id="totalGramosCarbo"></span> g</td>
-    </tr>
-    <tr>
-        <td>Proteinas</td>
-        <td class="kcal"><span id="porcentajeProte"></span> %</td>
-        <td class="kcal"><span id="totalCaloriasProte"></span> kcal</td>
-        <td class="kcal"><span id="totalGramosProte"></span> g</td>
-    </tr>
-    <tr>
-        <td>Grasas</td>
-        <td class="kcal"><span id="porcentajeGrasa"></span> %</td>
-        <td class="kcal"><span id="totalCaloriasGrasa"></span> kcal</td>
-        <td class="kcal"><span id="totalGramosGrasa"></span> g</td>
-    </tr>
-    <tr>
-        <td class="kcal-bold">Total Calorias</td>
-        <td class="kcal-bold"><span id="totalCaloriasPlan"></span> kcal</td>
-    </tr>
-</table>*@
+        <tr>
+            <th>Macronutriente</th>
+            <th>%</th>
+            <th>Kcal</th>
+            <th>Gramos</th>
+        </tr>
+        <tr>
+            <td>Hidratos de carbono</td>
+            <td class="kcal"><span id="porcentajeCarbo"></span> %</td>
+            <td class="kcal"><span id="totalCaloriasCarbo"></span> kcal</td>
+            <td class="kcal"><span id="totalGramosCarbo"></span> g</td>
+        </tr>
+        <tr>
+            <td>Proteinas</td>
+            <td class="kcal"><span id="porcentajeProte"></span> %</td>
+            <td class="kcal"><span id="totalCaloriasProte"></span> kcal</td>
+            <td class="kcal"><span id="totalGramosProte"></span> g</td>
+        </tr>
+        <tr>
+            <td>Grasas</td>
+            <td class="kcal"><span id="porcentajeGrasa"></span> %</td>
+            <td class="kcal"><span id="totalCaloriasGrasa"></span> kcal</td>
+            <td class="kcal"><span id="totalGramosGrasa"></span> g</td>
+        </tr>
+        <tr>
+            <td class="kcal-bold">Total Calorias</td>
+            <td class="kcal-bold"><span id="totalCaloriasPlan"></span> kcal</td>
+        </tr>
+    </table>*@
 
 <label style="max-width:100%;min-width:100%;margin-top: 5px" id="lblrecetario">Comentarios : @ViewBag.Recetario</label>
 <textarea id="comentariotxtarea" class="form-control" cols="12" style="max-width:100%;min-width:100%; width: 100%; margin-top:30px;display: none">@ViewBag.Recetario</textarea>
@@ -424,7 +424,7 @@
 
 <p style="margin-top: 5px">
     @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente", new { id = ViewBag.PacienteId }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
+    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom", @id = "imprimir" })
     @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
     @*@Html.ActionLink("Copiar fila de otro plan", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })*@
     <button class="btn btn-primary-custom" id="modificarRecetario">Cambiar Comentario</button>
@@ -444,6 +444,7 @@
 
 
 @section Scripts {
+    <script src="~/Scripts/printThis.js"></script>
     <script>
 
         var opcionIds = [];
@@ -453,6 +454,11 @@
         var totalCaloriasCarbo = 0;
         var totalCaloriasProte = 0;
         var totalCaloriasGrasa = 0;
+
+    $("#imprimir").click((e) => {
+            e.preventDefault();
+            $("body").printThis();
+        });
 
         var buscarComidas = function(cadenaBuscar, comidaId, subgrupoId) {
             $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
