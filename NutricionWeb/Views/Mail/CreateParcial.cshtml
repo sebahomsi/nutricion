@@ -57,7 +57,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.MailDestino, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4" style="width: 310px">
-                    @Html.EditorFor(model => model.MailDestino, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.EditorFor(model => model.MailDestino, new { htmlAttributes = new { @class = "form-control"} })
                     @Html.ValidationMessageFor(model => model.MailDestino, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2" align="left">
@@ -135,6 +135,7 @@
     }
 
     <div class="col-md-6">
+        <h5 style="text-align: center">Archivos adjuntos</h5>
         <div id="imagen"></div>
     </div>
 
@@ -143,6 +144,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
 
+        var archivos = [];
 
         $(document).ajaxStart(function () {
             $("#loading").show();
@@ -195,19 +197,63 @@
                     });
             });
 
+
+        var borrar = function (id) {
+            console.log(archivos);
+            archivos.splice(id, 1);
+            document.getElementById(`row${id}`).remove();
+            console.log(archivos);
+        }
+
         //=======================JavaScriptPuro==========================
+        console.log("");
         var prueba;
-        var insertarImagen = function(src) {
+        var insertarImagen = function (src,name,id) {
+            const btn = document.createElement("button");
+            btn.className += "btn btn-default pull-right";
+            btn.textContent = "x";
+            btn.id = id;
+           
+            btn.onclick = function () {borrar(id);};
+            const div = document.createElement("div");
+            div.className += "row";
+            div.id = "row"+id;
             const img = document.createElement("img");
+            const label = document.createElement("label");
+            label.textContent = name;
+            console.log(name);
             img.style.width = "50px";
             img.style.height = "50px";
             img.style.margin = "5px";
             img.src = src;
-            document.getElementById("imagen").appendChild(img);
+            div.appendChild(img);
+            div.appendChild(label);
+            div.appendChild(btn);
+            document.getElementById("imagen").appendChild(div);
         }
+
+        function FileListItem(a) {
+            a = [].slice.call(Array.isArray(a) ? a : arguments)
+            for (var c, b = c = a.length, d = !0; b-- && d;) d = a[b] instanceof File
+            if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
+            for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(a[c])
+            return b.files;
+        }
+
      
         var enviar = function(e) {
             e.preventDefault();
+
+            $("#Imagenes").prop('files',FileListItem(archivos));
+
+            //document.getElementById("Imagenes").addEventListener("input",
+            //    function () {
+            //        this.value = archivos;
+            //        //this.files.splice(0, this.files.length);
+            //        //for (let i = 0; i < archivos.length; i++) {
+            //        //    this.files.push(archivos[i]);
+            //        //}
+            //    });
 
             var data = new FormData(document.getElementById('formEnviarMail'));
             console.log(data);
@@ -235,36 +281,40 @@
             function() {
 
                 var files = this.files;
-                document.getElementById("imagen").innerHTML = "";
-                for (var i = 0; i < files.length; i++) {
 
+                for (var j = 0; j < files.length; j++) {
+                    archivos.push(files[j]);
+                }
+                document.getElementById("imagen").innerHTML = "";
+                for (let i = 0; i < archivos.length; i++) {
+                  
                     var fileReader = new FileReader();
-                    var file = files[i];
-                    console.log(file.type);
-                    console.log(file.name);
+                    var file = archivos[i];
+                    let name = file.name;
                     if (file.type.includes("image")) {
                         fileReader.onload = (function(e) {
-                            insertarImagen(e.target.result);
+                            insertarImagen(e.target.result,name,i);
+                           
                         });
                     }
                     if (file.type.includes("zip")) {
                         fileReader.onload = (function(e) {
-                            insertarImagen("/Content/Imagenes/icono-ZIP.png");
+                            insertarImagen("/Content/Imagenes/icono-ZIP.png",name,i);
                         });
 
                     }
                     if (file.name.includes("rar")) {
                         fileReader.onload = (function(e) {
-                            insertarImagen("/Content/Imagenes/rar.png");
+                            insertarImagen("/Content/Imagenes/rar.png",name,i);
                         });
 
                     }
-                    if (file.name.includes("docx") || file.name.includes(".txt")) {
+                    if (file.name.includes("doc") || file.name.includes(".txt") || file.name.includes("docx")) {
                         fileReader.onload = (function(e) {
-                            insertarImagen("/Content/Imagenes/word.png");
+                            insertarImagen("/Content/Imagenes/word.png",name,i);
                         });
                     }
-                    fileReader.readAsDataURL(files[i]);
+                    fileReader.readAsDataURL(archivos[i]);
                 }
             });
     </script>
