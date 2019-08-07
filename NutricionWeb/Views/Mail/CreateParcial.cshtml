@@ -297,21 +297,31 @@
                            
                         });
                     }
-                    if (file.type.includes("zip")) {
+                    else if (file.type.includes("zip")) {
                         fileReader.onload = (function(e) {
                             insertarImagen("/Content/Imagenes/icono-ZIP.png",name,i);
                         });
 
                     }
-                    if (file.name.includes("rar")) {
+                    else if (file.name.includes("rar")) {
                         fileReader.onload = (function(e) {
                             insertarImagen("/Content/Imagenes/rar.png",name,i);
                         });
 
                     }
-                    if (file.name.includes("doc") || file.name.includes(".txt") || file.name.includes("docx")) {
+                    else if (file.name.includes("doc") || file.name.includes(".txt") || file.name.includes("docx")) {
                         fileReader.onload = (function(e) {
                             insertarImagen("/Content/Imagenes/word.png",name,i);
+                        });
+                    }
+                    else if (file.name.includes(".xlsx") || file.name.includes(".xlsm") || file.name.includes(".xltx") || file.name.includes(".xls")) {
+                        fileReader.onload = (function (e) {
+                            insertarImagen("/Content/Imagenes/Exel.png", name, i);
+                        });
+                    }
+                    else {
+                         fileReader.onload = (function (e) {
+                            insertarImagen("/Content/Imagenes/archivo.png", name, i);
                         });
                     }
                     fileReader.readAsDataURL(archivos[i]);

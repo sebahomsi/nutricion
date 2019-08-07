@@ -402,6 +402,7 @@
     <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\Imagenes\better.jpg" />
+    <Content Include="Content\Imagenes\Exel.png" />
     <Content Include="Content\Imagenes\favico.ico" />
     <Content Include="Content\Imagenes\fondito.png" />
     <Content Include="Content\Imagenes\archivo.png" />
