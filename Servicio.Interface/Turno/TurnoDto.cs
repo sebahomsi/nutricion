@@ -16,6 +16,10 @@ namespace Servicio.Interface.Turno
 
         public DateTime HorarioSalida { get; set; }
 
+        public DateTime HorarioEntradaDate => HorarioEntrada.Date;
+
+        public DateTime HorarioSalidaDate => HorarioSalida.Date;
+
         public string Motivo { get; set; }
 
         public bool Eliminado { get; set; }

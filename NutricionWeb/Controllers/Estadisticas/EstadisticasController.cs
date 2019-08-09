@@ -130,8 +130,8 @@ namespace NutricionWeb.Controllers.Estadisticas
         public async Task<ActionResult> ObtenerPacientes(string fechaDesde, string fechaHasta)
         {
             var auxs = new List<PacienteAux>();
-            var desde = DateTime.Parse(fechaDesde);
-            var hasta = DateTime.Parse(fechaHasta);
+            var desde = ModificarFecha(fechaDesde);
+            var hasta = ModificarFecha(fechaHasta);
 
             var pacientesNuevos = await _pacienteServicio.GetByDateNewPacientes(desde, hasta);
             var pacientesActivos = await _pacienteServicio.GetByDateActivePacientes(desde, hasta);
@@ -150,7 +150,7 @@ namespace NutricionWeb.Controllers.Estadisticas
             var inactivos = new PacienteAux()
             {
                 Cantidad = pacientesInactivos.Count(),
-                Estado = "Sin Medición"
+                Estado = "Inactivos"
             };
             auxs.Add(nuevos);
             auxs.Add(activos);
@@ -172,6 +172,40 @@ namespace NutricionWeb.Controllers.Estadisticas
             var datos = await _turnoServicio.GetByIdPaciente(pacienteId.Value);
 
             var estados = await _estadoServicio.Get(false,"");
+
+            var datosOrdenados = new List<Contador>();
+
+            foreach (var estado in estados)
+            {
+                var cont = new Contador()
+                {
+                    Color = ConvertirColor(estado.Color),
+                    Descripcion = estado.Descripcion,
+                    Cantidad = 0
+                };
+                foreach (var turno in datos)
+                {
+                    if (turno.EstadoId == estado.Id)
+                    {
+                        cont.Cantidad++;
+                    }
+                }
+                datosOrdenados.Add(cont);
+            }
+            var json = datosOrdenados;
+            return Json(json, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public async Task<ActionResult> ObtenerTurnos(string fechaDesde, string fechaHasta)
+        {
+            var desde = ModificarFecha(fechaDesde);
+            var hasta = ModificarFecha(fechaHasta);
+
+
+            var datos = await _turnoServicio.GetByDateRange(desde, hasta);
+
+            var estados = await _estadoServicio.Get(false, "");
 
             var datosOrdenados = new List<Contador>();
 
@@ -232,6 +266,8 @@ namespace NutricionWeb.Controllers.Estadisticas
 
             public int Cantidad { get; set; }
         }
+
+
     }
     
 }

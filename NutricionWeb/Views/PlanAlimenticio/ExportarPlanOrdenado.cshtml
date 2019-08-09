@@ -5,443 +5,444 @@
 @{
     ViewBag.Title = "Plan";
 }
+    <div id="planAlimenticioParaImprimirPerro">
+        <div class="text-danger" id="mensajePlan"></div>
 
-<div class="text-danger" id="mensajePlan"></div>
-
-@*================Modal Duplicar =========================*@
-<div class="modal fade" id="modal-duplicar" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div align="right">
-                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <br>
-                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
-                    <h2>Seleccionar Dia</h2>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="form" style="height:382px">
-                    <div class="">
-                        <div id="partialFindDuplicarComida"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@*================Modal Duplicar Comida =========================*@
-<div class="modal fade" id="modal-duplicarComida" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            @*Parte de arriba del modal*@
-            <div class="modal-header">
-                <div align="right">
-                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <br>
-                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
-                    <h2>Seleccionar Plan</h2>
-                </div>
-            </div>
-            @*Cuerpo del modal*@
-            <div class="modal-body">
-                <div class="form" style="height:382px">
-                    <div class="form-group navbar-right">
-                        <div class="col-md-4" style="width: 310px">
-                            <input type="text" class="form-control " id="txt-BuscarPlan" placeholder="Ingrese una cadena...">
+        @*================Modal Duplicar =========================*@
+        <div class="modal fade" id="modal-duplicar" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div align="right">
+                            <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="col-md-2" align="left">
-                            <div id="btn-BuscarPlan" class="btn btn-default ">Buscar</div>
+                        <br>
+                        <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                            <h2>Seleccionar Dia</h2>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div id="partialFindPlan"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="cancelar-plan" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@*================Modal Agregar Comida =========================*@
-<div class="modal fade" id="modal-AgregarComida" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            @*Parte de arriba del modal*@
-            <div class="modal-header">
-                <div align="right">
-                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <br>
-                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
-                    <h2>Agregar Comida</h2>
-                </div>
-            </div>
-            @*Cuerpo del modal*@
-            <div class="modal-body">
-                <div class="" style="height: 382px">
-                    <div class="navbar-form navbar-right">
-
-                        <div class="form-group">
-
-
-
-                            <input type="text" class="form-control " id="txt-BuscarComida" placeholder="Ingrese una cadena...">
-                            <div id="btn-BuscarComida" class="btn btn-default" style="margin-top: 0px; margin-bottom: 0px;">Buscar</div>
+                    <div class="modal-body">
+                        <div class="form" style="height:382px">
+                            <div class="">
+                                <div id="partialFindDuplicarComida"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="navbar-form navbar-right">
-                        <strong>Subgrupo</strong>
-                        @Html.DropDownList("idSub", ViewBag.Cmb as IEnumerable<SelectListItem>, "Ninguno", new { @class = "form-control", @id = "idSub" })
-                    </div>
-
-                    <div class="col-md-12">
-                        <div id="partialFindAgregarComida"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="cancelar-subgrupo" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cerrar</button>
             </div>
         </div>
-    </div>
-</div>
 
-@*================Modal Detalle =========================*@
-<div class="modal fade" id="modal-detalle" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div align="right">
-                    <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <br>
-                <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
-                    <h2>Detalle</h2>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="form" style="height:382px">
-                    <div class="">
-                        <div id="partialFindDetalleComida"></div>
+        @*================Modal Duplicar Comida =========================*@
+        <div class="modal fade" id="modal-duplicarComida" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    @*Parte de arriba del modal*@
+                    <div class="modal-header">
+                        <div align="right">
+                            <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                        <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                            <h2>Seleccionar Plan</h2>
+                        </div>
+                    </div>
+                    @*Cuerpo del modal*@
+                    <div class="modal-body">
+                        <div class="form" style="height:382px">
+                            <div class="form-group navbar-right">
+                                <div class="col-md-4" style="width: 310px">
+                                    <input type="text" class="form-control " id="txt-BuscarPlan" placeholder="Ingrese una cadena...">
+                                </div>
+                                <div class="col-md-2" align="left">
+                                    <div id="btn-BuscarPlan" class="btn btn-default ">Buscar</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="partialFindPlan"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="cancelar-plan" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        </div>
+
+        @*================Modal Agregar Comida =========================*@
+        <div class="modal fade" id="modal-AgregarComida" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    @*Parte de arriba del modal*@
+                    <div class="modal-header">
+                        <div align="right">
+                            <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                        <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                            <h2>Agregar Comida</h2>
+                        </div>
+                    </div>
+                    @*Cuerpo del modal*@
+                    <div class="modal-body">
+                        <div class="" style="height: 382px">
+                            <div class="navbar-form navbar-right">
+
+                                <div class="form-group">
+
+
+
+                                    <input type="text" class="form-control " id="txt-BuscarComida" placeholder="Ingrese una cadena...">
+                                    <div id="btn-BuscarComida" class="btn btn-default" style="margin-top: 0px; margin-bottom: 0px;">Buscar</div>
+                                </div>
+                            </div>
+                            <div class="navbar-form navbar-right">
+                                <strong>Subgrupo</strong>
+                                @Html.DropDownList("idSub", ViewBag.Cmb as IEnumerable<SelectListItem>, "Ninguno", new { @class = "form-control", @id = "idSub" })
+                            </div>
+
+                            <div class="col-md-12">
+                                <div id="partialFindAgregarComida"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="cancelar-subgrupo" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<style>
-    .row {
-        display: table;
-        width: 100%;
-    }
+        @*================Modal Detalle =========================*@
+        <div class="modal fade" id="modal-detalle" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div align="right">
+                            <button type="button" class=" btn btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                        <div class="jumbotron titulo-ABM" style="margin-bottom:5px">
+                            <h2>Detalle</h2>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form" style="height:382px">
+                            <div class="">
+                                <div id="partialFindDetalleComida"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary-custom" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    .cabeceraDia {
-        border-left: 1px solid black;
-        border-top: 1px solid black;
-        width: 12.5%;
-    }
+        <style>
+            .row {
+                display: table;
+                width: 100%;
+            }
 
-    .cabeceraComida {
-        border-left: 1px solid black;
-        border-top: 1px solid black;
-        width: 12.5%
-    }
+            .cabeceraDia {
+                border-left: 1px solid black;
+                border-top: 1px solid black;
+                width: 12.5%;
+            }
 
-    .comidasDomingos {
-        border-left: 1px solid black;
-        border-top: 1px solid black;
-        border-right: 1px solid black !important;
-        width: 12.5%
-    }
+            .cabeceraComida {
+                border-left: 1px solid black;
+                border-top: 1px solid black;
+                width: 12.5%
+            }
 
-    .comidasCena {
-        border-bottom: 1px solid black;
-    }
+            .comidasDomingos {
+                border-left: 1px solid black;
+                border-top: 1px solid black;
+                border-right: 1px solid black !important;
+                width: 12.5%
+            }
 
-    .cabeceraDomingo {
-        border-right: 1px solid black;
-    }
+            .comidasCena {
+                border-bottom: 1px solid black;
+            }
 
-    .cabeceraCena {
-        border-bottom: 1px solid black;
-    }
+            .cabeceraDomingo {
+                border-right: 1px solid black;
+            }
 
-    .btn {
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
+            .cabeceraCena {
+                border-bottom: 1px solid black;
+            }
 
-    .tabla {
-        border-collapse: collapse;
-        background-color: #F8F8FF;
-    }
+            .btn {
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
 
-    .td {
-        border: 1px solid #000;
-        width: 12.5%;
-    }
+            .tabla {
+                border-collapse: collapse;
+                background-color: #F8F8FF;
+            }
 
-    .td-pad {
-        padding-left: 5px;
-    }
+            .td {
+                border: 1px solid #000;
+                width: 12.5%;
+            }
 
-    .th {
-        border: 1px solid #000;
-        width: 12.5%;
-        text-align: center;
-    }
+            .td-pad {
+                padding-left: 5px;
+            }
 
-    .kcal {
-        color: gray;
-        margin-top: 5px;
-        font-style: italic;
-    }
+            .th {
+                border: 1px solid #000;
+                width: 12.5%;
+                text-align: center;
+            }
 
-    .kcal-bold {
-        font-weight: bold;
-    }
-</style>
+            .kcal {
+                color: gray;
+                margin-top: 5px;
+                font-style: italic;
+            }
 
-@helper DibujarComidas(List<NutricionWeb.Models.Comida.ComidaViewModel> comidas, string clases = "")
-{
-    foreach (var comida in comidas)
-    {
-        if (Model.Desayunos.Last().DiaStr == comida.DiaStr)
+            .kcal-bold {
+                font-weight: bold;
+            }
+        </style>
+
+        @helper DibujarComidas(List<NutricionWeb.Models.Comida.ComidaViewModel> comidas, string clases = "")
         {
-            <td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
-                @foreach (var detalle in comida.ComidasDetalles)
+            foreach (var comida in comidas)
+            {
+                if (Model.Desayunos.Last().DiaStr == comida.DiaStr)
                 {
-                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
-                    if (!string.IsNullOrEmpty(detalle.Comentario))
-                    {
-                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                    <br />
+                    <td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
+                        @foreach (var detalle in comida.ComidasDetalles)
+                        {
+                            <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
+                            if (!string.IsNullOrEmpty(detalle.Comentario))
+                            {
+                                <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                                <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                            }
+                            <br />
 
-                }
+                        }
 
 
 
-                @if (comida.ComidasDetalles.Count == 0)
-                {
-                    <div align="center">
-                        <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
-                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
-                    </div>
+                        @if (comida.ComidasDetalles.Count == 0)
+                        {
+                            <div align="center">
+                                <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
+                                <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div align="center">
+                                <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
+                        }
+                    </td>
                 }
                 else
                 {
-                    <div align="center">
-                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
-                    </div>
-                    <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
-                }
-            </td>
-        }
-        else
-        {
-            <td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
-                @foreach (var detalle in comida.ComidasDetalles)
-                {
-                    <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
+                    <td class="td td-pad" comidaColumna id="@comida.DiaStr@comida.DescripcionTrim">
+                        @foreach (var detalle in comida.ComidasDetalles)
+                        {
+                            <a onclick="detalle(@detalle.Id)" style="cursor: pointer">@detalle.OpcionStr .</a>
 
-                    if (!string.IsNullOrEmpty(detalle.Comentario))
-                    {
-                        <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
-                        <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
-                    }
-                    <br />
+                            if (!string.IsNullOrEmpty(detalle.Comentario))
+                            {
+                                <p style="font-size: 12px; margin: 0; color: darkgrey; font-style: italic;">Consejo: @detalle.Comentario</p>
+                                <hr style="margin-top: 5px; margin-bottom: 5px; border: 0; border-top: 1px solid darkgray;" />
+                            }
+                            <br />
 
-                }
-                @if (comida.ComidasDetalles.Count == 0)
-                {
-                    <div align="center">
-                        <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
-                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
-                    </div>
-                }
-                else
-                {
-                    <div align="center">
-                        <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
-                    </div>
-                    <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
+                        }
+                        @if (comida.ComidasDetalles.Count == 0)
+                        {
+                            <div align="center">
+                                <div id="@comida.Id" class="btn btn-primary btn-xs" title="Copiar una comida" onclick="duplicar(@comida.Id)"><i class="far fa-clipboard"></i></div>
+                                <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div align="center">
+                                <div id="@comida.Id" class="btn btn-success btn-xs" title="Agregar opcion" onclick="agregar(@comida.Id)"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div calorias="@comida.DescripcionTrim" dia="@comida.DiaStr" carbo="@comida.SubTotalCaloriasCarbo" prote="@comida.SubTotalCaloriasProte" grasa="@comida.SubTotalCaloriasGrasa" hidden="hidden">@comida.SubTotalCalorias</div>
+                        }
+
+                    </td>
                 }
 
-            </td>
+            }
         }
 
-    }
-}
 
-<div class="titulo-ABM" style="text-align: center;">
-    <h4 class="create-h4" style="font-size: 2.3em">Plan Alimenticio - @ViewBag.Paciente</h4>
-</div>
+        <div class="titulo-ABM" style="text-align: center;">
+            <h4 class="create-h4" style="font-size: 2.3em">Plan Alimenticio - @ViewBag.Paciente</h4>
+        </div>
 
-<table class="tabla" width="100%">
-    <tr>
-        <th style="border: none;"></th>
-        <th class="th">Lunes</th>
-        <th class="th">Martes</th>
-        <th class="th">Miercoles</th>
-        <th class="th">Jueves</th>
-        <th class="th">Viernes</th>
-        <th class="th">Sabado</th>
-        <th class="th">Domingo</th>
+        <table class="tabla" width="100%">
+            <tr>
+                <th style="border: none;"></th>
+                <th class="th">Lunes</th>
+                <th class="th">Martes</th>
+                <th class="th">Miercoles</th>
+                <th class="th">Jueves</th>
+                <th class="th">Viernes</th>
+                <th class="th">Sabado</th>
+                <th class="th">Domingo</th>
 
-    </tr>
+            </tr>
 
-    <tr id="desayuno">
-        <td class="td text-center" desayuno style="cursor: pointer">
-            <span style="font-weight: bold;">Desayuno</span>
-            <div id="caloriasDesayuno" class="kcal kcal-bold"></div>
-        </td>
-        @DibujarComidas(Model.Desayunos)
-    </tr>
-    <tr id="mediaManana">
-        <td class="td text-center" mediaManana style="cursor: pointer"><span style="font-weight: bold;">Media Mañana</span><div id="caloriasMediaManana" class="kcal kcal-bold"></div></td>
-        @DibujarComidas(Model.MediaMañana)
-    </tr>
-    <tr id="almuerzo">
-        <td class="td text-center" almuerzo style="cursor: pointer"><span style="font-weight: bold;">Almuerzo</span><div id="caloriasAlmuerzo" class="kcal kcal-bold"></div></td>
-        @DibujarComidas(Model.Almuerzo)
-    </tr>
-    <tr id="opcionalMediodia">
-        <td class="td text-center" opcionalmedioDia style="cursor: pointer"><span style="font-weight: bold;">Opcional Mediodia</span><div id="caloriasOpcionalMediodia" class="kcal kcal-bold"></div></td>
-        @DibujarComidas(Model.OpcionalMediodia)
-    </tr>
-    <tr id="merienda">
-        <td class="td text-center" merienda style="cursor: pointer"><span style="font-weight: bold;">Merienda</span><div id="caloriasMerienda" class="kcal kcal-bold"></div></td>
-        @DibujarComidas(Model.Merienda)
-    </tr>
-    <tr id="mediaTarde">
-        <td class="td text-center" mediaTarde style="cursor: pointer"><span style="font-weight: bold;">Media tarde</span><div id="caloriasMediaTarde" class="kcal kcal-bold"></div></td>
-        @DibujarComidas(Model.MediaTarde)
-    </tr>
-    <tr id="cena">
-        <td class="td text-center" cena style="cursor: pointer"><span style="font-weight: bold;">Cena</span><div id="caloriasCena" class="kcal kcal-bold"></div></td>
-        @DibujarComidas(Model.Cena)
-    </tr>
-    <tr id="opcionalNoche">
-        <td class="td text-center" opcionalNoche style="cursor: pointer"><span style="font-weight: bold;">Opcional Noche</span><div id="caloriasOpcionalNoche" class="kcal kcal-bold"></div></td>
-        @DibujarComidas(Model.OpcionalNoche)
-    </tr>
-    <tr>
-        <td></td>
-        <td class="td text-center"><div id="caloriasLunes" class="kcal kcal-bold"></div></td>
-        <td class="td text-center"><div id="caloriasMartes" class="kcal kcal-bold"></div></td>
-        <td class="td text-center"><div id="caloriasMiercoles" class="kcal kcal-bold"></div></td>
-        <td class="td text-center"><div id="caloriasJueves" class="kcal kcal-bold"></div></td>
-        <td class="td text-center"><div id="caloriasViernes" class="kcal kcal-bold"></div></td>
-        <td class="td text-center"><div id="caloriasSabado" class="kcal kcal-bold"></div></td>
-        <td class="td text-center"><div id="caloriasDomingo" class="kcal kcal-bold"></div></td>
-    </tr>
-</table>
+            <tr id="desayuno">
+                <td class="td text-center" desayuno style="cursor: pointer">
+                    <span style="font-weight: bold;">Desayuno</span>
+                    <div id="caloriasDesayuno" class="kcal kcal-bold"></div>
+                </td>
+                @DibujarComidas(Model.Desayunos)
+            </tr>
+            <tr id="mediaManana">
+                <td class="td text-center" mediaManana style="cursor: pointer"><span style="font-weight: bold;">Media Mañana</span><div id="caloriasMediaManana" class="kcal kcal-bold"></div></td>
+                @DibujarComidas(Model.MediaMañana)
+            </tr>
+            <tr id="almuerzo">
+                <td class="td text-center" almuerzo style="cursor: pointer"><span style="font-weight: bold;">Almuerzo</span><div id="caloriasAlmuerzo" class="kcal kcal-bold"></div></td>
+                @DibujarComidas(Model.Almuerzo)
+            </tr>
+            <tr id="opcionalMediodia">
+                <td class="td text-center" opcionalmedioDia style="cursor: pointer"><span style="font-weight: bold;">Opcional Mediodia</span><div id="caloriasOpcionalMediodia" class="kcal kcal-bold"></div></td>
+                @DibujarComidas(Model.OpcionalMediodia)
+            </tr>
+            <tr id="merienda">
+                <td class="td text-center" merienda style="cursor: pointer"><span style="font-weight: bold;">Merienda</span><div id="caloriasMerienda" class="kcal kcal-bold"></div></td>
+                @DibujarComidas(Model.Merienda)
+            </tr>
+            <tr id="mediaTarde">
+                <td class="td text-center" mediaTarde style="cursor: pointer"><span style="font-weight: bold;">Media tarde</span><div id="caloriasMediaTarde" class="kcal kcal-bold"></div></td>
+                @DibujarComidas(Model.MediaTarde)
+            </tr>
+            <tr id="cena">
+                <td class="td text-center" cena style="cursor: pointer"><span style="font-weight: bold;">Cena</span><div id="caloriasCena" class="kcal kcal-bold"></div></td>
+                @DibujarComidas(Model.Cena)
+            </tr>
+            <tr id="opcionalNoche">
+                <td class="td text-center" opcionalNoche style="cursor: pointer"><span style="font-weight: bold;">Opcional Noche</span><div id="caloriasOpcionalNoche" class="kcal kcal-bold"></div></td>
+                @DibujarComidas(Model.OpcionalNoche)
+            </tr>
+            <tr>
+                <td></td>
+                <td class="td text-center"><div id="caloriasLunes" class="kcal kcal-bold"></div></td>
+                <td class="td text-center"><div id="caloriasMartes" class="kcal kcal-bold"></div></td>
+                <td class="td text-center"><div id="caloriasMiercoles" class="kcal kcal-bold"></div></td>
+                <td class="td text-center"><div id="caloriasJueves" class="kcal kcal-bold"></div></td>
+                <td class="td text-center"><div id="caloriasViernes" class="kcal kcal-bold"></div></td>
+                <td class="td text-center"><div id="caloriasSabado" class="kcal kcal-bold"></div></td>
+                <td class="td text-center"><div id="caloriasDomingo" class="kcal kcal-bold"></div></td>
+            </tr>
+        </table>
 
-<br /><br />
+        <br /><br />
 
-<table class="table" style="max-width: 400px;">
-    <tr>
-        <th>Macronutriente</th>
-        <th>%</th>
-        <th>Kcal</th>
-        <th>Gramos</th>
-    </tr>
-    <tr>
-        <td>Hidratos de carbono</td>
-        <td>@ViewBag.CarboPorce %</td>
-        <td>@ViewBag.Carbos kcal</td>
-        <td>@ViewBag.CarboGramo g</td>
-    </tr>
-    <tr>
-        <td>Proteinas</td>
-        <td>@ViewBag.ProtePorce %</td>
-        <td>@ViewBag.Protes kcal</td>
-        <td>@ViewBag.ProteGramo g</td>
-    </tr>
-    <tr>
-        <td>Grasas</td>
-        <td>@ViewBag.GrasaPorce %</td>
-        <td>@ViewBag.Grasas kcal</td>
-        <td>@ViewBag.GrasaGramo g</td>
-    </tr>
-    <tr>
-        <td>Total Calorias</td>
-        <td>@ViewBag.Calorias kcal</td>
-    </tr>
-</table>
+        <table class="table" style="max-width: 400px;" id="tablaPorcentajes">
+            <tr>
+                <th>Macronutriente</th>
+                <th>%</th>
+                <th>Kcal</th>
+                <th>Gramos</th>
+            </tr>
+            <tr>
+                <td>Hidratos de carbono</td>
+                <td>@ViewBag.CarboPorce %</td>
+                <td>@ViewBag.Carbos kcal</td>
+                <td>@ViewBag.CarboGramo g</td>
+            </tr>
+            <tr>
+                <td>Proteinas</td>
+                <td>@ViewBag.ProtePorce %</td>
+                <td>@ViewBag.Protes kcal</td>
+                <td>@ViewBag.ProteGramo g</td>
+            </tr>
+            <tr>
+                <td>Grasas</td>
+                <td>@ViewBag.GrasaPorce %</td>
+                <td>@ViewBag.Grasas kcal</td>
+                <td>@ViewBag.GrasaGramo g</td>
+            </tr>
+            <tr>
+                <td>Total Calorias</td>
+                <td>@ViewBag.Calorias kcal</td>
+            </tr>
+        </table>
 
-@*<table class="table" style="max-width: 400px;">
-        <tr>
-            <th>Macronutriente</th>
-            <th>%</th>
-            <th>Kcal</th>
-            <th>Gramos</th>
-        </tr>
-        <tr>
-            <td>Hidratos de carbono</td>
-            <td class="kcal"><span id="porcentajeCarbo"></span> %</td>
-            <td class="kcal"><span id="totalCaloriasCarbo"></span> kcal</td>
-            <td class="kcal"><span id="totalGramosCarbo"></span> g</td>
-        </tr>
-        <tr>
-            <td>Proteinas</td>
-            <td class="kcal"><span id="porcentajeProte"></span> %</td>
-            <td class="kcal"><span id="totalCaloriasProte"></span> kcal</td>
-            <td class="kcal"><span id="totalGramosProte"></span> g</td>
-        </tr>
-        <tr>
-            <td>Grasas</td>
-            <td class="kcal"><span id="porcentajeGrasa"></span> %</td>
-            <td class="kcal"><span id="totalCaloriasGrasa"></span> kcal</td>
-            <td class="kcal"><span id="totalGramosGrasa"></span> g</td>
-        </tr>
-        <tr>
-            <td class="kcal-bold">Total Calorias</td>
-            <td class="kcal-bold"><span id="totalCaloriasPlan"></span> kcal</td>
-        </tr>
-    </table>*@
+        @*<table class="table" style="max-width: 400px;">
+            <tr>
+                <th>Macronutriente</th>
+                <th>%</th>
+                <th>Kcal</th>
+                <th>Gramos</th>
+            </tr>
+            <tr>
+                <td>Hidratos de carbono</td>
+                <td class="kcal"><span id="porcentajeCarbo"></span> %</td>
+                <td class="kcal"><span id="totalCaloriasCarbo"></span> kcal</td>
+                <td class="kcal"><span id="totalGramosCarbo"></span> g</td>
+            </tr>
+            <tr>
+                <td>Proteinas</td>
+                <td class="kcal"><span id="porcentajeProte"></span> %</td>
+                <td class="kcal"><span id="totalCaloriasProte"></span> kcal</td>
+                <td class="kcal"><span id="totalGramosProte"></span> g</td>
+            </tr>
+            <tr>
+                <td>Grasas</td>
+                <td class="kcal"><span id="porcentajeGrasa"></span> %</td>
+                <td class="kcal"><span id="totalCaloriasGrasa"></span> kcal</td>
+                <td class="kcal"><span id="totalGramosGrasa"></span> g</td>
+            </tr>
+            <tr>
+                <td class="kcal-bold">Total Calorias</td>
+                <td class="kcal-bold"><span id="totalCaloriasPlan"></span> kcal</td>
+            </tr>
+        </table>*@
 
-<label style="max-width:100%;min-width:100%;margin-top: 5px" id="lblrecetario">Comentarios : @ViewBag.Recetario</label>
+        <label style="max-width:100%;min-width:100%;margin-top: 5px" id="lblrecetario">Comentarios : @ViewBag.Recetario</label>
 <textarea id="comentariotxtarea" class="form-control" cols="12" style="max-width:100%;min-width:100%; width: 100%; margin-top:30px;display: none">@ViewBag.Recetario</textarea>
-<button class="btn btn-primary-custom btn-xs" style="display: none" id="guardarComentario">Guardar</button>
-<button class="btn btn-danger btn-xs" style="display: none" id="cancelarComentario">Cancelar</button>
+        <button class="btn btn-primary-custom btn-xs" style="display: none" id="guardarComentario">Guardar</button>
+        <button class="btn btn-danger btn-xs" style="display: none" id="cancelarComentario">Cancelar</button>
 
-<p style="margin-top: 5px">
-    @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente", new { id = ViewBag.PacienteId }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom", @id = "imprimir" })
-    @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
-    @*@Html.ActionLink("Copiar fila de otro plan", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })*@
-    <button class="btn btn-primary-custom" id="modificarRecetario">Cambiar Comentario</button>
-    <button class="btn btn-primary-custom" id="verRecetario">Ver recetario</button>
-</p>
+        <p style="margin-top: 5px">
+            @Html.ActionLink("Volver al paciente", "DatosAdicionales", "Paciente", new { id = ViewBag.PacienteId }, new { @class = "btn btn-default", @id = "volverPaciente" })
+            @Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom", @id = "imprimir" })
+            @Html.ActionLink("Copiar Plan Alimenticio", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom", @id = "duplicarPlan" })
+            @*@Html.ActionLink("Copiar fila de otro plan", "DuplicarPlan", "PlanAlimenticio", new { volver = 1, planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })*@
+            <button class="btn btn-primary-custom" id="modificarRecetario">Cambiar Comentario</button>
+            <button class="btn btn-primary-custom" id="verRecetario">Ver recetario</button>
+        </p>
 
-<br /><br />
+        <br /><br />
 
-<div id="recetario" style="display: none">
-    <div class="row" style="text-align: center; margin-bottom: 30px;">
-        <h4 style="color: #89bc94; font-size: 1.5em;">Recetario</h4>
+        <div id="recetario" style="display: none">
+            <div class="row" style="text-align: center; margin-bottom: 30px;">
+                <h4 style="color: #89bc94; font-size: 1.5em;">Recetario</h4>
+            </div>
+
+            <div id="recetario-container" class="row"></div>
+
+        </div>
     </div>
-
-    <div id="recetario-container" class="row"></div>
-
-</div>
-
 
 @section Scripts {
     <script src="~/Scripts/printThis.js"></script>
@@ -454,11 +455,47 @@
         var totalCaloriasCarbo = 0;
         var totalCaloriasProte = 0;
         var totalCaloriasGrasa = 0;
-
-    $("#imprimir").click((e) => {
+        
+        $("#imprimir").click((e) => {
             e.preventDefault();
-            $("body").printThis();
+
+            ocultar();
+            $("#planAlimenticioParaImprimirPerro").printThis(/*{ afterPrint: function() { desocultar(); } }*/);
+         
+
+
         });
+
+        var ocultar = () => {
+            $("#recetario").toggle();
+            if ($("#recetario").is(':visible')) {
+                $("#recetario-container").empty();
+                $.get('@Url.Action("ObtenerRecetarios", "PlanAlimenticio")',
+                    { planAlimenticio: @ViewBag.PlanId },
+                    (parcial) => {
+                        $("#recetario-container").empty().append(parcial);
+                    });
+            } else {
+                $("#recetario-container").empty();
+            }
+
+            $("#verRecetario").hide();
+            $("#imprimir").hide();
+            $("#duplicarPlan").hide();
+            $("#volverPaciente").hide();
+            $("#modificarRecetario").hide();
+            $("#tablaPorcentajes").hide();
+        }
+
+    var desocultar = () => {
+            console.log("tumama");
+            $("#verRecetario").show();
+            $("#imprimir").show();
+            $("#duplicarPlan").show();
+            $("#volverPaciente").show();
+            $("#modificarRecetario").show();
+            $("#tablaPorcentajes").show();
+        }
 
         var buscarComidas = function(cadenaBuscar, comidaId, subgrupoId) {
             $.get('@Url.Action("BuscarOpcionModal", "ComidaDetalle")',
@@ -783,6 +820,8 @@
                 }
 
             });
+
+            console.log(document.getElementById('printThis-1565381213403'));
 
         });
 

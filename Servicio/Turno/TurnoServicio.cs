@@ -135,7 +135,14 @@ namespace Servicio.Turno
             return turnos;
         }
 
+        public async Task<IEnumerable<TurnoDto>> GetByDateRange(DateTime desde, DateTime hasta)
+        {
+            var turnos = await Context.Turnos.Where(x => !x.Eliminado)
+                .ToListAsync();
 
+            var turnosDto = Mapper.Map<IEnumerable<TurnoDto>>(turnos);
 
+            return turnosDto.Where(t => (t.HorarioEntradaDate >= desde && t.HorarioEntradaDate <= hasta));
+        }
     }
 }

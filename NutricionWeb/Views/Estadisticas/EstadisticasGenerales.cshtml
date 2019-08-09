@@ -25,7 +25,7 @@
                             <span class="input-group-addon primarySpan">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                            <input type="hidden" class="form-control" name="Desde" id="Desde" value="@DateTime.Now.AddDays(-(DateTime.Now.Day-1))"/>
+                            <input type="hidden" class="form-control" name="Desde" id="Desde" value="@DateTime.Now.AddDays(-(DateTime.Now.Day-1)).ToString("dd/MM/yyyy HH:mm")"/>
                             <input type="text" class="form-control" readonly="readonly" id="DesdeR" placeholder="DD/MM/YYYY" />
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             <span class="input-group-addon primarySpan">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                            <input type="hidden" class="form-control" name="Desde" id="Hasta" value="@DateTime.Now"/>
+                            <input type="hidden" class="form-control" name="Desde" id="Hasta" value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm")"/>
                             <input type="text" class="form-control" readonly="readonly" id="HastaR" placeholder="DD/MM/YYYY" />
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                             <span class="input-group-addon primarySpan">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                            <input type="hidden" class="form-control" name="DesdePaciente" id="DesdePaciente" value="@DateTime.Now.AddDays(-(DateTime.Now.Day-1))" />
+                            <input type="hidden" class="form-control" name="DesdePaciente" id="DesdePaciente" value="@DateTime.Now.AddDays(-(DateTime.Now.Day-1)).ToString("dd/MM/yyyy HH:mm")" />
                             <input type="text" class="form-control" readonly="readonly" id="DesdeRP" placeholder="DD/MM/YYYY" />
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                             <span class="input-group-addon primarySpan">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                            <input type="hidden" class="form-control" name="DesdePaciente" id="HastaPaciente" value="@DateTime.Now" />
+                            <input type="hidden" class="form-control" name="DesdePaciente" id="HastaPaciente" value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm")" />
                             <input type="text" class="form-control" readonly="readonly" id="HastaRP" placeholder="DD/MM/YYYY" />
                         </div>
                     </div>
@@ -102,6 +102,54 @@
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <h2 style="color: #89bc94;">Turnos</h2>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-2" align="right">
+                        @Html.Label("Desde", htmlAttributes: new { @class = "control-label", @style = "margin-top:5px;" })
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="input-group datepicker" id="FechaDesdeTurno">
+                            <span class="input-group-addon primarySpan">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type="hidden" class="form-control" name="DesdePaciente" id="DesdeTurno" value="@DateTime.Now.AddDays(-(DateTime.Now.Day-1)).ToString("dd/MM/yyyy HH:mm")" />
+                            <input type="text" class="form-control" readonly="readonly" id="DesdeRT" placeholder="DD/MM/YYYY" />
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2" align="right">
+                        @Html.Label("Hasta", htmlAttributes: new { @class = "control-label", @style = "margin-top:5px;" })
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="input-group datepicker" id="FechaHastaTurno">
+                            <span class="input-group-addon primarySpan">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type="hidden" class="form-control" name="DesdePaciente" id="HastaTurno" value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm")" />
+                            <input type="text" class="form-control" readonly="readonly" id="HastaRT" placeholder="DD/MM/YYYY" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-default" id="aceptarTurno" style="margin-left: -45px;">Aceptar</button>
+                    </div>
+                </div>
+                <br/>
+            </div>
+            <div>
+                <canvas id="turnosOp" width="500" height="250"></canvas>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -110,6 +158,7 @@
     <script>
         var pacienteChart;
         var pagosChart;
+        var turnosOp;
 
         $("#FechaDesde").datetimepicker({
             locale: 'es',
@@ -126,6 +175,16 @@
 
         });
         $("#FechaHastaPaciente").datetimepicker({
+            locale: 'es',
+            format: 'L'
+        });
+
+        $("#FechaDesdeTurno").datetimepicker({
+            locale: 'es',
+            format: 'L'
+
+        });
+        $("#FechaHastaTurno").datetimepicker({
             locale: 'es',
             format: 'L'
         });
@@ -299,11 +358,84 @@
             obtenerPacientes(fechaDesde, fechaHasta);
         });
 
+        
+
+        /********** TURNO **********/
+
+        var obtenerTurnos = (desde, hasta) => {
+
+            $.get('@Url.Action("ObtenerTurnos", "Estadisticas")',
+                { fechaDesde: desde, fechaHasta: hasta },
+                (turnos) => {
+                    graficoTurnos(turnos);
+                });
+        }
+
+        var graficoTurnos = (datos) => {
+
+            
+                let descripcion = $.map(datos, (val, i) => {
+                    return val.Descripcion;
+                });
+
+                let color = $.map(datos, (val, i) => {
+                    return val.Color;
+                });
+
+                let cantidad = $.map(datos, (val, i) => {
+                    return val.Cantidad;
+                });
+
+            var ctx = document.getElementById('turnosOp').getContext('2d');
+            
+                turnosOp = new Chart(ctx,
+                {
+                    type: 'doughnut',
+                    data: {
+                        labels: descripcion,
+                        datasets: [
+                            {
+                                label: 'Turnos',
+                                fill: true,
+                                data: cantidad,
+                                backgroundColor: color,
+                                borderColor: color,
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            //yAxes: [{
+                            //    ticks: {
+                            //        beginAtZero: true,
+                            //        stepSize: 5
+                                    
+                            //    }
+                            //}],
+                            //xAxes: [{
+                            //    barThickness: 30
+                            //}]
+                        }
+                    }
+                });
+            
+        }
+
+        $("#aceptarTurno").on("click", (e) => {
+                    
+            let fechaDesde = $("#DesdeTurno").val();
+            let fechaHasta = $("#HastaTurno").val();
+            turnosOp.destroy();
+            obtenerTurnos(fechaDesde, fechaHasta);
+        });
+
         $(() => {
             
             obtenerPagos($("#Desde").val(), $("#Hasta").val());
 
             obtenerPacientes($("#DesdePaciente").val(), $("#HastaPaciente").val());
+
+            obtenerTurnos($("#DesdeTurno").val(), $("#HastaTurno").val());
 
         });
 

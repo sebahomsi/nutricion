@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Servicio.Interface.Turno
@@ -13,5 +14,6 @@ namespace Servicio.Interface.Turno
         Task<TurnoDto> GetLastByPacienteId(long pacienteId);
         Task<int> GetNextCode();
         Task<IEnumerable<TurnoDto>> GetByIdPaciente(long id);
+        Task<IEnumerable<TurnoDto>> GetByDateRange(DateTime desde, DateTime hasta);
     }
 }

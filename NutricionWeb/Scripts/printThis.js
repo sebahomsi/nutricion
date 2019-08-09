@@ -195,6 +195,8 @@
                 if (!opt.debug) {
                     setTimeout(function() {
                         $iframe.remove();
+                        location.reload();
+                        
                     }, 1000);
                 }
 

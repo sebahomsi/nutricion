@@ -231,7 +231,6 @@
     <div id="recetario-container" class="row"></div>
 
 </div>
-@Html.ActionLink("Generar Impresion PDF", "GeneratePdf", new { planId = ViewBag.PlanId }, new { @class = "btn btn-primary-custom" })
 
 
 @section Scripts {
@@ -263,7 +262,7 @@
                 });
         }
 
-        var duplicar = id => {
+        @*var duplicar = id => {
             $("#modal-duplicar").modal("show");
 
             $.get('@Url.Action("DuplicarComida", "Comida")',
@@ -271,9 +270,9 @@
                 parcial => {
                     $("#partialFindDuplicarComida").empty().append(parcial);
                 });
-        }
+        }*@
 
-        var agregar = id => {
+        @*var agregar = id => {
             comidaIdFlag = -1;
             $("#modal-AgregarComida").modal("show");
             comidaIdFlag = id;
@@ -282,9 +281,9 @@
                 parcial => {
                     $("#partialFindAgregarComida").empty().append(parcial);
                 });
-        }
+        }*@
 
-        $(document).on("click",
+        @*$(document).on("click",
             "input[name=seleccionar-opcion]",
             (e) => {
                 var id = $(e.target).attr("id");
@@ -324,7 +323,7 @@
             function(e) {
                 comidaSeleccionada = "";
 
-            });
+            });*@
 
         var recorreFila = (idFila) => {
             var elementoAnterior;
@@ -364,7 +363,7 @@
                 });
         }
 
-        $(document).on("click",
+        @*$(document).on("click",
             "#seleccionar-plan",
             function() {
                 $.get('@Url.Action("DuplicarComidaDeOtroPlan", "Comida")',
@@ -381,7 +380,7 @@
                         }
                     });
 
-            });
+            });*@
 
         var calcularCaloriasPorDia = (dia) => {
             let contadorCalorias = 0;
@@ -468,7 +467,7 @@
             //$("#porcentajeProte").empty().append(((totalCaloriasProte * 100) / totalCaloriasPlan).toFixed(1));
             //$("#porcentajeGrasa").empty().append(((totalCaloriasGrasa * 100) / totalCaloriasPlan).toFixed(1));
 
-            $("#guardarComentario").click(() => {
+            @*$("#guardarComentario").click(() => {
                 $.post('@Url.Action("ModificarRecetario", "PlanAlimenticio")',
                     { recetario: $("#comentariotxtarea").val(), planId: @ViewBag.PlanId },
                     (json) => {
@@ -478,7 +477,7 @@
                             $("#mensajePlan").empty().append(json.mensaje);
                         }
                     });
-            });
+            });*@
 
             var recetario = () => {
                 $("#comentariotxtarea").toggle();
@@ -554,7 +553,7 @@
                 listaPlan();
             });
 
-            $("#verRecetario").click(() => {
+            @*$("#verRecetario").click(() => {
                 $("#recetario").toggle();
                 if ($("#recetario").is(':visible')) {
                     $("#recetario-container").empty();
@@ -567,7 +566,7 @@
                     $("#recetario-container").empty();
                 }
 
-            });
+            });*@
 
         });
 
