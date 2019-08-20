@@ -252,13 +252,15 @@ namespace Servicio.PlanAlimenticio
 
             foreach (var dia in dias)
             {
-                if (dia.Comidas.First().ComidasDetalles.Any())
-                {
-                    contadorComidas++;
-                }
+                var flag = false;
 
                 foreach (var comida in dia.Comidas)
                 {
+
+                    if (comida.ComidasDetalles.Any())
+                    {
+                        flag = true;
+                    }
                     foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
                         var opcion = comidaDetalle.Opcion;
@@ -316,6 +318,11 @@ namespace Servicio.PlanAlimenticio
                         caloriasDia += caloriasPromedioComida;
                         caloriasPromedioComida = 0;
                     }
+
+                }
+                if (flag)
+                {
+                    contadorComidas++;
                 }
             }
             plan.TotalCalorias =  contadorComidas != 0 ? (int) caloriasDia / contadorComidas : 0;
@@ -339,13 +346,15 @@ namespace Servicio.PlanAlimenticio
 
             foreach (var dia in dias)
             {
-                if (dia.Comidas.First().ComidasDetalles.Any())
-                {
-                    contadorComidas++;
-                }
+                var flag = false;
 
                 foreach (var comida in dia.Comidas)
                 {
+                    if (comida.ComidasDetalles.Any())
+                    {
+                        flag = true;
+                    }
+
                     foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
                         var opcion = comidaDetalle.Opcion;
@@ -404,6 +413,10 @@ namespace Servicio.PlanAlimenticio
                         caloriasPromedioComida = 0;
                     }
                 }
+                if (flag)
+                {
+                    contadorComidas++;
+                }
             }
             return (int)caloriasDia / contadorComidas;
         }
@@ -426,13 +439,14 @@ namespace Servicio.PlanAlimenticio
 
             foreach (var dia in dias)
             {
-                if (dia.Comidas.First().ComidasDetalles.Any())
-                {
-                    contadorComidas++;
-                }
+                var flag = false;
 
                 foreach (var comida in dia.Comidas)
                 {
+                    if (comida.ComidasDetalles.Any())
+                    {
+                        flag = true;
+                    }
                     foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
                         var opcion = comidaDetalle.Opcion;
@@ -491,6 +505,10 @@ namespace Servicio.PlanAlimenticio
                         caloriasPromedioComida = 0;
                     }
                 }
+                if (flag)
+                {
+                    contadorComidas++;
+                }
             }
             return (int)caloriasDia / contadorComidas;
         }
@@ -512,13 +530,14 @@ namespace Servicio.PlanAlimenticio
 
             foreach (var dia in dias)
             {
-                if (dia.Comidas.First().ComidasDetalles.Any())
-                {
-                    contadorComidas++;
-                }
+                var flag = false;
 
                 foreach (var comida in dia.Comidas)
                 {
+                    if (comida.ComidasDetalles.Any())
+                    {
+                        flag = true;
+                    }
                     foreach (var comidaDetalle in comida.ComidasDetalles)
                     {
                         var opcion = comidaDetalle.Opcion;
@@ -576,6 +595,10 @@ namespace Servicio.PlanAlimenticio
                         caloriasDia += caloriasPromedioComida;
                         caloriasPromedioComida = 0;
                     }
+                }
+                if (flag)
+                {
+                    contadorComidas++;
                 }
             }
             return (int)caloriasDia / contadorComidas;

@@ -34,7 +34,7 @@
 
 <div align="center">
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("BuscarOpcionModal", "ComidaDetalle", new { page, cadenaBuscar = ViewBag.FilterValue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindAgregarComida" }))
+    @Html.PagedListPager(Model, page => Url.Action("BuscarOpcionModal", "ComidaDetalle", new { page, cadenaBuscar = ViewBag.FilterValue, comidaId = @ViewBag.ComidaId }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partialFindAgregarComida" }))
 </div>
 
 <script type="text/javascript">
