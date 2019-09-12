@@ -49,6 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexto\NutricionDbContext.cs" />
+    <Compile Include="Migrations\201909102148274_profeRompeTodo.cs" />
+    <Compile Include="Migrations\201909102148274_profeRompeTodo.Designer.cs">
+      <DependentUpon>201909102148274_profeRompeTodo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +69,11 @@
       <Project>{DC527029-EF46-4119-9CC1-BC1D3E760A9D}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909102148274_profeRompeTodo.resx">
+      <DependentUpon>201909102148274_profeRompeTodo.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

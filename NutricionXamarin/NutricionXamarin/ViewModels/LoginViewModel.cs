@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
+using Xamarin.Forms;
 
 namespace NutricionXamarin.ViewModels
 {
@@ -43,7 +43,7 @@ namespace NutricionXamarin.ViewModels
             set => SetValue(ref _isEnable, value);
         }
 
-        public ICommand IngresarCommand => new RelayCommand(Login);
+        public ICommand IngresarCommand => new Command(Login);
 
         private void Login()
         {

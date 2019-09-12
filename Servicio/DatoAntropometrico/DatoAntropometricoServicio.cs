@@ -22,7 +22,7 @@ namespace Servicio.DatoAntropometrico
                 Codigo = dto.Codigo,
                 PacienteId = dto.PacienteId,
                 Altura = dto.Altura,
-                FechaMedicion = dto.FechaMedicion,
+                FechaMedicion = DateTime.Now,
                 MasaGrasa = pgc,
                 MasaCorporal = imc,
                 PesoActual = dto.PesoActual,
